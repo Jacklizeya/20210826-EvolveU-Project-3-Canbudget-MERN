@@ -1,4 +1,0 @@
-LOCAL_MONGODB_URL=mongodb://localhost:27017
-MONGODB_URL=mongodb+srv://fullstackp3:fullstackp3@canbudget.i8atz.mongodb.net/canbudget?retryWrites=true&w=majority
-
-PORT=3000
