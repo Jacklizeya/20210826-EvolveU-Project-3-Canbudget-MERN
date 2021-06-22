@@ -58,31 +58,37 @@ let object =
 	],
 	"balanceSheet": [{
 			"name": "house",
+			"type": "realestate",
 			"value": 700000,
 			"changeMonthToMonth": 0.05
 		},
 		{
-			"name": "cash",
+			"name": "CIBC debit",
+			"type": "cash",
 			"value": 100000,
 			"changeMonthToMonth": 0.05
 		},
 		{
 			"name": "facebookStock",
+			"type": "stock",
 			"value": 80000,
 			"changeMonthToMonth": 0.05
 		},
 		{
 			"name": "mortgage",
+			"type": "mortgage",
 			"value": 300000,
 			"changeMonthToMonth": -0.05
 		},
 		{
-			"name": "mutualFunds",
+			"name": "Sunlife Fund",
+			"type": "mutual fund",
 			"value": 70000,
 			"changeMonthToMonth": 0.10
 		},
 		{
 			"name": "RRSP",
+			"type": "pension",
 			"value": 100000,
 			"changeMonthToMonth": 0.05
 		}
