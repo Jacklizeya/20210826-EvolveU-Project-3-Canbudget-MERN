@@ -1,5 +1,3 @@
-import wallet from '../../../images/wallet.svg'
-
 export const homeObjOne = {
     lightBg: false,
     primary: false,
