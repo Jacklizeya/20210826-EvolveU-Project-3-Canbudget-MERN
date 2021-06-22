@@ -5,10 +5,9 @@ const userDB = require('../models/user');
 
 
 router.get('/', async (req, res) => {
-  res.send("Hello")
-  // let data = await userDB.getUserList();
-  // console.info(`Users retrieved: `, data?.length)
-  // res.send(data);
+  let data = await userDB.getUserList();
+  console.info(`Users retrieved: `, data?.length)
+  res.send(data);
 });
 
 router.post("/", async (req, res) => {

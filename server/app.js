@@ -24,17 +24,17 @@ app.use(cookieParser());
 //app.use(session({ secret: "cats" }));
 //app.use(passport.initialize());
 //app.use(passport.session());
-
-
+// USE ROUTES: This needs to be in front of other default routes
+app.use('/api', apiRouter);
 
 app.use(express.static('../client/build'))
 app.get('*', (req, res)=>{
   res.sendFile(path.resolve(__dirname,'../client/build','index.html'))
 })
 
-// USE ROUTES
 
-app.use('/api', apiRouter);
+
+
 
 
 // catch 404 and forward to error handler
