@@ -1,8 +1,8 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import './App.css';
+import GlobalStyle from './globalStyles';
 import { BrowserRouter  as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/pages/Home';
+import { Navbar } from './components';
+import Home from './components/pages/HomePage/Home';
 import Promotions from './components/pages/Promotions';
 import Advisors from './components/pages/Advisors';
 import Budget from './components/pages/Budget';
@@ -12,6 +12,7 @@ import SignUp from './components/pages/SignUp';
 function App() {
   return (
     <Router>
+      <GlobalStyle />
       <Navbar />
       <Switch>
         <Route path='/' exact component={Home} />
