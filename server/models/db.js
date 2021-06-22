@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let dbUrl = process.env.MONGODB_URL;
+let dbUrl = process.env.LOCAL_MONGODB_URL;
 if( typeof dbUrl === 'undefined' || dbUrl === null ){
     throw "MONGODB_URL isn't defined";
 }

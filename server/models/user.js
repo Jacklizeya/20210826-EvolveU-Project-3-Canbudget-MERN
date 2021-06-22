@@ -4,35 +4,34 @@ require('./db')
 
 const Schema = mongoose.Schema;
 
+// data schema
 const userSchema = new Schema({
-    firstName: {
+    userName: {
         type: String,
         required: true
     },
-    lastName: {
-        type: String,
-        required: true
-    },
-    eMail: {
-        type: String,
-        required: true
-    },
-    phone: String,
     password: String,
-    role: Number
+    address: String,
+    email: {
+        type: String,
+        required: true
+    },
+    phoneNumber: String,
+    userType: String,
+    cashFlow: Array,
+    balanceSheet: Array
 });
 
 const userModel = mongoose.model('User', userSchema, 'users')
 
 
+async function getUserList() {
+    return userModel.find({});
+}
+
 async function createUser(newUser) {
     return userModel.create(newUser);
 }
-
-async function getUserList() {
-    return userModel.find({} ).sort({ lastName: 1, firstName: 1 }).exec();
-}
-
 
 module.exports = {
     createUser,
