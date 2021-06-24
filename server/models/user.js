@@ -6,7 +6,11 @@ const Schema = mongoose.Schema;
 
 // data schema
 const userSchema = new Schema({
-    userName: {
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
         type: String,
         required: true
     },
@@ -33,7 +37,15 @@ async function createUser(newUser) {
     return userModel.create(newUser);
 }
 
+function addCashFlow(userId, newCashFlow) {
+    return userModel.updateOne(
+        { _id: userId },
+        { $push: { cashFlow: newCashFlow } }
+    )
+}
+
 module.exports = {
     createUser,
-    getUserList
+    getUserList,
+    addCashFlow
 }
