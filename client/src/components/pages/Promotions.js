@@ -1,9 +1,10 @@
 import React from 'react';
+// import Promotions from './components/Promotions/Promotions';
 
 function Promotions() {
  return (
     <>
-        <h1>Promotions</h1>
+        {/* <Promotions /> */}
     </>
  )
 }

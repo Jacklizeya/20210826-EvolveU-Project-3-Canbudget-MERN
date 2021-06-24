@@ -65,6 +65,11 @@ const Navbar = () => {
                                     Asset
                                 </NavLinks>
                             </NavItem>
+                            <NavItem>
+                                <NavLinks to='/our-team'>
+                                    OurTeam
+                                </NavLinks>
+                            </NavItem>
                             <NavItemBtn>
                                 {button ? (
                                     <NavBtnLink to='/sign-up'>

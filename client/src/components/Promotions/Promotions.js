@@ -1,10 +1,31 @@
 import React from 'react';
+import { promotionData } from './data';
 
-const Promotions = () => {
+import {
+    PromotionWrapper,
+    PromotionCard,
+    PromotionImg,
+    Img,
+    PromotionTitle,
+    PromotionText
+} from './Promotions.elements';
+
+const Promotions = ({data}) => {
     return (
-        <div>
-            Promotions
-        </div>
+        <PromotionWrapper>
+            {data.map((promotion, index) => {
+                return (
+                    <PromotionCard key={index}>
+                        <PromotionImg>
+                            <Img src={promotion.img} alt={promotion.alt}></Img>
+                        </PromotionImg>
+                        <PromotionTitle>{promotion.title}
+                            <PromotionText>{promotion.desc}</PromotionText>
+                        </PromotionTitle>
+                    </PromotionCard>
+                )})
+            }    
+        </PromotionWrapper>
     )
 };
 
