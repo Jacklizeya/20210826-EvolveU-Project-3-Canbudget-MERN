@@ -2,7 +2,13 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios"
 
 function Asset() {
-    const [users, setUsers] = useState([])   
+    const [users, setUsers] = useState([])  
+    const [name, setName] = useState("")
+    const [type, setType] = useState("")
+    const [value, setValue] = useState(0)
+    const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
+    const [status, setStatus] = useState(0)
+ 
 
     useEffect(() => {
         async function getUsers() {
@@ -11,15 +17,30 @@ function Asset() {
             setUsers(data)
         }
         getUsers()
-    }, [])
+        setStatus(0)
+    }, [status])
 
 
+    async function addNewBalanceSheet(event, id) {
+        event.preventDefault()
+        let newBalanceSheet = {name, type, value, changeMonthToMonth}
+        console.log("newBalanceSheet", newBalanceSheet)
+        let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
+        if (data.ok) {
+            setName("")
+            setType("")
+            setValue(0)
+            setChangeMonthToMonth(0)
+            setStatus(data.ok)
+        }
+    }
+// right now only hook up one, wait until login is done 
  return (
     <>
         <h1> Asset </h1>
-        {users? users.map(user => (
+        {users? users.map((user, index) => (
 
-            user._id? 
+            index === 0 ? 
             <div key={user.firstName + "Asset"}>
                 {user.firstName}
                 {user.lastName}
@@ -54,7 +75,24 @@ function Asset() {
                         </tbody>                 
                     </table>    
                 
-                <br/>          
+                <br/> 
+                <div className="form">
+                    Add new item 
+                    <form onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
+                        <label> Name of the item </label>
+                        <input type="text" value={name} onChange={(event)=>{setName(event.target.value)}}/> <br/>
+                        <label> Type </label>
+                        <input type="text" value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
+                        
+                        <label> value </label>
+                        <input type="text" value={value} onChange={(event)=>{setValue(event.target.value)}}/> <br/>
+                        <label> changeMonthToMonth </label>
+                        <input type="text" value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
+                        
+                        <button type="submit"> Submit </button>
+                        <div> End of Form </div>
+                    </form>
+                </div>         
             </div> : ""
         )) : <div> No data yet </div>}
         

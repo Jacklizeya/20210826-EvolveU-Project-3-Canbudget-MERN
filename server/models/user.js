@@ -29,11 +29,11 @@ const userSchema = new Schema({
 const userModel = mongoose.model('User', userSchema, 'users')
 
 
-async function getUserList() {
+function getUserList() {
     return userModel.find({});
 }
 
-async function createUser(newUser) {
+function createUser(newUser) {
     return userModel.create(newUser);
 }
 
@@ -44,8 +44,16 @@ function addCashFlow(userId, newCashFlow) {
     )
 }
 
+function addBalanceSheet(userId, newBalanceSheet) {
+    return userModel.updateOne(
+        { _id: userId },
+        { $push: { balanceSheet: newBalanceSheet } }
+    )
+}
+
 module.exports = {
     createUser,
     getUserList,
-    addCashFlow
+    addCashFlow,
+    addBalanceSheet
 }

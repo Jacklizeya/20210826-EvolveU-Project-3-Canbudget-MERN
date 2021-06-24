@@ -27,7 +27,7 @@ function Budget() {
         event.preventDefault()
         let newCashFlow = {name, amount, changeMonthToMonth, startDate, endDate}
         console.log("newCashFlow", newCashFlow)
-        let {data} = await axios.put(`/api/user/addcashflow/${id}`, newCashFlow, {headers : {"Content-Type": "application/json"}})
+        let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
             setName("")
             setAmount(0)
