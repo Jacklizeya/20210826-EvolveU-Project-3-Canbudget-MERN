@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter  as Router, Switch, Route } from 'react-router-dom';
-import { Navbar } from './components';
+import { Navbar, Footer } from './components';
 import Home from './components/pages/HomePage/Home';
 import Promotions from './components/pages/Promotions';
 import Advisors from './components/pages/Advisors';
@@ -22,6 +22,7 @@ function App() {
         <Route path='/asset' exact component={Asset} />
         <Route path='/sign-up' exact component={SignUp} />
       </Switch>
+      <Footer />
     </Router>
   );
 }
