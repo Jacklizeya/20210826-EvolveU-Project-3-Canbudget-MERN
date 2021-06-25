@@ -8,7 +8,7 @@ export const memberData = [
         img: member1,
         alt: 'member1',
         name: 'Iryna Tarasenko',
-        desc:'Degree in Mechanical engineering. 10+ years in Design Engineering.',
+        desc:'Design Engineer',
         linkedin: 'www.linkedin.com/in/iryna-tarasenko',
         github: 'https://github.com/Irynatar'
     },
@@ -16,7 +16,7 @@ export const memberData = [
         img: member2,
         alt: 'photo',
         name: 'Jack Zeya Li',
-        desc:'oil and gas engineer and some others',
+        desc:'Oil and Gas Engineer',
         linkedin: '',
         github: ''
     },
@@ -24,7 +24,7 @@ export const memberData = [
         img: member3,
         alt: 'photo',
         name: 'Vladimir Zhukov',
-        desc:'software engineer',
+        desc:'Software Engineer',
         linkedin: '',
         github: ''
     },
@@ -32,7 +32,7 @@ export const memberData = [
         img: member4,
         alt: 'photo',
         name: 'Brady Walker-Brock',
-        desc: 'database engineer',
+        desc: 'Database Engineer',
         linkedin: '',
         github: ''
     },
