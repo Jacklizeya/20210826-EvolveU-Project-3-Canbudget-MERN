@@ -28,14 +28,18 @@ const userSchema = new Schema({
 
 const userModel = mongoose.model('User', userSchema, 'users')
 
+// For user level
 
 function getUserList() {
     return userModel.find({});
 }
 
+
 function createUser(newUser) {
     return userModel.create(newUser);
 }
+
+// For Cash Flow
 
 function addCashFlow(userId, newCashFlow) {
     return userModel.updateOne(
@@ -43,6 +47,17 @@ function addCashFlow(userId, newCashFlow) {
         { $push: { cashFlow: newCashFlow } }
     )
 }
+
+
+function removeCashFlow(userId, nameOfItemToRemove) {
+    console.log(userId, nameOfItemToRemove)
+    return userModel.updateOne(
+        { _id: userId },
+        { $pull: { cashFlow: {name: nameOfItemToRemove} } }
+    )
+}
+
+// For Balance Sheet
 
 function addBalanceSheet(userId, newBalanceSheet) {
     return userModel.updateOne(
@@ -55,5 +70,6 @@ module.exports = {
     createUser,
     getUserList,
     addCashFlow,
-    addBalanceSheet
+    removeCashFlow,
+    addBalanceSheet,
 }

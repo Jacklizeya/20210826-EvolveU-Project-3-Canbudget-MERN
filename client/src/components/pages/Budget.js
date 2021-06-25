@@ -10,7 +10,8 @@ function Budget() {
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
-    const [status, setStatus] = useState(0)
+    const [addStatus, setAddStatus] = useState(0)
+    const [deleteStatus, setDeleteStatus] = useState(0)
 
     useEffect(() => {
         async function getUsers() {
@@ -20,8 +21,9 @@ function Budget() {
         }
         console.log("enter use Effect")
         getUsers()
-        setStatus(0)
-    }, [status])
+        setAddStatus(0)
+        setDeleteStatus(0)
+    }, [addStatus, deleteStatus])
 
     async function addNewCashFlow(event, id) {
         event.preventDefault()
@@ -34,9 +36,24 @@ function Budget() {
             setChangeMonthToMonth(0)
             setStartDate("")
             setEndDate("")
-            setStatus(data.ok)
+            setAddStatus(data.ok)
         }
     }
+
+async function deletecashflow(event, id) {
+    let nameOfItemToRemove = event.target.value
+    console.log(nameOfItemToRemove)
+    let {data} = await axios.put(`/api/user/${id}/deletecashflow/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
+    if (data.ok) {
+        setDeleteStatus(data.ok)
+    }
+}
+
+async function editItem() {
+    // continue tomorrow
+}
+
+
 // at line 46, right now I am only showing one, eventually will be changed
  return (
     <>
@@ -71,7 +88,11 @@ function Budget() {
                                 <td> {singleCashFlow.amount} </td>
                                 <td> {singleCashFlow.changeMonthToMonth} </td>
                                 <td> {singleCashFlow.startDate} </td>
-                                <td> {singleCashFlow.endDate} </td>                   
+                                <td> {singleCashFlow.endDate} </td>     
+                                <td> 
+                                    <button onClick={editItem} value={singleCashFlow.name}> Edit </button>
+                                    <button onClick={(event)=> deletecashflow(event, user._id)} value={singleCashFlow.name}> delete </button> 
+                                </td>              
                             </tr>
                             )} 
 
