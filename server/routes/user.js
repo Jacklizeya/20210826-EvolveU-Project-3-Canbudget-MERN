@@ -11,6 +11,8 @@ router.get('/', async (req, res) => {
 });
 
 
+// For Cash Flow
+
 router.put("/:id/addcashflow/", async(req, res) => {
   let userId = req.params.id
   let newCashFlow = req.body
@@ -19,6 +21,19 @@ router.put("/:id/addcashflow/", async(req, res) => {
   res.send(response)
 })
 
+router.put("/:id/deletecashflow/", async(req, res) => {
+  console.log("Want to delete something", req.params.id, req.body)
+  let userId = req.params.id
+  let {nameOfItemToRemove} = req.body
+  console.log(userId, nameOfItemToRemove)
+  let response = await userDB.removeCashFlow(userId, nameOfItemToRemove)
+  res.send(response)
+})
+
+
+
+// for BalanceSheet
+
 router.put("/:id/addbalancesheet/", async(req, res) => {
   let userId = req.params.id
   let newBalanceSheet = req.body
@@ -26,6 +41,7 @@ router.put("/:id/addbalancesheet/", async(req, res) => {
   let response = await userDB.addBalanceSheet(userId, newBalanceSheet)
   res.send(response)
 })
+
 
 router.post("/", async (req, res) => {
   let inputData = req.body
