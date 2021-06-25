@@ -24,6 +24,7 @@ export const PromotionCard= styled.div`
     /* -ms-transform: translateY(-50%); */
     /* transform: translateY(-50%); */
     box-shadow: 10px 10px 10px #01345B;
+    border-radius: 15px;
 
     &:hover {
         transform: scale(1.035);
