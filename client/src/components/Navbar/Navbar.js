@@ -87,8 +87,8 @@ const Navbar = () => {
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to='/our-team'>
-                                    OurTeam
+                                <NavLinks to='/#our-team' onClick={scrollTo('our-team')}>
+                                    Our Team
                                 </NavLinks>
                             </NavItem>
                             <NavItemBtn>

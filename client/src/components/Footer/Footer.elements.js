@@ -123,7 +123,14 @@ export const WebsiteRights = styled.small`
   margin-bottom: 16px;
 `;
 
-export const SocialIcons = styled.div`
+// was before as just icon with no link
+// export const SocialIcons = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   width: 240px;
+// `;
+export const SocialIcons = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;

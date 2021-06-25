@@ -1,37 +1,46 @@
-// import React from 'react';
-// import  {
-//     MemberContainer,
-//     MemberHeading,
-//     MemberWrapper,
-//     MemberCard,
-//     MemberImg,
-//     MemberInfo,
-//     MemberTitle,
-//     MemberDesc
-// } from './OurTeam.elements';
+import React from 'react';
+import {
+    MemberContainer,
+    MemberH1,
+    MemberWrapper,
+    MemberCard,
+    MemberIcon,
+    MemberH2,
+    MemberP,
+    MemberSocialIcon,
+    SocialMediaWrap
+} from './OurTeam.elements';
 
-// const OurTeam = (data) => {
+import {  FaLinkedin, FaGithub } from 'react-icons/fa';
+import { Element } from 'react-scroll';
 
-//   return (
-//     <MemberContainer>
-//         <MemberHeading>
-//             heading
-//         </MemberHeading>
-//         <MemberWrapper>
-//             {data.map((member, index) => {
-//                 return (
-//                     <MemberCard key={index}>
-//                         <MemberImg src={member.img} alt={member.alt} />
-//                         <MemberInfo>
-//                             <MemberTitle>{member.name}</MemberTitle>
-//                             <MemberDesc>{member.desc}</MemberDesc>
-//                         </MemberInfo>
-//                     </MemberCard>
-//                 )
-//             })}
-//         </MemberWrapper>
-//     </MemberContainer>
-//   )
-// }
+const OurTeam = ({name, data}) => {
+        return(
+            <Element name={name}>
+                <MemberContainer >
+                    <MemberH1>Our Team</MemberH1>
+                    <MemberWrapper>
+                        {data.map((member, index) => {
+                            return (
+                            <MemberCard key={index}>
+                                <MemberIcon src={member.img} alt={member.alt}></MemberIcon>
+                                <MemberH2>{member.name}</MemberH2>
+                                <MemberP>{member.desc}</MemberP>
+                                <SocialMediaWrap>
+                                    <MemberSocialIcon>
+                                        <FaLinkedin href={member.linkedin}  />
+                                        <FaGithub href={member.github} />
+                                    </MemberSocialIcon>
+                                    
+                                </SocialMediaWrap>
+                                
+                            </MemberCard>
+                        )})
+                    }    
+                    </MemberWrapper>
+                </MemberContainer>
+            </Element>
+        )
+};
 
-// export default OurTeam;
+export default OurTeam;

@@ -30,6 +30,10 @@ export const PromotionCard= styled.div`
         transform: scale(1.035);
         transition: all 0.3s ease-out;
     }
+
+    @media screen and (max-width: 960px) {
+        margin: 20px;
+    }
 `;
 
 export const PromotionImg = styled.div`

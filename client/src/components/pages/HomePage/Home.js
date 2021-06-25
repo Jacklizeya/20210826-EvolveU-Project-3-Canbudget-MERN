@@ -4,8 +4,10 @@ import {scroller} from 'react-scroll';
 
 import InfoSection from '../../InfoSection/InfoSection';
 import Promotions from '../../Promotions/Promotions';
+import OurTeam from '../../OurTeam/OurTeam';
 import { homeObjOne } from './Data';
 import { promotionData } from '../../Promotions/data';
+import { memberData } from '../../OurTeam/data';
 
 
 
@@ -37,6 +39,7 @@ const Home = () => {
         <>
             <InfoSection  {...homeObjOne}/>
             <Promotions name='promotions' data={promotionData}/>
+            <OurTeam name='our-team' data={memberData}/>
         </>
     )
 };

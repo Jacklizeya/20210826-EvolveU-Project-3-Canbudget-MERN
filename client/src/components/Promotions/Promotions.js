@@ -9,7 +9,7 @@ import {
     PromotionText
 } from './Promotions.elements';
 
-import { Element } from 'react-scroll'
+import { Element } from 'react-scroll';
 
 const Promotions = ({name, data}) => {
     return (

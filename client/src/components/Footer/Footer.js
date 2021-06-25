@@ -1,5 +1,5 @@
 import React from 'react';
-import {scroller} from 'react-scroll';
+import { animateScroll as scroll, scroller} from 'react-scroll';
 import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import { FooterContainer,
         //  FooterSubscription,
@@ -32,6 +32,10 @@ const Footer = () => {
         
     };
 
+    const toggleHome = () => {
+        scroll.scrollToTop();
+    };
+
     return (
         <FooterContainer>
             {/* <FooterSubscription>
@@ -46,7 +50,7 @@ const Footer = () => {
                 <FooterLinksWrapper>
                     <FooterLinkItems>
                         <FooterLinkTitle>About us</FooterLinkTitle>
-                        <FooterLink to='/sign-up'>How it works</FooterLink>
+                        <FooterLink to='/#our-team' onClick={scrollTo('our-team')}>Our team</FooterLink>
                         <FooterLink to='/#promotions' onClick={scrollTo('promotions')}>Promotions</FooterLink>
                         <FooterLink to='/advisors'>Advisors</FooterLink>
                         <FooterLink to='/budget'>Budget</FooterLink>
@@ -82,26 +86,26 @@ const Footer = () => {
             </FooterLinksContainer>
             <SocialMedia>
                 <SocialMediaWrap>
-                    <SocialLogo to ='/'>
+                    <SocialLogo to ='/' onClick={toggleHome}>
                         <SocialIcon />
                         CanBudget
                     </SocialLogo>
                     <WebsiteRights>CanBudget 2021</WebsiteRights> 
                     <SocialIcons>
                         <SocialIconLink hret='/' target='_blank' aria-label='Facebook'>
-                            <FaFacebook />
+                            <FaFacebook to='/'  onClick={toggleHome} aria-label='Facebook'/>
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Instagram'>
-                            <FaInstagram />
+                            <FaInstagram to='/'  onClick={toggleHome} aria-label='Instagram'/>
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Youtube'>
-                            <FaYoutube />
+                            <FaYoutube to='/'  onClick={toggleHome} aria-label='Youtube'/>
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Twitter'>
-                            <FaTwitter />
+                            <FaTwitter to='/'  onClick={toggleHome} aria-label='Twitter'/>
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Linkedin'>
-                            <FaLinkedin />
+                            <FaLinkedin to='/'  onClick={toggleHome} aria-label='Linkedin'/>
                         </SocialIconLink>
                     </SocialIcons>
                 </SocialMediaWrap>
