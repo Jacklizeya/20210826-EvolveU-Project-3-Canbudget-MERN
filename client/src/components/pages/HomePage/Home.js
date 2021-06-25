@@ -27,7 +27,6 @@ const Home = () => {
     useEffect(() => {
         let hash = location.hash.replace('#', '')
         
-        debugger;
         if (hash.length) {
             scrollTo(hash);
         }

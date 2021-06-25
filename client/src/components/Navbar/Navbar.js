@@ -37,6 +37,7 @@ const Navbar = () => {
     const scrollTo = (targetEl) => {
      
         return () => {
+    
             scroller.scrollTo(targetEl, {
                 duration: 800,
                 delay: 0,
@@ -66,7 +67,7 @@ const Navbar = () => {
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to='/#promotions' onClick={scrollTo('promotions')} smooth={true} duration={500} spy={true} exact='true' offset={-80}>
+                                <NavLinks to='/#promotions' onClick={scrollTo('promotions')}>
                                     Promotions
                                 </NavLinks>
                             </NavItem>

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import {useLocation} from "react-router-dom";
+import React from 'react';
 import {scroller} from 'react-scroll';
 import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import { FooterContainer,
@@ -22,29 +21,17 @@ import { FooterContainer,
 
 const Footer = () => {
 
-    const location = useLocation();
-
     const scrollTo = (targetEl) => {
 
             scroller.scrollTo(targetEl, {
                 duration: 800,
                 delay: 0,
                 smooth: "easeInOutQuart",
-                offset: -780
+                offset: -80
             });
         
     };
 
-    useEffect(() => {
-
-        let hash = location.hash.replace('#', '')
-        
-        debugger;
-        if (hash.length) {
-            scrollTo(hash);
-        }
-        
-    }, [])
     return (
         <FooterContainer>
             {/* <FooterSubscription>
@@ -60,7 +47,7 @@ const Footer = () => {
                     <FooterLinkItems>
                         <FooterLinkTitle>About us</FooterLinkTitle>
                         <FooterLink to='/sign-up'>How it works</FooterLink>
-                        <FooterLink to='/#promotions' onClick={scrollTo('promotions')} smooth={true} duration={500} spy={true} exact='true' offset={-80}>Promotions</FooterLink>
+                        <FooterLink to='/#promotions' onClick={scrollTo('promotions')}>Promotions</FooterLink>
                         <FooterLink to='/advisors'>Advisors</FooterLink>
                         <FooterLink to='/budget'>Budget</FooterLink>
                         <FooterLink to='/asset'>Asset</FooterLink>
@@ -102,19 +89,19 @@ const Footer = () => {
                     <WebsiteRights>CanBudget 2021</WebsiteRights> 
                     <SocialIcons>
                         <SocialIconLink hret='/' target='_blank' aria-label='Facebook'>
-                            <FaFacebook hret='/' target='_blank' aria-label='Facebook'/>
+                            <FaFacebook />
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Instagram'>
-                            <FaInstagram hret='/' target='_blank' aria-label='Instagram'/>
+                            <FaInstagram />
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Youtube'>
-                            <FaYoutube hret='/' target='_blank' aria-label='Youtube'/>
+                            <FaYoutube />
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Twitter'>
-                            <FaTwitter hret='/' target='_blank' aria-label='Twitter'/>
+                            <FaTwitter />
                         </SocialIconLink>
                         <SocialIconLink hret='/' target='_blank' aria-label='Linkedin'>
-                            <FaLinkedin hret='/' target='_blank' aria-label='Linkedin'/>
+                            <FaLinkedin />
                         </SocialIconLink>
                     </SocialIcons>
                 </SocialMediaWrap>
