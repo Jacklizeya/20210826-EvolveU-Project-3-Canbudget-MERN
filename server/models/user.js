@@ -41,7 +41,23 @@ function createUser(newUser) {
 
 // For Cash Flow
 
-function addCashFlow(userId, newCashFlow) {
+async function addCashFlow(userId, newCashFlow) {
+
+    // does it already in the database? if yes, delete then add, if not, just add
+    let duplicateOrNot =  await userModel.find(
+        { _id: userId },
+        {cashFlow : {$elemMatch : {name: newCashFlow.name}}}
+         
+    )
+
+    console.log("*******duplicatedornot", duplicateOrNot[0].cashFlow)
+
+    if (duplicateOrNot[0].cashFlow) { await userModel.updateOne(
+        { _id: userId },
+        { $pull: { cashFlow: {name: newCashFlow.name} } }
+    )}
+
+    
     return userModel.updateOne(
         { _id: userId },
         { $push: { cashFlow: newCashFlow } }
@@ -59,10 +75,35 @@ function removeCashFlow(userId, nameOfItemToRemove) {
 
 // For Balance Sheet
 
-function addBalanceSheet(userId, newBalanceSheet) {
+async function addBalanceSheet(userId, newBaddBalanceSheet) {
+
+    // does it already in the database? if yes, delete then add, if not, just add
+    let duplicateOrNot =  await userModel.find(
+        { _id: userId },
+        {balanceSheet : {$elemMatch : {name: newBaddBalanceSheet.name}}}
+         
+    )
+
+    console.log("*******duplicatedornot", duplicateOrNot[0].balanceSheet)
+
+    if (duplicateOrNot[0].balanceSheet) { await userModel.updateOne(
+        { _id: userId },
+        { $pull: { balanceSheet: {name: newBaddBalanceSheet.name} } }
+    )}
+
+    
     return userModel.updateOne(
         { _id: userId },
-        { $push: { balanceSheet: newBalanceSheet } }
+        { $push: { balanceSheet: newBaddBalanceSheet } }
+    )
+}
+
+
+function removeBalanceSheet(userId, nameOfItemToRemove) {
+    console.log(userId, nameOfItemToRemove)
+    return userModel.updateOne(
+        { _id: userId },
+        { $pull: { balanceSheet: {name: nameOfItemToRemove} } }
     )
 }
 
@@ -72,4 +113,5 @@ module.exports = {
     addCashFlow,
     removeCashFlow,
     addBalanceSheet,
+    removeBalanceSheet
 }

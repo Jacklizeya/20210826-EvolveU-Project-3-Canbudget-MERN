@@ -49,8 +49,18 @@ async function deletecashflow(event, id) {
     }
 }
 
-async function editItem() {
+    function editItem(event) {
     // continue tomorrow
+    console.log("edit", users)
+    let index = event.target.id
+    // Right now I am using users[0], eventually it will be just one user, so need to fix this later
+    let dataToEdit = users[0].cashFlow[index]
+    console.log(dataToEdit)
+    setName(dataToEdit.name)
+    setAmount(dataToEdit.amount)
+    setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
+    setStartDate(dataToEdit.startDate)
+    setEndDate(dataToEdit.endDate)
 }
 
 
@@ -90,9 +100,20 @@ async function editItem() {
                                 <td> {singleCashFlow.startDate} </td>
                                 <td> {singleCashFlow.endDate} </td>     
                                 <td> 
-                                    <button onClick={editItem} value={singleCashFlow.name}> Edit </button>
-                                    <button onClick={(event)=> deletecashflow(event, user._id)} value={singleCashFlow.name}> delete </button> 
-                                </td>              
+                                    <a href="#form">
+                                        <button id={index} onClick={editItem} > 
+                                            Edit 
+                                        </button>
+                                    </a>
+                                    
+
+                                    
+                                </td> 
+                                <td>
+                                    <button onClick={(event)=> deletecashflow(event, user._id)} value={singleCashFlow.name}>
+                                    delete 
+                                    </button> 
+                                </td>             
                             </tr>
                             )} 
 
@@ -100,8 +121,8 @@ async function editItem() {
                     </table>    
                 
                 <br/> 
-                <div className="form">
-                    Add new item 
+                <div className="form" id="form">
+                    Add new item/Edit existing item 
                     <form onSubmit={(event) => addNewCashFlow(event, user._id)}>
                         <label> Name of the item </label>
                         <input type="text" value={name} onChange={(event)=>{setName(event.target.value)}}/> <br/>

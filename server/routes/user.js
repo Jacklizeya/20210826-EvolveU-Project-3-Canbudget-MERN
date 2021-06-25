@@ -5,29 +5,32 @@ const userDB = require('../models/user');
 
 
 router.get('/', async (req, res) => {
-  let data = await userDB.getUserList();
+  try {let data = await userDB.getUserList();
   console.info(`Users retrieved: `, data?.length)
-  res.send(data);
+  res.send(data);} catch (error) {res.send(error)}
 });
 
 
 // For Cash Flow
 
 router.put("/:id/addcashflow/", async(req, res) => {
+  try {
   let userId = req.params.id
   let newCashFlow = req.body
   console.log(userId, newCashFlow)
   let response = await userDB.addCashFlow(userId, newCashFlow)
   res.send(response)
+  } catch (error) {res.send(error)}
 })
 
 router.put("/:id/deletecashflow/", async(req, res) => {
+  try {
   console.log("Want to delete something", req.params.id, req.body)
   let userId = req.params.id
   let {nameOfItemToRemove} = req.body
   console.log(userId, nameOfItemToRemove)
   let response = await userDB.removeCashFlow(userId, nameOfItemToRemove)
-  res.send(response)
+  res.send(response)} catch (error) {res.send(error)}
 })
 
 
@@ -35,19 +38,29 @@ router.put("/:id/deletecashflow/", async(req, res) => {
 // for BalanceSheet
 
 router.put("/:id/addbalancesheet/", async(req, res) => {
-  let userId = req.params.id
+  try {let userId = req.params.id
   let newBalanceSheet = req.body
   console.log(userId, newBalanceSheet)
   let response = await userDB.addBalanceSheet(userId, newBalanceSheet)
-  res.send(response)
+  res.send(response)} catch (error) {res.send(error)}
 })
 
+router.put("/:id/deletebalancesheet/", async(req, res) => {
+  try {console.log("Want to delete something", req.params.id, req.body)
+  let userId = req.params.id
+  let {nameOfItemToRemove} = req.body
+  console.log(userId, nameOfItemToRemove)
+  let response = await userDB.removeBalanceSheet(userId, nameOfItemToRemove)
+  res.send(response)} catch (error) {res.send(error)}
+})
+
+//  For new user
 
 router.post("/", async (req, res) => {
   let inputData = req.body
   try {
   let newUser = await userDB.createUser(inputData);
-  res.send(newUser)} catch (error){console.log(error)}
+  res.send(newUser)} catch (error){ res.send(error)}
 })
 
 
