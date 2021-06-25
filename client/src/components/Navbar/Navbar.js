@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
+import { animateScroll as scroll, scroller} from 'react-scroll';
 import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtnLink } from './Navbar.elements';
 
 
@@ -9,6 +10,7 @@ const Navbar = () => {
 
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
+    
 
     const showButton = () => {
         if(window.innerWidth <= 960) {
@@ -20,6 +22,7 @@ const Navbar = () => {
 
     useEffect(() => {
         showButton()
+        
     }, [])
 
     window.addEventListener('resize', showButton);
@@ -27,12 +30,29 @@ const Navbar = () => {
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
+    const toggleHome = () => {
+        scroll.scrollToTop();
+    };
+
+    const scrollTo = (targetEl) => {
+     
+        return () => {
+            scroller.scrollTo(targetEl, {
+                duration: 800,
+                delay: 0,
+                smooth: "easeInOutQuart",
+                offset: -80
+            });
+        }
+    };
+
+
     return (
         <>
             <IconContext.Provider value={{ color: '#fff'}}>
                 <Nav>
                     <NavbarContainer>
-                        <NavLogo to='/'>
+                        <NavLogo to='/' onClick={toggleHome}>
                             <NavIcon />
                             CanBudget
                         </NavLogo>
@@ -41,12 +61,12 @@ const Navbar = () => {
                         </MobileIcon>
                         <NavMenu onClick={handleClick} click={click}>
                             <NavItem>
-                                <NavLinks to='/'>
-                                    Home
+                                <NavLinks to='' onClick={toggleHome} >
+                                    Home 
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to='/promotions'>
+                                <NavLinks to='/#promotions' onClick={scrollTo('promotions')} smooth={true} duration={500} spy={true} exact='true' offset={-80}>
                                     Promotions
                                 </NavLinks>
                             </NavItem>
@@ -108,63 +128,3 @@ export default Navbar;
 
 
 
-// import React, { useState } from 'react';
-// import Button from './Button';
-// import { Link } from 'react-router-dom';
-// import './Navbar.css';
-
-// function Navbar() {
-
-//     const [click, setClick] = useState(false);
-
-//     const handleClick = () => setClick(!click);
-//     const closeMobileMenu = () => setClick(false);
-
-//     return (
-//         <>
-//             <nav className='navbar'>
-//                 <Link to='/' className='navbar-logo'>
-//                     CanBudget <i className='fab fa-firstdraft'/>
-//                 </Link>
-//                 <div className='menu-icon' onClick={handleClick}>
-//                     <i className={click ? 'fas fa-times' : 'fas fa-bars'}/>
-//                 </div>
-//                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-//                     <li className='nav-item'>
-//                         <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-//                             Home
-//                         </Link>
-//                     </li>
-//                     <li className='nav-item'>
-//                         <Link to='/promotions' className='nav-links' onClick={closeMobileMenu}>
-//                             Promotions
-//                         </Link>
-//                     </li>
-//                     <li className='nav-item'>
-//                         <Link to='/advisors' className='nav-links' onClick={closeMobileMenu}>
-//                             Advisors
-//                         </Link>
-//                     </li>
-//                     <li className='nav-item'>
-//                         <Link to='/budget' className='nav-links' onClick={closeMobileMenu}>
-//                             Budget
-//                         </Link>
-//                     </li>
-//                     <li className='nav-item'>
-//                         <Link to='/asset' className='nav-links' onClick={closeMobileMenu}>
-//                             Asset
-//                         </Link>
-//                     </li>
-//                     <li className='nav-item'>
-//                         <Link to='/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>
-//                            Sign Up
-//                         </Link>
-//                     </li>
-//                     <Button />
-//                 </ul>
-//             </nav>
-//         </>
-//     )
-// };
-
-// export default Navbar;

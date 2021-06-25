@@ -1,5 +1,4 @@
 import React from 'react';
-import { promotionData } from './data';
 
 import {
     PromotionWrapper,
@@ -10,8 +9,11 @@ import {
     PromotionText
 } from './Promotions.elements';
 
-const Promotions = ({data}) => {
+import { Element } from 'react-scroll'
+
+const Promotions = ({name, data}) => {
     return (
+        <Element name={name}>
         <PromotionWrapper>
             {data.map((promotion, index) => {
                 return (
@@ -26,6 +28,7 @@ const Promotions = ({data}) => {
                 )})
             }    
         </PromotionWrapper>
+        </Element>
     )
 };
 

@@ -3,6 +3,8 @@ import { FaMagento } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Container } from '../../globalStyles';
 
+// import { Link } from 'react-scroll'
+
 export const Nav = styled.nav`
     background: #01345B;
     color: white;
@@ -96,6 +98,7 @@ export const NavLinks = styled(Link)`
     text-decoration: none;
     padding: 0.5rem 1rem;
     height: 100%;
+    cursor: pointer;
 
     @media screen and (max-width: 960px) {
         text-align: center;
@@ -103,7 +106,7 @@ export const NavLinks = styled(Link)`
         width: 100%;
         display: table;
 
-        &:hover {
+    &:hover {
             color: #4bcbcc;
             transition: all 0.3s ease;
         }
