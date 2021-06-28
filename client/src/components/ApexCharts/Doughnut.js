@@ -50,7 +50,7 @@ export default function Donut() {
       })
     }
     updateGraph()
-  })
+  },[labels,values])
 
     return (
       <div className="donut">
