@@ -1,6 +1,7 @@
 let object = 
 {
-	"userName": "Joe Doe",
+	"firstName": "Joe Doe",
+	"lastName": "Doe",
 	"password": "Joe Doe",
 	"email": "joedoe@example.com",
 	"address": "Calgary, Alberta, Canada",
