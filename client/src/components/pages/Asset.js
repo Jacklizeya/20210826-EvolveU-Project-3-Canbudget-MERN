@@ -24,7 +24,7 @@ function Asset() {
 
     async function addNewBalanceSheet(event, id) {
         event.preventDefault()
-        let newBalanceSheet = {name, type, value, changeMonthToMonth}
+        let newBalanceSheet = {name: name.toLowerCase(), type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
         console.log("newBalanceSheet", newBalanceSheet)
         let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
@@ -56,7 +56,6 @@ function Asset() {
     setType(dataToEdit.type)
     setValue(dataToEdit.value)
     setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-
     }
 
 
@@ -66,7 +65,7 @@ function Asset() {
         <h1> Asset </h1>
         {users? users.map((user, index) => (
 
-            index === 0 ? 
+            index ===  0 ? 
             <div key={user.firstName + "Asset"}>
                 {user.firstName}
                 {user.lastName}
@@ -124,14 +123,15 @@ function Asset() {
                     Add new item/Edit existing item 
                     <form onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
                         <label> Name of the item </label>
-                        <input type="text" value={name} onChange={(event)=>{setName(event.target.value)}}/> <br/>
+                        <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)} }/> <br/>
+
                         <label> Type </label>
-                        <input type="text" value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
+                        <input type="text" required value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
                         
                         <label> value </label>
-                        <input type="text" value={value} onChange={(event)=>{setValue(event.target.value)}}/> <br/>
+                        <input type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/> <br/>
                         <label> changeMonthToMonth </label>
-                        <input type="text" value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
+                        <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
                         
                         <button type="submit"> Submit </button>
                         <div> End of Form </div>
