@@ -7,7 +7,7 @@ import Promotions from '../../Promotions/Promotions';
 import OurTeam from '../../OurTeam/OurTeam';
 import { homeObjOne } from './Data';
 import { promotionData } from '../../Promotions/data';
-import { memberData } from '../../OurTeam/Data';
+import { memberData } from '../../OurTeam/data';
 
 
 
