@@ -4,6 +4,7 @@ import {
     MemberH1,
     MemberWrapper,
     MemberCard,
+    MemberIconWrapper,
     MemberIcon,
     MemberH2,
     MemberP,
@@ -23,7 +24,10 @@ const OurTeam = ({name, data}) => {
                         {data.map((member, index) => {
                             return (
                             <MemberCard key={index}>
-                                <MemberIcon src={member.img} alt={member.alt}></MemberIcon>
+                                <MemberIconWrapper>
+                                    <MemberIcon src={member.img} alt={member.alt}></MemberIcon>
+                                </MemberIconWrapper>
+                               
                                 <MemberH2>{member.name}</MemberH2>
                                 <MemberP>{member.desc}</MemberP>
                                 <SocialMediaWrap>

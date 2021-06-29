@@ -7,12 +7,14 @@ export const PromotionWrapper = styled.div`
     justify-content: space-between;
     background: #fff;
     padding: 50px; 
+
+
 `;
 
 export const PromotionCard= styled.div`
     margin: auto;
     width: 450px;
-    height: 600px;
+    /* height: 600px; */
     /* overflow: scroll; */
     border: 2px solid #4bcbcc;
     padding: 50px;
@@ -32,7 +34,13 @@ export const PromotionCard= styled.div`
     }
 
     @media screen and (max-width: 960px) {
-        margin: 20px;
+        margin: 30px;
+        
+    }
+
+    @media screen and (max-width: 480px) {
+        margin: 30px;
+       
     }
 `;
 
