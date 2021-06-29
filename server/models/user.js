@@ -30,13 +30,30 @@ const userModel = mongoose.model('User', userSchema, 'users')
 
 // For user level
 
-function getUserList() {
+async function getUserList() {
     return userModel.find({});
 }
 
+async function createUser(newUser) {
+        return userModel.create(newUser);
+}
 
-function createUser(newUser) {
-    return userModel.create(newUser);
+async function findById(id){
+    try {
+        return userModel.findById(id);      
+    } catch (error) {
+        console.error("error=", error);
+    }
+    return null;
+}
+
+async function checkLogin(email, password){
+    try {
+        return userModel.findOne({email, password}, 'userType');      
+    } catch (error) {
+        console.error("error=", error);
+    }
+    return null;
 }
 
 // For Cash Flow
@@ -110,6 +127,8 @@ function removeBalanceSheet(userId, nameOfItemToRemove) {
 module.exports = {
     createUser,
     getUserList,
+    findById, 
+    checkLogin,
     addCashFlow,
     removeCashFlow,
     addBalanceSheet,
