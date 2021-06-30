@@ -61,9 +61,14 @@ export const MemberCard = styled.div`
     } */
 `;
 
+export const MemberIconWrapper = styled.div`
+    min-height: 200px;
+    max-height: 300px;
+    overflow-x: hidden;
+`;
+
 export const MemberIcon = styled.img`
     height: 160px;
-    width: 160px;
     margin-bottom: 10px;
 `;
 

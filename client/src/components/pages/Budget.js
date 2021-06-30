@@ -6,6 +6,7 @@ function Budget() {
 
     const [users, setUsers] = useState([])   
     const [name, setName] = useState("")
+    const [type, setType] = useState("")
     const [amount, setAmount] = useState(0)
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
     const [startDate, setStartDate] = useState("")
@@ -27,11 +28,12 @@ function Budget() {
 
     async function addNewCashFlow(event, id) {
         event.preventDefault()
-        let newCashFlow = {name, amount, changeMonthToMonth, startDate, endDate}
+        let newCashFlow = {name: name.toLowerCase(), type, amount: Number(amount), changeMonthToMonth : Number(changeMonthToMonth), startDate, endDate}
         console.log("newCashFlow", newCashFlow)
         let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
             setName("")
+            setType("")
             setAmount(0)
             setChangeMonthToMonth(0)
             setStartDate("")
@@ -57,6 +59,7 @@ async function deletecashflow(event, id) {
     let dataToEdit = users[0].cashFlow[index]
     console.log(dataToEdit)
     setName(dataToEdit.name)
+    setType(dataToEdit.type)
     setAmount(dataToEdit.amount)
     setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
     setStartDate(dataToEdit.startDate)
@@ -64,13 +67,13 @@ async function deletecashflow(event, id) {
 }
 
 
-// at line 46, right now I am only showing one, eventually will be changed
+// at line 46, right now I am only showing one, eventually will be changed, temporaray solution before we have login
  return (
     <>
         <h1> CashFlow </h1>
         {users? users.map((user, index) => (
 
-            index === 0 ? 
+            index ===  0 ? 
             <div className="eachUser" key={user.firstName}>
                 {user.firstName}
                 {user.lastName}
@@ -82,6 +85,7 @@ async function deletecashflow(event, id) {
                         <thead>
                             <tr>
                                 <th> item name </th>
+                                <th> type </th>
                                 <th> amount </th>
                                 <th> changeMonthToMonth </th>
                                 <th> startDate </th>
@@ -95,6 +99,7 @@ async function deletecashflow(event, id) {
 
                             <tr key={singleCashFlow.name + index}>
                                 <td> {singleCashFlow.name} </td>
+                                <td> {singleCashFlow.type} </td>
                                 <td> {singleCashFlow.amount} </td>
                                 <td> {singleCashFlow.changeMonthToMonth} </td>
                                 <td> {singleCashFlow.startDate} </td>
@@ -125,18 +130,25 @@ async function deletecashflow(event, id) {
                     Add new item/Edit existing item 
                     <form onSubmit={(event) => addNewCashFlow(event, user._id)}>
                         <label> Name of the item </label>
-                        <input type="text" value={name} onChange={(event)=>{setName(event.target.value)}}/> <br/>
+                        <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/> <br/>
+                        <label> Type </label>
+                        <input type="text" required value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
                         <label> amount </label>
-                        <input type="text" value={amount} onChange={(event)=>{setAmount(event.target.value)}}/> <br/>
+                        <input type="text" required value={amount} onChange={(event)=>{setAmount(event.target.value)}}/> <br/>
                         <label> changeMonthToMonth </label>
-                        <input type="text" value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
+                        <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
                         <label> startDate YYYY-MM-DD </label>
-                        <input type="text" value={startDate} onChange={(event)=>{setStartDate(event.target.value)}} /> <br/>
+                        <input type="text" required value={startDate} onChange={(event)=>{setStartDate(event.target.value)}} /> <br/>
                         <label> endDate YYYY-MM-DD </label>
-                        <input type="text" value={endDate} onChange={(event)=>{setEndDate(event.target.value)}} /> <br/>
+                        <input type="text" required value={endDate} onChange={(event)=>{setEndDate(event.target.value)}} /> <br/>
                         <button display="block" type="submit"> Submit </button>
                         <div> End of Form </div>
                     </form>
+                </div>
+
+                <br/>
+                <div>
+                        Cash flow at future time:  <input type="text"/> 
                 </div>
                 <br/>         
             </div> : ""
