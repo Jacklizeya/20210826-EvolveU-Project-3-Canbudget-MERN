@@ -1,0 +1,28 @@
+.dashboard-container {
+    border: 4px solid black;
+    border-radius: 20px; 
+    margin: 10px;
+}
+
+.dashboard-heading {
+    text-align: center;
+    background: black;
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+}
+.dashboard-content {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.asset-table {
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+}
+  
+.asset-table th {
+    background-color: grey;
+    color: white;
+    padding: 2px 20px 2px 20px;
+}
