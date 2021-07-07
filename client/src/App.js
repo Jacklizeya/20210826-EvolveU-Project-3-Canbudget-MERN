@@ -9,6 +9,7 @@ import Asset from './components/pages/Asset';
 // import OurTeam from './components/pages/OurTeam';
 import SignUp from './components/pages/SignUp';
 import ApexCharts from './components/pages/ApexCharts';
+import SearchableMap from './components/ApexCharts/GoogleLocations/SearchableMap';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/asset' exact component={Asset} />
           <Route path='/sign-up' exact component={SignUp} />
           <Route path='/apex-charts' exact component={ApexCharts} />
+          <Route path='/map' exact component={SearchableMap} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
         </Switch>
         <Footer />
