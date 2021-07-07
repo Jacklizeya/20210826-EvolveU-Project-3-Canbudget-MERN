@@ -1,20 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
+import {Button, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData} from "./assetAndBudget.elements"
 
 function Asset() {
     const [users, setUsers] = useState([])  
+    const [user, setUser] = useState({})
     const [name, setName] = useState("")
     const [type, setType] = useState("")
     const [value, setValue] = useState(0)
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
     const [addstatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
+    const [sortDirection, setSortDirection] = useState(1)
 
     useEffect(() => {
         async function getUsers() {
             let {data} = await axios.get("/api/user", )
             console.log(data)
             setUsers(data)
+            setUser(data[0])
         }
         getUsers()
         setAddStatus(0)
@@ -58,37 +62,52 @@ function Asset() {
     setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
     }
 
+    function sortArrayBy(event) {
+        console.log("I want to sort by", event.target.id)
+        let userCopy = {...user}
+        userCopy.balanceSheet.sort(
+            (a,b)=>{
+                    if (event.target.id === "value") {setSortDirection(sortDirection * -1); console.log(sortDirection); return (a[event.target.id]-b[event.target.id]) * sortDirection} 
+                    else { setSortDirection(sortDirection * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirection}
+            }
+            )
+        console.log(userCopy)
+        setUser(userCopy)
+        console.log(user)
+    }
 
 // right now only hook up one, wait until login is done 
  return (
     <>
-        <h1> Asset </h1>
-        {users? users.map((user, index) => (
+        <Heading1> Balance Sheet </Heading1>
+        {
 
-            index ===  0 ? 
+            user.balanceSheet  ? 
             <div key={user.firstName + "Asset"}>
-                {user.firstName}
-                {user.lastName}
-                {user.email}
-                {user.address}
-                {user.phoneNumber}
+            <Descriptiondiv> 
+            Name: {user.firstName} {user.lastName} <br/>
+            Email: {user.email} <br/>
+            Address: {user.address} <br/>
+            Phonenumber: {user.phoneNumber} <br/> <br/>
+            </Descriptiondiv>
 
 
-                
+                <Tablediv>
                     <table> 
                         <thead>
                             <tr key="itemname">
-                                <th> item name </th>
-                                <th> type </th>
-                                <th> value </th>
+                                <th id="name" onClick={event => sortArrayBy(event)}> item name </th>
+                                <th id="type" onClick={event => sortArrayBy(event)}> type </th>
+                                <th id="value" onClick={event => sortArrayBy(event)}> value </th>
                                 <th> changeMonthToMonth </th>
+                                <th> edit </th>
+                                <th> delete </th>
                             </tr>
                         </thead>
+                        
                         <tbody>
-
                         {user.balanceSheet.map(
                             (singleBalanceSheet, index) => 
-
                             <tr key={singleBalanceSheet.name}>
                                 <td> {singleBalanceSheet.name} </td>
                                 <td> {singleBalanceSheet.type} </td>
@@ -96,49 +115,58 @@ function Asset() {
                                 <td> {singleBalanceSheet.changeMonthToMonth} </td>    
                                 <td> 
                                     <a href="#form">
-                                        <button id={index} onClick={editItem} > 
+                                        <Button id={index} onClick={editItem} > 
                                             Edit 
-                                        </button>
+                                        </Button>
                                     </a>
-                                    
-
-                                    
                                 </td> 
                                 <td>
-                                    <button onClick={(event)=> deleteBalanceSheet(event, user._id)} value={singleBalanceSheet.name}>
+                                    <Button onClick={(event)=> deleteBalanceSheet(event, user._id)} value={singleBalanceSheet.name}>
                                     delete 
-                                    </button> 
+                                    </Button> 
                                 </td>     
-                                
-
-
                             </tr>
                             )} 
+                        </tbody>
 
-                        </tbody>                 
-                    </table>    
+                        <tfoot>
+                            <tr key="itemname">
+                                <TableBottomData> Sum </TableBottomData>
+                                <TableBottomData value = {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)}>  {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)} </TableBottomData>
+                                <TableBottomData>   </TableBottomData>
+                                <TableBottomData>   </TableBottomData>
+                                <TableBottomData>   </TableBottomData>
+                                <TableBottomData>   </TableBottomData>
+                            </tr>
+                        </tfoot>                 
+                    </table> 
+                </Tablediv>   
                 
                 <br/> 
-                <div className="form" id="form">
-                    Add new item/Edit existing item 
-                    <form onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
-                        <label> Name of the item </label>
-                        <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)} }/> <br/>
 
-                        <label> Type </label>
-                        <input type="text" required value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
-                        
-                        <label> value </label>
-                        <input type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/> <br/>
-                        <label> changeMonthToMonth </label>
-                        <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
-                        
-                        <button type="submit"> Submit </button>
-                        <div> End of Form </div>
-                    </form>
+                <FormDiv>
+                    <div className="form" id="form">
+                        <label> Add new item/Edit existing item  </label>
+                        <form onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
+                            <label> Name of the item </label>
+                            <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)} }/> <br/>
+
+                            <label> Type </label>
+                            <input type="text" required value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
+                            
+                            <label> value </label>
+                            <input type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/> <br/>
+                            <label> changeMonthToMonth </label>
+                            <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
+                            
+                            <Button type="submit"> Submit </Button>
+                            
+                        </form>
                 </div>         
+                </FormDiv>
+                
             </div> : ""
-        )) : <div> No data yet </div>}
+       }
         
         </>
  )
