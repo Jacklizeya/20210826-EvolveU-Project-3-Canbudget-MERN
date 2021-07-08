@@ -1,22 +1,22 @@
 const axios = require('axios');
 
-// Search parameters
-let googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
-let searchLat = 51.042642417966455
-let searchLng = -114.06990000957333
-let searchRadius = 10000 // Measured in m
-let searchType = 'bank'
+export default async function nearbySearchRequest() {
+
+  // Search Parameters
+  let googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
+  let searchLat = 51.042642417966455
+  let searchLng = -114.06990000957333
+  let searchRadius = 10000 // Measured in m
+  let searchType = 'bank'
 
 
-let url = ('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
-  +'key='+googleApiKey
-  +'&location='+searchLat+','+searchLng
-  +'&radius='+searchRadius
-  +'&type='+searchType)
+  let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+    +'key='+googleApiKey
+    +'&location='+searchLat+','+searchLng
+    +'&radius='+searchRadius
+    +'&type='+searchType)
 
-async function nearbySearchRequest() {
-
-  let res = await axios.get(url)
+  let res = await axios.get(nearbySearchURL)
 
   let data = res.data
 
@@ -30,6 +30,4 @@ async function nearbySearchRequest() {
   }
   return searchData
 }
-  
-  nearbySearchRequest()
 

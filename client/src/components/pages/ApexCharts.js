@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {} from 'react';
 import RadialBar from '../ApexCharts/RadialBar'
 import Donut from '../ApexCharts/Doughnut';
 import Line from '../ApexCharts/Line';
@@ -13,6 +13,7 @@ function ApexCharts() {
         </div>
         <div><Line /></div>
         <div><RadialBar /></div>
+        <div><Donut /></div>
     </div>
  )
 }

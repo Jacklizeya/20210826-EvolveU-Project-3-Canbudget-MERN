@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Chart from 'react-apexcharts'
 import { lineData } from './data/apexDataConvertor'
 
 export default function Line() {
-
+  // eslint-disable-next-line
   const [lineProps, setLineProps] = useState(
     {
       options: {
