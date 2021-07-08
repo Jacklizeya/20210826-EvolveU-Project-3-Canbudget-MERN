@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
-import {Button, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData} from "./assetAndBudget.elements"
+import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData} from "./assetAndBudget.elements"
+import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
+import {  FaSortUp, FaSort, FaSortDown } from "react-icons/fa"
 
+ 
 function Budget() {
 
     const [users, setUsers] = useState([])   
@@ -15,7 +18,16 @@ function Budget() {
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
 
-    const [sortDirection, setSortDirection] = useState(1)
+    const [sortDirectionName, setSortDirectionName] = useState(1)
+    const [sortDirectionType, setSortDirectionType] = useState(1)
+    const [sortDirectionAmount, setSortDirectionAmount] = useState(1)
+    const [sortDirectionStartDate, setSortDirectionStartDate] = useState(1)
+    const [sortDirectionEndDate, setSortDirectionEndDate] = useState(1)
+
+
+
+    const [futureDate, setFutureDate] = useState("")
+
 
     useEffect(() => {
         async function getUsers() {
@@ -75,8 +87,11 @@ function Budget() {
         let userCopy = {...user}
         userCopy.cashFlow.sort(
             (a,b)=>{
-                    if (event.target.id === "amount") {setSortDirection(sortDirection * -1); console.log(sortDirection); return (a[event.target.id]-b[event.target.id]) * sortDirection} 
-                    else { setSortDirection(sortDirection * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirection}
+                    if (event.target.id === "amount") {setSortDirectionAmount(sortDirectionAmount * -1); return (a[event.target.id]-b[event.target.id]) * sortDirectionAmount} 
+                    else if (event.target.id === "name") { setSortDirectionName(sortDirectionName * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionName}
+                    else if (event.target.id === "type") { setSortDirectionType(sortDirectionType * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionType}
+                    else if (event.target.id === "startDate") { setSortDirectionStartDate(sortDirectionStartDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionStartDate}
+                    else if (event.target.id === "endDate") { setSortDirectionEndDate(sortDirectionEndDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionEndDate}
             }
             )
         console.log(userCopy)
@@ -103,12 +118,22 @@ function Budget() {
                     <table> 
                         <thead>
                             <tr>
-                                <th id="name" onClick={event => sortArrayBy(event)}> item name  </th>
-                                <th id="type" onClick={event => sortArrayBy(event)}> type </th>
-                                <th id="amount" onClick={event => sortArrayBy(event)}> amount </th>
+                                <th id="name" onClick={event => sortArrayBy(event)}> item name 
+                                    {sortDirectionName > 0 ? <FaSortUp style={{"pointer-events": 'none'}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none'}}> </FaSortDown> }
+                                </th>
+                                <th id="type" onClick={event => sortArrayBy(event)}> type 
+                                    {sortDirectionType > 0 ? <FaSortUp style={{"pointer-events": 'none'}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none'}}> </FaSortDown> }
+                                </th>
+                                <th id="amount" onClick={event => sortArrayBy(event)}> amount 
+                                    {sortDirectionAmount > 0 ? <FaSortUp style={{"pointer-events": 'none'}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none'}}> </FaSortDown> }
+                                </th>
                                 <th> changeMonthToMonth </th>
-                                <th id="startDate" onClick={event => sortArrayBy(event)}> startDate </th>
-                                <th id="endDate" onClick={event => sortArrayBy(event)}> endDate </th>
+                                <th id="startDate" onClick={event => sortArrayBy(event)}> startDate 
+                                    {sortDirectionStartDate > 0 ? <FaSortUp style={{"pointer-events": 'none'}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none'}}> </FaSortDown> }
+                                </th>
+                                <th id="endDate" onClick={event => sortArrayBy(event)}> endDate 
+                                    {sortDirectionEndDate > 0 ? <FaSortUp style={{"pointer-events": 'none'}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none'}}> </FaSortDown> }
+                                </th>
                                 <th> edit </th>
                                 <th> delete </th>
                             </tr>
@@ -127,16 +152,16 @@ function Budget() {
                                 <td> {singleCashFlow.endDate} </td>     
                                 <td> 
                                     <a href="#form">
-                                        <Button id={index} onClick={editItem} > 
-                                            Edit 
-                                        </Button>
+                                        <button id={index} onClick={editItem}> 
+                                            <RiEditLine style={{"pointer-events": 'none'}}></RiEditLine>
+                                        </button>
                                     </a>
  
                                 </td> 
                                 <td>
-                                    <Button onClick={(event)=> deletecashflow(event, user._id)} value={singleCashFlow.name}>
-                                        Delete
-                                    </Button> 
+                                    <button onClick={(event)=> deletecashflow(event, user._id)} value={singleCashFlow.name}>
+                                        <RiDeleteBin6Line style={{"pointer-events": 'none'}}></RiDeleteBin6Line>
+                                    </button> 
                                 </td>             
                             </tr>
                             )} 
@@ -163,23 +188,29 @@ function Budget() {
                         <label> Name of the item </label>
                         <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/> <br/>
                         <label> Type </label>
-                        <input type="text" required value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
+                        <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
+                            <option value="expense"> expense </option>
+                            <option value="income"> income </option>
+                        </select>   <br/>
+
                         <label> amount </label>
                         <input type="text" required value={amount} onChange={(event)=>{setAmount(event.target.value)}}/> <br/>
                         <label> changeMonthToMonth </label>
                         <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
-                        <label> startDate YYYY-MM-DD </label>
-                        <input type="text" required value={startDate} onChange={(event)=>{setStartDate(event.target.value)}} /> <br/>
-                        <label> endDate YYYY-MM-DD </label>
-                        <input type="text" required value={endDate} onChange={(event)=>{setEndDate(event.target.value)}} /> <br/>
-                        <Button display="block" type="submit"> Submit </Button>
+                        <label> startDate DD-MM-YYYY </label>
+                        <input type="date" required value={startDate} onChange={(event)=>{setStartDate(event.target.value)}} /> <br/>
+                        <label> endDate DD-MM-YYYY </label>
+                        <input type="date" required value={endDate} onChange={(event)=>{setEndDate(event.target.value)}} /> <br/>
+                        <SubmitButton display="block" type="submit"> Submit </SubmitButton>
                         
                     </form>
                 </FormDiv>
 
                 <br/>
                 <Descriptiondiv>
-                        Cash flow at future time:  <input type="text"/> 
+                        Cash flow at future time:  
+                        <input type="date" value={futureDate} onChange={(event)=>{setFutureDate(event.target.value)}} /> <br/> 
+                        Your monthly cash flow is   {futureDate ? (user.cashFlow.filter(singleCashFlow => {return ((singleCashFlow.startDate.localeCompare(futureDate) === -1) && (singleCashFlow.endDate.localeCompare(futureDate) === 1))}).reduce((a , b)=> {return a + b.amount}, 0)) : "Please choose a date"}
                 </Descriptiondiv>
                 <br/>         
             </div> : ""}

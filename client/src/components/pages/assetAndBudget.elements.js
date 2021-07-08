@@ -10,7 +10,7 @@ export const Descriptiondiv = styled.div`
     margin: 10px 20px 10px 40px;
     font-family: "Lucida Console", "Courier New", monospace;
 
-    input[type=text], select, textarea {
+    input[type=text], input[type=date], textarea {
       width: 25%; /* Full width */
       padding: 12px; /* Some padding */ 
       border: 1px solid #ccc; /* Gray border */
@@ -22,7 +22,6 @@ export const Descriptiondiv = styled.div`
 
 
 `
-
 export const Tablediv = styled.div`
 
    margin: 10px 20px 10px 40px;
@@ -56,7 +55,7 @@ export const Tablediv = styled.div`
    }
  }
 `
-export const Button = styled.button`
+export const SubmitButton = styled.button`
     color: white;
     background: #01345B;
     font-size: 1em;
@@ -70,7 +69,7 @@ export const FormDiv = styled.div`
 
     margin: 10px 20px 10px 40px;
    
-    input[type=text], select, textarea {
+    input[type=text], input[type=date], textarea {
     width: 25%; /* Full width */
     padding: 12px; /* Some padding */ 
     border: 1px solid #ccc; /* Gray border */
@@ -78,6 +77,17 @@ export const FormDiv = styled.div`
     box-sizing: border-box; /* Make sure that padding and width stays in place */
     margin-top: 6px; /* Add a top margin */
     margin-bottom: 6px; /* Bottom margin */
+    }
+
+    select {
+      background: white;
+      width: 25%; /* Full width */
+      padding: 12px; /* Some padding */ 
+      border: 1px solid #ccc; /* Gray border */
+      border-radius: 4px; /* Rounded borders */
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      margin-top: 6px; /* Add a top margin */
+      margin-bottom: 6px; /* Bottom margin */
     }
 
     label {

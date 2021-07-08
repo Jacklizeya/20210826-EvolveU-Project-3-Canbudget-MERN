@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
-import {Button, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData} from "./assetAndBudget.elements"
+import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, tdContainButton} from "./assetAndBudget.elements"
+import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 
 function Asset() {
     const [users, setUsers] = useState([])  
@@ -115,15 +116,15 @@ function Asset() {
                                 <td> {singleBalanceSheet.changeMonthToMonth} </td>    
                                 <td> 
                                     <a href="#form">
-                                        <Button id={index} onClick={editItem} > 
-                                            Edit 
-                                        </Button>
+                                        <button id={index} onClick={editItem} > 
+                                            <RiEditLine style={{"pointer-events": 'none'}}></RiEditLine>
+                                        </button>
                                     </a>
                                 </td> 
                                 <td>
-                                    <Button onClick={(event)=> deleteBalanceSheet(event, user._id)} value={singleBalanceSheet.name}>
-                                    delete 
-                                    </Button> 
+                                    <button onClick={(event)=> deleteBalanceSheet(event, user._id)} value={singleBalanceSheet.name}>
+                                        <RiDeleteBin6Line style={{"pointer-events": 'none'}}></RiDeleteBin6Line>
+                                    </button> 
                                 </td>     
                             </tr>
                             )} 
@@ -159,7 +160,7 @@ function Asset() {
                             <label> changeMonthToMonth </label>
                             <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
                             
-                            <Button type="submit"> Submit </Button>
+                            <SubmitButton type="submit"> Submit </SubmitButton>
                             
                         </form>
                 </div>         
