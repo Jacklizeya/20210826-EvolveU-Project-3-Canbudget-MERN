@@ -9,7 +9,7 @@ import Asset from './components/pages/Asset';
 // import OurTeam from './components/pages/OurTeam';
 import SignUp from './components/pages/SignUp';
 import ApexCharts from './components/pages/ApexCharts';
-import SearchableMap from './components/ApexCharts/GoogleLocations/SearchableMap';
+import SearchableMap from './components/GoogleLocations/SearchableMap';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
 
 

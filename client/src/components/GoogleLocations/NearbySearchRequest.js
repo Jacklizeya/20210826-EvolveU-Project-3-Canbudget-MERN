@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export default async function nearbySearchRequest() {
+async function nearbySearchRequest() {
 
   // Search Parameters
   let googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
@@ -28,6 +28,8 @@ export default async function nearbySearchRequest() {
       searchData.push(trimmedResult)
     }
   }
+  console.log(searchData)
   return searchData
 }
 
+nearbySearchRequest()

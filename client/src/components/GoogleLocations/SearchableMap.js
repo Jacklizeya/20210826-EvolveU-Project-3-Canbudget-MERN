@@ -1,10 +1,11 @@
-import React, {onLoad, onPlacesChanged, useState} from "react"
+import React, {useState, useEffect} from "react"
 import {
   GoogleMap,
-  StandaloneSearchBox,
   useLoadScript
 } from "@react-google-maps/api"
 import mapStyles from "./mapStyles"
+
+const axios = require('axios');
 
 const libraries = ["places"]
 const mapContainerStyle = {
@@ -20,33 +21,57 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true
 }
+const googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
+// Search Parameters
+let searchLat = 51.042642417966455
+let searchLng = -114.06990000957333
+let searchRadius = 10000 // Measured in m
+let searchType = 'bank'
+
+let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+  +'key='+googleApiKey
+  +'&location='+searchLat+','+searchLng
+  +'&radius='+searchRadius
+  +'&type='+searchType)
 
 export default function SearchableMap() {
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY',
+    googleMapsApiKey: googleApiKey,
     libraries
   })
 
   const [searchCategory, setSearchCategory] = useState(null)
-  const [mapCenter, setMapCenter] = useState( {
+  const [mapCenter, setMapCenter] = useState({
     lat: 51.01,
     lng: -114.1
   })
+  const [searchResults, setSearchResults] = useState()
 
-  /// const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
+  useEffect(() => {
+    async function getUsers() {
+      console.log(nearbySearchURL)
+      try {
+        let data = await axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY&location=51.042642417966455,-114.06990000957333&radius=10000&type=bank')
+        console.log(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getUsers()
+}, [])
 
   if (loadError) return "Error loading map"
   if (!isLoaded) return "Loading map"
 
   return (
       <div>
-        <div style={{display:'flex',justifyContent:'space-around'}}>
+        {/*<div style={{display:'flex',justifyContent:'space-around'}}>
             <button type='button' onClick="setSearchCategory('accounting')">Accounting</button>
             <button type='button' onClick="setSearchCategory('bank')">Bank</button>
             <button type='button' onClick="setSearchCategory('insurance_agency')">Insurance Agency</button>
             <button type='button' onClick="setSearchCategory('real_estate_agency')">Real Estate Agency</button>
-        </div>
+        </div>*/}
         <div style={{display:'flex',justifyContent:'center',padding:'20px'}}>
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
@@ -54,31 +79,6 @@ export default function SearchableMap() {
             center={mapCenter}
             options={options}
         >
-            <StandaloneSearchBox
-                onPlacesChanged={
-                    onPlacesChanged
-                }
-            >
-                <input
-                    type="text"
-                    placeholder="Customized your placeholder"
-                    style={{
-                    boxSizing: `border-box`,
-                    border: `1px solid transparent`,
-                    width: `240px`,
-                    height: `32px`,
-                    padding: `0 12px`,
-                    borderRadius: `3px`,
-                    boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                    fontSize: `14px`,
-                    outline: `none`,
-                    textOverflow: `ellipses`,
-                    position: "absolute",
-                    left: "50%",
-                    marginLeft: "-120px"
-                    }}
-                />
-            </StandaloneSearchBox>
         </GoogleMap>
         </div>
     </div>
