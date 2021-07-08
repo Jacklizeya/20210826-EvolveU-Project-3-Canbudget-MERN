@@ -7,6 +7,8 @@ export const Heading1 = styled.h1`
 
 `
 export const Descriptiondiv = styled.div`
+
+    display: ${props => (props.viewScenario === "all record" ? "none": "block")};
     margin: 10px 20px 10px 40px;
     font-family: "Lucida Console", "Courier New", monospace;
 
@@ -23,6 +25,7 @@ export const Descriptiondiv = styled.div`
 
 `
 export const Tablediv = styled.div`
+   
 
    margin: 10px 20px 10px 40px;
    font-family: "Lucida Console", "Courier New", monospace;
@@ -36,6 +39,7 @@ export const Tablediv = styled.div`
    }
 
    th, td {
+     
      padding: 0.5rem;
      border-bottom: 1px solid black;
      border-right: 1px solid black;
@@ -47,14 +51,21 @@ export const Tablediv = styled.div`
    }
   
    th {
-     
      background: #01345B;
      border-bottom: 3px solid;
      color: white;
      fontWeight: bold;
    }
+
+   tfoot{
+    display: ${props => (props.viewScenario === "all record" ? "none": "")};
+   }
  }
 `
+export const Numbertd = styled.td`
+  color: ${props => (props.value >= 0 ? "black": "red")};
+`
+
 export const SubmitButton = styled.button`
     color: white;
     background: #01345B;
