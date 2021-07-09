@@ -50,7 +50,7 @@ export default function SearchableMap({data}) {
             {searchResults.map(function (marker, index) {
               return (
                 <Marker
-                  key={marker.name}
+                  key={marker.key}
                   position={{lat: parseFloat(marker.coordinates.lat), lng: parseFloat(marker.coordinates.lng)}}
                 />
               )

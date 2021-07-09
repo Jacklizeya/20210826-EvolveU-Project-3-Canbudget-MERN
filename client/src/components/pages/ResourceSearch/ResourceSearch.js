@@ -3,7 +3,6 @@ import searchData from "../../NearbySearch/searchData"
 import SearchTable from '../../NearbySearch/SearchTable'
 import SearchPropSelectors from '../../NearbySearch/SearchPropSelectors'
 import SearchableMap from '../../GoogleMap/SearchableMap'
-import RatingStars from "../../NearbySearch/RatingStars"
 import './ResourceSearch.css'
 
 const axios = require('axios');
@@ -21,7 +20,6 @@ let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/
   +'&radius='+searchRadius
   +'&type='+searchType)
 
-const apiRoute = '/api/nearbySearch'+'/key='+googleApiKey+'&location='+searchLat+','+searchLng+'&radius='+searchRadius+'&type='+searchType
 
 
 export default function ResourceSearch() {
@@ -30,14 +28,16 @@ export default function ResourceSearch() {
 
   useEffect(() => {
     async function getUsers() {
-      console.log(nearbySearchURL)
-      let res = await axios.get(nearbySearchURL)
-      let data = await res.data
-      console.log('hello',data)
-      setSearchResults(data)
+      try {
+        let {data} = await axios.get(`/api/nearbySearch`)
+        setSearchResults(data)
+      } catch (error) {
+        console.error(error)
+      }
     }
     getUsers()
   }, [])
+
 
   return (
     <div>

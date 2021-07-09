@@ -6,6 +6,7 @@ const logger = require('morgan')
 const session = require('express-session')
 const passport = require('passport')
 require('./auth/localPassport')
+const cors = require("cors")
 
 //const cors = require("cors")
 
@@ -14,7 +15,8 @@ require('./auth/localPassport')
 const apiRouter = require('./routes/apiRouter')
 //
 
-var app = express();
+const app = express()
+app.use(cors())
 
 
 app.use(express.json());
@@ -33,9 +35,6 @@ app.use(passport.session());
 app.use('/api', apiRouter);
 
 app.use(express.static('../client/build'))
-app.get('*', (req, res)=>{
-  res.sendFile(path.resolve(__dirname,'../client/build','index.html'))
-})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

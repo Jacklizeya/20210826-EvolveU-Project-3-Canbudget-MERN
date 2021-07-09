@@ -12,7 +12,7 @@ export default function SearchTable({data}) {
                   <tr><th>Name</th><th>Address</th><th>Rating</th><th># of Ratings</th><th>Stars</th></tr>
                   {rows.map((row) => {
                       return (                                     
-                        <tr key={row.name} >
+                        <tr key={row.key} >
                             <td>{row.name}</td>
                             <td>{row.address}</td>
                             <td>{row.rating}</td>

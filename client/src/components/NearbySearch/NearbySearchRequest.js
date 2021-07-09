@@ -28,7 +28,6 @@ async function nearbySearchRequest() {
       searchData.push(trimmedResult)
     }
   }
-  console.log(searchData)
   return searchData
 }
 
