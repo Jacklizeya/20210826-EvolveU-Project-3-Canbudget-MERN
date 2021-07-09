@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useMemo} from "react"
 import searchData from "../../NearbySearch/searchData"
 import SearchTable from '../../NearbySearch/SearchTable'
 import SearchPropSelectors from '../../NearbySearch/SearchPropSelectors'
@@ -24,7 +24,7 @@ let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/
 
 export default function ResourceSearch() {
 
-  const [searchResults, setSearchResults] = useState(searchData)
+  const [searchResults, setSearchResults] = useState([])
 
   useEffect(() => {
     async function getUsers() {
@@ -38,12 +38,19 @@ export default function ResourceSearch() {
     getUsers()
   }, [])
 
+  const data = useMemo(() => searchResults, [searchResults])
+  console.log(data)
 
   return (
     <div>
       <SearchPropSelectors />
-      <SearchableMap data={searchResults}/>
-      <SearchTable data={searchResults}/>
+      {data ?
+        <div>
+          <SearchableMap data={data}/>
+          <SearchTable data={data}/>
+        </div>
+          : null}
+
     </div>
   )
 }
