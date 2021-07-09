@@ -117,13 +117,13 @@ function Asset() {
                                 <td> 
                                     <a href="#form">
                                         <button id={index} onClick={editItem} > 
-                                            <RiEditLine style={{"pointer-events": 'none'}}></RiEditLine>
+                                            <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
                                         </button>
                                     </a>
                                 </td> 
                                 <td>
                                     <button onClick={(event)=> deleteBalanceSheet(event, user._id)} value={singleBalanceSheet.name}>
-                                        <RiDeleteBin6Line style={{"pointer-events": 'none'}}></RiDeleteBin6Line>
+                                        <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
                                     </button> 
                                 </td>     
                             </tr>

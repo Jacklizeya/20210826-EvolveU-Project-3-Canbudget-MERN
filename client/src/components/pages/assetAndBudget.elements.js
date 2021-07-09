@@ -11,7 +11,6 @@ export const Descriptiondiv = styled.div`
     display: ${props => (props.viewScenario === "all record" ? "none": "block")};
     margin: 10px 20px 10px 40px;
     font-family: "Lucida Console", "Courier New", monospace;
-
     input[type=text], input[type=date], textarea {
       width: 25%; /* Full width */
       padding: 12px; /* Some padding */ 
@@ -21,8 +20,6 @@ export const Descriptiondiv = styled.div`
       margin-top: 6px; /* Add a top margin */
       margin-bottom: 6px; /* Bottom margin */
       }
-
-
 `
 export const Tablediv = styled.div`
    
@@ -58,10 +55,40 @@ export const Tablediv = styled.div`
    }
 
    tfoot{
-    display: ${props => (props.viewScenario === "all record" ? "none": "")};
+     tr {
+      display: ${props => (props.id === "all record" ? "none": "")};
+      display: ${props => (props.value === "all record" ? "none": "")};
+      display: ${props => (props.viewScenario === "all record" ? "none": "")};
+     }  
    }
  }
 `
+export const Tablefoot = styled.tfoot`
+  display: ${props => (props.viewScenario === "all record" ? "none": "")};
+  tr {
+    height: 10px; 
+   }
+
+   th, td {
+     
+     padding: 0.5rem;
+     border-bottom: 1px solid black;
+     border-right: 1px solid black;
+     font-family: "Lucida Console", "Courier New", monospace;
+
+     :last-child {
+       border-right: 0;
+     }
+   }
+  
+   th {
+     background: #01345B;
+     border-bottom: 3px solid;
+     color: white;
+     fontWeight: bold;
+   }
+`
+
 export const Numbertd = styled.td`
   color: ${props => (props.value >= 0 ? "black": "red")};
 `

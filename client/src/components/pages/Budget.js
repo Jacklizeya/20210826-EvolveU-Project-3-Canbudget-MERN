@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
-import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd} from "./assetAndBudget.elements"
+import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import Modal from "./Modal"
+import {Modal} from "./Modal"
+import GlobalStyle from '../../globalStyles';
 
  
 function Budget() {
@@ -12,7 +13,7 @@ function Budget() {
     const [user, setUser] = useState({})
     const [userCashFlow, setUserCashFlow] = useState([])
     const [name, setName] = useState("")
-    const [type, setType] = useState("")
+    const [type, setType] = useState("expense")
     const [amount, setAmount] = useState(0)
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
     const [startDate, setStartDate] = useState("")
@@ -37,6 +38,8 @@ function Budget() {
 
     const [viewScenario, setViewScenario] = useState("initial")
     const [viewDate, setViewDate] = useState("")
+
+    const [nameToDelete, setNameToDelete] = useState("")
     const [displayModal, setDisplayModal] = useState(false)
 
 
@@ -96,7 +99,7 @@ function Budget() {
         let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
             setName("")
-            setType("")
+            setType("expense")
             setAmount(0)
             setChangeMonthToMonth(0)
             setStartDate("")
@@ -105,20 +108,18 @@ function Budget() {
         }
     }
 
-    async function deletecashflow(event, id) {
-    let nameOfItemToRemove = event.target.value
-    console.log(nameOfItemToRemove)
-    let {data} = await axios.put(`/api/user/${id}/deletecashflow/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
-    if (data.ok) {
-        setDeleteStatus(data.ok)
-    }}
+    // async function deletecashflow(event, id) {
+    // let nameOfItemToRemove = event.target.value
+    // console.log(nameOfItemToRemove)
+    // let {data} = await axios.put(`/api/user/${id}/deletecashflow/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
+    // if (data.ok) {
+    //     setDeleteStatus(data.ok)
+    // }}
 
     function editItem(event) {
-    // continue tomorrow
-    console.log("edit", users)
     let index = event.target.id
     // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-    let dataToEdit = user.cashFlow[index]
+    let dataToEdit = userCashFlow[index]
     console.log(dataToEdit)
     setName(dataToEdit.name)
     setType(dataToEdit.type)
@@ -150,6 +151,7 @@ function Budget() {
  return (
     <div>
             <Heading1> Cash Flow </Heading1>
+            <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} itemname={nameToDelete} userid={user._id} setDeleteStatus={setDeleteStatus}> </Modal>
             
                 
                 {user.email ? 
@@ -164,8 +166,7 @@ function Budget() {
                     <div className="Dynamic ">                                             
                             <FormDiv> 
                                 Show cash flow :  
-                                <select value={viewScenario} required onChange={(event)=>{handleViewChange(event)}}>
-                                    
+                                <select value={viewScenario} required onChange={(event)=>{handleViewChange(event)}}>                                   
                                     <option value="all record"> of all record </option>
                                     <option value="specific date"> on Specific date </option>
                                 </select>   
@@ -181,20 +182,20 @@ function Budget() {
                                     <thead>
                                         <tr>
                                             <th id="name" opacity={nameOpacity} onClick={event => sortArrayBy(event)}> item name 
-                                                {sortDirectionName > 0 ? <FaSortUp style={{"pointer-events": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none', "opacity": nameOpacity}}> </FaSortDown> }
+                                                {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
                                             </th>
                                             <th id="type" onClick={event => sortArrayBy(event)}> type 
-                                                {sortDirectionType > 0 ? <FaSortUp style={{"pointer-events": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none', "opacity": typeOpacity}}> </FaSortDown> }
+                                                {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
                                             </th>
                                             <th id="amount" onClick={event => sortArrayBy(event)}> amount 
-                                                {sortDirectionAmount > 0 ? <FaSortUp style={{"pointer-events": 'none', "opacity": amountOpacity}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none', "opacity": amountOpacity}}> </FaSortDown> }
+                                                {sortDirectionAmount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortDown> }
                                             </th>
                                             <th> changeMonthToMonth </th>
                                             <th id="startDate" onClick={event => sortArrayBy(event)}> startDate 
-                                                {sortDirectionStartDate > 0 ? <FaSortUp style={{"pointer-events": 'none', "opacity": startDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none', "opacity": startDateOpacity}}> </FaSortDown> }
+                                                {sortDirectionStartDate > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": startDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": startDateOpacity}}> </FaSortDown> }
                                             </th>
                                             <th id="endDate" onClick={event => sortArrayBy(event)}> endDate 
-                                                {sortDirectionEndDate > 0 ? <FaSortUp style={{"pointer-events": 'none', "opacity": endDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointer-events": 'none', "opacity": endDateOpacity}}> </FaSortDown> }
+                                                {sortDirectionEndDate > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": endDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": endDateOpacity}}> </FaSortDown> }
                                             </th>
                                             <th> edit </th>
                                             <th> delete </th>
@@ -213,20 +214,19 @@ function Budget() {
                                             <td> 
                                                 <a href="#form">
                                                     <button id={index} onClick={editItem}> 
-                                                        <RiEditLine style={{"pointer-events": 'none'}}></RiEditLine>
+                                                        <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
                                                     </button>
                                                 </a>                                      
                                             </td> 
                                             <td>
-                                                <button onClick={(event)=> {window.confirm("are you sure you want to delete this record?") && deletecashflow(event, user._id)}} value={singleCashFlow.name}>
-                                                    <RiDeleteBin6Line style={{"pointer-events": 'none'}}></RiDeleteBin6Line>
-                                                    <Modal displayModal={displayModal} setDisplayModal={setDisplayModal}> </Modal>
+                                                <button onClick={()=>{setNameToDelete(singleCashFlow.name); setDisplayModal(prev => !prev)}}>
+                                                    <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
                                                 </button> 
                                             </td>             
                                         </tr>
                                         )} 
                                     </tbody>    
-                                    <tfoot viewScenario= {viewScenario}>
+                                    <Tablefoot viewScenario={viewScenario}>
                                         <tr>
                                             <TableBottomData> Sum </TableBottomData>
                                             <TableBottomData>  </TableBottomData>
@@ -237,7 +237,7 @@ function Budget() {
                                             <TableBottomData>   </TableBottomData>
                                             <TableBottomData>   </TableBottomData>
                                         </tr>
-                                    </tfoot>             
+                                    </Tablefoot>             
                                 </table>    
                             </Tablediv>
                     </div> : ""
@@ -263,7 +263,9 @@ function Budget() {
                             <input type="date" required value={endDate} onChange={(event)=>{setEndDate(event.target.value)}} /> <br/>
                             <SubmitButton display="block" type="submit"> Submit </SubmitButton>                                                       
                         </form>
-                    </FormDiv>                              
+                    </FormDiv> 
+                    
+                    
                 </div> : ""}
         
         </div>
