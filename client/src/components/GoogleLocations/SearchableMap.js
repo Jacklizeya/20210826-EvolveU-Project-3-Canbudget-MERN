@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from "react"
 import {
   GoogleMap,
+  Marker,
   useLoadScript
 } from "@react-google-maps/api"
 import mapStyles from "./mapStyles"
+import './SearchableMap.css'
+import searchData from "./searchData"
+import SearchTable from './SearchTable'
+import SearchPropSelectors from './SearchPropSelectors'
+
+console.log(searchData)
 
 const axios = require('axios');
 
@@ -34,6 +41,8 @@ let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/
   +'&radius='+searchRadius
   +'&type='+searchType)
 
+const apiRoute = '/api/nearbySearch'+'/key='+googleApiKey+'&location='+searchLat+','+searchLng+'&radius='+searchRadius+'&type='+searchType
+
 export default function SearchableMap() {
 
   const { isLoaded, loadError } = useLoadScript({
@@ -41,22 +50,16 @@ export default function SearchableMap() {
     libraries
   })
 
-  const [searchCategory, setSearchCategory] = useState(null)
   const [mapCenter, setMapCenter] = useState({
     lat: 51.01,
     lng: -114.1
   })
-  const [searchResults, setSearchResults] = useState()
+  const [searchResults, setSearchResults] = useState(searchData)
 
   useEffect(() => {
     async function getUsers() {
-      console.log(nearbySearchURL)
-      try {
-        let data = await axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY&location=51.042642417966455,-114.06990000957333&radius=10000&type=bank')
-        console.log(data)
-      } catch (error) {
-        console.error(error)
-      }
+        let {results} = await axios.get(nearbySearchURL, )
+        console.log(results)
     }
     getUsers()
 }, [])
@@ -66,21 +69,25 @@ export default function SearchableMap() {
 
   return (
       <div>
-        {/*<div style={{display:'flex',justifyContent:'space-around'}}>
-            <button type='button' onClick="setSearchCategory('accounting')">Accounting</button>
-            <button type='button' onClick="setSearchCategory('bank')">Bank</button>
-            <button type='button' onClick="setSearchCategory('insurance_agency')">Insurance Agency</button>
-            <button type='button' onClick="setSearchCategory('real_estate_agency')">Real Estate Agency</button>
-        </div>*/}
-        <div style={{display:'flex',justifyContent:'center',padding:'20px'}}>
-        <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={10.5}
-            center={mapCenter}
-            options={options}
-        >
-        </GoogleMap>
+        <SearchPropSelectors />
+        <div className='nearby-search-map'>
+          <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              zoom={11.5}
+              center={mapCenter}
+              options={options}
+          >
+            {searchResults.map(function (marker, index) {
+              return (
+                <Marker
+                  key={marker.name}
+                  position={{lat: parseFloat(marker.coordinates.lat), lng: parseFloat(marker.coordinates.lng)}}
+                />
+              )
+            })}
+          </GoogleMap>
         </div>
+        <SearchTable data={searchResults}/>
     </div>
   )
 }

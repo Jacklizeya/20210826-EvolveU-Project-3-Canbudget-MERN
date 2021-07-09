@@ -7,7 +7,7 @@ async function nearbySearchRequest() {
   let searchLat = 51.042642417966455
   let searchLng = -114.06990000957333
   let searchRadius = 10000 // Measured in m
-  let searchType = 'bank'
+  let searchType = 'accounting'
 
 
   let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
@@ -24,7 +24,7 @@ async function nearbySearchRequest() {
   for (const index in data.results) {
     let result = data.results[index]
     if (result.business_status === 'OPERATIONAL') {
-      let trimmedResult = {name: result.name, geometry: result.geometry, rating: result.rating, ratingCount: result.user_ratings_total, address: result.vicinity}
+      let trimmedResult = {name: result.name, coordinates: result.geometry.location, rating: result.rating, ratingCount: result.user_ratings_total, address: result.vicinity}
       searchData.push(trimmedResult)
     }
   }
