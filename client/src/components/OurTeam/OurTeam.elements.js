@@ -9,12 +9,16 @@ export const MemberContainer = styled.div`
     align-items: center;
     background: #01345B;
 
+    @media screen and (max-width: 1000px) {
+        height: 2000px;
+    }
+
     @media screen and (max-width: 768px) {
-        height: 1400px;
+        height: 2000px;
     }
 
     @media screen and (max-width: 480px) {
-        height: 1300px;
+        height: 2000px;
     }
 `;
 
@@ -43,12 +47,15 @@ export const MemberCard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    /* position: relative;
+    top: 15%; */
     border-radius: 10px;
     max-height: 640px;
     min-height: 500px;
     padding: 30px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease-in-out;
+    margin: auto;
 
     @media screen and (max-width: 768px) {
         min-height: 300px;
@@ -59,6 +66,7 @@ export const MemberCard = styled.div`
         transition: all 0.2s ease-in-out;
         cursor: pointer;
     } */
+    
 `;
 
 export const MemberIconWrapper = styled.div`
@@ -68,7 +76,7 @@ export const MemberIconWrapper = styled.div`
 `;
 
 export const MemberIcon = styled.img`
-    height: 160px;
+    height: 180px;
     margin-bottom: 10px;
 `;
 
@@ -90,7 +98,7 @@ export const MemberH2 = styled.h2`
 `;
 
 export const MemberP = styled.p`
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
 `;
 
@@ -98,7 +106,7 @@ export const MemberSocialIcon = styled(Link)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 240px;
+    width: 50px;
     font-size: 2rem;
     color: #01345B;
 `;
@@ -107,7 +115,7 @@ export const SocialMediaWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
+
   max-width: 1000px;
   margin: 40px auto 0 auto;
 

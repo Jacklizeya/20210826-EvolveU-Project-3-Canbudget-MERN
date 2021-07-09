@@ -31,9 +31,12 @@ const OurTeam = ({name, data}) => {
                                 <MemberH2>{member.name}</MemberH2>
                                 <MemberP>{member.desc}</MemberP>
                                 <SocialMediaWrap>
-                                    <MemberSocialIcon>
-                                        <FaLinkedin href={member.linkedin}  />
-                                        <FaGithub href={member.github} />
+                                    <MemberSocialIcon to={{ pathname: member.linkedin }} target="_blank" >
+                                    
+                                        <FaLinkedin />
+                                    </MemberSocialIcon>
+                                    <MemberSocialIcon to={{ pathname: member.github }} target="_blank"  >
+                                        <FaGithub />
                                     </MemberSocialIcon>
                                     
                                 </SocialMediaWrap>
