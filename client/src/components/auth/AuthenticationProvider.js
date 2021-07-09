@@ -2,8 +2,8 @@ import { useState } from 'react'
 import AuthenticationContext from './AuthenticationContext'
 
 const AuthenticationProvider = ({ children }) => {
-    let [id, setId] = useState()
-    let [userType, setUserType] = useState()
+    let [id, setId] = useState(null);
+    let [userType, setUserType] = useState("");
 
     const logIn = (email, password) => {
         async function logintoserver() {
@@ -16,6 +16,9 @@ const AuthenticationProvider = ({ children }) => {
             }
             try {
                 let response = await fetch('/api/auth/login', loginOptions);
+                if (response.status===401){
+                    return "Wrong email or password";
+                }
                 if (!response.ok) { // error coming back from server
                     return "Server error";
                 }
@@ -24,6 +27,8 @@ const AuthenticationProvider = ({ children }) => {
                 if (loggedInUser){
                     setId(loggedInUser._id);
                     setUserType(loggedInUser.userType);
+                    contextValue.id =loggedInUser._id;
+                    contextValue.userType=loggedInUser.userType;
                     return "";
                 }
                 return "Server error 2";
@@ -50,7 +55,7 @@ const AuthenticationProvider = ({ children }) => {
 
 
     const isLogedIn = () =>{
-        return id !==null; 
+        return contextValue.id !==null; 
     }
 
 
@@ -61,6 +66,8 @@ const AuthenticationProvider = ({ children }) => {
     let contextValue = {
         id, 
         userType,
+        isLogedIn,
+        isAdmin,
         logIn,
         logOut
     }

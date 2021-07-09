@@ -148,7 +148,6 @@ export const TableBottomData = styled.td`
 
 `
 
-
 //     This is a sample from Iryna
 //     export const MemberWrapper = styled.div`
 //     max-width: 1300px;
