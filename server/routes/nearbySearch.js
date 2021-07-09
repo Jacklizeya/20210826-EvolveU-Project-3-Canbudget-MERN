@@ -28,7 +28,7 @@ async function nearbySearchRequest() {
     for (const index in data.results) {
       let result = data.results[index]
       if (result.business_status === 'OPERATIONAL') {
-        let trimmedResult = {name: result.name, geometry: result.geometry, rating: result.rating, ratingCount: result.user_ratings_total, address: result.vicinity}
+        let trimmedResult = {key: result.place_id, name: result.name, geometry: result.geometry, rating: result.rating, ratingCount: result.user_ratings_total, address: result.vicinity}
         searchData.push(trimmedResult)
       }
     }
