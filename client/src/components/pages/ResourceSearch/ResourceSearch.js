@@ -4,7 +4,6 @@ import SearchTable from '../../NearbySearch/SearchTable'
 import SearchPropSelectors from '../../NearbySearch/SearchPropSelectors'
 import SearchableMap from '../../GoogleMap/SearchableMap'
 import RatingStars from "../../NearbySearch/RatingStars"
-import CalculateStars from "../../NearbySearch/CalculateStars"
 import './ResourceSearch.css'
 
 const axios = require('axios');
@@ -40,15 +39,11 @@ export default function ResourceSearch() {
     getUsers()
   }, [])
 
-  useEffect(() => {
-    setSearchResults(CalculateStars(searchResults))
-  }, [searchResults])
-
   return (
-      <div>
-        <SearchPropSelectors />
-        <SearchableMap data={searchResults}/>
-        <SearchTable data={searchResults}/>
+    <div>
+      <SearchPropSelectors />
+      <SearchableMap data={searchResults}/>
+      <SearchTable data={searchResults}/>
     </div>
   )
 }
