@@ -1,9 +1,15 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import RatingStars from "./RatingStars"
 
 export default function SearchTable({data}) {
 
+  console.log(data)
+
   const [rows, setRows] = useState(data)
+
+  useEffect(() => {
+    setRows(data)
+  }, [data])
 
     return (
         <div className="search-table">

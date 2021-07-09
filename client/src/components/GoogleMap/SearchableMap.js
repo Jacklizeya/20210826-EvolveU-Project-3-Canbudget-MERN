@@ -23,8 +23,7 @@ const options = {
 const googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
 
 export default function SearchableMap({data}) {
-
-  console.log(data)
+  
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: googleApiKey,
     libraries
