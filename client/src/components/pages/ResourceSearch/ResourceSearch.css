@@ -1,0 +1,18 @@
+.search-button-row {
+    display: flex;
+    justify-content:space-around;
+    padding: 10px;
+}
+
+.nearby-search-map {
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.search-table {
+    display: flex;
+    justify-content: center;
+    border: solid 2px black;
+    margin: 20px;
+}

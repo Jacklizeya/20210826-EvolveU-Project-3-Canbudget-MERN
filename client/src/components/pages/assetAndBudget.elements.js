@@ -7,10 +7,11 @@ export const Heading1 = styled.h1`
 
 `
 export const Descriptiondiv = styled.div`
+
+    display: ${props => (props.viewScenario === "all record" ? "none": "block")};
     margin: 10px 20px 10px 40px;
     font-family: "Lucida Console", "Courier New", monospace;
-
-    input[type=text], select, textarea {
+    input[type=text], input[type=date], textarea {
       width: 25%; /* Full width */
       padding: 12px; /* Some padding */ 
       border: 1px solid #ccc; /* Gray border */
@@ -19,11 +20,9 @@ export const Descriptiondiv = styled.div`
       margin-top: 6px; /* Add a top margin */
       margin-bottom: 6px; /* Bottom margin */
       }
-
-
 `
-
 export const Tablediv = styled.div`
+   
 
    margin: 10px 20px 10px 40px;
    font-family: "Lucida Console", "Courier New", monospace;
@@ -37,6 +36,7 @@ export const Tablediv = styled.div`
    }
 
    th, td {
+     
      padding: 0.5rem;
      border-bottom: 1px solid black;
      border-right: 1px solid black;
@@ -48,15 +48,52 @@ export const Tablediv = styled.div`
    }
   
    th {
-     
      background: #01345B;
      border-bottom: 3px solid;
      color: white;
      fontWeight: bold;
    }
+
+   tfoot{
+     tr {
+      display: ${props => (props.id === "all record" ? "none": "")};
+      display: ${props => (props.value === "all record" ? "none": "")};
+      display: ${props => (props.viewScenario === "all record" ? "none": "")};
+     }  
+   }
  }
 `
-export const Button = styled.button`
+export const Tablefoot = styled.tfoot`
+  display: ${props => (props.viewScenario === "all record" ? "none": "")};
+  tr {
+    height: 10px; 
+   }
+
+   th, td {
+     
+     padding: 0.5rem;
+     border-bottom: 1px solid black;
+     border-right: 1px solid black;
+     font-family: "Lucida Console", "Courier New", monospace;
+
+     :last-child {
+       border-right: 0;
+     }
+   }
+  
+   th {
+     background: #01345B;
+     border-bottom: 3px solid;
+     color: white;
+     fontWeight: bold;
+   }
+`
+
+export const Numbertd = styled.td`
+  color: ${props => (props.value >= 0 ? "black": "red")};
+`
+
+export const SubmitButton = styled.button`
     color: white;
     background: #01345B;
     font-size: 1em;
@@ -70,7 +107,7 @@ export const FormDiv = styled.div`
 
     margin: 10px 20px 10px 40px;
    
-    input[type=text], select, textarea {
+    input[type=text], input[type=date], textarea {
     width: 25%; /* Full width */
     padding: 12px; /* Some padding */ 
     border: 1px solid #ccc; /* Gray border */
@@ -78,6 +115,17 @@ export const FormDiv = styled.div`
     box-sizing: border-box; /* Make sure that padding and width stays in place */
     margin-top: 6px; /* Add a top margin */
     margin-bottom: 6px; /* Bottom margin */
+    }
+
+    select {
+      background: white;
+      width: 25%; /* Full width */
+      padding: 12px; /* Some padding */ 
+      border: 1px solid #ccc; /* Gray border */
+      border-radius: 4px; /* Rounded borders */
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      margin-top: 6px; /* Add a top margin */
+      margin-bottom: 6px; /* Bottom margin */
     }
 
     label {

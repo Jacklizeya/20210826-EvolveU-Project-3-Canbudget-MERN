@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState} from "react"
 import Chart from 'react-apexcharts'
 
 export default function RadialBar() {
-
+    // eslint-disable-next-line
     const [radialBarProps, setRadialBarProps] = useState(
         {
             series: [70],

@@ -34,7 +34,6 @@ export default function AssetDashboard() {
           }
         }
         setRows(tableData)
-        console.log(rows)
         setLabels(labelsList)
         setValues(valuesList)
     }
