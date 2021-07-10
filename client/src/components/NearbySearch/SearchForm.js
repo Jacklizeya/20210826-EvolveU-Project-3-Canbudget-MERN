@@ -17,11 +17,13 @@ export default function SearchForm() {
         address: null,
     })
 
+    const [locationActive, setlocationActive] = useState(false)
     const [submitted, setSubmitted] = useState(false)
 
     useEffect(() => {
         if (latitude && longitude) {
             setSearchProps({...searchProps, latitude: latitude, longitude: longitude})
+            setlocationActive(true)
         }
     }, [latitude, longitude])
 
@@ -67,25 +69,22 @@ export default function SearchForm() {
                     type="text"
                     placeholder="Radius (km)"
                     name="radius"/>
-                <input
-                    onChange={handleAddressInputChange}
-                    value={searchProps.address}
-                    id="address"
-                    className="form-field"
-                    type="text"
-                    placeholder="Address"
-                    name="address"/>
+                {locationActive ? null : 
+                    <input
+                        onChange={handleAddressInputChange}
+                        value={searchProps.address}
+                        id="address"
+                        className="form-field"
+                        type="text"
+                        placeholder="Address"
+                        name="address"/>
+                }
                 {/* Uncomment the next line to show the error message */}
                 {/* <span id="address-error">Please enter an address</span> */}
                 <button className="form-field" type="submit">
                 Search
                 </button>
             </form>
-            <code>
-                latitude: {latitude}<br/>
-                longitude: {longitude}<br/>
-                error: {error}
-            </code>
         </div>
     )
 }
