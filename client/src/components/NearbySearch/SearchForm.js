@@ -1,16 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import './SearchForm.css'
+import { usePosition } from './Geolocation/usePosition'
 
 export default function SearchForm() {
 
+    const watch = true;
+    const {
+      latitude,
+      longitude,
+      error
+    } = usePosition(watch);
+
     const [searchProps, setSearchProps] = useState({
         type: 'banking',
-        radius: '',
-        address: ''
-
+        radius: null,
+        address: null,
     })
 
     const [submitted, setSubmitted] = useState(false)
+
+    useEffect(() => {
+        if (latitude && longitude) {
+            setSearchProps({...searchProps, latitude: latitude, longitude: longitude})
+        }
+    }, [latitude, longitude])
 
     const handleSearchTypeChange = (event) => {
         setSearchProps({...searchProps, type: event.target.value})
@@ -68,6 +81,11 @@ export default function SearchForm() {
                 Search
                 </button>
             </form>
+            <code>
+                latitude: {latitude}<br/>
+                longitude: {longitude}<br/>
+                error: {error}
+            </code>
         </div>
     )
 }
