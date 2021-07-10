@@ -1,9 +1,9 @@
-body {
+/* body {
     height: 100vh;
     margin: 0;
     display: grid;
     place-items: center;
-}
+} */
 
 .rating-box {
     width: 300px;
