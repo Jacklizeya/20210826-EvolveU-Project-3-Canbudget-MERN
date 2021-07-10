@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useMemo} from "react"
-import searchData from "../../NearbySearch/searchData"
 import SearchTable from '../../NearbySearch/SearchTable'
 import SearchPropSelectors from '../../NearbySearch/SearchPropSelectors'
 import SearchableMap from '../../GoogleMap/SearchableMap'
@@ -19,8 +18,6 @@ let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/
   +'&location='+searchLat+','+searchLng
   +'&radius='+searchRadius
   +'&type='+searchType)
-
-
 
 export default function ResourceSearch() {
 

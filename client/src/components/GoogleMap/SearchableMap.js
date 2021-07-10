@@ -2,6 +2,7 @@ import React, {useState, useEffect, useMemo} from "react"
 import {
   GoogleMap,
   Marker,
+  InfoWindow,
   useLoadScript
 } from "@react-google-maps/api"
 import mapStyles from "./mapStyles"
@@ -37,6 +38,8 @@ export default function SearchableMap({data}) {
     lng: -114.1
   })
 
+  const [selectedMarker, setSelectedMarker] = useState(null)
+
   useEffect(() => {
     setMarkerList(data)
   }, [data])
@@ -58,10 +61,24 @@ export default function SearchableMap({data}) {
               return (
                 <Marker
                   key={marker.key}
+                  title={marker.name}
                   position={{lat: parseFloat(marker.geometry.location.lat), lng: parseFloat(marker.geometry.location.lng)}}
+                  onClick={() => {setSelectedMarker(marker)}}
                 />
               )
             })}
+            {selectedMarker ? 
+            (<InfoWindow 
+              position={{lat: selectedMarker.geometry.location.lat, lng: selectedMarker.geometry.location.lng}}
+              onCloseClick={() => {setSelectedMarker(null)}}
+              >
+              <div>
+                <h2>{selectedMarker.name}</h2>
+                <p>{selectedMarker.address}</p>
+                <p>{selectedMarker.rating}</p>
+              </div>
+            </InfoWindow>) 
+            : null}
           </GoogleMap>
     </div>
   )
