@@ -11,6 +11,7 @@ import SignUp from './components/pages/SignUp';
 import ApexCharts from './components/pages/ApexCharts';
 import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
+import SearchForm from './components/NearbySearch/SearchForm';
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path='/sign-up' exact component={SignUp} />
           <Route path='/apex-charts' exact component={ApexCharts} />
           <Route path='/map' exact component={ResourceSearch} />
+          <Route path='/form' exact component={SearchForm} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
         </Switch>
         <Footer />
