@@ -3,16 +3,18 @@ import styled from 'styled-components';
 
 export const PromotionWrapper = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    /* flex-wrap: wrap; */
+    justify-content: space-space-around;
     background: #fff;
     padding: 50px; 
 
-
+    @media screen and (max-width: 1480px) {
+        flex-wrap: wrap;
+    }
 `;
 
 export const PromotionCard= styled.div`
-    margin: auto;
+    margin: 20px auto;
     width: 450px;
     /* height: 600px; */
     /* overflow: scroll; */
@@ -33,15 +35,11 @@ export const PromotionCard= styled.div`
         transition: all 0.3s ease-out;
     }
 
-    @media screen and (max-width: 960px) {
-        margin: 30px;
-        
-    }
+    /* @media screen and (max-width: 1480px) {
+        margin: 20px;
+    } */
 
-    @media screen and (max-width: 480px) {
-        margin: 30px;
-       
-    }
+
 `;
 
 export const PromotionImg = styled.div`

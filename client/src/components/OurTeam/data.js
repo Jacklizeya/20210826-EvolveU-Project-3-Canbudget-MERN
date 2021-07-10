@@ -8,7 +8,7 @@ export const memberData = [
         img: member1,
         alt: 'member1',
         name: 'Iryna Tarasenko',
-        desc:'Motivated, ambitious and driven Web Developer with sense of responsibility. Design Engineer',
+        desc:'Motivated, ambitious and driven Web Developer with high sense of responsibility. Design Engineer',
         linkedin: 'https://www.linkedin.com/in/iryna-tarasenko',
         github: 'https://github.com/Irynatar'
     },

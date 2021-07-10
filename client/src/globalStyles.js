@@ -1,11 +1,23 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+body{
+    min-height: 100vh;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between; 
 }
 `;
 
