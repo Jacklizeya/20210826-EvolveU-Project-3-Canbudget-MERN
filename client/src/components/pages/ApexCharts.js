@@ -1,15 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {} from 'react';
 import RadialBar from '../ApexCharts/RadialBar'
 import Donut from '../ApexCharts/Doughnut';
 import Line from '../ApexCharts/Line';
+import AssetDashboard from '../ApexCharts/Dashboards/AssetDashboard';
 
 function ApexCharts() {
 
  return (
     <div style={{display:'flex', flexFlow:'row wrap'}}>
-        <Donut />
-        <Line />
-        <RadialBar />
+        <div style={{display:'flex', flexFlow:'row wrap'}}>
+            <AssetDashboard />
+        </div>
+        <div><Line /></div>
+        <div><RadialBar /></div>
+        <div><Donut /></div>
     </div>
  )
 }

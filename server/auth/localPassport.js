@@ -7,8 +7,9 @@ passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'passwor
     async function (username, password, done) {
         console.log('Passport is asking to authenticate user: ', username, ' with password ', password);
         try {
-            const user = await userDB.checkLogin();
+            const user = await userDB.checkLogin(username, password);
             if (user) {
+                //console.log(user);
                 return done(null, user);
             } else {
                 return done(null, false, { message: 'Incorrect email or password' })
