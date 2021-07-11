@@ -1,18 +1,35 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios"
-import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, tdContainButton} from "./assetAndBudget.elements"
+import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
+import {  FaSortUp, FaSortDown } from "react-icons/fa"
+import {Modal} from "./AssetModal"
 
 function Asset() {
     const [users, setUsers] = useState([])  
     const [user, setUser] = useState({})
+    const [userBalanceSheet, setUserBalanceSheet] = useState([])
+
     const [name, setName] = useState("")
-    const [type, setType] = useState("")
+    const [type, setType] = useState("asset")
     const [value, setValue] = useState(0)
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
+
     const [addstatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
-    const [sortDirection, setSortDirection] = useState(1)
+
+    //  This is the control the sorting table   
+    const [nameOpacity, setNameOpacity] = useState(0.5)
+    const [typeOpacity, setTypeOpacity] = useState(0.5)
+    const [valueOpacity, setValueOpacity] = useState(0.5)
+    //  This is the sort Indication    
+    const [sortIndicator, setSortIndicator] = useState("")
+    const [sortDirectionName, setSortDirectionName] = useState(1)
+    const [sortDirectionType, setSortDirectionType] = useState(1)
+    const [sortDirectionValue, setSortDirectionValue] = useState(1)
+ // This is for Modal
+    const [nameToDelete, setNameToDelete] = useState("")
+    const [displayModal, setDisplayModal] = useState(false)
 
     useEffect(() => {
         async function getUsers() {
@@ -26,29 +43,42 @@ function Asset() {
         setDeleteStatus(0)
     }, [addstatus, deleteStatus])
 
+    useEffect(() => {
+        if (user.balanceSheet){ setUserBalanceSheet(user.balanceSheet) } else {}
+     }, [user])
+
+    useEffect(()=>{
+        if (sortIndicator === "name") {      setNameOpacity(1.0); setTypeOpacity(0.5); setValueOpacity(0.5); }
+        else if (sortIndicator === "type") { setNameOpacity(0.5); setTypeOpacity(1.0); setValueOpacity(0.5); }
+        else if (sortIndicator === "value") {setNameOpacity(0.5); setTypeOpacity(0.5); setValueOpacity(1.0); }
+        else {setNameOpacity(0.5); setTypeOpacity(0.5); setValueOpacity(0.5);} 
+    },
+    [sortIndicator]
+    ) 
 
     async function addNewBalanceSheet(event, id) {
         event.preventDefault()
-        let newBalanceSheet = {name: name.toLowerCase(), type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
+        let newBalanceSheet = {name: name.toLowerCase(), type: type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
         console.log("newBalanceSheet", newBalanceSheet)
         let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
             setName("")
-            setType("")
+            setType("asset")
             setValue(0)
             setChangeMonthToMonth(0)
             setAddStatus(data.ok)
+            setSortIndicator("")
         }
     }
 
-    async function deleteBalanceSheet(event, id) {
-        let nameOfItemToRemove = event.target.value
-        console.log(nameOfItemToRemove)
-        let {data} = await axios.put(`/api/user/${id}/deletebalancesheet/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
-        if (data.ok) {
-            setDeleteStatus(data.ok)
-        }
-    }
+    // async function deleteBalanceSheet(event, id) {
+    //     let nameOfItemToRemove = event.target.value
+    //     console.log(nameOfItemToRemove)
+    //     let {data} = await axios.put(`/api/user/${id}/deletebalancesheet/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
+    //     if (data.ok) {
+    //         setDeleteStatus(data.ok)
+    //     }
+    // }
 
     function editItem(event) {
     // continue tomorrow
@@ -65,12 +95,14 @@ function Asset() {
 
     function sortArrayBy(event) {
         console.log("I want to sort by", event.target.id)
+        setSortIndicator(event.target.id)
         let userCopy = {...user}
         userCopy.balanceSheet.sort(
             (a,b)=>{
-                    if (event.target.id === "value") {setSortDirection(sortDirection * -1); console.log(sortDirection); return (a[event.target.id]-b[event.target.id]) * sortDirection} 
-                    else { setSortDirection(sortDirection * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirection}
-            }
+                if (event.target.id === "name") { setSortDirectionName(sortDirectionName * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionName}
+                else if (event.target.id === "type") { setSortDirectionType(sortDirectionType * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionType}
+                else if (event.target.id === "value") {setSortDirectionValue(sortDirectionValue * -1); return (a[event.target.id]-b[event.target.id]) * sortDirectionValue} 
+                }
             )
         console.log(userCopy)
         setUser(userCopy)
@@ -81,25 +113,28 @@ function Asset() {
  return (
     <>
         <Heading1> Balance Sheet </Heading1>
-        {
-
-            user.balanceSheet  ? 
+        <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} itemname={nameToDelete} userid={user._id} setDeleteStatus={setDeleteStatus} setSortIndicator={setSortIndicator}> </Modal>
+        
+            {user.email  ? 
             <div key={user.firstName + "Asset"}>
-            <Descriptiondiv> 
-            Name: {user.firstName} {user.lastName} <br/>
-            Email: {user.email} <br/>
-            Address: {user.address} <br/>
-            Phonenumber: {user.phoneNumber} <br/> <br/>
-            </Descriptiondiv>
+                <Descriptiondiv> 
+                Name: {user.firstName} {user.lastName} <br/>
+                Email: {user.email} <br/>
+                Address: {user.address} <br/>
+                Phonenumber: {user.phoneNumber} <br/> <br/>
+                </Descriptiondiv>
 
-
-                <Tablediv>
+                {userBalanceSheet? 
+                    <Tablediv>
                     <table> 
                         <thead>
                             <tr key="itemname">
-                                <th id="name" onClick={event => sortArrayBy(event)}> item name </th>
-                                <th id="type" onClick={event => sortArrayBy(event)}> type </th>
-                                <th id="value" onClick={event => sortArrayBy(event)}> value </th>
+                                <th id="name" onClick={event => sortArrayBy(event)}> item name 
+                                {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }</th>
+                                <th id="type" onClick={event => sortArrayBy(event)}> type 
+                                {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }</th>
+                                <th id="value" onClick={event => sortArrayBy(event)}> value 
+                                {sortDirectionValue > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortDown> }</th>
                                 <th> changeMonthToMonth </th>
                                 <th> edit </th>
                                 <th> delete </th>
@@ -107,12 +142,12 @@ function Asset() {
                         </thead>
                         
                         <tbody>
-                        {user.balanceSheet.map(
+                        {userBalanceSheet.map(
                             (singleBalanceSheet, index) => 
                             <tr key={singleBalanceSheet.name}>
                                 <td> {singleBalanceSheet.name} </td>
                                 <td> {singleBalanceSheet.type} </td>
-                                <td> {singleBalanceSheet.value} </td>
+                                <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>
                                 <td> {singleBalanceSheet.changeMonthToMonth} </td>    
                                 <td> 
                                     <a href="#form">
@@ -122,7 +157,7 @@ function Asset() {
                                     </a>
                                 </td> 
                                 <td>
-                                    <button onClick={(event)=> deleteBalanceSheet(event, user._id)} value={singleBalanceSheet.name}>
+                                    <button onClick={()=>{setNameToDelete(singleBalanceSheet.name); setDisplayModal(prev => !prev)}}>
                                         <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
                                     </button> 
                                 </td>     
@@ -133,15 +168,18 @@ function Asset() {
                         <tfoot>
                             <tr key="itemname">
                                 <TableBottomData> Sum </TableBottomData>
-                                <TableBottomData value = {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)}>  {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)} </TableBottomData>
                                 <TableBottomData>   </TableBottomData>
+                                <TableBottomData value = {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)}>  {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)} </TableBottomData>
+                                
                                 <TableBottomData>   </TableBottomData>
                                 <TableBottomData>   </TableBottomData>
                                 <TableBottomData>   </TableBottomData>
                             </tr>
                         </tfoot>                 
                     </table> 
-                </Tablediv>   
+                </Tablediv>     
+                    : null}
+                  
                 
                 <br/> 
 
@@ -153,8 +191,10 @@ function Asset() {
                             <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)} }/> <br/>
 
                             <label> Type </label>
-                            <input type="text" required value={type} onChange={(event)=>{setType(event.target.value)}}/> <br/>
-                            
+                            <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
+                                <option value="asset"> asset </option>
+                                <option value="liability"> liability </option>
+                                </select>   <br/>
                             <label> value </label>
                             <input type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/> <br/>
                             <label> changeMonthToMonth </label>
