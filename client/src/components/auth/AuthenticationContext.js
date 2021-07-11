@@ -6,6 +6,7 @@ const AuthenticationContext = React.createContext({
 
     isLogedIn: () => {},
     isAdmin: ()=> {},
+    isUser: () =>{},
     logIn: (username, isAgent) => {},
     logOut: () => {}
 

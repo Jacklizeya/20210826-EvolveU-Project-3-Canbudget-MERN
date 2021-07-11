@@ -2,25 +2,23 @@ import styled from 'styled-components';
 
 export const LoginFormDiv = styled.div`
 
-position: relative;
+
 h1 {
   text-align: center;
 }
 
 
 input, select, textarea {
-display:block;
-margin: auto;
 
-
-width: 25%; /* Full width */
-padding: 12px; /* Some padding */ 
-border: 1px solid #ccc; /* Gray border */
-border-radius: 4px; /* Rounded borders */
-box-sizing: border-box; /* Make sure that padding and width stays in place */
-margin-top: 6px; /* Add a top margin */
-margin-bottom: 6px; /* Bottom margin */
-
+    display:block;
+    margin: auto;
+    width: 40%; /* Full width */
+    padding: 12px; /* Some padding */ 
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 0px; /* Add a top margin */
+    margin-bottom: 6px; /* Bottom margin */
 }
 
 label,p {
@@ -30,21 +28,50 @@ label,p {
   position: relative;
   text-align:left;
   font-family: "Lucida Console", "Courier New", monospace;
-
-  width: 25%; /* Full width */
-
+  width: 40%; /* Full width */
   margin-top: 6px; /* Add a top margin */
- 
 }
+ 
 p {
-  color: "red";
+    color: #800000;
 }
 
-button{
-  justify-content: center;
-  position:relative;
-  display:inline-block;
-  vertical-align:middle;
-}
-}
 `
+
+
+export const SubmitCancelButtons = styled.div`
+    display: flex; 
+    justify-content: center;  
+    `
+
+
+export const SubmitButton8 = styled.button`
+    color: white;
+    background: #01345B;
+    margin:1em;
+    font-size: 1em;
+
+    `
+
+export const SubmitButton2 = styled.button`
+    background: #01345B;
+    font-size: 1em;
+    padding: 0em 0em ;
+
+    margin: 0 auto;
+    display: block;
+ 
+`
+
+export const SubmitButton = styled.button`
+    color: white;
+    background: #01345B;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border: 2px solid #01345B;
+    border-radius: 3px;
+    margin: 0.25em 0.5em;
+`;
+
+
+

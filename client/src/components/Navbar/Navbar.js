@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useContext } from "react";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
-import { animateScroll as scroll, scroller} from 'react-scroll';
+import { animateScroll as scroll, scroller } from 'react-scroll';
 import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtnLink } from './Navbar.elements';
+import AuthenticationContext from '../auth/AuthenticationContext';
 
 
 const Navbar = () => {
+    const loginContext = useContext(AuthenticationContext);
+    let showLogin = !loginContext.isLogedIn();
+    let showSignUp = !loginContext.isLogedIn() || loginContext.isAdmin();
+    let showPrivate = loginContext.isUser();
 
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
-    
+
 
     const showButton = () => {
-        if(window.innerWidth <= 960) {
+        if (window.innerWidth <= 960) {
             setButton(false)
         } else {
             setButton(true)
@@ -22,7 +28,7 @@ const Navbar = () => {
 
     useEffect(() => {
         showButton()
-        
+
     }, [])
 
     window.addEventListener('resize', showButton);
@@ -35,9 +41,9 @@ const Navbar = () => {
     };
 
     const scrollTo = (targetEl) => {
-     
+
         return () => {
-    
+
             scroller.scrollTo(targetEl, {
                 duration: 800,
                 delay: 0,
@@ -50,7 +56,7 @@ const Navbar = () => {
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#fff'}}>
+            <IconContext.Provider value={{ color: '#fff' }}>
                 <Nav>
                     <NavbarContainer>
                         <NavLogo to='/' onClick={toggleHome}>
@@ -63,7 +69,7 @@ const Navbar = () => {
                         <NavMenu onClick={handleClick} click={click}>
                             <NavItem>
                                 <NavLinks to='' onClick={toggleHome} >
-                                    Home 
+                                    Home
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
@@ -76,34 +82,54 @@ const Navbar = () => {
                                     Advisors
                                 </NavLinks>
                             </NavItem>
-                            <NavItem>
-                                <NavLinks to='/budget'>
-                                    Budget
-                                </NavLinks>
-                            </NavItem>
-                            <NavItem>
-                                <NavLinks to='/asset'>
-                                    Asset
-                                </NavLinks>
-                            </NavItem>
+                            {showPrivate &&
+                                <NavItem>
+                                    <NavLinks to='/budget'>
+                                        Budget
+                                    </NavLinks>
+                                </NavItem>
+                            }
+                            {showPrivate &&
+                                <NavItem>
+                                    <NavLinks to='/asset'>
+                                        Asset
+                                    </NavLinks>
+                                </NavItem>
+                            }
                             <NavItem>
                                 <NavLinks to='/#our-team' onClick={scrollTo('our-team')}>
                                     Our Team
                                 </NavLinks>
                             </NavItem>
-                            <NavItemBtn>
-                                {button ? (
-                                    <NavBtnLink to='/sign-up'>
-                                        <Button primary>Sign Up</Button>
-                                </NavBtnLink>
-                                ) : (
-                                    <NavBtnLink to='/sign-up'>
-                                        <Button onClick={closeMobileMenu} fontBig primary>
-                                            Sign Up
-                                        </Button>
-                                    </NavBtnLink>
-                                )}
-                            </NavItemBtn>
+                            {showLogin &&
+                                <NavItem>
+                                    <NavLinks to='/login'>
+                                        Login
+                                    </NavLinks>
+                                </NavItem>
+                            }
+                            {!showLogin &&
+                                <NavItem>
+                                    <NavLinks to='/logout'>
+                                        Logout
+                                    </NavLinks>
+                                </NavItem>
+                            }
+                            {showSignUp &&
+                                <NavItemBtn>
+                                    {button ? (
+                                        <NavBtnLink to='/sign-up'>
+                                            <Button primary>Sign Up</Button>
+                                        </NavBtnLink>
+                                    ) : (
+                                        <NavBtnLink to='/sign-up'>
+                                            <Button onClick={closeMobileMenu} fontBig primary>
+                                                Sign Up
+                                            </Button>
+                                        </NavBtnLink>
+                                    )}
+                                </NavItemBtn>
+                            }
                         </NavMenu>
                     </NavbarContainer>
                 </Nav>

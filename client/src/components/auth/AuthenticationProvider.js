@@ -60,7 +60,12 @@ const AuthenticationProvider = ({ children }) => {
 
 
     const isAdmin = () => {
-        return isLogedIn && (userType==='admin');
+        return isLogedIn && (userType==='administrator');
+    }
+
+    
+    const isUser = () => {
+        return isLogedIn && (userType==='general user');
     }
 
     let contextValue = {
@@ -68,6 +73,7 @@ const AuthenticationProvider = ({ children }) => {
         userType,
         isLogedIn,
         isAdmin,
+        isUser,
         logIn,
         logOut
     }

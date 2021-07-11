@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import AuthenticationContext from "./AuthenticationContext"
 //import Navbar from "../components/Navbar"
 
-import { LoginFormDiv } from "./login.elements"
+import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "./login.elements"
 
 function Login({ successURL, cancelURL }) {
     const loginContext = useContext(AuthenticationContext);
@@ -20,22 +20,18 @@ function Login({ successURL, cancelURL }) {
         errorMessage = await loginContext.logIn(values.email, values.password);
         if (errorMessage === "") {
             clearErrors();
-            if (successURL !=="" ) {
-                history.push(successURL);
-            }
+            history.push(successURL !== "" ? successURL : "/");           
         } else {
             setError("password",
                 { type: "server", message: errorMessage })
-    
-        }
 
-        alert(errorMessage + "   logedin=" + loginContext.isLogedIn() + " admin=" + loginContext.isAdmin() + " uesrtype=" + loginContext.userType + "  id=" + loginContext.id);
+        }
+        // alert(errorMessage + "   logedin=" + loginContext.isLogedIn() + " admin=" + loginContext.isAdmin() + " uesrtype=" + loginContext.userType + "  id=" + loginContext.id);
     }
 
-    function onCancel(){
-        if (cancelURL !=="") {
-            history.push(cancelURL);
-        }
+    function onCancel() {
+        // alert("cancel "+cancelURL)
+        history.push(cancelURL !== "" ? cancelURL : "/");
     }
 
     return (
@@ -65,8 +61,10 @@ function Login({ successURL, cancelURL }) {
                             {errors.password?.type === 'required' && <p>Password is required</p>}
                             {errors.password?.type === 'server' && <p>{errors.password.message}</p>}
                         </div>
-                            <button type="submit">Submit</button>
-                            <button type="button" onClick={onCancel }>Cancel</button>
+                        <SubmitCancelButtons>
+                            <SubmitButton type="submit"> Submit </SubmitButton>
+                            <SubmitButton type="reset"  onClick={onCancel}> Cancel </SubmitButton>
+                        </SubmitCancelButtons>
                     </div >
                 </form>
             </LoginFormDiv>
