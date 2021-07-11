@@ -3,32 +3,30 @@ import axios from "axios"
 import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "./Modal"
-import GlobalStyle from '../../globalStyles';
-
+import {Modal} from "./BudgetModal"
  
 function Budget() {
 
     const [users, setUsers] = useState([])   
     const [user, setUser] = useState({})
     const [userCashFlow, setUserCashFlow] = useState([])
+
     const [name, setName] = useState("")
     const [type, setType] = useState("expense")
     const [amount, setAmount] = useState(0)
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
+
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
-
-
-    
+//  This is the control the sorting table   
     const [nameOpacity, setNameOpacity] = useState(0.5)
     const [typeOpacity, setTypeOpacity] = useState(0.5)
     const [amountOpacity, setAmountOpacity] = useState(0.5)
     const [startDateOpacity, setStartDateOpacity] = useState(0.5)
     const [endDateOpacity, setEndDateOpacity] = useState(0.5)
-    
+//  This is the sort Indication    
     const [sortIndicator, setSortIndicator] = useState("")
     const [sortDirectionName, setSortDirectionName] = useState(1)
     const [sortDirectionType, setSortDirectionType] = useState(1)
@@ -41,7 +39,6 @@ function Budget() {
 
     const [nameToDelete, setNameToDelete] = useState("")
     const [displayModal, setDisplayModal] = useState(false)
-
 
     useEffect(() => {
         async function getUsers() {
@@ -82,6 +79,7 @@ function Budget() {
         else if (sortIndicator === "amount") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(1.0); setStartDateOpacity(0.5); setEndDateOpacity(0.5)}
         else if (sortIndicator === "startDate") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(1.0); setEndDateOpacity(0.5)}
         else if (sortIndicator === "endDate") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(1.0)}
+        else {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(0.5)} 
     },
     [sortIndicator]
     )
@@ -105,6 +103,7 @@ function Budget() {
             setStartDate("")
             setEndDate("")
             setAddStatus(data.ok)
+            setSortIndicator("")
         }
     }
 
@@ -151,7 +150,7 @@ function Budget() {
  return (
     <div>
             <Heading1> Cash Flow </Heading1>
-            <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} itemname={nameToDelete} userid={user._id} setDeleteStatus={setDeleteStatus}> </Modal>
+            <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} itemname={nameToDelete} userid={user._id} setDeleteStatus={setDeleteStatus} setSortIndicator={setSortIndicator}> </Modal>
             
                 
                 {user.email ? 
