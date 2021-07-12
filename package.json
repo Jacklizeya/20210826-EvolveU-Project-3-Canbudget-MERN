@@ -1,0 +1,25 @@
+{
+  "name": "canbudget",
+  "version": "1.0.0",
+  "description": "budget simulator",
+  "main": "index.js",
+  "engines": {"node" : "14.x"},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "npm run install-server $$ npm run install-client",
+    "install-server": "cd server && npm install & cd ..",
+    "install-client": "cd client && npm install & cd ..",
+    "build": "cd client && npm run build && cd ..",
+    "start": "cd server && npm start"
+    },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vzhukovtnv/CanBudget.git"
+  },
+  "author": "EvolveU canBudget Team Jack Brady Iryna Vlad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vzhukovtnv/CanBudget/issues"
+  },
+  "homepage": "https://github.com/vzhukovtnv/CanBudget#readme"
+}

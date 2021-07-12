@@ -34,8 +34,9 @@ app.use(passport.session());
 // USE ROUTES: This needs to be in front of other default routes
 app.use('/api', apiRouter);
 
-app.use(express.static('../client/build'))
-
+app.use(express.static((process.env.NODE_ENV === "production")? ("../client/build") : (path.join(__dirname, 'public'))))
+// //  addinng this line in the deploy + refresh case, so it does not get lost when it is not started at the HomePage, this is a file path format
+app.get("*", (req, res) => {res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))})
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
