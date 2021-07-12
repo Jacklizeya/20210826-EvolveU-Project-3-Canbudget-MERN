@@ -6,7 +6,7 @@
   "engines": {"node" : "14.16.0"},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "npm run install-server $$ npm run install-client",
+    "install": "npm run install-server && npm run install-client",
     "install-server": "cd server && npm install & cd ..",
     "install-client": "cd client && npm install & cd ..",
     "build": "cd client && npm run build && cd ..",
