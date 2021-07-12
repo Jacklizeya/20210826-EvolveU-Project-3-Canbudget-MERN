@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useContext } from "react";
+import React, { useState, useEffect,useContext } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
@@ -130,6 +129,24 @@ const Navbar = () => {
                                     )}
                                 </NavItemBtn>
                             }
+                            {!showLogin &&
+                                <NavItemBtn>
+                                    {button ? (
+                                        <NavBtnLink to='/modifyclient'>
+                                            <Button primary>Personal information</Button>
+                                        </NavBtnLink>
+                                    ) : (
+                                        <NavBtnLink to='/modifyclient'>
+                                            <Button onClick={closeMobileMenu} fontBig primary>
+                                                Personal information
+                                            </Button>
+                                        </NavBtnLink>
+                                    )}
+                                </NavItemBtn>
+                            }
+
+
+
                         </NavMenu>
                     </NavbarContainer>
                 </Nav>

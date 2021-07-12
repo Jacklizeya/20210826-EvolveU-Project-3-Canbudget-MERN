@@ -1,6 +1,4 @@
-import React from 'react';
-import { useContext } from "react";
-
+import React, { useContext } from 'react';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Navbar, Footer } from './components';
@@ -8,8 +6,10 @@ import Home from './components/pages/HomePage/Home';
 import Advisors from './components/pages/Advisors';
 import Budget from './components/pages/Budget';
 import Asset from './components/pages/Asset';
+import Stocks from './components/Stocks/Stocks';
 // import OurTeam from './components/pages/OurTeam';
-import SignUp from './components/pages/SignUp';
+import SignUp from './components/auth/SignUp';
+import ModifyClientPage from './components/auth/ModifyClientPage';
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import NotFound from './components/pages/NotFound';
@@ -22,8 +22,6 @@ import SearchForm from './components/NearbySearch/SearchForm';
 
 
 function App() {
-  //const loginContext = useContext(AuthenticationContext);
-  // alert("loginContext.isUser()="+ loginContext.isUser())
   return (
     <AuthenticationProvider>
       <Router>
@@ -38,17 +36,6 @@ function App() {
           <Route path='/form' exact component={SearchForm} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
 
-          <ConditionalRoute condition={()=>{return !UseAuth().isLogedIn()}} 
-            path='/login' exact>
-              <Login/>
-          </ConditionalRoute >
-
-
-          <ConditionalRoute condition={()=>{return UseAuth().isLogedIn()}} 
-            path='/logout' exact>
-              <Logout/>
-          </ConditionalRoute >
-
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
             path='/budget' exact>
             <Budget />
@@ -59,10 +46,29 @@ function App() {
             <Asset/>
           </ConditionalRoute>
 
+          <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
+            path='/stocks' exact>
+            <Stocks/>
+          </ConditionalRoute>
+
+          <ConditionalRoute condition={()=>{return !UseAuth().isLogedIn()}} 
+            path='/login' exact>
+              <Login/>
+          </ConditionalRoute >
+
+          <ConditionalRoute condition={()=>{return UseAuth().isLogedIn()}} 
+            path='/logout' exact>
+              <Logout/>
+          </ConditionalRoute >
 
           <ConditionalRoute condition={()=>{const lc = UseAuth(); return !lc.isLogedIn() || lc.isAdmin()}} 
             path='/sign-up' exact>
              <SignUp/>
+          </ConditionalRoute >
+
+          <ConditionalRoute condition={()=>{return UseAuth().isLogedIn()}} 
+            path='/modifyclient' exact>
+             <ModifyClientPage/>
           </ConditionalRoute >
 
           <Route path='*' component={NotFound} />
