@@ -31,7 +31,7 @@ export default function ResourceSearch() {
   useEffect(() => {
     async function getUsers() {
       try {
-        let {data} = await axios.get(`/api/nearbySearch`)
+        let {data} = await axios.get(`/api/textSearch`)
         setSearchResults(data)
       } catch (error) {
         console.error(error)
