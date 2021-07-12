@@ -38,16 +38,16 @@ function App() {
           <Route path='/form' exact component={SearchForm} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
 
-          <ConditionalRouteHome condition={()=>{return !UseAuth().isLogedIn()}} 
+          <ConditionalRoute condition={()=>{return !UseAuth().isLogedIn()}} 
             path='/login' exact>
               <Login/>
-          </ConditionalRouteHome >
+          </ConditionalRoute >
 
 
-          <ConditionalRouteHome condition={()=>{return UseAuth().isLogedIn()}} 
+          <ConditionalRoute condition={()=>{return UseAuth().isLogedIn()}} 
             path='/logout' exact>
               <Logout/>
-          </ConditionalRouteHome >
+          </ConditionalRoute >
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
             path='/budget' exact>
@@ -65,7 +65,6 @@ function App() {
              <SignUp/>
           </ConditionalRoute >
 
-          <Route path='/notfound' exact component={NotFound} />
           <Route path='*' component={NotFound} />
 
         </Switch>
@@ -79,35 +78,6 @@ function UseAuth() {
   return useContext(AuthenticationContext);
 }
 
-
-// function PrivateRoute({ children, condition, ...rest }) {
-//   return (
-//     <Route {...rest} render={({ location }) =>
-//         auth.user ? (children) :
-//         (<Redirect to={{ pathname: '/login', state: { from: location } }} />)
-//       }
-//     />
-//   )
-// }
-
-
-// function ConditionalRoute3({ condition, component, ...rest }) {
-//   alert("component=", component)
-//   return (
-//     <Route
-//       {...rest}
-//       render={(location) => {
-//         return (
-//           condition ?
-//             ({ component })
-//             :
-//             <Redirect to={{ pathname: "/notfound", state: { from: location } }} />
-//         )
-//       }
-//       }
-//     />
-//   )
-// }
 
 // function ConditionalRoute2({ condition, component, path, component2, path2, ...rest }) {
 //   return (
@@ -128,27 +98,6 @@ function UseAuth() {
 
 
 function ConditionalRoute({ children, condition, ...rest }) {
-  let condition2 = condition();
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        condition2 ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/notfound",
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
-function ConditionalRouteHome({ children, condition, ...rest }) {
   let condition2 = condition();
   return (
     <Route

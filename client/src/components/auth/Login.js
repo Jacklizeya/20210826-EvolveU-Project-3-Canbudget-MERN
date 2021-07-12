@@ -13,7 +13,7 @@ function Login({ successURL, cancelURL }) {
     const loginContext = useContext(AuthenticationContext);
     const history = useHistory();
 
-    const { register, setError, clearErrors, formState: { errors }, handleSubmit } = useForm();
+    const { register, setError, clearErrors, formState: { errors }, handleSubmit,reset } = useForm();
     let errorMessage = "";
 
     async function onSubmit(values) {
@@ -30,8 +30,10 @@ function Login({ successURL, cancelURL }) {
     }
 
     function onCancel() {
-        // alert("cancel "+cancelURL)
+        clearErrors();
+        alert("cancel "+cancelURL)
         history.push(cancelURL !== "" ? cancelURL : "/");
+        reset();
     }
 
     return (
