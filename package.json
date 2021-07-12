@@ -6,10 +6,11 @@
   "engines": {"node" : "14.x"},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "install-server": "cd server && npm install && cd ..",
+    "install-client": "cd client && npm install && cd ..",
+    "build-client": "cd client && npm run build && cd ..",
     "install": "npm run install-server && npm run install-client",
-    "install-server": "cd server && npm install & cd ..",
-    "install-client": "cd client && npm install & cd ..",
-    "build": "cd client && npm run build && cd ..",
+    "build": "npm run build-client",
     "start": "cd server && npm start"
     },
   "repository": {
