@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo} from "react"
 import SearchTable from '../../NearbySearch/SearchTable'
-import SearchPropSelectors from '../../NearbySearch/SearchPropSelectors'
 import SearchableMap from '../../GoogleMap/SearchableMap'
+import SearchForm from "../../NearbySearch/SearchForm"
 import './ResourceSearch.css'
 
 const axios = require('axios');
@@ -22,6 +22,11 @@ let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/
 export default function ResourceSearch() {
 
   const [searchResults, setSearchResults] = useState([])
+  const [apiUrl, setApiUrl] = useState(null)
+  const [runSearch, setRunSearch] = useState(false)
+
+  const sendDataFromForm = (data) => setApiUrl(data)
+  const sendSearchStatusFromForm = (data) => setRunSearch(data)
 
   useEffect(() => {
     async function getUsers() {
@@ -40,7 +45,7 @@ export default function ResourceSearch() {
 
   return (
     <div>
-      <SearchPropSelectors />
+      <SearchForm setApiUrl={sendDataFromForm} setRunSearch={sendSearchStatusFromForm}/>
       {data ?
         <div>
           <SearchableMap data={data}/>

@@ -2,7 +2,12 @@ import React, {useState, useEffect} from 'react'
 import './SearchForm.css'
 import { usePosition } from './Geolocation/usePosition'
 
-export default function SearchForm() {
+//'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+type+address+'&key='YOUR_API_KEY
+
+export default function SearchForm({ 
+    setApiUrl,
+    setRunSearch
+}) {
 
     const watch = true;
     const {
@@ -13,12 +18,15 @@ export default function SearchForm() {
 
     const [searchProps, setSearchProps] = useState({
         type: 'banking',
-        radius: null,
-        address: null,
+        radius: '',
+        address: '',
+        latitude: '',
+        longitude: ''
     })
 
     const [locationActive, setlocationActive] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+
 
     useEffect(() => {
         if (latitude && longitude) {
@@ -38,10 +46,22 @@ export default function SearchForm() {
     const handleAddressInputChange = (event) => {
         setSearchProps({...searchProps, address: event.target.value})
     }
-
+    
     const handleSubmit = (event) => {
         event.preventDefault()
         setSubmitted(true)
+
+        const inputToUrlString = () => {
+            let radiusString = '&radius='+(searchProps.radius*1000)
+            if (searchProps.address) {
+                setApiUrl(searchProps.type+'+near+'+searchProps.address.replace(/\s/g,'')+radiusString)
+            } else if (searchProps.latitude && searchProps.longitude) {
+                setApiUrl(searchProps.type+'&location='+searchProps.latitude+','+searchProps.longitude+radiusString)
+            }
+            setRunSearch(true)
+        }
+
+        inputToUrlString()
     }
     
     return (
