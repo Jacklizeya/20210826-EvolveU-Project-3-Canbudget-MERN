@@ -1,13 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from "axios"
 import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./BudgetModal"
- 
+import AuthenticationContext from '../auth/AuthenticationContext';
+
 function Budget() {
 
-    const [users, setUsers] = useState([])   
+    const {id} = useContext(AuthenticationContext)
+    console.log(id)
+
+    // const [users, setUsers] = useState([])   
     const [user, setUser] = useState({})
     const [userCashFlow, setUserCashFlow] = useState([])
 
@@ -42,10 +46,10 @@ function Budget() {
 
     useEffect(() => {
         async function getUsers() {
-            let {data} = await axios.get("/api/user", )
+            let {data} = await axios.get(`/api/user/${id}`, )
             console.log(data)
-            setUsers(data)
-            setUser(data[0])
+            // setUsers(data)
+            setUser(data)
             console.log("user", user)
         }
         console.log("enter use Effect")

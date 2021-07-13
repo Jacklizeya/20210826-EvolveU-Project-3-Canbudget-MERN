@@ -4,6 +4,19 @@ var router = express.Router();
 const userDB = require('../models/user');
 
 
+// get user by Id
+router.get('/:id', async (req, res) => {
+  try {
+  
+  let userId = req.params.id
+  console.log("getonlyone", userId)
+  let data = await userDB.findById(userId);
+  console.info(`Users retrieved: `, data?.length)
+  res.send(data);} catch (error) {res.send(error)}
+});
+
+
+// get all users
 router.get('/', async (req, res) => {
   try {let data = await userDB.getUserList();
   console.info(`Users retrieved: `, data?.length)

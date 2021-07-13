@@ -1,12 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from "axios"
 import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./AssetModal"
+import AuthenticationContext from '../auth/AuthenticationContext';
 
 function Asset() {
-    const [users, setUsers] = useState([])  
+
+    const {id} = useContext(AuthenticationContext)
+    console.log(id)
+
+    // const [users, setUsers] = useState([])  
     const [user, setUser] = useState({})
     const [userBalanceSheet, setUserBalanceSheet] = useState([])
 
@@ -33,10 +38,10 @@ function Asset() {
 
     useEffect(() => {
         async function getUsers() {
-            let {data} = await axios.get("/api/user", )
-            console.log(data)
-            setUsers(data)
-            setUser(data[0])
+            let {data} = await axios.get(`/api/user/${id}`, )
+            console.log("*****", data)
+            // setUsers(data)
+            setUser(data)
         }
         getUsers()
         setAddStatus(0)
@@ -44,7 +49,9 @@ function Asset() {
     }, [addstatus, deleteStatus])
 
     useEffect(() => {
-        if (user.balanceSheet){ setUserBalanceSheet(user.balanceSheet) } else {}
+        if (user.balanceSheet){ 
+            console.log("**balance sheet", user.balanceSheet)
+            setUserBalanceSheet(user.balanceSheet) } else {}
      }, [user])
 
     useEffect(()=>{
@@ -82,10 +89,10 @@ function Asset() {
 
     function editItem(event) {
     // continue tomorrow
-    console.log("edit", users, event.target.id)
+    
     let index = event.target.id
     // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-    let dataToEdit = users[0].balanceSheet[index]
+    let dataToEdit = user.balanceSheet[index]
     console.log(dataToEdit)
     setName(dataToEdit.name)
     setType(dataToEdit.type)
