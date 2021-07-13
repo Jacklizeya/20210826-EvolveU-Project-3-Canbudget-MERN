@@ -21,7 +21,7 @@ let nearbySearchURL = ('https://maps.googleapis.com/maps/api/place/nearbysearch/
 
 export default function ResourceSearch() {
 
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState(null)
   const [apiUrl, setApiUrl] = useState(null)
   const [runSearch, setRunSearch] = useState(false)
 
@@ -31,14 +31,18 @@ export default function ResourceSearch() {
   useEffect(() => {
     async function getUsers() {
       try {
-        let {data} = await axios.get(`/api/textSearch`)
+        let {data} = await axios.get(`/api/textSearch/${apiUrl}`)
         setSearchResults(data)
+        setRunSearch(false)
       } catch (error) {
         console.error(error)
       }
     }
-    getUsers()
-  }, [])
+    if (runSearch) {
+      console.log('Running search')
+      getUsers()
+    }
+  }, [apiUrl, runSearch])
 
   const data = useMemo(() => searchResults, [searchResults])
   console.log(data)
