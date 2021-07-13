@@ -24,7 +24,7 @@ const options = {
 }
 const googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
 
-export default function SearchableMap({data}) {
+export default function SearchableMap({data, userLocation}) {
   
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: googleApiKey,
@@ -35,11 +35,17 @@ export default function SearchableMap({data}) {
   const [markerList, setMarkerList] = useState(loadingMessage)
 
   const [mapCenter, setMapCenter] = useState({
-    lat: 51.01,
-    lng: -114.1
+    lat: 0,
+    lng: 0
   })
 
   const [selectedMarker, setSelectedMarker] = useState(null)
+
+  useEffect(() => {
+    if (userLocation) {
+      setMapCenter(userLocation)
+    }
+  }, [userLocation])
 
   useEffect(() => {
     setMarkerList(data)

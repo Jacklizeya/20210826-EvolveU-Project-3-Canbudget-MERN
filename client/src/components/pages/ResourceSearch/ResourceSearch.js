@@ -11,9 +11,11 @@ export default function ResourceSearch() {
   const [searchResults, setSearchResults] = useState(null)
   const [apiUrl, setApiUrl] = useState(null)
   const [runSearch, setRunSearch] = useState(false)
+  const [userLocation, setUserLocation] = useState(null)
 
   const sendDataFromForm = (data) => setApiUrl(data)
   const sendSearchStatusFromForm = (data) => setRunSearch(data)
+  const sendLocationFromForm = (data) => setUserLocation(data)
 
   useEffect(() => {
     async function getUsers() {
@@ -37,11 +39,11 @@ export default function ResourceSearch() {
   return (
     <div>
       <div style={{display:'flex', justifyContent:'center'}}>
-        <SearchForm setApiUrl={sendDataFromForm} setRunSearch={sendSearchStatusFromForm}/>
+        <SearchForm setApiUrl={sendDataFromForm} setRunSearch={sendSearchStatusFromForm}  setUserLocation={sendLocationFromForm}/>
       </div>
       {data ?
         <div>
-          <SearchableMap data={data}/>
+          <SearchableMap data={data} userLocation={userLocation}/>
           <SearchTable data={data}/>
         </div>
           : null}

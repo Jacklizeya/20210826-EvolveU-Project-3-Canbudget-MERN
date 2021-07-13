@@ -6,7 +6,8 @@ import { usePosition } from '../Geolocation/usePosition'
 
 export default function SearchForm({ 
     setApiUrl,
-    setRunSearch
+    setRunSearch,
+    setUserLocation
 }) {
 
     const watch = true;
@@ -32,6 +33,7 @@ export default function SearchForm({
         if (latitude && longitude) {
             setSearchProps({...searchProps, latitude: latitude, longitude: longitude})
             setlocationActive(true)
+            setUserLocation({lat:latitude, lng: longitude})
         }
     }, [latitude, longitude])
 

@@ -17,7 +17,7 @@ export default function SearchTable({data}) {
             <table>
                 <tbody>
                   <tr className='table-title-row'><th>Name</th><th>Address</th><th>Rating</th><th>Stars</th></tr>
-                  {mockData.map((row) => {
+                  {rows.map((row) => {
                       return (                                     
                         <tr key={row.key}>
                             <td><b>{row.name}</b></td>
