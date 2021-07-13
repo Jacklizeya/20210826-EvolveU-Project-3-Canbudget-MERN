@@ -13,7 +13,8 @@ const mapContainerStyle = {
   height: "685px",
   border: "4px solid #05386B",
   borderRadius: "20px",
-  minWidth: "775px"
+  minWidth: "775px",
+  boxShadow: "0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)"
 }
 
 const options = {

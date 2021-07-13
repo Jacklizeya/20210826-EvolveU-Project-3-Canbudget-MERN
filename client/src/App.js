@@ -17,7 +17,7 @@ import ApexCharts from './components/pages/ApexCharts';
 import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
-import SearchForm from './components/NearbySearch/SearchForm';
+import SearchTable from './components/NearbySearch/SearchTable/SearchTable';
 
 
 
@@ -33,7 +33,7 @@ function App() {
           <Route path='/advisors' exact component={Advisors} />
           <Route path='/apex-charts' exact component={ApexCharts} />
           <Route path='/map' exact component={ResourceSearch} />
-          <Route path='/form' exact component={SearchForm} />
+          <Route path='/table' exact component={SearchTable} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}

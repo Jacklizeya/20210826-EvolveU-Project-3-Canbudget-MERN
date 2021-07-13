@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react"
 import RatingStars from "./RatingStars"
+import mockData from '../searchData'
+import './SearchTable.css'
 
 export default function SearchTable({data}) {
 
-  console.log(data)
 
   const [rows, setRows] = useState(data)
 
@@ -15,14 +16,16 @@ export default function SearchTable({data}) {
         <div className="search-table">
             <table>
                 <tbody>
-                  <tr><th>Name</th><th>Address</th><th>Rating</th><th># of Ratings</th><th>Stars</th></tr>
-                  {rows.map((row) => {
+                  <tr className='table-title-row'><th>Name</th><th>Address</th><th>Rating</th><th>Stars</th></tr>
+                  {mockData.map((row) => {
                       return (                                     
-                        <tr key={row.key} >
-                            <td>{row.name}</td>
+                        <tr key={row.key}>
+                            <td><b>{row.name}</b></td>
                             <td>{row.address}</td>
-                            <td>{row.rating}</td>
-                            <td>{row.ratingCount}</td>
+                            <td>
+                              <div><b>{row.rating} / 5</b></div>
+                              <div>{row.ratingCount} Ratings</div>
+                            </td>
                             <RatingStars data={row} />
                         </tr>
                       )

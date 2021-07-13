@@ -13,6 +13,5 @@
 .search-table {
     display: flex;
     justify-content: center;
-    border: solid 2px black;
     margin: 20px;
 }
