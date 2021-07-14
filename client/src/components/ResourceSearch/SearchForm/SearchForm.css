@@ -1,6 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .form-container {
+  display: flex;
+  flex-direction: column;
   width: 80vw;
   background-color: white;
   margin: 20px;
@@ -11,7 +13,7 @@
 .search-form {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 10px;
 }
 
@@ -19,7 +21,9 @@
   font-family: "Roboto", sans-serif;
   background-color: #05386B;
   padding: 15px;
+  width: 95%;
   color: white;
+  align-self: center;
 }
 
 .form-field {

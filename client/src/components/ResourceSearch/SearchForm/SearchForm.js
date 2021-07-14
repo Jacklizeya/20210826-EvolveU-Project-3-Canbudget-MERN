@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react'
 import './SearchForm.css'
 import { usePosition } from '../Geolocation/usePosition'
 
-//'https://maps.googleapis.com/maps/api/place/textsearch/json?query='+type+address+'&key='YOUR_API_KEY
-
 export default function SearchForm({ 
     setApiUrl,
     setRunSearch,
