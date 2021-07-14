@@ -29,6 +29,7 @@ export default function SearchForm({
 
     const [locationActive, setlocationActive] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+    const [valid, setValid] = useState(false)
 
 
     useEffect(() => {
@@ -63,17 +64,25 @@ export default function SearchForm({
         event.preventDefault()
         setSubmitted(true)
 
-        const inputToUrlString = () => {
-            let radiusString = '&radius='+(searchProps.radius*1000)
-            if (searchProps.address) {
-                setApiUrl(searchProps.type+'+near+'+searchProps.address.replace(/\s/g,'+')+'+'+searchProps.city.replace(/\s/g,'')+'+'+searchProps.province+radiusString)
-            } else if (searchProps.latitude && searchProps.longitude) {
-                setApiUrl(searchProps.type+'&location='+searchProps.latitude+','+searchProps.longitude+radiusString)
+        const checkIfValid = () => {
+            let radiusString = searchProps.radius ? '&radius='+(searchProps.radius*1000) : ''
+
+            if (locationActive) {
+                if (searchProps.radius && searchProps.latitude && searchProps.longitude) {
+                    setApiUrl(searchProps.type+'&location='+searchProps.latitude+','+searchProps.longitude+radiusString)
+                    setValid(true)
+                    setRunSearch(true)
+                }
+            } else {
+                if (searchProps.address && searchProps.city && searchProps.province) {
+                    setApiUrl(searchProps.type+'+near+'+searchProps.address.replace(/\s/g,'+')+'+'+searchProps.city.replace(/\s/g,'')+'+'+searchProps.province+radiusString)
+                    setValid(true)
+                    setRunSearch(true)
+                }
             }
-            setRunSearch(true)
         }
 
-        inputToUrlString()
+        checkIfValid()
     }
     
     return (
@@ -102,8 +111,9 @@ export default function SearchForm({
                             type="text"
                             placeholder="Radius (km)"
                             name="radius"/>
-                        {/* Uncomment the next line to show the error message */}
-                        {/* <span id="address-error">Please enter an address</span> */}
+                        {locationActive && submitted && !searchProps.radius ? 
+                            <span id="radius-error">Please enter a radius</span> : null
+                        }
                     </div>
                     {locationActive ? null : 
                         <div className='form-row'>
@@ -115,6 +125,9 @@ export default function SearchForm({
                                 type="text"
                                 placeholder="Address"
                                 name="address"/>
+                            {submitted && !searchProps.address ? 
+                                <span id="address-error">Please enter an address</span> : null
+                            }
                             <input
                                 onChange={handleCityInputChange}
                                 value={searchProps.city}
@@ -123,6 +136,9 @@ export default function SearchForm({
                                 type="text"
                                 placeholder="City"
                                 name="city"/>
+                            {submitted && !searchProps.city ? 
+                                <span id="city-error">Please enter a city</span> : null
+                            }
                             <select 
                                 id='province' 
                                 name='province' 
@@ -150,7 +166,7 @@ export default function SearchForm({
                 Search
                 </button>
             </form>
-            {submitted ? <div className="success-message">Success! Thank you for searching</div> : null}
+            {submitted && valid ? <div className="success-message">Success! Thank you for searching</div> : null}
         </div>
     )
 }
