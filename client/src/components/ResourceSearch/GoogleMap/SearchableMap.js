@@ -6,6 +6,7 @@ import {
   useLoadScript
 } from "@react-google-maps/api"
 import mapStyles from "./mapStyles"
+import setZoom from './setZoom'
 
 const libraries = ["places"]
 const mapContainerStyle = {
@@ -39,14 +40,50 @@ export default function SearchableMap({data, userLocation}) {
     lng: 0
   })
 
+  const [mapZoom, setMapZoom] = useState(11.5)
+
   const [selectedMarker, setSelectedMarker] = useState(null)
 
   useEffect(() => {
-    if (userLocation) {
+    if (data) {
+      setMapCenter(data[0].geometry.location)
+    } else if (userLocation) {
       setMapCenter(userLocation)
-    } else if (data)
-    setMapCenter(data[0].geometry.location)
+    }
   }, [userLocation, data])
+
+  useEffect(() => {
+
+    function calculateCoordinateBounds() {
+      let latBounds = {minLat: data[0].geometry.location.lat, maxLat: data[0].geometry.location.lat}
+      let lngBounds = {minLng: data[0].geometry.location.lng, maxLng: data[0].geometry.location.lng}
+      for (let index in data) {
+        if (data[index].geometry.location.lat > latBounds.maxLat)
+          latBounds.maxLat = data[index].geometry.location.lat
+        else if (data[index].geometry.location.lat < latBounds.minLat) {
+          latBounds.minLat = data[index].geometry.location.lat
+        }
+        if (data[index].geometry.location.lng > lngBounds.maxLng)
+          lngBounds.maxLng = data[index].geometry.location.lng
+        else if (data[index].geometry.location.lng < lngBounds.minLng) {
+          lngBounds.minLng = data[index].geometry.location.lng
+        }
+      }
+      return {lat: latBounds, lng: lngBounds}
+    }
+    
+    let coordinateBounds = calculateCoordinateBounds()
+
+    if (data) {
+      setMapCenter({
+        lat: ((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat) / 2) + coordinateBounds.lat.minLat,
+        lng: ((coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng) / 2) + coordinateBounds.lng.minLng
+      })
+    } else if (userLocation) {
+      setMapCenter(userLocation)
+    }
+
+  }, [data, userLocation])
 
   useEffect(() => {
     setMarkerList(data)
@@ -61,7 +98,7 @@ export default function SearchableMap({data, userLocation}) {
         <div className='nearby-search-map'>
           <GoogleMap
               mapContainerStyle={mapContainerStyle}
-              zoom={11.5}
+              zoom={mapZoom}
               center={mapCenter}
               options={options}
           >
