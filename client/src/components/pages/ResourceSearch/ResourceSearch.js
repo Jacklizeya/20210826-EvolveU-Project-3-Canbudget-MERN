@@ -38,6 +38,10 @@ export default function ResourceSearch() {
 
   return (
     <div>
+      <div>
+        <h1>Search for resources below:</h1>
+        <h4>Let us help you connect with the resources you need to secure your financial future</h4>
+      </div>
       <div style={{display:'flex', justifyContent:'center'}}>
         <SearchForm setApiUrl={sendDataFromForm} setRunSearch={sendSearchStatusFromForm}  setUserLocation={sendLocationFromForm}/>
       </div>

@@ -21,7 +21,10 @@ export default function SearchTable({data}) {
                       return (                                     
                         <tr key={row.key}>
                             <td><b>{row.name}</b></td>
-                            <td>{row.address}</td>
+                            <td>
+                              <div>{row.address}</div>
+                              <div>{row.city}</div>
+                            </td>
                             <td>
                               <div><b>{row.rating} / 5</b></div>
                               <div>{row.ratingCount} Ratings</div>
