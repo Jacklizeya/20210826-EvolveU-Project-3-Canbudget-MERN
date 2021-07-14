@@ -5,7 +5,7 @@ import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./BudgetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import CheckIfLogedIn from '../../auth/CheckIfLogedIn';
+import CheckIfLogedIn from '../auth/CheckIfLogedIn'
 
 function Budget() {
 
