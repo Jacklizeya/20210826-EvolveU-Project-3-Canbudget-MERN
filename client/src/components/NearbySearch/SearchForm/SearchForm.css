@@ -17,7 +17,7 @@
 
 .success-message {
   font-family: "Roboto", sans-serif;
-  background-color: #3f89f8;
+  background-color: #05386B;
   padding: 15px;
   color: white;
 }
@@ -26,7 +26,6 @@
   margin: 10px 0 10px 0;
   padding: 15px;
   font-size: 16px;
-  width: 10vw;
   border: 0;
   font-family: "Roboto", sans-serif;
 }
@@ -38,6 +37,12 @@ span {
   margin-bottom: 15px;
 }
 
+select {
+  padding: 15px;
+  border: none;
+  background-color: #f1f1f1;
+}
+
 input {
   background: #f2f2f2;
 }
@@ -47,18 +52,46 @@ input {
   border: 2px solid #ffa4a4;
 }
 
-button {
+.search-button {
   background: #01345B;
   color: white;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
+  width: 15%;
 }
 
-button:disabled {
+.search-button:disabled {
   cursor: default;
+}
+
+.search-input {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 
 .form-row {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+#type {
+  width: 70%;
+}
+
+#radius {
+  width: 25%
+}
+
+#address {
+  width: 100%;
+}
+
+#city {
+  width: 83%;
+}
+
+#province {
+  width: 12%
 }

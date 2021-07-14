@@ -88,11 +88,11 @@ export default function SearchForm({
     return (
         <div className="form-container">
             <form className="search-form" onSubmit={handleSubmit}>
-                <div style={{display: 'flex', flexDirection: 'column', width: '60vw'}}>
+                <div className='search-input'>
                     <div className='form-row'>
                         <select 
-                            id='category' 
-                            name='category' 
+                            id='type' 
+                            name='type'
                             value={searchProps.type} 
                             onChange={handleSearchTypeChange}
                         >
@@ -162,7 +162,7 @@ export default function SearchForm({
                         </div>
                     }
                 </div>
-                <button className="form-field" type="submit">
+                <button className="search-button" type="submit">
                 Search
                 </button>
             </form>
