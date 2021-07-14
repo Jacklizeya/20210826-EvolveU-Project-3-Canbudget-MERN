@@ -31,8 +31,7 @@ function Login({ successURL, cancelURL }) {
 
     function onCancel() {
         clearErrors();
-        alert("cancel "+cancelURL)
-        history.push(cancelURL !== "" ? cancelURL : "/");
+        history.push(cancelURL  ? cancelURL : "/");
         reset();
     }
 

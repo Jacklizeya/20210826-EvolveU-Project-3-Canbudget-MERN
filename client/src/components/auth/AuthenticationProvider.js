@@ -68,6 +68,13 @@ const AuthenticationProvider = ({ children }) => {
         return isLogedIn && (userType==='general user');
     }
 
+    const setUserAgain = (id, userType) => {
+        setId(id);
+        setUserType(userType);
+        contextValue.id = id;
+        contextValue.userType=userType;
+    }
+
     let contextValue = {
         id, 
         userType,
@@ -75,9 +82,10 @@ const AuthenticationProvider = ({ children }) => {
         isAdmin,
         isUser,
         logIn,
-        logOut
+        logOut,
+        setUserAgain
     }
-
+      
     return (
         <AuthenticationContext.Provider value={ contextValue }>
             { children }

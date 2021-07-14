@@ -8,8 +8,6 @@ const passport = require('passport')
 require('./auth/localPassport')
 const cors = require("cors")
 
-//const cors = require("cors")
-
 
 // IMPORT ROUTES
 const apiRouter = require('./routes/apiRouter')

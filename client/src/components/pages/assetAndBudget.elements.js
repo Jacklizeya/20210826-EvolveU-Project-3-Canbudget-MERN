@@ -148,6 +148,11 @@ export const TableBottomData = styled.td`
 
 `
 
+// ------------------------------ Vladimir's part below -----------------------------
+
+export const Centeredh3 = styled.h3`
+  text-align: center;
+`
 //     This is a sample from Iryna
 //     export const MemberWrapper = styled.div`
 //     max-width: 1300px;

@@ -8,8 +8,8 @@ const AuthenticationContext = React.createContext({
     isAdmin: ()=> {},
     isUser: () =>{},
     logIn: (username, isAgent) => {},
-    logOut: () => {}
-
+    logOut: () => {},
+    setUserAgain: (id, t) =>{}
 })
 
 export default AuthenticationContext
