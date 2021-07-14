@@ -152,5 +152,3 @@ const searchData = [
     address: '6700 Macleod Trail, Calgary'
   }
 ]
-
-export default searchData
