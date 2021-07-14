@@ -44,8 +44,9 @@ export default function SearchableMap({data, userLocation}) {
   useEffect(() => {
     if (userLocation) {
       setMapCenter(userLocation)
-    }
-  }, [userLocation])
+    } else if (data)
+    setMapCenter(data[0].geometry.location)
+  }, [userLocation, data])
 
   useEffect(() => {
     setMarkerList(data)
