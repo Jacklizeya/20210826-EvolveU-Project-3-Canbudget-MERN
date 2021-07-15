@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo} from "react"
-import SearchTable from '../../NearbySearch/SearchTable/SearchTable'
-import SearchableMap from '../../GoogleMap/SearchableMap'
-import SearchForm from "../../NearbySearch/SearchForm/SearchForm"
+import SearchTable from '../../ResourceSearch/SearchTable/SearchTable'
+import SearchableMap from '../../ResourceSearch/GoogleMap/SearchableMap'
+import SearchForm from "../../ResourceSearch/SearchForm/SearchForm"
 import './ResourceSearch.css'
 
 const axios = require('axios');
@@ -38,6 +38,10 @@ export default function ResourceSearch() {
 
   return (
     <div>
+      <div className='search-welcome-message'>
+        <h1>Search for resources below:</h1>
+        <h4>Let us help you connect with the resources you need to secure your financial future</h4>
+      </div>
       <div style={{display:'flex', justifyContent:'center'}}>
         <SearchForm setApiUrl={sendDataFromForm} setRunSearch={sendSearchStatusFromForm}  setUserLocation={sendLocationFromForm}/>
       </div>

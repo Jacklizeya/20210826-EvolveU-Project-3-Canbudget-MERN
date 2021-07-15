@@ -49,7 +49,7 @@ export const Tablediv = styled.div`
   
    th {
      background: #01345B;
-     border-bottom: 3px solid;
+     border-bottom: 0px solid;
      color: white;
      fontWeight: bold;
    }
@@ -103,6 +103,16 @@ export const SubmitButton = styled.button`
     margin: 0.25em 0.5em;
 `;
 
+export const PlaidButton = styled.button`
+    color: white;
+    background: #01345B;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border: 2px solid #01345B;
+    border-radius: 3px;
+    margin: 10px 20px 10px 40px;
+`;
+
 export const FormDiv = styled.div`
 
     margin: 10px 20px 10px 40px;
@@ -147,6 +157,7 @@ export const TableBottomData = styled.td`
   }
 
 `
+
 
 // ------------------------------ Vladimir's part below -----------------------------
 

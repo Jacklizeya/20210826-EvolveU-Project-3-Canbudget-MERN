@@ -1,25 +1,32 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .form-container {
+  display: flex;
+  flex-direction: column;
   width: 80vw;
   background-color: white;
   margin: 20px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border: 4px solid #05386B;
+  border-radius: 20px;
   padding: 10px;
 }
 
 .search-form {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 10px;
 }
 
 .success-message {
   font-family: "Roboto", sans-serif;
-  background-color: #3f89f8;
-  padding: 15px;
+  background-color: #05386B;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 95%;
   color: white;
+  align-self: center;
 }
 
 .form-field {
@@ -37,6 +44,12 @@ span {
   margin-bottom: 15px;
 }
 
+select {
+  padding: 15px;
+  border: none;
+  background-color: #f1f1f1;
+}
+
 input {
   background: #f2f2f2;
 }
@@ -46,12 +59,46 @@ input {
   border: 2px solid #ffa4a4;
 }
 
-button {
+.search-button {
   background: #01345B;
   color: white;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
+  width: 15%;
 }
 
-button:disabled {
+.search-button:disabled {
   cursor: default;
+}
+
+.search-input {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+#type {
+  width: 70%;
+}
+
+#radius {
+  width: 25%
+}
+
+#address {
+  width: 100%;
+}
+
+#city {
+  width: 83%;
+}
+
+#province {
+  width: 12%
 }

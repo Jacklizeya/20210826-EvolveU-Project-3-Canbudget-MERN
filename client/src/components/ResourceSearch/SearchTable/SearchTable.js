@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import RatingStars from "./RatingStars"
-import mockData from '../searchData'
+import sortData from "./sortData"
 import './SearchTable.css'
 
 export default function SearchTable({data}) {
@@ -9,7 +9,7 @@ export default function SearchTable({data}) {
   const [rows, setRows] = useState(data)
 
   useEffect(() => {
-    setRows(data)
+    setRows(sortData(data))
   }, [data])
 
     return (
@@ -21,7 +21,10 @@ export default function SearchTable({data}) {
                       return (                                     
                         <tr key={row.key}>
                             <td><b>{row.name}</b></td>
-                            <td>{row.address}</td>
+                            <td>
+                              <div>{row.address}</div>
+                              <div>{row.city}</div>
+                            </td>
                             <td>
                               <div><b>{row.rating} / 5</b></div>
                               <div>{row.ratingCount} Ratings</div>

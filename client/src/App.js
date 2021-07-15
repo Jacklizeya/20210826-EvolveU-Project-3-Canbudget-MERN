@@ -17,7 +17,7 @@ import ApexCharts from './components/pages/ApexCharts';
 import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
-import SearchTable from './components/NearbySearch/SearchTable/SearchTable';
+import SearchTable from './components/ResourceSearch/SearchTable/SearchTable';
 
 function App() {
   return (

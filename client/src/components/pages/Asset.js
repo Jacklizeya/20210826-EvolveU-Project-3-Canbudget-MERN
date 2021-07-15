@@ -5,9 +5,13 @@ import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./AssetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
+import CheckIfLogedIn from '../auth/CheckIfLogedIn';
+import Plaid from './Plaid';
 
 function Asset() {
 
+
+    CheckIfLogedIn();
     const {id} = useContext(AuthenticationContext)
     console.log(id)
 
@@ -192,6 +196,7 @@ function Asset() {
 
                 <FormDiv>
                     <div className="form" id="form">
+                       
                         <label> Add new item/Edit existing item  </label>
                         <form onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
                             <label> Name of the item </label>
@@ -213,6 +218,7 @@ function Asset() {
                 </div>         
                 </FormDiv>
                 
+                <Plaid> </Plaid>
             </div> : ""
        }
         
