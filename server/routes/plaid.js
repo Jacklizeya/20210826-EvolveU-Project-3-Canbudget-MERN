@@ -35,22 +35,25 @@ router.post('/token-exchange', async (req, res) => {
     const { access_token: accessToken } = await plaidClient.exchangePublicToken(public_token);
     console.log(accessToken);
 
-    // const authResponse = await plaidClient.getAuth(accessToken);
+    const authResponse = await plaidClient.getAuth(accessToken);
     // console.log('Auth response:');
     // console.log(util.inspect(authResponse, false, null, true));
     // console.log('---------------');
     // // I probably do not need identity response
-    // const identityResponse = await plaidClient.getIdentity(accessToken);
+    const identityResponse = await plaidClient.getIdentity(accessToken);
     // console.log('Identity response:');
     // console.log(util.inspect(identityResponse, false, null, true));
     // console.log('---------------');
-    // // this is the main part I need, the balanceResponse data
+    // this is the main part I need, the balanceResponse data
+    console.log("item", identityResponse.item)
+    console.log("item id", identityResponse.item["item_id"])
+    console.log("institution id", identityResponse.item["institution_id"])
     const balanceResponse = await plaidClient.getBalance(accessToken);
-    console.log('Balance response');
-    console.log(util.inspect(balanceResponse, false, null, true));
-    console.log('---------------');
+    // console.log('Balance response');
+    // console.log(util.inspect(balanceResponse, false, null, true));
+    // console.log('---------------');
     console.log("************************", balanceResponse)
-   
+    
     res.status(200).json(balanceResponse);
 });
 
