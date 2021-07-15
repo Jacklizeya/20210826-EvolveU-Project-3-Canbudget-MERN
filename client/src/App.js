@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import GlobalStyle from './globalStyles';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Navbar, Footer } from './components';
 import Home from './components/pages/HomePage/Home';
 import Advisors from './components/pages/Advisors';
@@ -18,8 +18,6 @@ import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
 import SearchTable from './components/ResourceSearch/SearchTable/SearchTable';
-
-
 
 function App() {
   return (
@@ -105,6 +103,7 @@ function UseAuth() {
 
 function ConditionalRoute({ children, condition, ...rest }) {
   let condition2 = condition();
+  // console.log("condition2=", condition2)
   return (
     <Route
       {...rest}

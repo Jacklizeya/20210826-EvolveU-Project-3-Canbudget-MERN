@@ -11,13 +11,10 @@ import { homeObjOne } from './Data';
 import { promotionData } from '../../Promotions/data';
 import { memberData } from '../../OurTeam/data';
 import AuthenticationContext from '../../auth/AuthenticationContext';
-import CheckIfLogedIn from '../../auth/CheckIfLogedIn';
 
 const Home = () => {
 
     const location = useLocation();
-    
-    CheckIfLogedIn();
     const isLogedIn = useContext(AuthenticationContext).isLogedIn();
 
     const scrollTo = (targetEl) => {
