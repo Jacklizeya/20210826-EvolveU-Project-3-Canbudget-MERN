@@ -5,13 +5,12 @@ import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./AssetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import CheckIfLogedIn from '../auth/CheckIfLogedIn';
 import Plaid from './Plaid';
 
 function Asset() {
 
 
-    CheckIfLogedIn();
+
     const {id} = useContext(AuthenticationContext)
     console.log(id)
 
