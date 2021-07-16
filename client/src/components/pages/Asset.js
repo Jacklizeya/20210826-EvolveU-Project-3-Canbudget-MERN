@@ -217,7 +217,7 @@ function Asset() {
                 </div>         
                 </FormDiv>
                 <StockButton onClick={()=>{history.push('/stocks')}}>
-                Check my Stocks
+                    Stocks
                 </StockButton>
                 <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
