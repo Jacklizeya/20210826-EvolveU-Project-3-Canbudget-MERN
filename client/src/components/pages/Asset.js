@@ -1,16 +1,16 @@
 import React, {useState, useEffect, useContext} from 'react';
+import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "./assetAndBudget.elements"
+import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./AssetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
 import Plaid from './Plaid';
+import { NavLinks, NavItem} from '../Navbar/Navbar.elements';
+
 
 function Asset() {
-
-
-
     const {id} = useContext(AuthenticationContext)
     console.log(id)
 
@@ -38,6 +38,8 @@ function Asset() {
  // This is for Modal
     const [nameToDelete, setNameToDelete] = useState("")
     const [displayModal, setDisplayModal] = useState(false)
+
+    let history = useHistory()
 
     useEffect(() => {
         async function getUsers() {
@@ -122,7 +124,7 @@ function Asset() {
     <>
         <Heading1> Balance Sheet </Heading1>
         <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} itemname={nameToDelete} userid={user._id} setDeleteStatus={setDeleteStatus} setSortIndicator={setSortIndicator}> </Modal>
-        
+
             {user.email  ? 
             <div key={user.firstName + "Asset"}>
                 <Descriptiondiv> 
@@ -214,7 +216,9 @@ function Asset() {
                         </form>
                 </div>         
                 </FormDiv>
-                
+                <StockButton onClick={()=>{history.push('/stocks')}}>
+                Check my Stocks
+                </StockButton>
                 <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
        }
