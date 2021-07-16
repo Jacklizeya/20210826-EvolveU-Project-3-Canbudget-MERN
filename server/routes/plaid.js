@@ -45,16 +45,56 @@ router.post('/token-exchange', async (req, res) => {
     // console.log(util.inspect(identityResponse, false, null, true));
     // console.log('---------------');
     // this is the main part I need, the balanceResponse data
-    console.log("item", identityResponse.item)
-    console.log("item id", identityResponse.item["item_id"])
-    console.log("institution id", identityResponse.item["institution_id"])
+    
     const balanceResponse = await plaidClient.getBalance(accessToken);
     // console.log('Balance response');
     // console.log(util.inspect(balanceResponse, false, null, true));
     // console.log('---------------');
-    console.log("************************", balanceResponse)
+    // console.log("************************", balanceResponse)
+
+    // This is the area I am going to mutate data and standalize it
+    let bankHashTable = {
+        "ins_39" : "rbc",
+        "ins_38" : "scotiabank",
+        "ins_42" : "td",
+        "ins_41" : "bmo",
+        "ins_37" : "cibc",
+        "ins_40" : "tangerine",
+        "ins_46" : "desjardins",
+        "ins_48" : "national bank of canada",
+        "ins_115575" : "vancity",
+        "ins_120010" : "atb",
+    }
+
+    let bank = bankHashTable[balanceResponse.item["institution_id"]]
+    console.log("%%%%%%%%%%%bank ", bank)
     
-    res.status(200).json(balanceResponse);
+    let bankname = bankHashTable[balanceResponse.item["institution_id"]]
+    console.log("%%%%%%%%%%%bank ", bankname)
+    // This is to mutate every item
+    let balanceSheet = balanceResponse.accounts.map(element => {return standardlize(element)})
+
+    console.log("finalformat", balanceSheet)
+
+    function standardlize(object) {
+        let {balances, name, type} = object
+        let value = balances.current
+        let changeMonthToMonth = 0
+        // this is how we mutate it
+        let nameArray = name.split("")
+        console.log("nameArray", nameArray)
+        let newNameArray = nameArray.slice(6, nameArray.length)
+        console.log("newNameArray", newNameArray)
+        let newName = newNameArray.join("")
+        name = bankname + " " + newName
+        if (type.includes("loan") || type.includes("credit")) {type = "liability"; value = value * -1}
+        else {type="asset"}
+        let standarditem = {name, type, value, changeMonthToMonth}
+        console.log(standarditem)
+        return standarditem
+    }
+
+    res.status(200).json(balanceSheet);
 });
 
 module.exports = router

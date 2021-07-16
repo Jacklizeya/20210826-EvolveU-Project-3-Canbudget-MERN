@@ -190,7 +190,7 @@ function Budget() {
                                             <th id="name" opacity={nameOpacity} onClick={event => sortArrayBy(event)}> item name 
                                                 {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
                                             </th>
-                                            <th id="type" onClick={event => sortArrayBy(event)}> type 
+                                            <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}> type 
                                                 {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
                                             </th>
                                             <th id="amount" onClick={event => sortArrayBy(event)}> amount 
@@ -211,7 +211,7 @@ function Budget() {
                                     {userCashFlow.map(
                                         (singleCashFlow, index) => 
                                            <tr key={singleCashFlow.name + index}>
-                                            <td> {singleCashFlow.name} </td>
+                                            <td> {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)} </td>
                                             <td> {singleCashFlow.type} </td>
                                             <Numbertd value={singleCashFlow.amount}> {singleCashFlow.amount} </Numbertd>
                                             <td> {singleCashFlow.changeMonthToMonth} </td>

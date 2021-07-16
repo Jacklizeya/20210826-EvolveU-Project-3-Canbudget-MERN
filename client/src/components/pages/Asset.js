@@ -91,8 +91,6 @@ function Asset() {
     // }
 
     function editItem(event) {
-    // continue tomorrow
-    
     let index = event.target.id
     // Right now I am using users[0], eventually it will be just one user, so need to fix this later
     let dataToEdit = user.balanceSheet[index]
@@ -141,7 +139,7 @@ function Asset() {
                             <tr key="itemname">
                                 <th id="name" onClick={event => sortArrayBy(event)}> item name 
                                 {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }</th>
-                                <th id="type" onClick={event => sortArrayBy(event)}> type 
+                                <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}> type 
                                 {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }</th>
                                 <th id="value" onClick={event => sortArrayBy(event)}> value 
                                 {sortDirectionValue > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortDown> }</th>
@@ -155,7 +153,7 @@ function Asset() {
                         {userBalanceSheet.map(
                             (singleBalanceSheet, index) => 
                             <tr key={singleBalanceSheet.name}>
-                                <td> {singleBalanceSheet.name} </td>
+                                <td> {singleBalanceSheet.name.charAt(0).toUpperCase() + singleBalanceSheet.name.slice(1)} </td>
                                 <td> {singleBalanceSheet.type} </td>
                                 <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>
                                 <td> {singleBalanceSheet.changeMonthToMonth} </td>    
@@ -179,7 +177,7 @@ function Asset() {
                             <tr key="itemname">
                                 <TableBottomData> Sum </TableBottomData>
                                 <TableBottomData>   </TableBottomData>
-                                <TableBottomData value = {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)}>  {user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0)} </TableBottomData>
+                                <TableBottomData value = {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100}>  {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100} </TableBottomData>
                                 
                                 <TableBottomData>   </TableBottomData>
                                 <TableBottomData>   </TableBottomData>
@@ -217,7 +215,7 @@ function Asset() {
                 </div>         
                 </FormDiv>
                 
-                <Plaid> </Plaid>
+                <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
        }
         

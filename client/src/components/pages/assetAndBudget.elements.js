@@ -28,15 +28,18 @@ export const Tablediv = styled.div`
    font-family: "Lucida Console", "Courier New", monospace;
 
    table {
+
    border: 1px solid black;
    border-spacing: 0;
-
+   
+   
    tr {
+    
     height: 10px; 
    }
 
    th, td {
-     
+     width: auto;
      padding: 0.5rem;
      border-bottom: 1px solid black;
      border-right: 1px solid black;
@@ -48,6 +51,7 @@ export const Tablediv = styled.div`
    }
   
    th {
+     width: auto;
      background: #01345B;
      border-bottom: 0px solid;
      color: white;
@@ -70,7 +74,7 @@ export const Tablefoot = styled.tfoot`
    }
 
    th, td {
-     
+     width: auto;
      padding: 0.5rem;
      border-bottom: 1px solid black;
      border-right: 1px solid black;
@@ -82,6 +86,7 @@ export const Tablefoot = styled.tfoot`
    }
   
    th {
+     width: auto;
      background: #01345B;
      border-bottom: 3px solid;
      color: white;
@@ -151,7 +156,8 @@ export const TableBottomData = styled.td`
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   font-family: "Lucida Console", "Courier New", monospace;
-
+  width: auto;
+  
   :last-child {
     border-right: 0;
   }
