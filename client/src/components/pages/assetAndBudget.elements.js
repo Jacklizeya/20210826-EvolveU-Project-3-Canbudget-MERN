@@ -182,6 +182,51 @@ export const TableBottomData = styled.td`
 export const Centeredh3 = styled.h3`
   text-align: center;
 `
+
+
+export const SubmitCancelButtons = styled.div`
+    display: flex; 
+    justify-content: center;  
+    `
+
+export const LoginFormDiv = styled.div`
+    h1 {
+      text-align: center;
+    }
+    
+    
+    input, select, textarea {
+    
+        display:block;
+        margin: auto;
+        width: 40%; /* Full width */
+        padding: 12px; /* Some padding */ 
+        border: 1px solid #ccc; /* Gray border */
+        border-radius: 4px; /* Rounded borders */
+        box-sizing: border-box; /* Make sure that padding and width stays in place */
+        margin-top: 0px; /* Add a top margin */
+        margin-bottom: 6px; /* Bottom margin */
+    }
+    
+    label,p {
+      line-height: 2;
+      display:block;
+      margin: auto;
+      position: relative;
+      text-align:left;
+      font-family: "Lucida Console", "Courier New", monospace;
+      width: 40%; /* Full width */
+      margin-top: 6px; /* Add a top margin */
+    }
+     
+    p {
+        color: #800000;
+    }
+    
+    `
+    
+    
+
 //     This is a sample from Iryna
 //     export const MemberWrapper = styled.div`
 //     max-width: 1300px;

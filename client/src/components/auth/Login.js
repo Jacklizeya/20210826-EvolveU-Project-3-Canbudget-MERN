@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // import { ErrorMessage } from '@hookform/error-message';
-
+import axios from "axios"
 
 import AuthenticationContext from "./AuthenticationContext"
+import {SetMessage} from "../InfoSection/StatusLineMessage"
 //import Navbar from "../components/Navbar"
 
-import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "./login.elements"
+import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../pages/assetAndBudget.elements"
 
 function Login({ successURL, cancelURL }) {
     const loginContext = useContext(AuthenticationContext);
@@ -17,14 +18,39 @@ function Login({ successURL, cancelURL }) {
     let errorMessage = "";
 
     async function onSubmit(values) {
-        errorMessage = await loginContext.logIn(values.email, values.password);
+        errorMessage = await loginContext.logIn(values.email, values.password, prepareMessage);
         if (errorMessage === "") {
-            clearErrors();
-            history.push(successURL !== "" ? successURL : "/");           
+            // // clearErrors();
+            // // prepareMessageForStatusLine();
+
+            // let who = 'brother';
+            // alert("In prepare befgining")
+    
+            // const url = '/api/user/' + loginContext.id;
+            // try {
+            //     let { data } = await axios.get(url)
+            //     who = data.firstName;
+                    
+            // } catch (error) {
+                
+            // }
+            // const h = new Date().getHours();
+            // let pd;
+            // if (h < 4) {
+            //     pd = 'night';
+            // } else if (h < 12) {
+            //     pd = 'morning';
+            // } else if (h < 18) {
+            //     pd = 'afternoon';
+            // } else {
+            //     pd = 'evening';
+            // }
+            // SetMessage("Good " + pd + " " + who); 
+            // alert("prepareMessageForStatusLine finished")
+            //              //   history.push(successURL !== "" ? successURL : "/");           
         } else {
             setError("password",
                 { type: "server", message: errorMessage })
-
         }
         // alert(errorMessage + "   logedin=" + loginContext.isLogedIn() + " admin=" + loginContext.isAdmin() + " uesrtype=" + loginContext.userType + "  id=" + loginContext.id);
     }
@@ -34,6 +60,7 @@ function Login({ successURL, cancelURL }) {
         history.push(cancelURL  ? cancelURL : "/");
         reset();
     }
+
 
     return (
         <div>
@@ -74,4 +101,36 @@ function Login({ successURL, cancelURL }) {
     );
 }
 
+async function prepareMessage(id){
+    let who = 'brother';
+    // alert("In prepare befgining")
+
+    const url = '/api/user/' + id;
+    try {
+        let { data } = await axios.get(url)
+        who = data.firstName;
+            
+    } catch (error) {
+        
+    }
+    const h = new Date().getHours();
+    let pd;
+    if (h < 4) {
+        pd = 'night';
+    } else if (h < 12) {
+        pd = 'morning';
+    } else if (h < 18) {
+        pd = 'afternoon';
+    } else {
+        pd = 'evening';
+    }
+
+    SetMessage("Good " + pd + " " + who);
+    // alert("After set message")
+}
+
 export default Login;
+export {
+    prepareMessage
+}
+

@@ -5,7 +5,7 @@ const userDB = require('../models/user')
 
 passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' },
     async function (username, password, done) {
-        console.log('Passport is asking to authenticate user: ', username, ' with password ', password);
+        console.log('Passport is asking to authenticate user: ', username);//, ' with password ', password);
         try {
             const user = await userDB.checkLogin(username, password);
             if (user) {

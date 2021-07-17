@@ -29,7 +29,7 @@ const AuthenticationProvider = ({ children }) => {
     setLoading(false);
 }
 
-const logIn = (email, password) => {
+const logIn = (email, password, messageFunction) => {
     async function logintoserver() {
         let loginOptions = {
             method: 'POST',
@@ -49,6 +49,7 @@ const logIn = (email, password) => {
 
             let loggedInUser = await response.json();
             if (loggedInUser) {
+                await messageFunction(loggedInUser._id);
                 setId(loggedInUser._id);
                 setUserType(loggedInUser.userType);
                 contextValue.id = loggedInUser._id;

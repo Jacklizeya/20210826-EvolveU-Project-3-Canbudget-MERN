@@ -56,6 +56,20 @@ async function checkLogin(email, password){
     return null;
 }
 
+async function findByEmail(email){
+    try {
+        return userModel.find({email}, '');      
+    } catch (error) {
+        console.error("error=", error);
+    }
+    return null;
+}
+
+async function updateUser(updClient) {
+    return userModel.findByIdAndUpdate(updClient._id, updClient,{new:true});                   
+}
+
+
 // For Cash Flow
 
 async function addCashFlow(userId, newCashFlow) {
@@ -129,6 +143,8 @@ module.exports = {
     getUserList,
     findById, 
     checkLogin,
+    findByEmail,
+    updateUser,
     addCashFlow,
     removeCashFlow,
     addBalanceSheet,

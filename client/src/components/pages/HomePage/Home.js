@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { scroller } from 'react-scroll';
 
 import InfoSection from '../../InfoSection/InfoSection';
-import Greeting from '../../InfoSection/Greeting';
+import Greeting from '../../InfoSection/StatusLineMessage';
 
 import Promotions from '../../Promotions/Promotions';
 import OurTeam from '../../OurTeam/OurTeam';
@@ -31,7 +31,6 @@ const Home = () => {
 
     useEffect(() => {
         let hash = location.hash.replace('#', '')
-
         if (hash.length) {
             scrollTo(hash);
         }
@@ -40,15 +39,8 @@ const Home = () => {
 
     return (
         <>
-            {isLogedIn ?
-                (
-                    <Greeting></Greeting>
-                )
-                :
-                (
-                    <InfoSection  {...homeObjOne} />
-                )
-            }
+            <Greeting/>
+            {!isLogedIn && <InfoSection  {...homeObjOne} />}
             < Promotions name='promotions' data={promotionData} />
             <OurTeam name='our-team' data={memberData} />
         </>

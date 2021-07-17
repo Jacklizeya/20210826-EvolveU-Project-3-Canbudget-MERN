@@ -72,11 +72,41 @@ router.put("/:id/deletebalancesheet/", async(req, res) => {
 router.post("/", async (req, res) => {
   let inputData = req.body
   try {
-  let newUser = await userDB.createUser(inputData);
-  res.send(newUser)} catch (error){ res.send(error)}
+    const emailUser = await userDB.findByEmail(inputData.email);
+    if (emailUser && emailUser.length >0 ){
+      res.status(409).send('Client with this email already exists');
+    }else{
+      console.log("New user created "+inputData.email);
+      let newUser = await userDB.createUser(inputData);
+      res.send(newUser)     
+    } 
+  }
+  catch (error){
+    console.error("Creating client error: ",error)
+     res.send(error)
+  }
 })
 
 
+router.patch("/", async (req, res) => {
+  let inputData = req.body
+  try {
+    const emailUser = await userDB.findByEmail(inputData.email);
+    if ((emailUser && emailUser.length >0) &&
+        ((emailUser.length >1) || 
+         (emailUser[0]._id.toString() !== inputData._id.toString())  ) ){
+      res.status(409).send('Client with this email already exists !');
+    }else{
+      console.log("User modified "+inputData.email);
+      let newUser =await userDB.updateUser(inputData);
+      res.send(newUser)     
+    } 
+  }
+  catch (error){
+    console.error("Creating client error: ",error)
+     res.send("update user "+error)
+  }
+})
 
 
 module.exports = router;

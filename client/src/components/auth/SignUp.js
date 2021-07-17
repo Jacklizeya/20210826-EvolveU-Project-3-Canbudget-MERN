@@ -1,11 +1,33 @@
-import React from 'react';
+import { useContext } from "react";
+
+import EditClientComponent from "./EditClientComponent";
+import AuthenticationContext from "./AuthenticationContext"
 
 function SignUp() {
- return (
+    const loginContext = useContext(AuthenticationContext);
+    let userType, title
+    if (loginContext.isAdmin()){
+        userType = loginContext.userType;
+        title = 'Create a new administrative account';
+    }else{
+        userType = 'general user';
+        title = 'Create a new account'
+    }
+        
+    
+    return (
     <>
-        <h1>Sign Up</h1>
+        <EditClientComponent
+        id={null}
+        userType ={userType}
+        title ={title}
+        message ="A new account created"
+      />
     </>
- )
+ );
+
+
+
 }
 
 export default SignUp;
