@@ -1,8 +1,11 @@
 import React, {useEffect, useContext, useState} from 'react'
-import AuthenticationContext from '../auth/AuthenticationContext'
+import AuthenticationContext from '../../auth/AuthenticationContext'
 import axios from 'axios'
-import Donut from './Donut'
-import Line from './Line'
+
+import Donut from '../Donut'
+import Line from '../Line'
+
+import './Dashboard.css'
 
 // https://apexcharts.com/docs/options/theme/ Apex-Charts Colors
 
@@ -48,10 +51,13 @@ export default function Dashboard() {
 
 
     return (
-        <div style={{display:'flex', justifyContent:'space-between', boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)', borderRadius:'20px', padding:'20px', margin:'20px'}}>
-            {user ? <Donut data={assets} /> : null}
-            <Line />
-            {user ? <Donut data={liability} /> : null}
+        <div>
+            {user ? <h1 className='dashboard-header'>Welcome back {user.firstName}!</h1> : null}
+            <div className='dashboard-container'>
+                {user ? <Donut data={assets} /> : null}
+                <Line />
+                {user ? <Donut data={liability} /> : null}
+            </div>
         </div>
     )
 }

@@ -17,7 +17,7 @@ import ApexCharts from './components/pages/ApexCharts';
 import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
-import Dashboard from './components/ApexCharts/Dashboard';
+import Dashboard from './components/ApexCharts/Dashboard/Dashboard';
 
 function App() {
   return (
