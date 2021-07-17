@@ -17,7 +17,7 @@ import ApexCharts from './components/pages/ApexCharts';
 import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
-import SearchTable from './components/ResourceSearch/SearchTable/SearchTable';
+import Dashboard from './components/ApexCharts/Dashboard';
 
 function App() {
   return (
@@ -30,8 +30,7 @@ function App() {
           {/* <Route path='/promotions' exact component={Promotions} /> */}
           <Route path='/advisors' exact component={Advisors} />
           <Route path='/apex-charts' exact component={ApexCharts} />
-          <Route path='/map' exact component={ResourceSearch} />
-          <Route path='/table' exact component={SearchTable} />
+          <Route path='/resources' exact component={ResourceSearch} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
@@ -47,6 +46,11 @@ function App() {
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
             path='/stocks' exact>
             <Stocks/>
+          </ConditionalRoute>
+
+          <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
+            path='/dashboard' exact>
+            <Dashboard />
           </ConditionalRoute>
 
           <ConditionalRoute condition={()=>{return !UseAuth().isLogedIn()}} 

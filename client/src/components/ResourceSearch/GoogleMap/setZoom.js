@@ -4,7 +4,7 @@ export default function calculateZoom(latDifference) {
         return 15
     } else if (latDifference < 0.035) {
         return 14.5
-    }else if (latDifference < 0.45) {
+    }else if (latDifference < 0.045) {
         return 14
     } else if (latDifference < 0.07) {
         return 13.5
@@ -21,5 +21,5 @@ export default function calculateZoom(latDifference) {
     } else {
         return 9 
     }
-    
+
 }

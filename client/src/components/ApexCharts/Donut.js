@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
-import axios from "axios"
 import Chart from 'react-apexcharts'
 import { donutData } from './data/apexDataConvertor'
 
-export default function Donut() {
-
-  /// const [users, setUsers] = useState([])      Don't need until users in db
+export default function Donut({data}) {
+  
+  const [dataIsLiabilities, setdataIsLiabilities] = useState(true)
   const [labels, setLabels] = useState(donutData.labels)
   const [values, setValues] = useState(donutData.series)
   const [donutProps, setDonutProps] = useState({
@@ -21,20 +20,25 @@ export default function Donut() {
   
 
   useEffect(() => {
-    async function getData() {
-        let {data} = await axios.get("/api/user")
-        const user = data[0] /// Only selecting one user right now
-        let labelsList = []
-        for (const index in user.balanceSheet) 
-            labelsList.push(user.balanceSheet[index].name)
-        let valuesList = []
-        for (const index in user.balanceSheet) 
-            valuesList.push(user.balanceSheet[index].value)
-        setLabels(labelsList)
-        setValues(valuesList)
+    let labelsList = []
+    for (const index in data) 
+        labelsList.push(data[index].name)
+
+    let valuesList = []
+    for (const index in data) {
+      valuesList.push(data[index].value)
+      if (data[index].value > 0) {
+        setdataIsLiabilities(false)
+      }
     }
-    getData()
-  },[])
+    if (dataIsLiabilities) {  
+      valuesList = valuesList.map(function(num) {
+        return num * -1
+      })
+    }
+    setLabels(labelsList)
+    setValues(valuesList)
+  },[data, dataIsLiabilities])
 
   useEffect(() => {
     function updateGraph() {

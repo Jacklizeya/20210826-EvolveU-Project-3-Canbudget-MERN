@@ -73,6 +73,7 @@ export default function SearchableMap({data, userLocation}) {
     }
     
     let coordinateBounds = calculateCoordinateBounds()
+    let coordinateDifference = Math.max((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat),(coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng))
 
     if (data) {
       setMapCenter({

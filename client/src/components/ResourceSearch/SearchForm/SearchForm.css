@@ -44,7 +44,7 @@ span {
   margin-bottom: 15px;
 }
 
-select {
+.form-select {
   padding: 15px;
   border: none;
   background-color: #f1f1f1;
@@ -83,22 +83,22 @@ input {
   flex-flow: row wrap;
 }
 
-#type {
+.form-select.type {
   width: 70%;
 }
 
-#radius {
+.form-field.radius {
   width: 25%
 }
 
-#address {
+.form-field.address {
   width: 100%;
 }
 
-#city {
+.form-field.city {
   width: 83%;
 }
 
-#province {
+.form-select.province {
   width: 12%
 }

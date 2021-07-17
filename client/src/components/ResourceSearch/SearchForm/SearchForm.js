@@ -89,7 +89,7 @@ export default function SearchForm({
                 <div className='search-input'>
                     <div className='form-row'>
                         <select 
-                            id='type' 
+                            className='form-select type' 
                             name='type'
                             value={searchProps.type} 
                             onChange={handleSearchTypeChange}
@@ -104,8 +104,7 @@ export default function SearchForm({
                         <input
                             onChange={handleRadiusInputChange}
                             value={searchProps.radius}
-                            id="radius"
-                            className="form-field"
+                            className="form-field radius"
                             type="text"
                             placeholder="Radius (km)"
                             name="radius"/>
@@ -118,8 +117,7 @@ export default function SearchForm({
                             <input
                                 onChange={handleAddressInputChange}
                                 value={searchProps.address}
-                                id="address"
-                                className="form-field"
+                                className="form-field address"
                                 type="text"
                                 placeholder="Address"
                                 name="address"/>
@@ -129,8 +127,7 @@ export default function SearchForm({
                             <input
                                 onChange={handleCityInputChange}
                                 value={searchProps.city}
-                                id="city"
-                                className="form-field"
+                                className="form-field city"
                                 type="text"
                                 placeholder="City"
                                 name="city"/>
@@ -138,7 +135,7 @@ export default function SearchForm({
                                 <span id="city-error">Please enter a city</span> : null
                             }
                             <select 
-                                id='province' 
+                                className='form-select province' 
                                 name='province' 
                                 value={searchProps.province} 
                                 onChange={handleProvinceInputChange}
