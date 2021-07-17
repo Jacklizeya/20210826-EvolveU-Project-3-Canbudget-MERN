@@ -4,6 +4,8 @@ import axios from 'axios'
 import Donut from './Donut'
 import Line from './Line'
 
+// https://apexcharts.com/docs/options/theme/ Apex-Charts Colors
+
 
 export default function Dashboard() {
 
@@ -33,6 +35,12 @@ export default function Dashboard() {
                     liabilityList.push(user.balanceSheet[index])
                 }
             }
+            assetList.sort(function (a, b) {
+                return b.value - a.value;
+              })
+            liabilityList.sort(function (a, b) {
+                return a.value - b.value;
+              })
             setAssets(assetList)
             setLiability(liabilityList)
         }
@@ -40,7 +48,7 @@ export default function Dashboard() {
 
 
     return (
-        <div style={{display:'flex', justifyContent:'space-between'}}>
+        <div style={{display:'flex', justifyContent:'space-between', boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)', borderRadius:'20px', padding:'20px', margin:'20px'}}>
             {user ? <Donut data={assets} /> : null}
             <Line />
             {user ? <Donut data={liability} /> : null}

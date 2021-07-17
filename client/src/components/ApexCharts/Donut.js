@@ -10,12 +10,9 @@ export default function Donut({data}) {
   const [donutProps, setDonutProps] = useState({
     options: {
       labels: labels,
-      title: {
-        text: 'Donut'
-      }
     },
     series: values,
-    width: 600
+    width: 600,
   })
   
 
@@ -42,15 +39,9 @@ export default function Donut({data}) {
 
   useEffect(() => {
     function updateGraph() {
-      setDonutProps({
-        options: {
-          labels: labels,
-          title: {
-            text: 'Donut'
-          }
-        },
-        series: values,
-        width: 600
+      setDonutProps({...donutProps, 
+        options: {...donutProps.options, labels: labels},
+        series: values
       })
     }
     updateGraph()

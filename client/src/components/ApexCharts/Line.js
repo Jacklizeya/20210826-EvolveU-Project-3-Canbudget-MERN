@@ -11,18 +11,16 @@ export default function Line() {
             type: 'line'
         },
         labels: lineData.labels,
-        title: {
-            text: 'Two Series Combo Chart'
-        },
         xaxis: {
             type: 'datetime'
         },
+        colors: ['#00E396','#FF4560','#775DD0']
       },
       series: [
         {
             name: 'Assets',
             type: 'line',  
-            data: lineData.assets
+            data: lineData.assets,
         },
         {
           name: 'Liabilities',
