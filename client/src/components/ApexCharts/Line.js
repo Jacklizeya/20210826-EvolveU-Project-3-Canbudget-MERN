@@ -20,14 +20,19 @@ export default function Line() {
       },
       series: [
         {
-            name: 'Income',
+            name: 'Assets',
             type: 'line',  
-            data: lineData.income
+            data: lineData.assets
         },
         {
-            name: 'Expenses',
+          name: 'Liabilities',
+          type: 'line',  
+          data: lineData.liabilities
+        },
+        {
+            name: 'Net Worth',
             type: 'column',
-            data: lineData.expenses
+            data: lineData.netWorth
         }
       ],
       width: 600

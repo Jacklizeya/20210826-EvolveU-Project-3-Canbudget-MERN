@@ -17,18 +17,21 @@ function convertDonutData(data) {
 
 function convertTwoSeriesLineData(data) {
     let labelsArray = []
-    let seriesOneArray = []
-    let seriesTwoArray = []
+    let lineOneArray = []
+    let lineTwoArray = []
+    let barArray = []
 
     for (const category in data) {
         labelsArray.push(new Date(data[category].date).getTime())
-        seriesOneArray.push(parseInt(data[category].income))
-        seriesTwoArray.push(parseInt(data[category].expenses))
+        lineOneArray.push(parseInt(data[category].assets))
+        lineTwoArray.push(parseInt(data[category].liabilities))
+        barArray.push(parseInt(data[category].netWorth))
     }
     const dataProps = {
         labels: labelsArray, 
-        income: seriesOneArray,
-        expenses: seriesTwoArray
+        assets: lineOneArray,
+        liabilities: lineTwoArray,
+        netWorth: barArray
     }
     return dataProps
 }

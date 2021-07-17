@@ -2,6 +2,7 @@ import React, {useEffect, useContext, useState} from 'react'
 import AuthenticationContext from '../auth/AuthenticationContext'
 import axios from 'axios'
 import Donut from './Donut'
+import Line from './Line'
 
 
 export default function Dashboard() {
@@ -39,8 +40,9 @@ export default function Dashboard() {
 
 
     return (
-        <div style={{display:'flex'}}>
+        <div style={{display:'flex', justifyContent:'space-between'}}>
             {user ? <Donut data={assets} /> : null}
+            <Line />
             {user ? <Donut data={liability} /> : null}
         </div>
     )
