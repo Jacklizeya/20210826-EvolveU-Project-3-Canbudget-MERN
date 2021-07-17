@@ -51,13 +51,24 @@ export default function Dashboard() {
 
 
     return (
-        <div>
-            {user ? <h1 className='dashboard-header'>Welcome back {user.firstName}!</h1> : null}
-            <div className='dashboard-container'>
-                {user ? <Donut data={assets} /> : null}
-                <Line />
-                {user ? <Donut data={liability} /> : null}
+        user ?
+            <div> 
+                <h1 className='dashboard-header'>Welcome back {user.firstName}!</h1>
+                <div className='dashboard-container'>
+                    <div>
+                        <Donut data={assets} />
+                        <h3>Assets</h3>
+                    </div>  
+                    <div>
+                        <Line />
+                        <h3>Overview</h3>
+                    </div>
+                    <div>
+                        <Donut data={liability} />
+                        <h3>Liabilities</h3>
+                    </div>
+                </div>
             </div>
-        </div>
+        : null 
     )
 }
