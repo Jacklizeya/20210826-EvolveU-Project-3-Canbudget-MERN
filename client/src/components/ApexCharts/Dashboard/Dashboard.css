@@ -19,3 +19,8 @@ h1, h3 {
     padding: 20px;
     margin: 20px;
 }
+
+.dashboard-container.subscriptions {
+    flex-direction: column;
+    justify-content: space-between;
+}

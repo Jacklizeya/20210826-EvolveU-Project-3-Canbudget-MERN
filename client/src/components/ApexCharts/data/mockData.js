@@ -299,7 +299,14 @@ const lineMockData= [
     {"date":"01/03/2016","assets":"751719","liabilities":"623579","netWorth":"128140"}
 ]
 
+const subscriptionTableData = [
+    {'name':'Netflix','amount':'9.99','billDate':'07/31/2021','frequency':'monthly','account':'VISA'},
+    {'name':'Spotify','amount':'9.99','billDate':'07/31/2021','frequency':'monthly','account':'VISA'},
+    {'name':'Mortgage','amount':'1500','billDate':'08/07/2021','frequency':'monthly','account':'CIBC'},
+]
+
 export  { 
     donutMockData,
-    lineMockData
+    lineMockData,
+    subscriptionTableData
 }

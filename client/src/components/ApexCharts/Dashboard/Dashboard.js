@@ -5,6 +5,9 @@ import axios from 'axios'
 import Donut from '../Donut'
 import Line from '../Line'
 
+import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
+import { subscriptionTableData } from '../data/mockData'
+
 import './Dashboard.css'
 
 // https://apexcharts.com/docs/options/theme/ Apex-Charts Colors
@@ -67,6 +70,13 @@ export default function Dashboard() {
                         <Donut data={liability} />
                         <h3>Liabilities</h3>
                     </div>
+                </div>
+                <div style={{display:'flex'}}>
+                    <div className='dashboard-container subscriptions'>
+                        <h3>Upcoming bills...</h3>
+                        <SubscriptionTable data={subscriptionTableData}/>
+                    </div>
+                    <div className='dashboard-container'></div>
                 </div>
             </div>
         : null 
