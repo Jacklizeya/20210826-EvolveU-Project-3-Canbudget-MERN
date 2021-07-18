@@ -8,7 +8,10 @@ import Line from '../Line'
 import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
 import { subscriptionTableData } from '../data/mockData'
 
+import StocksWidget from './StocksWidget/StocksWidget'
+
 import './Dashboard.css'
+
 
 // https://apexcharts.com/docs/options/theme/ Apex-Charts Colors
 
@@ -76,7 +79,7 @@ export default function Dashboard() {
                         <h3>Upcoming bills...</h3>
                         <SubscriptionTable data={subscriptionTableData}/>
                     </div>
-                    <div className='dashboard-container'></div>
+                    <StocksWidget />
                 </div>
             </div>
         : null 

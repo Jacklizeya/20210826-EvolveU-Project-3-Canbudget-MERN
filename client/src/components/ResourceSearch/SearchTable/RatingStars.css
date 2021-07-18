@@ -7,10 +7,10 @@
     margin: 0 0 1 rem 0;
 }
 
-.w-6 {
+.w-6.rating {
     width: 1.5em;
 }
 
-.h-6 {
+.h-6.rating {
     height: 1.5em;
 }
