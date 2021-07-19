@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import Chart from 'react-apexcharts'
-import { lineData } from './data/apexDataConvertor'
+import { lineData } from '../../data/apexDataConvertor'
 
-export default function Line() {
+export default function DashboardStocksTimeseries() {
   // eslint-disable-next-line
   const [lineProps, setLineProps] = useState(
     {
@@ -14,7 +14,7 @@ export default function Line() {
         xaxis: {
             type: 'datetime'
         },
-        colors: ['#4CAF50','#3F51B5','#FF9800','#03A9F4']
+        colors: ['#4CAF50','#F9CE1D','#FF9800','#3F51B5','#03A9F4']
       },
       series: [
         {
@@ -27,12 +27,8 @@ export default function Line() {
           type: 'line',  
           data: lineData.liabilities
         },
-        {
-            name: 'Net Worth',
-            type: 'column',
-            data: lineData.netWorth
-        }
       ],
+      width: 600
     }
   )
 

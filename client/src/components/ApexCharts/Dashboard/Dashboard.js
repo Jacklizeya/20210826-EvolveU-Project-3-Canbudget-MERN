@@ -61,16 +61,16 @@ export default function Dashboard() {
             <div> 
                 <h1 className='dashboard-header'>Welcome back {user.firstName}!</h1>
                 <div className='dashboard-container'>
-                    <div>
-                        <Donut data={assets} />
+                    <div className='graph-container'>
+                        <Donut data={assets} showLegend={false} />
                         <h3>Assets</h3>
                     </div>  
-                    <div>
+                    <div className='graph-container'>
                         <Line />
                         <h3>Overview</h3>
                     </div>
-                    <div>
-                        <Donut data={liability} />
+                    <div className='graph-container'>
+                        <Donut data={liability} showLegend={false} />
                         <h3>Liabilities</h3>
                     </div>
                 </div>

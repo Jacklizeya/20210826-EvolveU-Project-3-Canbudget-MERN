@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Chart from 'react-apexcharts'
 import { donutData } from './data/apexDataConvertor'
 
-export default function Donut({data}) {
+export default function Donut({data, showLegend}) {
   
   const [dataIsLiabilities, setdataIsLiabilities] = useState(true)
   const [labels, setLabels] = useState(donutData.labels)
@@ -10,9 +10,9 @@ export default function Donut({data}) {
   const [donutProps, setDonutProps] = useState({
     options: {
       labels: labels,
+      legend: showLegend
     },
     series: values,
-    width: 600,
   })
   
 

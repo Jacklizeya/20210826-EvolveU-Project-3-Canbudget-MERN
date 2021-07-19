@@ -22,27 +22,29 @@ h1, h3 {
 
 .dashboard-container.subscriptions {
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.dashboard-container.stocks {
-    flex-direction: column;
-}
-
-.stocks.heading {
-    display: flex;
-    flex-direction: row;
-    align-content: flex-end;
-}
-
-.stocks.left {
+.stocks.message {
     display: flex;
     flex-direction: column;
     text-align: center;
+    justify-content: center;
     color: #01345B;
 }
 
 .stocks-direction {
-    color: green;
+    color: #4CAF50;
     font-size: 1.5em;
+}
+
+.graph-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.graph-container h3 {
+    justify-self: flex-end;
 }
