@@ -94,7 +94,28 @@ router.post('/token-exchange', async (req, res) => {
         return standarditem
     }
 
-    res.status(200).json(balanceSheet);
+    res.status(200).json({accessToken, balanceSheet});
+});
+
+router.post('/transaction', async (req, res) => {
+    console.log("want to get transaction")
+    // this will be from the client side frontend
+    const { accessToken } = req.body;  
+    console.log("accessToken", accessToken)
+    // use public token to get accessToken
+    
+
+    
+    try 
+    {const TransactionResponse = await plaidClient.getTransactions(accessToken, "2020-10-21", "2021-01-01");
+    console.log('TransactionResponse');
+    console.log(util.inspect(TransactionResponse, false, null, true));
+    console.log('---------------');
+    console.log("************************", TransactionResponse) 
+    res.status(200).json({accessToken, TransactionResponse});
+    }catch (error) {console.log(error)}
+
+    
 });
 
 module.exports = router

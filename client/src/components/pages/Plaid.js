@@ -36,13 +36,18 @@ export default function Plaid({id, setAddStatus}) {
     const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
     //  which one is going to be updated?
     const [editLocation, setEditLocation] = useState()
+    const [accessToken, setAccessToken] = useState("")
 
     const onSuccess = useCallback(async (public_token, metadata) => {
       // send public_token to server
+      
       const {data} = await axios.post('/api/plaid/token-exchange', {public_token}, {headers : {"Content-Type": "application/json"}})
-      setAssetFromPlaid(data)
-      // Handle response ...
+      
       console.log("data", data)
+      setAssetFromPlaid(data.balanceSheet)
+      setAccessToken(data.accessToken)
+      // Handle response ...
+
     }, []);
     const config = {
       token: linkToken,
@@ -101,12 +106,20 @@ export default function Plaid({id, setAddStatus}) {
       setAssetFromPlaid(newAssetFromPlaid)
     }
 
+    async function getTransactionData(accessToken) {
+      console.log(accessToken)
+      const {data} = await axios.post('/api/plaid/transaction', {accessToken}, {headers : {"Content-Type": "application/json"}})
+      console.log(data.TransactionResponse)
+      console.log(data.TransactionResponse.transactions)
+    }
+
     return (
       <div> 
         <PlaidButton onClick={() => {setAssetFromPlaid([]); open()}} disabled={!ready}>
         Import info from your financial institution
         </PlaidButton>
-        
+
+        <button onClick={(event)=>{getTransactionData(accessToken)}}> Transaction data </button>  
 
         {assetFromPlaid.length? 
             <div>
