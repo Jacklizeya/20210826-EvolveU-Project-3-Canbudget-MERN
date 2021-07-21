@@ -4,11 +4,15 @@ import axios from 'axios'
 
 import Donut from '../Donut'
 import Line from '../Line'
+import RadialChart from '../RadialBar'
+
+import DashboardTable from './DashboardTable'
 
 import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
 import { subscriptionTableData } from '../data/mockData'
 
 import StocksWidget from './StocksWidget/StocksWidget'
+import portfolioWorthData from '../data/portfolioWorthData'
 
 import './Dashboard.css'
 
@@ -17,12 +21,12 @@ import './Dashboard.css'
 
 
 export default function Dashboard() {
-
     const {id} = useContext(AuthenticationContext)
 
     const [user, setUser] = useState(null)
     const [assets, setAssets] = useState(null)
     const [liability, setLiability] = useState(null)
+    const [whichTable, setWhichTable] = useState(null)
 
     useEffect(() => {
 
@@ -55,7 +59,27 @@ export default function Dashboard() {
         }
     }, [user])
 
-
+    const handleAssetsClick = (event) => {
+        if (whichTable === 'assets') {
+            setWhichTable(null)
+        } else {
+            setWhichTable('assets')
+        }
+    }
+    const handleOverviewClick = (event) => {
+        if (whichTable === 'overview') {
+            setWhichTable(null)
+        } else {
+            setWhichTable('overview')
+        }
+    }
+    const handleBudgetClick = (event) => {
+        if (whichTable === 'liabilities') {
+            setWhichTable(null)
+        } else
+            setWhichTable('liabilities')
+    }
+    
     return (
         user ?
             <div> 
@@ -63,23 +87,32 @@ export default function Dashboard() {
                 <div className='dashboard-container'>
                     <div className='graph-container'>
                         <Donut data={assets} showLegend={false} />
-                        <h3>Assets</h3>
+                        <button className='dashboard-dropdown-button' onClick={handleAssetsClick}><h3>Assets</h3></button>
                     </div>  
                     <div className='graph-container'>
                         <Line />
-                        <h3>Overview</h3>
+                        <button className='dashboard-dropdown-button' onClick={handleOverviewClick}><h3>Overview</h3></button>
                     </div>
                     <div className='graph-container'>
                         <Donut data={liability} showLegend={false} />
-                        <h3>Liabilities</h3>
+                        <button className='dashboard-dropdown-button' onClick={handleBudgetClick}><h3>Liabilities</h3></button>
                     </div>
                 </div>
-                <div style={{display:'flex'}}>
+                {
+                    whichTable === 'assets' ? <DashboardTable data={assets}/> :
+                    whichTable === 'liabilities' ? <DashboardTable data={liability}/> :
+                    whichTable === 'overview' ? <DashboardTable data={user.balanceSheet}/> :
+                    null
+                }
+                <div style={{display:'flex', flexFlow:'row wrap'}}>
                     <div className='dashboard-container subscriptions'>
                         <h3>Upcoming bills...</h3>
                         <SubscriptionTable data={subscriptionTableData}/>
                     </div>
-                    <StocksWidget />
+                    <StocksWidget graphData={portfolioWorthData}/>
+                    <div className='dashboard-container'>
+                        <RadialChart />
+                    </div>
                 </div>
             </div>
         : null 

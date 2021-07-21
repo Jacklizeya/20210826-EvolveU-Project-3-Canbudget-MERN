@@ -8,7 +8,6 @@ export default function RadialBar() {
             series: [70],
             options: {
                 chart: {
-                    height: 350,
                     type: 'radialBar',
                 },
                 plotOptions: {
@@ -18,10 +17,8 @@ export default function RadialBar() {
                     }
                     },
                 },
+                colors: ['#4CAF50'],
                 labels: ['Monthly Budget'],
-                title: {
-                    text: 'Progress Tracker'
-                  }
             },
         }
     )
