@@ -48,3 +48,10 @@ h1, h3 {
 .graph-container h3 {
     justify-self: flex-end;
 }
+
+.dashboard-dropdown-button {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}

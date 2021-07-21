@@ -24,6 +24,7 @@ export default function Dashboard() {
     const [user, setUser] = useState(null)
     const [assets, setAssets] = useState(null)
     const [liability, setLiability] = useState(null)
+    const [whichTable, setWhichTable] = useState(null)
 
     useEffect(() => {
 
@@ -56,7 +57,16 @@ export default function Dashboard() {
         }
     }, [user])
 
-
+    const handleAssetsClick = (event) => {
+        setWhichTable('assets')
+    }
+    const handleOverviewClick = (event) => {
+        setWhichTable('overview')
+    }
+    const handleBudgetClick = (event) => {
+        setWhichTable('budget')
+    }
+    
     return (
         user ?
             <div> 
@@ -64,15 +74,15 @@ export default function Dashboard() {
                 <div className='dashboard-container'>
                     <div className='graph-container'>
                         <Donut data={assets} showLegend={false} />
-                        <h3>Assets</h3>
+                        <button className='dashboard-dropdown-button' onClick={handleAssetsClick}><h3>Assets</h3></button>
                     </div>  
                     <div className='graph-container'>
                         <Line />
-                        <h3>Overview</h3>
+                        <button className='dashboard-dropdown-button' onClick={handleOverviewClick}><h3>Overview</h3></button>
                     </div>
                     <div className='graph-container'>
                         <Donut data={liability} showLegend={false} />
-                        <h3>Liabilities</h3>
+                        <button className='dashboard-dropdown-button' onClick={handleBudgetClick}><h3>Liabilities</h3></button>
                     </div>
                 </div>
                 <div style={{display:'flex', flexFlow:'row wrap'}}>
