@@ -14,6 +14,12 @@ router.get('/', async (req, res) => {
     res.send("Hello Plaid is ready");
 });
 
+// This router is to get the event reply from Plaid
+router.post("/", async (req, res) => {
+    console.log("something from plaid is here");
+    console.log(req.body["webhook_code"])
+})
+
 router.get('/create-link-token', async (req, res) => {
     const { link_token: linkToken } = await plaidClient.createLinkToken({
         user: {
@@ -23,9 +29,17 @@ router.get('/create-link-token', async (req, res) => {
         products: ['auth', 'identity'],
         country_codes: ['CA'],
         language: 'en',
+        webhook: "http://b0db12f1e8bd.ngrok.io/api/plaid"
     });
     res.json({ linkToken });
 });
+
+router.post("/transactionreply", async(req, res) => {
+    console.log("some reply from plaid about transaction")
+    // res.json(" i got some thing")
+})
+
+let accessTokenStorage 
 
 router.post('/token-exchange', async (req, res) => {
     console.log("want to exchange token")
@@ -33,6 +47,7 @@ router.post('/token-exchange', async (req, res) => {
     const { public_token } = req.body;  
     // use public token to get accessToken
     const { access_token: accessToken } = await plaidClient.exchangePublicToken(public_token);
+    accessTokenStorage = accessToken
     console.log(accessToken);
 
     const authResponse = await plaidClient.getAuth(accessToken);
@@ -74,7 +89,7 @@ router.post('/token-exchange', async (req, res) => {
     // This is to mutate every item
     let balanceSheet = balanceResponse.accounts.map(element => {return standardlize(element)})
 
-    console.log("finalformat", balanceSheet)
+    // console.log("finalformat", balanceSheet)
 
     function standardlize(object) {
         let {balances, name, type} = object
@@ -82,38 +97,41 @@ router.post('/token-exchange', async (req, res) => {
         let changeMonthToMonth = 0
         // this is how we mutate it
         let nameArray = name.split("")
-        console.log("nameArray", nameArray)
+        // console.log("nameArray", nameArray)
         let newNameArray = nameArray.slice(6, nameArray.length)
-        console.log("newNameArray", newNameArray)
+        // console.log("newNameArray", newNameArray)
         let newName = newNameArray.join("")
         name = bankname + " " + newName
         if (type.includes("loan") || type.includes("credit")) {type = "liability"; value = value * -1}
         else {type="asset"}
         let standarditem = {name, type, value, changeMonthToMonth}
-        console.log(standarditem)
+        // console.log(standarditem)
         return standarditem
     }
+    console.log("accessTokenStorage", accessTokenStorage)
+    res.status(200).json({balanceSheet});
 
-    res.status(200).json({accessToken, balanceSheet});
+    console.log("after sending the response, I want to start preparing transaction data")
+    try {await plaidClient.getTransactions(accessTokenStorage, "2019-07-22", "2021-01-01"); console.log("Initialize Request")} catch(error) {console.log("Transactions NOT Ready, Preparing.....")}
 });
 
 router.post('/transaction', async (req, res) => {
     console.log("want to get transaction")
     // this will be from the client side frontend
-    const { accessToken } = req.body;  
-    console.log("accessToken", accessToken)
+    
+    console.log("accessToken", accessTokenStorage)
     // use public token to get accessToken
     
 
     
     try 
-    {const TransactionResponse = await plaidClient.getTransactions(accessToken, "2020-10-21", "2021-01-01");
-    console.log('TransactionResponse');
-    console.log(util.inspect(TransactionResponse, false, null, true));
-    console.log('---------------');
-    console.log("************************", TransactionResponse) 
-    res.status(200).json({accessToken, TransactionResponse});
-    }catch (error) {console.log(error)}
+    {const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2020-10-21", "2021-01-01");
+    console.log('Got it now! TransactionResponse');
+    // console.log(util.inspect(TransactionResponse, false, null, true));
+    // console.log('---------------');
+    // console.log("************************", TransactionResponse) 
+    res.status(200).json({ TransactionResponse});
+    }catch (error) {console.log("Still not ready!")}
 
     
 });
