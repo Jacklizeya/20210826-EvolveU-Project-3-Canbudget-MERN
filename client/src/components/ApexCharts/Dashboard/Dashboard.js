@@ -6,6 +6,8 @@ import Donut from '../Donut'
 import Line from '../Line'
 import RadialChart from '../RadialBar'
 
+import DashboardTable from './DashboardTable'
+
 import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
 import { subscriptionTableData } from '../data/mockData'
 
@@ -58,13 +60,24 @@ export default function Dashboard() {
     }, [user])
 
     const handleAssetsClick = (event) => {
-        setWhichTable('assets')
+        if (whichTable === 'assets') {
+            setWhichTable(null)
+        } else {
+            setWhichTable('assets')
+        }
     }
     const handleOverviewClick = (event) => {
-        setWhichTable('overview')
+        if (whichTable === 'overview') {
+            setWhichTable(null)
+        } else {
+            setWhichTable('overview')
+        }
     }
     const handleBudgetClick = (event) => {
-        setWhichTable('budget')
+        if (whichTable === 'liabilities') {
+            setWhichTable(null)
+        } else
+            setWhichTable('liabilities')
     }
     
     return (
@@ -85,6 +98,12 @@ export default function Dashboard() {
                         <button className='dashboard-dropdown-button' onClick={handleBudgetClick}><h3>Liabilities</h3></button>
                     </div>
                 </div>
+                {
+                    whichTable === 'assets' ? <DashboardTable data={assets}/> :
+                    whichTable === 'liabilities' ? <DashboardTable data={liability}/> :
+                    whichTable === 'overview' ? <DashboardTable data={user.balanceSheet}/> :
+                    null
+                }
                 <div style={{display:'flex', flexFlow:'row wrap'}}>
                     <div className='dashboard-container subscriptions'>
                         <h3>Upcoming bills...</h3>
