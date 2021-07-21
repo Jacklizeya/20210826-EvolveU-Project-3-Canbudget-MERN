@@ -4,7 +4,7 @@ import StocksIcon from '../SubscriptionsTable/images/StocksIcon'
 
 import DashboardStocksTimeseries from './DashboardStocksTimeseries'
 
-export default function StocksWidget() {
+export default function StocksWidget({graphData}) {
     return (
         <div className='dashboard-container'>
             <div className='stocks message'>
@@ -15,7 +15,7 @@ export default function StocksWidget() {
                 <h1 className='stocks-direction'>$213.76</h1>
                 <p>Since your last visit</p>
             </div>
-            <DashboardStocksTimeseries />
+            <DashboardStocksTimeseries data={graphData}/>
         </div>
     )
 }

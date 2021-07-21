@@ -14,7 +14,7 @@ export default function Line() {
         xaxis: {
             type: 'datetime'
         },
-        colors: ['#4CAF50','#3F51B5','#FF9800','#03A9F4']
+        colors: ['#4CAF50','#3F51B5','#FF9800','#03A9F4'],
       },
       series: [
         {

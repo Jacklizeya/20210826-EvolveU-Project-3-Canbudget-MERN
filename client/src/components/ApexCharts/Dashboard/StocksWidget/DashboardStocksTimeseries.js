@@ -1,34 +1,32 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Chart from 'react-apexcharts'
-import { lineData } from '../../data/apexDataConvertor'
 
-export default function DashboardStocksTimeseries() {
-  // eslint-disable-next-line
+import { portfolioWorthData } from "../../data/apexDataConvertor"
+
+export default function DashboardStocksTimeseries({graphData}) {
+
+  const [labels, setLabels] = useState(null)
+  const [seriesOneData, setSeriesOneData] = useState(null)
   const [lineProps, setLineProps] = useState(
     {
       options: {
         chart: {
             type: 'line'
         },
-        labels: lineData.labels,
+        labels: portfolioWorthData.labels,
         xaxis: {
             type: 'datetime'
         },
-        colors: ['#4CAF50','#F9CE1D','#FF9800','#3F51B5','#03A9F4']
+        colors: ['#4CAF50','#F9CE1D','#FF9800','#3F51B5','#03A9F4'],
       },
       series: [
         {
-            name: 'Assets',
+            name: 'Value',
             type: 'line',  
-            data: lineData.assets,
-        },
-        {
-          name: 'Liabilities',
-          type: 'line',  
-          data: lineData.liabilities
+            data: portfolioWorthData.portfolioWorth,
         },
       ],
-      width: 600
+      width: 400
     }
   )
 

@@ -4,11 +4,13 @@ import axios from 'axios'
 
 import Donut from '../Donut'
 import Line from '../Line'
+import RadialChart from '../RadialBar'
 
 import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
 import { subscriptionTableData } from '../data/mockData'
 
 import StocksWidget from './StocksWidget/StocksWidget'
+import portfolioWorthData from '../data/portfolioWorthData'
 
 import './Dashboard.css'
 
@@ -17,7 +19,6 @@ import './Dashboard.css'
 
 
 export default function Dashboard() {
-
     const {id} = useContext(AuthenticationContext)
 
     const [user, setUser] = useState(null)
@@ -74,12 +75,15 @@ export default function Dashboard() {
                         <h3>Liabilities</h3>
                     </div>
                 </div>
-                <div style={{display:'flex'}}>
+                <div style={{display:'flex', flexFlow:'row wrap'}}>
                     <div className='dashboard-container subscriptions'>
                         <h3>Upcoming bills...</h3>
                         <SubscriptionTable data={subscriptionTableData}/>
                     </div>
-                    <StocksWidget />
+                    <StocksWidget graphData={portfolioWorthData}/>
+                    <div className='dashboard-container'>
+                        <RadialChart />
+                    </div>
                 </div>
             </div>
         : null 
