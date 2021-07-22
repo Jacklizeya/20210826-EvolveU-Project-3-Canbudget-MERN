@@ -6,27 +6,62 @@ import {SubmitButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd, td
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 
+
+//  This is for socket io
+import io from "socket.io-client"
+const socket = io("http://localhost:3000")
+
+
+
 export default function Plaid({id, setAddStatus}) {
 
     const [linkToken, setLinkToken] = useState(null);
+    const [plaidStatusReady, setPlaidStatusReady] = useState("")
+
     const generateToken = async () => {
       const {data} = await axios.get('/api/plaid/create-link-token',)
       console.log(data)
       setLinkToken(data.linkToken);
     };
     useEffect(() => {
+
+        socket.on("connect_error", (err) => {
+          console.log(`connect_error due to ${err.message}`, err);})
+
+        socket.on("connect", () => {
+        console.log("socket here")
+        // either with send()
+        socket.send("Hello!");
+      
+        // or with emit() and custom event names
+        socket.emit("salutations", "Hello!", { "mr": "john" }, Uint8Array.from([1, 2, 3, 4]));
+      });
+      
+      // handle the event sent with socket.send()
+      socket.on("message", data => {
+        console.log("message event", data);                  
+        if (data === "INITIAL_UPDATE") {setPlaidStatusReady("INITIAL_UPDATE")}
+        else if (data === "HISTORICAL_UPDATE") {setPlaidStatusReady("HISTORICAL_UPDATE")}
+      });
+      
+      // handle the event sent with socket.emit()
+      socket.on("greetings", (elem1, elem2, elem3) => {
+        console.log(elem1, elem2, elem3);
+      });
       generateToken();
+      console.log("socketstatus", socket.connected)
     }, []);
 
     return (
         <div>
             <Descriptiondiv> Import Data from your financial Institution  directly </Descriptiondiv>
-            {linkToken != null ? <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus}/> : <div></div>}
+            {linkToken != null ? 
+              <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
         </div>
     )
 }
 
-  const Link = ({linkToken, id, setAddStatus}) => {
+  const Link = ({linkToken, id, setAddStatus, plaidStatusReady, setPlaidStatusReady}) => {
 
 
     const [assetFromPlaid, setAssetFromPlaid] = useState([])
@@ -115,11 +150,17 @@ export default function Plaid({id, setAddStatus}) {
 
     return (
       <div> 
-        <PlaidButton onClick={() => {setAssetFromPlaid([]); open()}} disabled={!ready}>
+        <PlaidButton onClick={() => {setAssetFromPlaid([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
         Import info from your financial institution
         </PlaidButton>
 
-        <button onClick={(event)=>{getTransactionData()}}> Transaction data </button>  
+        {plaidStatusReady? (plaidStatusReady === "INITIAL_UPDATE"? 
+        <SubmitButton onClick={(event)=>{getTransactionData()}}> One month Transaction data Ready </SubmitButton>  
+        :
+        <SubmitButton onClick={(event)=>{getTransactionData()}}> Two years' Transaction data Ready </SubmitButton>)
+        : null}
+        
+        
 
         {assetFromPlaid.length? 
             <div>
