@@ -9,7 +9,6 @@ import RadialChart from '../RadialBar'
 import DashboardTable from './DashboardTable'
 
 import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
-import { subscriptionTableData } from '../data/mockData'
 
 import StocksWidget from './StocksWidget/StocksWidget'
 import portfolioWorthData from '../data/portfolioWorthData'
@@ -107,7 +106,7 @@ export default function Dashboard() {
                 <div style={{display:'flex', flexFlow:'row wrap'}}>
                     <div className='dashboard-container subscriptions'>
                         <h3>Upcoming bills...</h3>
-                        <SubscriptionTable data={subscriptionTableData}/>
+                        <SubscriptionTable data={user.recurringBills}/>
                     </div>
                     <StocksWidget graphData={portfolioWorthData}/>
                     <div className='dashboard-container'>
