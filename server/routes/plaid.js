@@ -35,7 +35,7 @@ router.get('/create-link-token', async (req, res) => {
         products: ['auth', 'identity'],
         country_codes: ['CA'],
         language: 'en',
-        webhook: "http://21c982cc392b.ngrok.io/api/plaid"
+        webhook: process.env.NGROK + "/api/plaid"
     });
     res.json({ linkToken });
 });

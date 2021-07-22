@@ -6,7 +6,7 @@ import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./AssetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import Plaid from './Plaid';
+import Plaid from './AssetPlaid';
 import { NavLinks, NavItem} from '../Navbar/Navbar.elements';
 
 
@@ -82,15 +82,6 @@ function Asset() {
             setSortIndicator("")
         }
     }
-
-    // async function deleteBalanceSheet(event, id) {
-    //     let nameOfItemToRemove = event.target.value
-    //     console.log(nameOfItemToRemove)
-    //     let {data} = await axios.put(`/api/user/${id}/deletebalancesheet/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
-    //     if (data.ok) {
-    //         setDeleteStatus(data.ok)
-    //     }
-    // }
 
     function editItem(event) {
     let index = event.target.id

@@ -5,7 +5,7 @@ import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./BudgetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-
+import Plaid from './TransactionPlaid';
 
 
 function Budget() {
@@ -113,14 +113,6 @@ function Budget() {
             setSortIndicator("")
         }
     }
-
-    // async function deletecashflow(event, id) {
-    // let nameOfItemToRemove = event.target.value
-    // console.log(nameOfItemToRemove)
-    // let {data} = await axios.put(`/api/user/${id}/deletecashflow/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
-    // if (data.ok) {
-    //     setDeleteStatus(data.ok)
-    // }}
 
     function editItem(event) {
     let index = event.target.id
@@ -270,7 +262,7 @@ function Budget() {
                             <SubmitButton display="block" type="submit"> Submit </SubmitButton>                                                       
                         </form>
                     </FormDiv> 
-                    
+                    <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
                     
                 </div> : ""}
         
