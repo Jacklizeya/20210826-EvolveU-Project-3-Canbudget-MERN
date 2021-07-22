@@ -57,7 +57,7 @@ const Footer = () => {
                         <FooterLinkTitle>About us</FooterLinkTitle>
                         <FooterLink to='/#our-team' onClick={scrollTo('our-team')}>Our team</FooterLink>
                         <FooterLink to='/#promotions' onClick={scrollTo('promotions')}>Promotions</FooterLink>
-                        <FooterLink to='/advisors'>Advisors</FooterLink>
+                        <FooterLink to='/resources'>Resources</FooterLink>
                         {showPrivate &&
                             <>
                                 <FooterLink to='/budget'>Budget</FooterLink>
@@ -79,7 +79,7 @@ const Footer = () => {
                         <FooterLinkTitle>Social Media</FooterLinkTitle>
                         <FooterLink to='/sign-up'>How it works</FooterLink>
                         <FooterLink to='/promotions'>Promotions</FooterLink>
-                        <FooterLink to='/advisors'>Advisors</FooterLink>
+                        <FooterLink to='/resources'>Resources</FooterLink>
                         <FooterLink to='/budget'>Budget</FooterLink>
                         <FooterLink to='/asset'>Asset</FooterLink>
                     </FooterLinkItems>
@@ -87,7 +87,7 @@ const Footer = () => {
                         <FooterLinkTitle>Social Media</FooterLinkTitle>
                         <FooterLink to='/sign-up'>How it works</FooterLink>
                         <FooterLink to='/promotions'>Promotions</FooterLink>
-                        <FooterLink to='/advisors'>Advisors</FooterLink>
+                        <FooterLink to='/resources'>Resources</FooterLink>
                         <FooterLink to='/budget'>Budget</FooterLink>
                         <FooterLink to='/asset'>Asset</FooterLink>
                     </FooterLinkItems> */}

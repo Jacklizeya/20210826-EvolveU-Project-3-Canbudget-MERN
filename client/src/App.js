@@ -3,7 +3,6 @@ import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Navbar, Footer } from './components';
 import Home from './components/pages/HomePage/Home';
-import Advisors from './components/pages/Advisors';
 import Budget from './components/pages/Budget';
 import Asset from './components/pages/Asset';
 import Stocks from './components/Stocks/Stocks';
@@ -28,7 +27,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={Home} />
           {/* <Route path='/promotions' exact component={Promotions} /> */}
-          <Route path='/advisors' exact component={Advisors} />
+          <Route path='/resources' exact component={ResourceSearch} />
           <Route path='/apex-charts' exact component={ApexCharts} />
           <Route path='/resources' exact component={ResourceSearch} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}

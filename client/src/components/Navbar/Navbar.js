@@ -77,8 +77,8 @@ const Navbar = () => {
                                 </NavLinks>
                             </NavItem>
                             <NavItem>
-                                <NavLinks to='/advisors'>
-                                    Advisors
+                                <NavLinks to='/resources'>
+                                    Resources
                                 </NavLinks>
                             </NavItem>
                             {showPrivate &&
