@@ -17,9 +17,15 @@ router.get('/', async (req, res) => {
 // This router is to get the event reply from Plaid
 router.post("/", async (req, res) => {
     console.log("something from plaid is here");
+    console.log(req.io)
+    io = req.io
     console.log(req.body["webhook_code"])
+    plaidReply = req.body["webhook_code"]
+    console.log("plaidReply", plaidReply)  
+    io.emit("message", plaidReply)  
+    console.log(" I just emit some message")
 })
-
+// Currently webhook only available for 2 hours and it is changing all the time
 router.get('/create-link-token', async (req, res) => {
     const { link_token: linkToken } = await plaidClient.createLinkToken({
         user: {
@@ -29,7 +35,7 @@ router.get('/create-link-token', async (req, res) => {
         products: ['auth', 'identity'],
         country_codes: ['CA'],
         language: 'en',
-        webhook: "http://b0db12f1e8bd.ngrok.io/api/plaid"
+        webhook: "http://21c982cc392b.ngrok.io/api/plaid"
     });
     res.json({ linkToken });
 });
