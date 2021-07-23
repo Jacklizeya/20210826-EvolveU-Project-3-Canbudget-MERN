@@ -47,7 +47,7 @@ function Login({ successURL, cancelURL }) {
             // }
             // SetMessage("Good " + pd + " " + who); 
             // alert("prepareMessageForStatusLine finished")
-            //              //   history.push(successURL !== "" ? successURL : "/");           
+            history.push("/dashboard");    
         } else {
             setError("password",
                 { type: "server", message: errorMessage })
