@@ -6,13 +6,6 @@ import {SubmitButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd, td
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 
-
-//  This is for socket io
-import io from "socket.io-client"
-const socket = io("http://localhost:3000")
-
-
-
 export default function Plaid({id, setAddStatus}) {
 
     const [linkToken, setLinkToken] = useState(null);
@@ -25,31 +18,8 @@ export default function Plaid({id, setAddStatus}) {
     };
     useEffect(() => {
 
-        socket.on("connect_error", (err) => {
-          console.log(`connect_error due to ${err.message}`, err);})
-
-        socket.on("connect", () => {
-        console.log("socket here")
-        // either with send()
-        socket.send("Hello!");
-      
-        // or with emit() and custom event names
-        socket.emit("salutations", "Hello!", { "mr": "john" }, Uint8Array.from([1, 2, 3, 4]));
-      });
-      
-      // handle the event sent with socket.send()
-      socket.on("message", data => {
-        console.log("message event", data);                  
-        if (data === "INITIAL_UPDATE") {setPlaidStatusReady("INITIAL_UPDATE")}
-        else if (data === "HISTORICAL_UPDATE") {setPlaidStatusReady("HISTORICAL_UPDATE")}
-      });
-      
-      // handle the event sent with socket.emit()
-      socket.on("greetings", (elem1, elem2, elem3) => {
-        console.log(elem1, elem2, elem3);
-      });
       generateToken();
-      console.log("socketstatus", socket.connected)
+
     }, []);
 
     return (
@@ -139,13 +109,6 @@ export default function Plaid({id, setAddStatus}) {
       let newAssetFromPlaid = [...assetFromPlaid]
       newAssetFromPlaid.splice(index, 1)
       setAssetFromPlaid(newAssetFromPlaid)
-    }
-
-    async function getTransactionData() {
-      
-      const {data} = await axios.post('/api/plaid/transaction', {}, {headers : {"Content-Type": "application/json"}})
-      console.log(data.TransactionResponse)
-      console.log(data.TransactionResponse.transactions)
     }
 
     return (

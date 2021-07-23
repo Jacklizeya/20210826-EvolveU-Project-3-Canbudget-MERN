@@ -9,7 +9,9 @@ import {  FaSortUp, FaSortDown } from "react-icons/fa"
 
 //  This is for socket io
 import io from "socket.io-client"
-const socket = io("http://localhost:3000")
+// io === connect (connect to the server)
+const targetURL = process.env.NODE_ENV === "production"? window.location.hostname : "http://localhost:3000"
+const socket = io(targetURL)
 
 export default function Plaid({id, setAddStatus}) {
 

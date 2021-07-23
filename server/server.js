@@ -22,16 +22,18 @@ const apiRouter = require('./routes/apiRouter')
 
 
 const app = express()
-
+app.use(cors())
 const port = process.env.PORT || 3000
 
 const server = app.listen(port, () => {
     console.log('CanBudget server listening on port ' + port)
 })
 
+console.log("the allowed orgin is", process.env.CLIENTPORT)
 const io= socketio(server, {
     cors: {
-      origin: process.env.CORSORIGIN,
+      // This is the client side
+      origin: process.env.NODE_ENV === "production"? process.env.PORT: process.env.CLIENTPORT,
       methods: ["GET", "POST"]
     }})
 
@@ -53,7 +55,7 @@ io.on('connection', socket => {
     });
   });
 
-app.use(cors())
+  app.use(cors())
 
 
 app.use(express.json());
