@@ -31,7 +31,7 @@ const server = app.listen(port, () => {
 
 const io= socketio(server, {
     cors: {
-      origin: "http://localhost:4444",
+      origin: process.env.CORSORIGIN,
       methods: ["GET", "POST"]
     }})
 

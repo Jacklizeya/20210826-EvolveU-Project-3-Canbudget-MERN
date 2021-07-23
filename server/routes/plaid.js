@@ -40,11 +40,6 @@ router.get('/create-link-token', async (req, res) => {
     res.json({ linkToken });
 });
 
-router.post("/transactionreply", async(req, res) => {
-    console.log("some reply from plaid about transaction")
-    // res.json(" i got some thing")
-})
-
 let accessTokenStorage 
 
 router.post('/token-exchange', async (req, res) => {
@@ -87,9 +82,6 @@ router.post('/token-exchange', async (req, res) => {
         "ins_120010" : "atb",
     }
 
-    let bank = bankHashTable[balanceResponse.item["institution_id"]]
-    console.log("%%%%%%%%%%%bank ", bank)
-    
     let bankname = bankHashTable[balanceResponse.item["institution_id"]]
     console.log("%%%%%%%%%%%bank ", bankname)
     // This is to mutate every item
@@ -131,12 +123,39 @@ router.post('/transaction', async (req, res) => {
 
     
     try 
-    {const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2020-10-21", "2021-01-01");
+    {const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2019-10-21", "2021-01-01");
     console.log('Got it now! TransactionResponse');
+
+    let bankHashTable = {
+        "ins_39" : "rbc",
+        "ins_38" : "scotiabank",
+        "ins_42" : "td",
+        "ins_41" : "bmo",
+        "ins_37" : "cibc",
+        "ins_40" : "tangerine",
+        "ins_46" : "desjardins",
+        "ins_48" : "national bank of canada",
+        "ins_115575" : "vancity",
+        "ins_120010" : "atb",
+    }
+
+    let bankname = bankHashTable[TransactionResponse.item["institution_id"]]
+    console.log("%%%%%%%%%%%bank ", bankname)
+
+    let transactionRecord = TransactionResponse.transactions.map(element => {return standardlize(element)})
+
+    function standardlize(object) {
+        let {date, name, amount, category} = object
+        amount = amount * -1
+        category = category.join(", ")
+        let standarditem = {date, name, bankname, amount, category}
+        return standarditem
+    }
     // console.log(util.inspect(TransactionResponse, false, null, true));
     // console.log('---------------');
     // console.log("************************", TransactionResponse) 
-    res.status(200).json({ TransactionResponse});
+    console.log(transactionRecord)
+    res.status(200).json(transactionRecord);
     }catch (error) {console.log("Still not ready!")}
 
     
