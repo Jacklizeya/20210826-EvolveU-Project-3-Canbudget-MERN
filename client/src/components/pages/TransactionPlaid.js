@@ -52,7 +52,7 @@ export default function Plaid({id, setAddStatus}) {
 
     return (
         <div>
-            <Descriptiondiv> Import Data from your financial Institution  directly </Descriptiondiv>
+            <Descriptiondiv> Import Data from your financial Institution </Descriptiondiv>
             {linkToken != null ? 
               <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
         </div>
@@ -70,6 +70,7 @@ export default function Plaid({id, setAddStatus}) {
     //  which one is going to be updated?
     const [editLocation, setEditLocation] = useState()
     // const [accessToken, setAccessToken] = useState("")
+    const [transactionData, setTransactionData] = useState([])
 
     const onSuccess = useCallback(async (public_token, metadata) => {
       // send public_token to server
@@ -142,14 +143,15 @@ export default function Plaid({id, setAddStatus}) {
     async function getTransactionData() {
       
       const {data} = await axios.post('/api/plaid/transaction', {}, {headers : {"Content-Type": "application/json"}})
-      console.log(data.TransactionResponse)
-      console.log(data.TransactionResponse.transactions)
+      console.log(data)
+      console.log(data)
+      setTransactionData(data)
     }
 
     return (
       <div> 
-        <PlaidButton onClick={() => {setAssetFromPlaid([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
-        Import info from your financial institution
+        <PlaidButton onClick={() => {setTransactionData([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
+        Import Transaction from your financial institution
         </PlaidButton>
 
         {plaidStatusReady? (plaidStatusReady === "INITIAL_UPDATE"? 
@@ -159,70 +161,40 @@ export default function Plaid({id, setAddStatus}) {
         : null}
         
         
-
-        {assetFromPlaid.length? 
+        {transactionData.length? 
             <div>
             <Tablediv>
             
             <table> 
                 <thead>
                     <tr key="itemname">
-                        <th id="name" > item name </th>
-                        <th id="type" style={{width : "20%"}}> type </th>
-                        <th id="value" > value </th>
-                        <th> changeMonthToMonth </th>
-                        <th> edit </th>
-                        <th> delete </th>
+                        <th id="name" > date </th>
+                        <th id="type" style={{width : "20%"}}> name </th>
+                        
+                        <th> amount </th>
+                        <th> bankname </th>
+                        <th> category </th>
+
                     </tr>
                 </thead>
                 
                 <tbody>
-                {assetFromPlaid.map(
-                    (assetFromPlaid, index) => 
-                    <tr key={assetFromPlaid.name}>
-                        <td> {assetFromPlaid.name.charAt(0).toUpperCase() + assetFromPlaid.name.slice(1)} </td>
-                        <td> {assetFromPlaid.type} </td>
-                        <Numbertd value={assetFromPlaid.value}> {assetFromPlaid.value} </Numbertd>
-                        <td> {assetFromPlaid.changeMonthToMonth} </td>    
-                        <td> 
-                            <a href="#plaidform">
-                                <button id={index} onClick={editPlaidItem}> 
-                                    <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
-                                </button>
-                            </a>
-                        </td> 
-                        <td>
-                            <button id={index} onClick={deletePlaidItem}>
-                                <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
-                            </button> 
-                        </td>     
+                {transactionData.map(
+                    (transactionData, index) => 
+                    <tr key={transactionData.name + transactionData.date}>
+                        <td> {transactionData.date} </td>
+                        <td> {transactionData.name} </td>
+                        <Numbertd value={transactionData.amount}> {transactionData.amount} </Numbertd>
+                        <td> {transactionData.bankname.charAt(0).toUpperCase() + transactionData.bankname.slice(1)} </td>
+                        <td> {transactionData.category} </td> 
                     </tr>
                     )} 
                 </tbody>           
             </table> 
             <br/>
-            <SubmitButton onClick={(event) => addPlaid(id)}> Reviewed and accept all the data from {assetFromPlaid[0].name.split(" ")[0].toUpperCase()} </SubmitButton>
+            <SubmitButton onClick={(event) => addPlaid(id)}> Reviewed and accept all transaction data from {transactionData[0].bankname.toUpperCase()} </SubmitButton>
         </Tablediv> 
         
-        <FormDiv>
-        <div className="form" id="plaidform">
-            <label> Edit items from Plaid  </label>
-            <form onSubmit={confirmEdit}>
-                <label> Name of the item </label>
-                <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)} }/> <br/>
-                <label> Type </label>
-                <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
-                    <option value="asset"> asset </option>
-                    <option value="liability"> liability </option>
-                    </select>   <br/>
-                <label> value </label>
-                <input type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/> <br/>
-                <label> changeMonthToMonth </label>
-                <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
-                <SubmitButton type="submit"> Change {name} </SubmitButton>
-            </form>
-    </div>         
-    </FormDiv>
         </div>    
         
             : null}

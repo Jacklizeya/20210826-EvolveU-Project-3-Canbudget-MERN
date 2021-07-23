@@ -54,7 +54,7 @@ export default function Plaid({id, setAddStatus}) {
 
     return (
         <div>
-            <Descriptiondiv> Import Data from your financial Institution  directly </Descriptiondiv>
+            <Descriptiondiv> Import Asset from your financial Institution  directly </Descriptiondiv>
             {linkToken != null ? 
               <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
         </div>
@@ -151,16 +151,8 @@ export default function Plaid({id, setAddStatus}) {
     return (
       <div> 
         <PlaidButton onClick={() => {setAssetFromPlaid([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
-        Import info from your financial institution
+        Import asset from your financial institution
         </PlaidButton>
-
-        {plaidStatusReady? (plaidStatusReady === "INITIAL_UPDATE"? 
-        <SubmitButton onClick={(event)=>{getTransactionData()}}> One month Transaction data Ready </SubmitButton>  
-        :
-        <SubmitButton onClick={(event)=>{getTransactionData()}}> Two years' Transaction data Ready </SubmitButton>)
-        : null}
-        
-        
 
         {assetFromPlaid.length? 
             <div>
