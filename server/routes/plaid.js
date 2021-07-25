@@ -123,7 +123,7 @@ router.post('/transaction', async (req, res) => {
 
     
     try 
-    {const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2019-10-21", "2021-01-01");
+    {const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2019-10-21", "2021-07-23");
     console.log('Got it now! TransactionResponse');
 
     let bankHashTable = {
