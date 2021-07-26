@@ -18,6 +18,7 @@ import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
 import Dashboard from './components/ApexCharts/Dashboard/Dashboard';
+import OnboardingWizard from './components/OnboardingWizard/OnboardingWizard';
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           {/* <Route path='/promotions' exact component={Promotions} /> */}
           <Route path='/resources' exact component={ResourceSearch} />
           <Route path='/apex-charts' exact component={ApexCharts} />
-          <Route path='/resources' exact component={ResourceSearch} />
+          <Route path='/onboard' exact component={OnboardingWizard} />
           {/* <Route path='/our-team' exact component={OurTeam} /> */}
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
