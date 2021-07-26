@@ -67,7 +67,7 @@ export default function Transactions() {
                         </table>    
                     </Tablediv>
                 </div>): <Descriptiondiv >
-                            You donot have any data in database yet, please link to your financial institution to get data
+                            Loading ...
                         </Descriptiondiv>}
         </div>
     )

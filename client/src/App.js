@@ -7,6 +7,7 @@ import Budget from './components/pages/Budget';
 import Asset from './components/pages/Asset';
 import Stocks from './components/Stocks/Stocks';
 import Transactions from './components/pages/Transactions';
+import TransactionsReactTable from './components/pages/TransactionsReactTable';
 // import OurTeam from './components/pages/OurTeam';
 import SignUp from './components/auth/SignUp';
 import ModifyClientPage from './components/auth/ModifyClientPage';
@@ -50,7 +51,7 @@ function App() {
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
           path='/transactions' exact>
-          <Transactions/>
+          <TransactionsReactTable/>
         </ConditionalRoute>
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
