@@ -6,6 +6,7 @@ import Home from './components/pages/HomePage/Home';
 import Budget from './components/pages/Budget';
 import Asset from './components/pages/Asset';
 import Stocks from './components/Stocks/Stocks';
+import Transactions from './components/pages/Transactions';
 // import OurTeam from './components/pages/OurTeam';
 import SignUp from './components/auth/SignUp';
 import ModifyClientPage from './components/auth/ModifyClientPage';
@@ -46,6 +47,11 @@ function App() {
             path='/stocks' exact>
             <Stocks/>
           </ConditionalRoute>
+
+          <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
+          path='/transactions' exact>
+          <Transactions/>
+        </ConditionalRoute>
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
             path='/dashboard' exact>

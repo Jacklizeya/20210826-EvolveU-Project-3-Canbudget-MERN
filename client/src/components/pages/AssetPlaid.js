@@ -61,7 +61,7 @@ export default function Plaid({id, setAddStatus}) {
     const { open, ready } = usePlaidLink(config);
 
 
-    async function addPlaid(id) {
+    async function addAssetFromPlaidDatabase(id) {
       let success = true
       assetFromPlaid.forEach(async (element) => {
         const {name, type, value, changeMonthToMonth} = element;
@@ -158,7 +158,7 @@ export default function Plaid({id, setAddStatus}) {
                 </tbody>           
             </table> 
             <br/>
-            <SubmitButton onClick={(event) => addPlaid(id)}> Reviewed and accept all the data from {assetFromPlaid[0].name.split(" ")[0].toUpperCase()} </SubmitButton>
+            <SubmitButton onClick={(event) => addAssetFromPlaidDatabase(id)}> Reviewed and accept all the data from {assetFromPlaid[0].name.split(" ")[0].toUpperCase()} </SubmitButton>
         </Tablediv> 
         
         <FormDiv>

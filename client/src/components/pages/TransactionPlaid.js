@@ -62,15 +62,7 @@ export default function Plaid({id, setAddStatus}) {
 }
 
   const Link = ({linkToken, id, setAddStatus, plaidStatusReady, setPlaidStatusReady}) => {
-
-
-    const [assetFromPlaid, setAssetFromPlaid] = useState([])
-    const [name, setName] = useState("")
-    const [type, setType] = useState("asset")
-    const [value, setValue] = useState(0)
-    const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
-    //  which one is going to be updated?
-    const [editLocation, setEditLocation] = useState()
+  
     // const [accessToken, setAccessToken] = useState("")
     const [transactionData, setTransactionData] = useState([])
 
@@ -80,9 +72,6 @@ export default function Plaid({id, setAddStatus}) {
       const {data} = await axios.post('/api/plaid/token-exchange', {public_token}, {headers : {"Content-Type": "application/json"}})
       
       console.log("data", data)
-      setAssetFromPlaid(data.balanceSheet)
-      // setAccessToken(data.accessToken)
-      // Handle response ...
 
     }, []);
     const config = {
@@ -92,57 +81,23 @@ export default function Plaid({id, setAddStatus}) {
     const { open, ready } = usePlaidLink(config);
 
 
-    async function addPlaid(id) {
+    async function addTransactionFromPlaidDatabase(id) {
       let success = true
-      assetFromPlaid.forEach(async (element) => {
-        const {name, type, value, changeMonthToMonth} = element;
-        let newPlaid = {name: name.toLowerCase(), type, value: Number(value), changeMonthToMonth : Number(changeMonthToMonth)}
-        let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newPlaid, {headers : {"Content-Type": "application/json"}})
-        if (!data.ok) {success = false;}  
-      })
-      
+      // transactionData.forEach(async (element) => {
+      //   const {date, name, amount, bankname, category} = element;
+      //   let {data} = await axios.put(`/api/user/${id}/addtransaction`, element, {headers : {"Content-Type": "application/json"}})
+      //   if (!data.ok) {success = false;}  
+      // })
+      let {data} = await axios.put(`/api/user/${id}/addtransaction`, transactionData, {headers : {"Content-Type": "application/json"}})
+      if (!data.ok) {success = false;} 
+
       if (success) {
-          setAddStatus(1)
-          setAssetFromPlaid([])
+          setTransactionData([])
+          setPlaidStatusReady("")
       } else {throw new Error("Unable to add Bank Data to database")}
   }
 
-    function editPlaidItem(event) {
-      let index = event.target.id
-      // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-      let dataToEdit = assetFromPlaid[index]
-      console.log(dataToEdit)
-      setEditLocation(index)
-      setName(dataToEdit.name)
-      setType(dataToEdit.type)
-      setValue(dataToEdit.value)
-      setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-    }
-
-    function confirmEdit(event) {
-    event.preventDefault()
-    let newPlaidItem = {name: name.toLowerCase(), type: type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
-    console.log("newPlaidItem", newPlaidItem)
-    let newAssetFromPlaid = [...assetFromPlaid]
-    newAssetFromPlaid.splice(editLocation, 1, newPlaidItem)
-    // synchronous update
-    setAssetFromPlaid(newAssetFromPlaid)
-    // reset everything here
-    setName("")
-    setType("asset")
-    setValue(0)
-    setChangeMonthToMonth(0)
-    setEditLocation(null)
-    }
-
-    function deletePlaidItem(event) {
-      let index = event.target.id
-      let newAssetFromPlaid = [...assetFromPlaid]
-      newAssetFromPlaid.splice(index, 1)
-      setAssetFromPlaid(newAssetFromPlaid)
-    }
-
-    async function getTransactionData() {
+     async function getTransactionData() {
       
       const {data} = await axios.post('/api/plaid/transaction', {}, {headers : {"Content-Type": "application/json"}})
       console.log(data)
@@ -157,14 +112,18 @@ export default function Plaid({id, setAddStatus}) {
         </PlaidButton>
 
         {plaidStatusReady? (plaidStatusReady === "INITIAL_UPDATE"? 
-        <SubmitButton onClick={(event)=>{getTransactionData()}}> One month Transaction data Ready </SubmitButton>  
+        <SubmitButton> Preparing your transaction data ... </SubmitButton>  
         :
-        <SubmitButton onClick={(event)=>{getTransactionData()}}> Two years' Transaction data Ready </SubmitButton>)
+        <SubmitButton onClick={(event)=>{getTransactionData()}}> Two years' Transaction data Ready for Retrieve </SubmitButton>)
         : null}
         
+        {transactionData.length ? <SubmitButton onClick={(event) => addTransactionFromPlaidDatabase(id)}> Reviewed and accept all transaction data from {transactionData[0].bankname.toUpperCase()} </SubmitButton>: <div> </div>}
         
+
         {transactionData.length? 
             <div>
+
+            
             <Tablediv>
             
             <table> 
@@ -194,7 +153,7 @@ export default function Plaid({id, setAddStatus}) {
                 </tbody>           
             </table> 
             <br/>
-            <SubmitButton onClick={(event) => addPlaid(id)}> Reviewed and accept all transaction data from {transactionData[0].bankname.toUpperCase()} </SubmitButton>
+            
         </Tablediv> 
         
         </div>    

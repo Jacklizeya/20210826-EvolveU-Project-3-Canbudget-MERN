@@ -120,6 +120,18 @@ export const StockButton = styled.button`
     margin: 10px 20px 10px 40px;
 `;
 
+export const TransactionButton = styled.button`
+    color: white;
+    background: #01345B;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border: 2px solid #01345B;
+    border-radius: 3px;
+    width: 300px;
+    height: 40px;
+    margin: 10px 20px 10px 40px;
+`;
+
 export const PlaidButton = styled.button`
     color: white;
     background: #01345B;

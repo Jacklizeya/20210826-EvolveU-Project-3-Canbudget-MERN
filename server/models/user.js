@@ -23,7 +23,8 @@ const userSchema = new Schema({
     phoneNumber: String,
     userType: String,
     cashFlow: Array,
-    balanceSheet: Array
+    balanceSheet: Array,
+    transaction: Array
 });
 
 const userModel = mongoose.model('User', userSchema, 'users')
@@ -131,10 +132,32 @@ async function addBalanceSheet(userId, newBaddBalanceSheet) {
 
 
 function removeBalanceSheet(userId, nameOfItemToRemove) {
+
     console.log(userId, nameOfItemToRemove)
     return userModel.updateOne(
         { _id: userId },
         { $pull: { balanceSheet: {name: nameOfItemToRemove} } }
+    )
+}
+
+
+// For Transactions add one by one I donot really use this one, the below one is way more efficient
+// async function addTransaction(userId, newTransaction) {
+  
+//     console.log("going to add something")
+//     return userModel.updateOne(
+//         { _id: userId },
+//         { $push: { transaction: newTransaction } }
+//     )
+// }
+
+
+// I want to try to add a whole
+async function addTransaction(userId, newTransactionArray) {
+    console.log("going to add something")
+    return userModel.updateOne(
+        { _id: userId },
+        { $push: { transaction: {$each: newTransactionArray} } }
     )
 }
 
@@ -148,5 +171,6 @@ module.exports = {
     addCashFlow,
     removeCashFlow,
     addBalanceSheet,
-    removeBalanceSheet
+    removeBalanceSheet,
+    addTransaction
 }

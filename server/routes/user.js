@@ -67,6 +67,20 @@ router.put("/:id/deletebalancesheet/", async(req, res) => {
   res.send(response)} catch (error) {res.send(error)}
 })
 
+// for Transaction
+
+router.put("/:id/addtransaction/", async(req, res) => {
+  console.log(" I want to add transaction")
+  try {let userId = req.params.id
+  let newTransaction = req.body
+  console.log(userId, newTransaction)
+  let response = await userDB.addTransaction(userId, newTransaction)
+  res.send(response)} catch (error) {res.send(error)}
+})
+
+
+
+
 //  For new user
 
 router.post("/", async (req, res) => {

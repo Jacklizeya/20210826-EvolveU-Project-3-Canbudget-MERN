@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
+import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
+import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./BudgetModal"
@@ -13,7 +14,7 @@ function Budget() {
 
     const {id} = useContext(AuthenticationContext)
     console.log(id)
-
+    let history = useHistory()
     // const [users, setUsers] = useState([])   
     const [user, setUser] = useState({})
     const [userCashFlow, setUserCashFlow] = useState([])
@@ -262,8 +263,11 @@ function Budget() {
                             <SubmitButton display="block" type="submit"> Submit </SubmitButton>                                                       
                         </form>
                     </FormDiv> 
+                    <TransactionButton onClick={()=>{history.push('/transactions')}}>
+                        View Historical Transaction History
+                    </TransactionButton>
                     <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
-                    
+                   
                 </div> : ""}
         
         </div>

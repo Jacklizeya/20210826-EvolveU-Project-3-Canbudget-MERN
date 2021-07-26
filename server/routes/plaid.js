@@ -41,6 +41,18 @@ router.get('/create-link-token', async (req, res) => {
 });
 
 let accessTokenStorage 
+let bankHashTable = {
+    "ins_39" : "rbc",
+    "ins_38" : "scotiabank",
+    "ins_42" : "td",
+    "ins_41" : "bmo",
+    "ins_37" : "cibc",
+    "ins_40" : "tangerine",
+    "ins_46" : "desjardins",
+    "ins_48" : "national bank of canada",
+    "ins_115575" : "vancity",
+    "ins_120010" : "atb",
+}
 
 router.post('/token-exchange', async (req, res) => {
     console.log("want to exchange token")
@@ -69,18 +81,7 @@ router.post('/token-exchange', async (req, res) => {
     // console.log("************************", balanceResponse)
 
     // This is the area I am going to mutate data and standalize it
-    let bankHashTable = {
-        "ins_39" : "rbc",
-        "ins_38" : "scotiabank",
-        "ins_42" : "td",
-        "ins_41" : "bmo",
-        "ins_37" : "cibc",
-        "ins_40" : "tangerine",
-        "ins_46" : "desjardins",
-        "ins_48" : "national bank of canada",
-        "ins_115575" : "vancity",
-        "ins_120010" : "atb",
-    }
+
 
     let bankname = bankHashTable[balanceResponse.item["institution_id"]]
     console.log("%%%%%%%%%%%bank ", bankname)
@@ -110,50 +111,42 @@ router.post('/token-exchange', async (req, res) => {
     res.status(200).json({balanceSheet});
 
     console.log("after sending the response, I want to start preparing transaction data")
-    try {await plaidClient.getTransactions(accessTokenStorage, "2019-07-22", "2021-01-01"); console.log("Initialize Request")} catch(error) {console.log("Transactions NOT Ready, Preparing.....")}
+    try {await plaidClient.getTransactions(accessTokenStorage, "2019-08-27", "2021-08-26"); console.log("Initialize Request")} catch(error) {console.log("Transactions NOT Ready, Preparing.....")}
 });
 
 router.post('/transaction', async (req, res) => {
     console.log("want to get transaction")
     // this will be from the client side frontend
-    
     console.log("accessToken", accessTokenStorage)
     // use public token to get accessToken
-    
-
-    
+       
     try 
-    {const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2019-10-21", "2021-07-23");
-    console.log('Got it now! TransactionResponse');
+    {
+    let transactionCumulative = []
+    let transactionsToFetch = true
+    let offset = 0    
+    const batchSize = 100
+    let bankname
 
-    let bankHashTable = {
-        "ins_39" : "rbc",
-        "ins_38" : "scotiabank",
-        "ins_42" : "td",
-        "ins_41" : "bmo",
-        "ins_37" : "cibc",
-        "ins_40" : "tangerine",
-        "ins_46" : "desjardins",
-        "ins_48" : "national bank of canada",
-        "ins_115575" : "vancity",
-        "ins_120010" : "atb",
+    while (transactionsToFetch) {
+        const TransactionResponse = await plaidClient.getTransactions(accessTokenStorage, "2019-08-27", "2021-08-26", {count: batchSize, offset: offset});
+        transactionCumulative = [...transactionCumulative, ...TransactionResponse.transactions]
+        bankname = bankHashTable[TransactionResponse.item["institution_id"]]
+        if (TransactionResponse.transactions.length === 100) {offset += batchSize} else {transactionsToFetch = false}
     }
 
-    let bankname = bankHashTable[TransactionResponse.item["institution_id"]]
-    console.log("%%%%%%%%%%%bank ", bankname)
+    console.log('Got 2 years transaction data now', bankname);
 
-    let transactionRecord = TransactionResponse.transactions.map(element => {return standardlize(element)})
+    let transactionRecord = transactionCumulative.map(element => {return standardlize(element)})
 
     function standardlize(object) {
-        let {date, name, amount, category} = object
+        let {transaction_id, date, name, amount, category} = object
         amount = amount * -1
         category = category.join(", ")
-        let standarditem = {date, name, bankname, amount, category}
+        let standarditem = {transaction_id, date, name, bankname, amount, category}
         return standarditem
     }
-    // console.log(util.inspect(TransactionResponse, false, null, true));
-    // console.log('---------------');
-    // console.log("************************", TransactionResponse) 
+
     console.log(transactionRecord)
     res.status(200).json(transactionRecord);
     }catch (error) {console.log("Still not ready!")}
