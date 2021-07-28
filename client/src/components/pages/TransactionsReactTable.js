@@ -8,7 +8,7 @@ import ColumnFilter from './ReactTableFilters/ColumnFilter';
 import SelectFilter from './ReactTableFilters/SelectFilter';
 import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
 import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
-
+import TransactionChart from './TransactionChart';
 
 export default function TransactionsReactTable() {
 
@@ -102,7 +102,11 @@ export default function TransactionsReactTable() {
         prepareRow,
         state,
         setGlobalFilter,
+        filteredRows,
       } = tableInstance
+
+    // by console.log(tableInstance), I discovered the result after filtering
+    console.log("filteredRows", filteredRows)
 
     // deconstruction state for filter 
     let {globalFilter, pageIndex} = state  
@@ -110,7 +114,8 @@ export default function TransactionsReactTable() {
       return (
         
         transactionData? 
-        // apply the table props
+        <div> 
+        
         <Tablediv {...getTableProps()}>
           <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
           <thead>
@@ -184,9 +189,10 @@ export default function TransactionsReactTable() {
           <input type="number" defaultValue={pageIndex + 1} onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}/>
           <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button> 
           <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button>
+          
         </Tablediv> 
-        
-        
+        <TransactionChart data={filteredRows}> </TransactionChart>
+        </div>
         : <div> Loading ...</div>
       )
      
