@@ -7,6 +7,7 @@ import GlobalFilter from './ReactTableFilters/GlobalFilter';
 import ColumnFilter from './ReactTableFilters/ColumnFilter';
 import SelectFilter from './ReactTableFilters/SelectFilter';
 import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
+import DateRangeFilter from './ReactTableFilters/DateRangeFilter';
 
 
 export default function TransactionsReactTable() {
@@ -32,7 +33,7 @@ export default function TransactionsReactTable() {
         accessor: 'amount', // accessor is the "key" in the data
         sortType: "basic",
         Filter: NumberRangeFilter,
-        // filter: "between"
+        filter: "between"
       },
       {
         Header: 'Bankname',
