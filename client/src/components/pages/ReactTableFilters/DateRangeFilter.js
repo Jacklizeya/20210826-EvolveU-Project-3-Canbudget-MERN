@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 // This column is passing all the information to this component
 export default function DateRangeColumnFilter({ column: { filterValue = [], preFilteredRows, setFilter, id }}) {
