@@ -7,7 +7,7 @@ import GlobalFilter from './ReactTableFilters/GlobalFilter';
 import ColumnFilter from './ReactTableFilters/ColumnFilter';
 import SelectFilter from './ReactTableFilters/SelectFilter';
 import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
-import DateRangeFilter from './ReactTableFilters/DateRangeFilter';
+import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
 
 
 export default function TransactionsReactTable() {
@@ -21,7 +21,8 @@ export default function TransactionsReactTable() {
         Header: 'Date',
         accessor: 'date', // accessor is the "key" in the data
         sortType: "basic",
-        Filter: ColumnFilter
+        Filter: DateRangeColumnFilter,
+        filter: "dateBetween"
       },
       {
         Header: 'merchant',
@@ -61,9 +62,32 @@ export default function TransactionsReactTable() {
         console.log("enter use Effect")
         getUserandSetTransactionData()
     }, [])
+//  This is for the dates function
+    function dateBetweenFilterFn(rows, id, filterValue) {
+      let startingDate = filterValue[0];
+      let endDate = filterValue[1];
+      console.log(rows, id, filterValue)
+          if (endDate || startingDate) {
+            return rows.filter(r => {
+              var time = r.values[id]
+              if (endDate && startingDate) {return (time >= startingDate && time <= endDate)} 
+              else if (startingDate){  return (time >= startingDate) } 
+              else if (endDate){ return (time <= endDate) }
+            })} else {return rows}
+      // });
+    }
+    dateBetweenFilterFn.autoRemove = val => !val;
+    const filterTypes = React.useMemo(
+      () => ({
+          // Add a new fuzzyTextFilterFn filter type.
+          dateBetween: dateBetweenFilterFn,   /*<- LIKE THIS*/
+      }),
+      []
+    );
+
 
     // adding sorting feature into 
-    const tableInstance = useTable({columns, data}, useFilters, useGlobalFilter,  useSortBy, usePagination)
+    const tableInstance = useTable({columns, data, filterTypes}, useFilters, useGlobalFilter,  useSortBy, usePagination)
 
     const {
         getTableProps,
