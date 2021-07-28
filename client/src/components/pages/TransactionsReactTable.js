@@ -15,6 +15,7 @@ export default function TransactionsReactTable() {
     const {id} = useContext(AuthenticationContext)
     const [transactionData, setTransactionData] = useState([])
     const data = useMemo(()=> transactionData, [transactionData])
+    console.log("transactiondata length", transactionData.length)
 
     const columns = useMemo(() => [
       {
@@ -52,12 +53,9 @@ export default function TransactionsReactTable() {
 
     useEffect(() => {
         async function getUserandSetTransactionData() {
-            let {data} = await axios.get(`/api/user/${id}`, )
-            console.log(data)
-            // setUsers(data)
-            setTransactionData(data.transaction)
-            console.log("user", data.transaction)
-            console.log(typeof(data.transaction[0].amount))
+            let {data} = await axios.get(`/api/user/${id}/transaction`, )   
+            setTransactionData(data)
+            console.log("user transaction", data)
         }
         console.log("enter use Effect")
         getUserandSetTransactionData()

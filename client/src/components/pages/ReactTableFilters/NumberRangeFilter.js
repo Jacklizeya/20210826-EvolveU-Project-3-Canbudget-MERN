@@ -12,6 +12,8 @@ export default function NumberRangeFilter({column: { filterValue = [], preFilter
         })
         return [min, max]
       }, [id, preFilteredRows])
+
+      // console.log("NumberFilter", filterValue)
     
       return (
         <div
@@ -38,6 +40,7 @@ export default function NumberRangeFilter({column: { filterValue = [], preFilter
             type="number"
             onChange={e => {
               const val = e.target.value
+              // going to do a test, see are they on the same pace?
               setFilter((old = []) => [old[0], val ? parseInt(val, 10) : undefined])
             }}
             placeholder={`Max (${max})`}
