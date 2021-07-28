@@ -25,12 +25,14 @@ const Footer = () => {
 
     const scrollTo = (targetEl) => {
 
+    return () => {
         scroller.scrollTo(targetEl, {
             duration: 800,
             delay: 0,
             smooth: "easeInOutQuart",
             offset: -80
         });
+    };
 
     };
 
