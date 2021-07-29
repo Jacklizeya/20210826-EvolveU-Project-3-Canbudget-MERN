@@ -1,8 +1,10 @@
 import React from 'react'
 
-import Shelter from './Sections/Shelter/Shelter'
+import Shelter from './sections/Shelter/Shelter'
+import Subscriptions from './sections/Subsriptions/Subscriptions'
 
 import './OnboardingWizard.css'
+import Transportation from './sections/Transportation/Transportation'
 
 export default function OnboardingWizard() {
     return (
@@ -12,6 +14,8 @@ export default function OnboardingWizard() {
                 <p className='onboard-heading-body'>We are here to help you start planning your financial future.</p>
             </div>
             <Shelter />
+            <Transportation />
+            <Subscriptions />
         </div>
     )
 }

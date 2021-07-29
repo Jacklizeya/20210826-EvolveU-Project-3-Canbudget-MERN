@@ -33,9 +33,11 @@ console.log("the allowed orgin is", process.env.CLIENTPORT)
 const io= socketio(server, {
     cors: {
       // This is the client side
-      origin: process.env.NODE_ENV === "production"? process.env.PORT: process.env.CLIENTPORT,
-      methods: ["GET", "POST"]
-    }})
+      origin: process.env.NODE_ENV === "production" ? process.env.PORT: process.env.CLIENTPORT,
+      methods: ["GET", "POST"],
+      allowedHeaders: ['plaid-transaction']
+    },
+  })
 
 // middleware to pass socket to each request object
 // I tried to put it after the app block, it will not work for that way
