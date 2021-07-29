@@ -4,16 +4,31 @@ var router = express.Router();
 const userDB = require('../models/user');
 
 
+router.get('/:id/transaction', async (req, res) => {
+  try {
+  let userId = req.params.id
+  console.log("getonlyone", userId)
+  let data = await userDB.findById(userId);
+  console.info(`Users retrieved: `, data?.transaction.length)
+  
+  data.transaction.sort((a,b) => {
+    
+    console.log(a["date"], b["date"], a["date"].localeCompare(b["date"])); 
+    return -a["date"].localeCompare(b["date"])})
+
+  res.send(data.transaction)} catch (error) {res.send(error)}
+});
+
 // get user by Id
 router.get('/:id', async (req, res) => {
   try {
-  
   let userId = req.params.id
   console.log("getonlyone", userId)
   let data = await userDB.findById(userId);
   console.info(`Users retrieved: `, data?.length)
   res.send(data);} catch (error) {res.send(error)}
 });
+
 
 
 // get all users
