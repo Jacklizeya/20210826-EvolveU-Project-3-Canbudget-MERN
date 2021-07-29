@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Shelter from './Sections/Shelter/Shelter'
+import Shelter from './sections/Shelter/Shelter'
 
 import './OnboardingWizard.css'
 

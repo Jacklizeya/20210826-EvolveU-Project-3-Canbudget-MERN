@@ -1,39 +1,61 @@
 import React, {useState} from 'react'
 
-import UserOwnsHomeForm from './UserOwnsHomeForm'
-import PaymentDetailsForm from './PaymentDetailsForm'
+import RecurringPaymentForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
 
-import UserHasInsuranceForm from './UserHasInsuranceForm'
-
-import BooleanRadioButtons from '../BooleanRadioButtons'
+import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
 export default function Shelter() {
 
     const [userOwnsHome, setUserOwnsHome] = useState(null)
-    const [userPaymentDetailsEntered, setUserPaymentDetailsEntered] = useState(false)
+    const [userRentDetailsEntered, setUserRentDetailsEntered] = useState(false)
+    const [userHasInsurance, setUserHasInsurance] = useState(null)
 
     const handleDataFromUserOwnsHome = (data) => {
         data === 'true' ? setUserOwnsHome(true) : setUserOwnsHome(false)
     }
 
-    const handlePaymenDetailsSubmit = (event) => {
-        setUserPaymentDetailsEntered(true)
+    const handleRentDetailsSubmit = (event) => {
+        setUserRentDetailsEntered(true)
+    }
+
+    const handleDataFromUserHasInsurance = (data) => {
+        data === 'true' ? setUserHasInsurance(true) : setUserHasInsurance(false)
+    }
+
+    const handleInsuranceDetailsSubmit = (event) => {
+        setUserRentDetailsEntered(true)
     }
 
     return (
         <div className='onboard-container'>
-            <h3 className='onboard-heading'>Let's start by answering a few questions about your home.</h3>
-            <BooleanRadioButtons sendDataToParent={handleDataFromUserOwnsHome} questionPrompt='Do you own your own home?'/>
-            {userOwnsHome !== null ? (
+            <h2 className='onboard-heading'>Let's start by answering a few questions about your monthly shelter expenses</h2>
+            <BooleanRadioButtons sendDataToParent={handleDataFromUserOwnsHome} questionPrompt='Do you own your own home?:'/>
+            {userOwnsHome !== null ? 
                 <div>
-                    <PaymentDetailsForm userOwnsHome={userOwnsHome}/>
-                    <button onClick={handlePaymenDetailsSubmit}>Click here when you're ready to move on</button>
+                    <RecurringPaymentForm
+                        sendDataToParent={handleRentDetailsSubmit} 
+                        questionPrompt={ userOwnsHome === true ? 
+                            'Tell us about your mortgage payment:' : 
+                            "Tell us about your rental situation - if you don't pay rent enter $0:"
+                        }
+                    />
                 </div>
-            ): null}
-            {userPaymentDetailsEntered ? 
-                <BooleanRadioButtons questionPrompt='Do you have home insurance?'/> 
-                : null
-            }
+            : null}
+            {userRentDetailsEntered ?
+                <div> 
+                    <BooleanRadioButtons 
+                        sendDataToParent={handleDataFromUserHasInsurance} 
+                        questionPrompt='Do you have home insurance?'
+                    />
+                    {userHasInsurance ? 
+                        <RecurringPaymentForm
+                            sendDataToParent={handleInsuranceDetailsSubmit}
+                            questionPrompt='Tell us about your home insurance payment:'
+                        /> 
+                        : userHasInsurance !== null ? <button>Click here to move on</button>: null
+                    }
+                </div> 
+                : null}
         </div>
     )
 }
