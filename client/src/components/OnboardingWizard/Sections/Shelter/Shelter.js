@@ -28,8 +28,8 @@ export default function Shelter() {
 
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading'>Let's start by answering a few questions about your monthly shelter expenses.</h2>
-            <BooleanRadioButtons sendDataToParent={handleDataFromUserOwnsHome} questionPrompt='Do you own your own home?'/>
+            <h2 className='onboard-heading'>Let's start by answering a few questions about your monthly shelter expenses</h2>
+            <BooleanRadioButtons sendDataToParent={handleDataFromUserOwnsHome} questionPrompt='Do you own your own home?:'/>
             {userOwnsHome !== null ? 
                 <div>
                     <RecurringPaymentForm
