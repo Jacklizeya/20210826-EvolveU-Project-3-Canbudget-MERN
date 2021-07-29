@@ -9,6 +9,7 @@ import SelectFilter from './ReactTableFilters/SelectFilter';
 import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
 import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
 import TransactionChart from './TransactionChart';
+import BudgetSpendingChart from "./BudgetSpendingChart"
 
 export default function TransactionsReactTable() {
 
@@ -192,6 +193,7 @@ export default function TransactionsReactTable() {
           
         </Tablediv> 
         <TransactionChart data={filteredRows}> </TransactionChart>
+        <BudgetSpendingChart data={filteredRows}></BudgetSpendingChart>
         </div>
         : <div> Loading ...</div>
       )
