@@ -20,33 +20,6 @@ function Login({ successURL, cancelURL }) {
     async function onSubmit(values) {
         errorMessage = await loginContext.logIn(values.email, values.password, prepareMessage);
         if (errorMessage === "") {
-            // // clearErrors();
-            // // prepareMessageForStatusLine();
-
-            // let who = 'brother';
-            // alert("In prepare befgining")
-    
-            // const url = '/api/user/' + loginContext.id;
-            // try {
-            //     let { data } = await axios.get(url)
-            //     who = data.firstName;
-                    
-            // } catch (error) {
-                
-            // }
-            // const h = new Date().getHours();
-            // let pd;
-            // if (h < 4) {
-            //     pd = 'night';
-            // } else if (h < 12) {
-            //     pd = 'morning';
-            // } else if (h < 18) {
-            //     pd = 'afternoon';
-            // } else {
-            //     pd = 'evening';
-            // }
-            // SetMessage("Good " + pd + " " + who); 
-            // alert("prepareMessageForStatusLine finished")
             history.push("/dashboard");    
         } else {
             setError("password",
