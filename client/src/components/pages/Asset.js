@@ -1,18 +1,16 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "./assetAndBudget.elements"
+import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "./AssetModal"
+import {Modal} from "./assetbudgetcomponent/AssetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import Plaid from './AssetPlaid';
-import { NavLinks, NavItem} from '../Navbar/Navbar.elements';
-
+import Plaid from './assetbudgetcomponent/AssetPlaid';
 
 function Asset() {
     const {id} = useContext(AuthenticationContext)
-    console.log(id)
+    // console.log(id)
 
     // const [users, setUsers] = useState([])  
     const [user, setUser] = useState({})
@@ -44,8 +42,7 @@ function Asset() {
     useEffect(() => {
         async function getUsers() {
             let {data} = await axios.get(`/api/user/${id}`, )
-            console.log("*****", data)
-            // setUsers(data)
+            // console.log("*****", data)
             setUser(data)
         }
         getUsers()
@@ -55,7 +52,7 @@ function Asset() {
 
     useEffect(() => {
         if (user.balanceSheet){ 
-            console.log("**balance sheet", user.balanceSheet)
+            // console.log("**balance sheet", user.balanceSheet)
             setUserBalanceSheet(user.balanceSheet) } else {}
      }, [user])
 

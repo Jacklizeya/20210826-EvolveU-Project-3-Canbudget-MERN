@@ -16,14 +16,14 @@ router.get('/', async (req, res) => {
 
 // This router is to get the event reply from Plaid
 router.post("/", async (req, res) => {
-    console.log("something from plaid is here");
+    // console.log("something from plaid is here");
     console.log(req.io)
     io = req.io
-    console.log(req.body["webhook_code"])
+    // console.log(req.body["webhook_code"])
     plaidReply = req.body["webhook_code"]
-    console.log("plaidReply", plaidReply)  
+    // console.log("plaidReply", plaidReply)  
     io.emit("message", plaidReply)  
-    console.log(" I just emit some message")
+    // console.log(" I just emit some message")
 })
 // Currently webhook only available for 2 hours and it is changing all the time
 router.get('/create-link-token', async (req, res) => {

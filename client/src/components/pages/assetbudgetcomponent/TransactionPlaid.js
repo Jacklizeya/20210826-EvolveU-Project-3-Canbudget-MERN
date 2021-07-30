@@ -1,17 +1,20 @@
 import React , { useEffect, useState, useCallback } from 'react'
-import { PlaidButton, Descriptiondiv} from './assetAndBudget.elements'
-import { usePlaidLink, PlaidLinkOptions, PlaidLinkOnSuccess } from 'react-plaid-link';
+import { PlaidButton, Descriptiondiv} from '../assetAndBudget.elements'
+import { usePlaidLink } from 'react-plaid-link';
 import axios from "axios"
-import {SubmitButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "./assetAndBudget.elements"
-import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
-import {  FaSortUp, FaSortDown } from "react-icons/fa"
+import {SubmitButton, Tablediv, Numbertd, } from "../assetAndBudget.elements"
+
 
 
 //  This is for socket io
 import io from "socket.io-client"
 // io === connect (connect to the server)
-const targetURL = process.env.NODE_ENV === "production"? window.location.hostname : "http://localhost:3000"
-const socket = io(targetURL)
+const targetURL = process.env.NODE_ENV === "production" ? window.location.hostname : "http://localhost:3000"
+const socket = io(targetURL, {
+  extraHeaders: {
+    'plaid-transaction': 'CanBudget'
+  }
+})
 
 export default function Plaid({id, setAddStatus}) {
 
@@ -20,7 +23,7 @@ export default function Plaid({id, setAddStatus}) {
 
     const generateToken = async () => {
       const {data} = await axios.get('/api/plaid/create-link-token',)
-      console.log(data)
+      // console.log(data)
       setLinkToken(data.linkToken);
     };
     useEffect(() => {
@@ -49,7 +52,7 @@ export default function Plaid({id, setAddStatus}) {
         console.log(elem1, elem2, elem3);
       });
       generateToken();
-      console.log("socketstatus", socket.connected)
+      // console.log("socketstatus", socket.connected)
     }, []);
 
     return (
@@ -94,14 +97,15 @@ export default function Plaid({id, setAddStatus}) {
       if (success) {
           setTransactionData([])
           setPlaidStatusReady("")
+          setAddStatus(1)
       } else {throw new Error("Unable to add Bank Data to database")}
   }
 
      async function getTransactionData() {
       
       const {data} = await axios.post('/api/plaid/transaction', {}, {headers : {"Content-Type": "application/json"}})
-      console.log(data)
-      console.log(data)
+      // console.log(data)
+      // console.log(data)
       setTransactionData(data)
     }
 

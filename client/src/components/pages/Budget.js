@@ -4,16 +4,16 @@ import axios from "axios"
 import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "./BudgetModal"
+import {Modal} from "./assetbudgetcomponent/BudgetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import Plaid from './TransactionPlaid';
+import MonthlyBudgetAndTransactions from './assetbudgetcomponent/MonthlyBudgetAndTransactions';
 
 
 function Budget() {
 
 
     const {id} = useContext(AuthenticationContext)
-    console.log(id)
+    // console.log(id)
     let history = useHistory()
     // const [users, setUsers] = useState([])   
     const [user, setUser] = useState({})
@@ -51,16 +51,16 @@ function Budget() {
     useEffect(() => {
         async function getUsers() {
             let {data} = await axios.get(`/api/user/${id}`, )
-            console.log(data)
+            // console.log(data)
             // setUsers(data)
             setUser(data)
-            console.log("user", user)
+            
         }
-        console.log("enter use Effect")
+        // console.log("enter use Effect")
         getUsers()
         setAddStatus(0)
         setDeleteStatus(0)
-    }, [addStatus, deleteStatus])
+    }, [addStatus, deleteStatus, id])
 
     useEffect(() => {
        if (user.cashFlow){
@@ -69,13 +69,13 @@ function Budget() {
                 setUserCashFlow(rawCashFlow)}
             else if (viewScenario === "specific date") {
                 let futureCashFlow = rawCashFlow.filter(singleCashFlow => {return ((singleCashFlow.startDate.localeCompare(viewDate) === -1) && (singleCashFlow.endDate.localeCompare(viewDate) === 1))}); 
-                console.log("future", futureCashFlow)
+                // console.log("future", futureCashFlow)
                 setUserCashFlow(futureCashFlow)}
             else if (viewScenario === "initial") {
                 let todayDate = new Date(); 
                 let todayDateFormatted = todayDate.toISOString().split('T')[0]; 
                 let todayCashFlow = rawCashFlow.filter(singleCashFlow => {return ((singleCashFlow.startDate.localeCompare(todayDateFormatted) === -1) && (singleCashFlow.endDate.localeCompare(todayDateFormatted) === 1))}); 
-                console.log("today", todayCashFlow);
+                // console.log("today", todayCashFlow);
                 setViewScenario("specific date")
                 setViewDate(todayDateFormatted) 
                 setUserCashFlow(todayCashFlow) }} else {}
@@ -160,6 +160,9 @@ function Budget() {
                     Email: {user.email} <br/>
                     Address: {user.address} <br/>
                     Phonenumber: {user.phoneNumber} <br/> <br/>
+
+                    
+
                     </Descriptiondiv>
                     {userCashFlow? 
                     <div className="Dynamic ">                                             
@@ -266,8 +269,14 @@ function Budget() {
                     <TransactionButton onClick={()=>{history.push('/transactions')}}>
                         View Historical Transaction History
                     </TransactionButton>
-                    <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
-                   
+                    <br/> 
+                    {viewScenario === "specific date" ? 
+                    <MonthlyBudgetAndTransactions 
+                    userCashFlow={userCashFlow} 
+                    viewDate={viewDate}
+                    addStatus={addStatus}
+                    deleteStatus={deleteStatus}
+                    >  </MonthlyBudgetAndTransactions> : null}
                 </div> : ""}
         
         </div>

@@ -61,7 +61,10 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
         <input className='recurring-payment-field' type='date' placeholder='Bill Date' value={billDate} onChange={handleBillDateChange}></input>
         <input className='recurring-payment-field' type='date' placeholder='Contract End Date' value={contractEndDate} onChange={handleContractEndDateChange}></input>
       </form>
-      <button className='recurring-payment-button' onClick={handleSubmit}>Click here when you're ready to move on. Don't worry if the form is incomplete - we will remind you later!</button> 
+      <div className='recurring-payment-buttons-container'>
+        <button className='recurring-payment-button' onClick={handleSubmit}>ADD ROW</button>
+        <button className='recurring-payment-button' onClick={handleSubmit}>Click here when you're ready to move on<br></br>Don't worry if the form is incomplete - we will remind you later!</button>
+      </div> 
     </div>
   )
 }

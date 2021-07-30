@@ -47,7 +47,7 @@ const Close = styled.span`
 // pass all the necessary function into child component
 export function Modal({displayModal, setDisplayModal, itemname, userid, setDeleteStatus, setSortIndicator}) {
 
-    console.log(itemname, displayModal)
+    // console.log(itemname, displayModal)
 
     async function deleteBalanceSheet(itemname, id) {
         let nameOfItemToRemove = itemname
