@@ -13,7 +13,7 @@ router.get('/:id/transaction', async (req, res) => {
   
   data.transaction.sort((a,b) => {
     
-    console.log(a["date"], b["date"], a["date"].localeCompare(b["date"])); 
+    // console.log(a["date"], b["date"], a["date"].localeCompare(b["date"])); 
     return -a["date"].localeCompare(b["date"])})
 
   res.send(data.transaction)} catch (error) {res.send(error)}

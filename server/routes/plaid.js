@@ -149,7 +149,7 @@ router.post('/transaction', async (req, res) => {
 
     console.log(transactionRecord)
     res.status(200).json(transactionRecord);
-    }catch (error) {console.log("Still not ready!")}
+    } catch (error) {console.log("Still not ready!")}
 
     
 });
