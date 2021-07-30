@@ -47,7 +47,7 @@ const Close = styled.span`
 // pass all the necessary function into child component
 export function Modal({displayModal, setDisplayModal, itemname, userid, setDeleteStatus, setSortIndicator}) {
 
-    console.log(itemname, displayModal)
+    // console.log(itemname, displayModal)
 
     async function deletecashflow(itemname, id) {
         let nameOfItemToRemove = itemname
@@ -67,7 +67,7 @@ export function Modal({displayModal, setDisplayModal, itemname, userid, setDelet
                 <ModalContent>
                     <p> Are you sure you want to delete {itemname} ? </p>
                     <button onClick={event => {deletecashflow(itemname, userid); setDisplayModal(prev => !prev)}}> delete </button>
-                    <Close onClick={event => {console.log("hello"); setDisplayModal(prev => !prev) }}>&times;</Close>
+                    <Close onClick={event => {setDisplayModal(prev => !prev) }}>&times;</Close>
                 </ModalContent>    
         </OutSide>) : null}
         </div>
