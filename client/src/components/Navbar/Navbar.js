@@ -117,13 +117,16 @@ const Navbar = () => {
                                     </NavLinks>
                                 </NavItem>
                             }
-                            {showLogin &&
-                                <NavItem>
-                                    <NavLinks to='/login'>
-                                        Login
-                                    </NavLinks>
-                                </NavItem>
-                            }
+                             {
+                                 
+                            //    showLogin &&
+                            //     <NavItem>
+                            //         <NavLinks to='/login'>
+                            //             Login
+                            //         </NavLinks>
+                            //     </NavItem>
+                            // 
+                        }
 
 
                             {showLogin &&
