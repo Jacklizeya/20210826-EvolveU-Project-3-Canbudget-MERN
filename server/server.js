@@ -16,6 +16,7 @@ const session = require('cookie-session')
 const passport = require('passport')
 const localPassport = require('./auth/localPassport')
 const cors = require("cors")
+const serverSetting  = require('./models/loadServerSetting');
 
 // IMPORT ROUTES
 const apiRouter = require('./routes/apiRouter')
@@ -82,6 +83,7 @@ app.get("*", (req, res) => {res.sendFile(path.resolve(__dirname, "../client/buil
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
 
 // error handler
 app.use(function (err, req, res, next) {

@@ -4,14 +4,16 @@ import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
 import { animateScroll as scroll, scroller } from 'react-scroll';
 import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtnLink } from './Navbar.elements';
-import AuthenticationContext from '../auth/AuthenticationContext';
 
+import AuthenticationContext from '../auth/AuthenticationContext';
+import Settings from '../auth/Settings';
 
 const Navbar = () => {
     const loginContext = useContext(AuthenticationContext);
     let showLogin = !loginContext.isLogedIn();
     let showSignUp = !loginContext.isLogedIn() || loginContext.isAdmin();
     let showPrivate = loginContext.isUser();
+    let isAdmin = loginContext.isAdmin();
 
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
@@ -107,6 +109,23 @@ const Navbar = () => {
                                     Our Team
                                 </NavLinks>
                             </NavItem>
+                            
+                            {isAdmin &&
+                                <NavItem>
+                                    <NavLinks to='/settings'>
+                                        Settings
+                                    </NavLinks>
+                                </NavItem>
+                            }
+                            {showLogin &&
+                                <NavItem>
+                                    <NavLinks to='/login'>
+                                        Login
+                                    </NavLinks>
+                                </NavItem>
+                            }
+
+
                             {showLogin &&
                                 <NavItem>
                                     <NavLinks to='/login'>

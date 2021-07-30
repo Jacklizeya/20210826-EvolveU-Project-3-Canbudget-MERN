@@ -22,6 +22,8 @@ const userSchema = new Schema({
     },
     phoneNumber: String,
     userType: String,
+    securitiesAccount: Number,
+    valueOfSecurities: Number,
     cashFlow: Array,
     balanceSheet: Array,
     transaction: Array
@@ -64,6 +66,10 @@ async function findByEmail(email){
         console.error("error=", error);
     }
     return null;
+}
+
+async function updateUserSecurities(id,securitiesAccount, valueOfSecurities){
+    return userModel.findByIdAndUpdate(id,{securitiesAccount,valueOfSecurities} );
 }
 
 async function updateUser(updClient) {
@@ -168,6 +174,7 @@ module.exports = {
     checkLogin,
     findByEmail,
     updateUser,
+    updateUserSecurities,
     addCashFlow,
     removeCashFlow,
     addBalanceSheet,
