@@ -37,6 +37,12 @@
   padding-left: 10px;
 }
 
+.recurring-payment-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
 .recurring-payment-button {
   cursor: pointer;
   padding: 10px;
@@ -44,5 +50,6 @@
   background-color: #05386B;
   border-radius: 5px;
   font-weight: bold;
+  min-width: 40%;
 }
 

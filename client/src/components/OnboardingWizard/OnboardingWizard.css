@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #01345B;
+    margin: 10px 0px 10px 0px;
 }
 
 .onboard-container {
@@ -15,4 +17,5 @@
 
 .onboard-heading {
     color: #01345B;
+    margin: 10px 0px 10px 0px;
 }
