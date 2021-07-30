@@ -50,7 +50,7 @@ function App() {
           </ConditionalRoute>
 
           <ConditionalRoute condition={()=>{return UseAuth().isUser()}}
-          path='/transactions' exact>
+          path='/transaction' exact>
           <Transactions/>
         </ConditionalRoute>
 

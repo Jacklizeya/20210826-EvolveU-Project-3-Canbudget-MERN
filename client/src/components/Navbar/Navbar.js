@@ -90,6 +90,13 @@ const Navbar = () => {
                             }
                             {showPrivate &&
                                 <NavItem>
+                                    <NavLinks to='/transaction'>
+                                        Transaction
+                                    </NavLinks>
+                                </NavItem>
+                            }
+                            {showPrivate &&
+                                <NavItem>
                                     <NavLinks to='/asset'>
                                         Asset
                                     </NavLinks>
