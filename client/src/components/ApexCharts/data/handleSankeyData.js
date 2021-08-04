@@ -9,15 +9,22 @@ export default function handleSankeyData(transactions, incomes) {
 
   let sankeyPaymentsArray = []
   let sankeyFirstNodeArray = []
+  let sankeySecondNodeArray = []
+  let sankeyThirdNodeArray = []
+
   for (let i in transactions) {
     let transactionCategories = transactions[i].category.split(", ")
     if (transactionCategories[0] === ('Transfer' || 'Payment')) {
       sankeyPaymentsArray.push(transactions[i])
     } else {
       if (transactions[i].amount < 0) {
-        sankeyFirstNodeArray.push(['income', transactionCategories[0], transactions[i].amount*-1])
+        let trasactionAmount = transactions[i].amount*-1
+        sankeyFirstNodeArray.push(['income', transactionCategories[0], trasactionAmount])
         if (transactionCategories[1]) {
-          console.log(transactionCategories[1])
+          sankeySecondNodeArray.push([transactionCategories[0], transactionCategories[1], trasactionAmount])
+        }
+        if (transactionCategories[2]) {
+          sankeyThirdNodeArray.push([transactionCategories[1], transactionCategories[2], trasactionAmount])
         }
       }
     }
@@ -29,6 +36,14 @@ export default function handleSankeyData(transactions, incomes) {
 
   for (let i in sankeyFirstNodeArray) {
     sankeyDataArray.push(sankeyFirstNodeArray[i])
+  }
+
+  for (let i in sankeySecondNodeArray) {
+    sankeyDataArray.push(sankeySecondNodeArray[i])
+  }
+
+  for (let i in sankeyThirdNodeArray) {
+    sankeyDataArray.push(sankeyThirdNodeArray[i])
   }
   
 
