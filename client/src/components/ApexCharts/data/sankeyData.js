@@ -1,4 +1,4 @@
-const sankeyData = [
+const mockData = [
   ['From', 'To', 'Weight'],
   ['Brazil', 'Portugal', 5],
   ['Brazil', 'France', 1],
@@ -48,4 +48,4 @@ const sankeyData = [
   ['Morocco', 'Japan', 3],
 ]
 
-export {sankeyData}
+export {mockData}
