@@ -70,11 +70,6 @@ async function findByEmail(email){
 
 async function updateUserSecurities(id,securitiesAccount, valueOfSecurities){
     return userModel.findByIdAndUpdate(id,{securitiesAccount,valueOfSecurities} );
-console.log(id,securitiesAccount, valueOfSecurities)
-//return findById(id)
-//let t= await userModel.findByIdAndUpdate(id,{$set:{securitiesAccount,valueOfSecurities}, new:true} );
-//    console.log(t)
-
 }
 
 async function updateUser(updClient) {
