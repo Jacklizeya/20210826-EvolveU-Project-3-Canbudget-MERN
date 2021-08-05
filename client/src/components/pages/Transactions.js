@@ -198,7 +198,7 @@ export default function Transactions() {
           
         </Tablediv> 
         <TransactionChart data={filteredRows}> </TransactionChart>
-        <Sankey userId={id} data={filteredRows}/>
+        <Sankey userId={id} filteredData={filteredRows}/>
         
         </>
         : <div> Loading ...</div>
