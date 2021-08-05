@@ -18,7 +18,6 @@ export default function Sankey({userId, filteredData}) {
       let incomeArray = []
       for (let i in data.cashFlow) {
         if (data.cashFlow[i].type === 'income') {
-          console.log(data.cashFlow[i])
           incomeArray.push(data.cashFlow[i])
         }
       }

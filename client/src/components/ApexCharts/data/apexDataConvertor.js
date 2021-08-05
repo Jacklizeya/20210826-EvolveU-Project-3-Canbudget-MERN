@@ -59,8 +59,6 @@ const donutData = convertDonutData(donutMockData)
 const lineData = convertTwoSeriesLineData(lineMockData)
 const portfolioWorthData = convertPortfolioWorthData(portfolioWorthMockData)
 
-console.log(portfolioWorthData)
-
 export {
     donutData,
     lineData,

@@ -15,7 +15,6 @@ export default function Transportation() {
 
 
     const handleDataFromUserOwnsVehicle = (data) => {
-      console.log(data)
       if (data === 'true') {
         setUserOwnsVehicle(true)
       } else if (data === 'false') {
