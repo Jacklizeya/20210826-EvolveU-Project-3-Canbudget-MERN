@@ -1,10 +1,13 @@
 import React from 'react'
 
+import './OnboardingWizard.css'
+
 import Shelter from './sections/Shelter/Shelter'
 import Subscriptions from './sections/Subsriptions/Subscriptions'
-
-import './OnboardingWizard.css'
 import Transportation from './sections/Transportation/Transportation'
+import Utilities from './sections/Utilities/Utilities'
+import CreditCardBills from './sections/CreditCardBills/CreditCardBills'
+
 
 export default function OnboardingWizard() {
     return (
@@ -16,6 +19,8 @@ export default function OnboardingWizard() {
             <Shelter />
             <Transportation />
             <Subscriptions />
+            <Utilities />
+            <CreditCardBills />
         </div>
     )
 }
