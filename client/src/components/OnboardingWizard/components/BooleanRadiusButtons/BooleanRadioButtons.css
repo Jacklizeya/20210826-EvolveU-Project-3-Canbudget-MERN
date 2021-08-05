@@ -1,11 +1,11 @@
 .onboard-boolean-radio-form {
   display: flex;
   justify-content: space-between;
-  width: 28%;
-  color: #05386B;
+  color: #01345B;
   margin: 10px 0px 10px 0px;
 }
 
 .onboard-boolean-prompt {
   font-weight: bold;
+  width: 50%;
 }

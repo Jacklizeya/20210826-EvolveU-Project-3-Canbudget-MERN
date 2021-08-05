@@ -19,7 +19,7 @@ export default function OtherAssets() {
 
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading'>Let's set some reminders for your credit card bills</h2>
+            <h2 className='onboard-heading'>Own more than one property?</h2>
             <BooleanRadioButtons sendDataToParent={handleDataFromUserHasOtherAssets} questionPrompt='Do you have any other large assets you would like to track?'/>
             {userHasOtherAssets === true ? 
                 <div>
