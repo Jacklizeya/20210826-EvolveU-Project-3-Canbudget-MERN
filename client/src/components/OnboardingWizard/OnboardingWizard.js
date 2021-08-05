@@ -3,7 +3,7 @@ import React from 'react'
 import './OnboardingWizard.css'
 
 import Shelter from './sections/Shelter/Shelter'
-import Subscriptions from './sections/Subsriptions/Subscriptions'
+import Subscriptions from './sections/Subscriptions/Subscriptions'
 import Transportation from './sections/Transportation/Transportation'
 import Utilities from './sections/Utilities/Utilities'
 import CreditCardBills from './sections/CreditCardBills/CreditCardBills'
