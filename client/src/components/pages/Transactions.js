@@ -11,6 +11,7 @@ import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
 import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
 import TransactionChart from './assetbudgetcomponent/TransactionChart';
 import Plaid from './assetbudgetcomponent/TransactionPlaid';
+import Sankey from '../ApexCharts/Sankey';
 
 export default function Transactions() {
     let history = useHistory()
@@ -197,6 +198,7 @@ export default function Transactions() {
           
         </Tablediv> 
         <TransactionChart data={filteredRows}> </TransactionChart>
+        <Sankey userId={id} data={filteredRows}/>
         
         </>
         : <div> Loading ...</div>

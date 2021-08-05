@@ -40,6 +40,51 @@ router.get('/create-link-token', async (req, res) => {
     res.json({ linkToken });
 });
 
+router.get('/categories', async (req,res) => {
+    const response = await plaidClient.getCategories().catch((err) => {
+        console.log('Error getting categories')
+    })
+    let categories = []
+    for (let i in response.categories) {
+        categories.push(response.categories[i].hierarchy)
+    }
+    let firstNode = []
+    for (let i in categories) {
+        firstNode.push(categories[i][0])
+    }
+    firstNode = [...new Set(firstNode)]
+    for (let i in firstNode) {
+        let selectedNode = firstNode[i]
+        let childrenArray = []
+        for (let j in categories) {
+            if((selectedNode === categories[j][0]) && categories[j][1]) {
+                childrenArray.push(categories[j][1])
+            }
+        }
+        childrenArray = [...new Set(childrenArray)]
+        for (child in childrenArray) {
+            let selectedChild = childrenArray[child]
+            let grandchildArray = []
+            for (let i in categories) {
+                if((selectedNode === categories[i][0]) && (selectedChild === categories[i][1]) && categories[i][2]) {
+                    grandchildArray.push(categories[i][2])
+                }
+            }
+            let childObject = {
+                name: selectedChild,
+                children: grandchildArray
+            }
+        childrenArray[child] = childObject
+        }
+        let categoryObject = {
+            name: selectedNode,
+            children: childrenArray
+        }
+        firstNode[i] = categoryObject
+    }
+    res.send(firstNode)
+})
+
 let accessTokenStorage 
 let bankHashTable = {
     "ins_39" : "rbc",
