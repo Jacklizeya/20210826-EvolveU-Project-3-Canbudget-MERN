@@ -4,7 +4,7 @@ import RecurringPaymentForm from '../../components/RecurringPaymentForm/Recurrin
 
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
-export default function Subscriptions() {
+export default function CreditCardBills() {
 
     const [userHasBills, setUserHasBills] = useState(null)
     const [userBillDetailsEntered, setUserBillDetailsEntered] = useState(false)

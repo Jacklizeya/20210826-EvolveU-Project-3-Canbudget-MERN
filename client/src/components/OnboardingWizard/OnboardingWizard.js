@@ -7,6 +7,7 @@ import Subscriptions from './sections/Subscriptions/Subscriptions'
 import Transportation from './sections/Transportation/Transportation'
 import Utilities from './sections/Utilities/Utilities'
 import CreditCardBills from './sections/CreditCardBills/CreditCardBills'
+import OtherAssets from './sections/OtherAssets/OtherAssets'
 
 
 export default function OnboardingWizard() {
@@ -21,6 +22,7 @@ export default function OnboardingWizard() {
             <Subscriptions />
             <Utilities />
             <CreditCardBills />
+            <OtherAssets />
         </div>
     )
 }
