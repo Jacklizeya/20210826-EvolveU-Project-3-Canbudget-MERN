@@ -19,6 +19,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
   const [formArray, setFormArray] = useState([defaultRowProps])
   const [dataFromForm, setDataFromForm] = useState(null)
   const [addRowsEnabled, setAddRowsEnabled] = useState(true)
+  const [buttonText, setButtonText] = useState('Skip')
 
   const handleDataFromRow = (data) => {
     setDataFromForm(data)
@@ -29,14 +30,17 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
       setAddRowsEnabled(enableAddRows)
     }
   },[enableAddRows])
-  
+
   useEffect(() => {
     if (dataFromForm) {
       formArray[dataFromForm.formId] = dataFromForm
     }
     setDataFromForm(null)
-    if (!formArray[formArray.length - 1].isEmpty && addRowsEnabled) {
-      formArray.push(defaultRowProps)
+    if (!formArray[formArray.length - 1].isEmpty) {
+      setButtonText('Submit')
+      if (addRowsEnabled) {
+        formArray.push(defaultRowProps)
+      }
     }
   },[dataFromForm])
 
@@ -55,9 +59,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
             )
           })}
       </form>
-      <div className='recurring-payment-buttons-container'>
-        <button className='recurring-payment-button' onClick={handleSubmit}>Click here when you're ready to move on<br></br>Don't worry if the form is incomplete - we will remind you later!</button>
-      </div> 
+      <button className='recurring-payment-button' onClick={handleSubmit}>{buttonText}</button>
     </div>
   )
 }
