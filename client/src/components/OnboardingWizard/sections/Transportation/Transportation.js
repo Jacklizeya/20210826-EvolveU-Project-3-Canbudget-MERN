@@ -69,6 +69,7 @@ export default function Transportation() {
                 <RecurringPaymentForm
                   sendDataToParent={handleVehiclePaymentDetailsSubmit}
                   questionPrompt='Tell us about your vehicle payment:'
+                  enableAddRows={false}
                 /> 
               : null}
               {userVehicleDetailsEntered ? 
@@ -78,6 +79,7 @@ export default function Transportation() {
                     <RecurringPaymentForm
                       sendDataToParent={handleInsuranceDetailsSubmit}
                       questionPrompt='Tell us about your vehicle insurance'
+                      enableAddRows={false}
                     />
                   : null}
                 </div>

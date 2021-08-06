@@ -37,7 +37,9 @@ export default function Shelter() {
                         questionPrompt={ userOwnsHome === true ? 
                             'Tell us about your mortgage payment:' : 
                             "Tell us about your rental situation - if you don't pay rent enter $0:"
+                        
                         }
+                        enableAddRows={false}
                     />
                 </div>
             : null}
@@ -46,11 +48,13 @@ export default function Shelter() {
                     <BooleanRadioButtons 
                         sendDataToParent={handleDataFromUserHasInsurance} 
                         questionPrompt='Do you have home insurance?'
+                        enableAddRows={false}
                     />
                     {userHasInsurance ? 
                         <RecurringPaymentForm
                             sendDataToParent={handleInsuranceDetailsSubmit}
                             questionPrompt='Tell us about your home insurance payment:'
+                            enableAddRows={false}
                         /> 
                         : userHasInsurance !== null ? <button>Click here to move on</button>: null
                     }

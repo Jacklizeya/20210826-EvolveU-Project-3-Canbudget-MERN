@@ -12,31 +12,39 @@
 
 .recurring-payment-form {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 10px 0px 10px 0px;
 }
 
+.recurring-payment-row {
+  display: flex;
+}
+
 .recurring-payment-field, .recurring-payment-frequency-box {
-  width: 20%;
   border: 1px solid #01345B;
   border-radius: 5px;
-  color: #01345B;
-}
-
-.recurring-payment-frequency-inputs {
-  width: 50%;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.recurring-payment-field::placeholder, ::-webkit-calendar-picker-indicator, .recurring-payment-frequency-inputs, .recurring-payment-frequency-inputs::placeholder, .recurring-payment-button {
   color: #01345B;
 }
 
 .recurring-payment-field{
   padding-left: 10px;
 }
+
+.recurring-payment-frequency-inputs {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.recurring-payment-frequency-inputs.number {
+  width: 3.5rem;
+}
+
+.recurring-payment-field::placeholder, ::-webkit-calendar-picker-indicator, .recurring-payment-frequency-inputs, .recurring-payment-frequency-inputs::placeholder, .recurring-payment-button {
+  color: #01345B;
+}
+
+
 
 .recurring-payment-buttons-container {
   display: flex;
@@ -53,4 +61,5 @@
   font-weight: bold;
   min-width: 40%;
 }
+
 
