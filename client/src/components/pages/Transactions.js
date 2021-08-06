@@ -12,6 +12,7 @@ import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
 import TransactionChart from './assetbudgetcomponent/TransactionChart';
 import Plaid from './assetbudgetcomponent/TransactionPlaid';
 import Sankey from '../ApexCharts/Sankey';
+import CSV from "./assetbudgetcomponent/CSV"
 
 export default function Transactions() {
     let history = useHistory()
@@ -122,6 +123,7 @@ export default function Transactions() {
         <> 
          
         <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
+        <CSV id={id} setAddStatus={setAddStatus}> </CSV>
         <Tablediv {...getTableProps()}>
           <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
           <thead>
