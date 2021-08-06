@@ -6,6 +6,7 @@ import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRa
 
 export default function CreditCardBills() {
 
+    const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [userHasBills, setUserHasBills] = useState(null)
     const [userBillDetailsEntered, setUserBillDetailsEntered] = useState(false)
 
@@ -17,15 +18,22 @@ export default function CreditCardBills() {
         setUserBillDetailsEntered(true)
     }
 
+    const handleHeaderClick = (event) => {
+        setDisplayOnboardBody(!displayOnboardBody)
+    }
+
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading'>Let's set some reminders for your credit card bills</h2>
-            <BooleanRadioButtons sendDataToParent={handleDataFromUserHasBills} questionPrompt='Do you have any credit cards?'/>
-            {userHasBills === true ? 
-                <div>
-                    <RecurringPaymentForm sendDataToParent={handleRentDetailsSubmit} questionPrompt='Tell us about your credit cards:'/>
-                </div>
-            : null}
+            <h2 className='onboard-heading' onClick={handleHeaderClick}>Credit Cards</h2>
+            {displayOnboardBody ? <div>
+                <p className='onboard-heading-body'>Let's set some reminders for your credit card bills</p>
+                <BooleanRadioButtons sendDataToParent={handleDataFromUserHasBills} questionPrompt='Do you have any credit cards?'/>
+                {userHasBills === true ? 
+                    <div>
+                        <RecurringPaymentForm sendDataToParent={handleRentDetailsSubmit} questionPrompt='Tell us about your credit cards:'/>
+                    </div>
+                : null}
+            </div> : null}
         </div>
     )
 }

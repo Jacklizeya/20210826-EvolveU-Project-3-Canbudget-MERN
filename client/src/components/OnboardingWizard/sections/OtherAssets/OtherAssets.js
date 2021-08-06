@@ -6,6 +6,7 @@ import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRa
 
 export default function OtherAssets() {
 
+    const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [userHasOtherAssets, setUserHasOtherAssets] = useState(null)
     const [userAssetDetailsEntered, setUserAssetDetailsEntered] = useState(false)
 
@@ -17,15 +18,21 @@ export default function OtherAssets() {
         setUserAssetDetailsEntered(true)
     }
 
+    const handleHeaderClick = (event) => {
+        setDisplayOnboardBody(!displayOnboardBody)
+    }
+
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading'>Own more than one property?</h2>
-            <BooleanRadioButtons sendDataToParent={handleDataFromUserHasOtherAssets} questionPrompt='Do you have any other large assets you would like to track?'/>
-            {userHasOtherAssets === true ? 
-                <div>
-                    <RecurringPaymentForm sendDataToParent={handleAssetDetailsSubmit} questionPrompt='Tell us about your assets:'/>
-                </div>
-            : null}
+            <h2 className='onboard-heading' onClick={handleHeaderClick}>Other Assets</h2>
+            {displayOnboardBody ? <div>
+                <BooleanRadioButtons sendDataToParent={handleDataFromUserHasOtherAssets} questionPrompt='Do you have any other large assets you would like to track?'/>
+                {userHasOtherAssets === true ? 
+                    <div>
+                        <RecurringPaymentForm sendDataToParent={handleAssetDetailsSubmit} questionPrompt='Tell us about your assets:'/>
+                    </div>
+                : null}
+            </div> : null}
         </div>
     )
 }
