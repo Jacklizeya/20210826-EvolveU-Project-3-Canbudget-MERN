@@ -88,7 +88,7 @@ router.put("/:id/addtransaction/", async(req, res) => {
   console.log(" I want to add transaction")
   try {let userId = req.params.id
   let newTransaction = req.body
-  console.log(userId, newTransaction)
+  console.log(userId, newTransaction[0])
   let response = await userDB.addTransaction(userId, newTransaction)
   res.send(response)} catch (error) {res.send(error)}
 })
