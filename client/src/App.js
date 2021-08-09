@@ -13,6 +13,7 @@ import ModifyClientPage from './components/auth/ModifyClientPage';
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import NotFound from './components/pages/NotFound';
+import Settings from './components/auth/Settings';
 import ApexCharts from './components/pages/ApexCharts';
 import ResourceSearch from './components/pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
@@ -77,6 +78,11 @@ function App() {
           <ConditionalRoute condition={()=>{return UseAuth().isLogedIn()}} 
             path='/modifyclient' exact>
              <ModifyClientPage/>
+          </ConditionalRoute >
+
+          <ConditionalRoute condition={()=>{return UseAuth().isAdmin()}} 
+            path='/settings' exact>
+             <Settings/>
           </ConditionalRoute >
 
           <Route path='*' component={NotFound} />
