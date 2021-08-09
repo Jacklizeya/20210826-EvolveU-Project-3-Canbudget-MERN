@@ -12,6 +12,7 @@ import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
 import TransactionChart from './assetbudgetcomponent/TransactionChart';
 import Plaid from './assetbudgetcomponent/TransactionPlaid';
 import Sankey from '../ApexCharts/Sankey';
+import CSV from "./assetbudgetcomponent/CSV"
 
 export default function Transactions() {
     let history = useHistory()
@@ -122,6 +123,7 @@ export default function Transactions() {
         <> 
          
         <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
+        <CSV id={id} setAddStatus={setAddStatus}> </CSV>
         <Tablediv {...getTableProps()}>
           <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
           <thead>
@@ -196,9 +198,11 @@ export default function Transactions() {
           <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button> 
           <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button>
           
-        </Tablediv> 
-        <TransactionChart data={filteredRows}> </TransactionChart>
-        <Sankey userId={id}/>
+        </Tablediv>
+        <div style={{display:'flex', flexDirection: 'row', border:'4px solid #01345B', borderRadius:'20px', margin:'20px', padding:'10px', boxShadow:'0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)'}}>
+          <TransactionChart data={filteredRows}/>
+          <Sankey userId={id} filteredData={filteredRows}/>
+        </div>
         
         </>
         : <div> Loading ...</div>

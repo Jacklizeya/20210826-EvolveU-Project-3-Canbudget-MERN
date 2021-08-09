@@ -4,18 +4,31 @@
     align-items: center;
     color: #01345B;
     margin: 10px 0px 10px 0px;
+    padding-top: 20px;
 }
 
 .onboard-container {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    border: 4px solid #05386B;
-    padding: 20px;
+    border: 4px solid #01345B;
     margin: 20px 0px 20px 0px;
     width: 90vw;
     border-radius: 20px;
 }
 
 .onboard-heading {
-    color: #01345B;
-    margin: 10px 0px 10px 0px;
+    color: white;
+    background-color: #01345B;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.onboard-heading-body {
+    padding: 20px;
+    font-weight: bold;
+}
+
+.onboard-container form {
+    padding: 20px;
 }

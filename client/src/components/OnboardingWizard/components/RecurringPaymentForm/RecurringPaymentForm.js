@@ -1,70 +1,65 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import './RecurringPaymentForm.css'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt}) {
+import RecurringPaymentRow from './RecurringPaymentRow'
 
-  const [amount, setAmount] = useState(null)
-  const [frequency, setFrequency] = useState(null)
-  const [frequencyType, setFrequencyType] = useState(null)
-  const [billDate, setBillDate] = useState(null)
-  const [contractEndDate, setContractEndDate] = useState(null)
+export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, enableAddRows}) {
+
+  const defaultRowProps = {
+    amount: null,
+    frequency: null,
+    frequencyType: null,
+    billDate: null,
+    contractEndDate: null,
+    isEmpty: true,
+    formId: null
+  }
+
+  const [formArray, setFormArray] = useState([defaultRowProps])
+  const [dataFromForm, setDataFromForm] = useState(null)
+  const [addRowsEnabled, setAddRowsEnabled] = useState(true)
+  const [buttonText, setButtonText] = useState('Skip')
+
+  const handleDataFromRow = (data) => {
+    setDataFromForm(data)
+  }
+
+  useEffect(() => {
+    if (enableAddRows !== undefined) {
+      setAddRowsEnabled(enableAddRows)
+    }
+  },[enableAddRows])
+
+  useEffect(() => {
+    if (dataFromForm) {
+      formArray[dataFromForm.formId] = dataFromForm
+    }
+    setDataFromForm(null)
+    if (!formArray[formArray.length - 1].isEmpty) {
+      setButtonText('Submit')
+      if (addRowsEnabled) {
+        formArray.push(defaultRowProps)
+      }
+    }
+  },[dataFromForm])
 
   const handleSubmit = (event) => {
-    sendDataToParent({
-      submit: true,
-      data: {
-        amount: amount,
-        frequency: frequency,
-        frequencyType: frequencyType,
-        billDate: billDate,
-        contractEndDate: contractEndDate
-      }
-    })
-  }
-
-  const handleAmountChange = (event) => {
-    setAmount(event.target.value)
-  }
-
-  const handleFrequencyChange = (event) => {
-    setFrequency(event.target.value)
-  }
-  
-  const handleFrequencyTypeChange = (event) => {
-    setFrequencyType(event.target.value)
-  }
-
-  const handleBillDateChange = (event) => {
-    setBillDate(event.target.value)
-  }
-  
-  const handleContractEndDateChange = (event) => {
-    setContractEndDate(event.target.value)
+    sendDataToParent(formArray)
   }
 
   return (
     <div className='recurring-payment-container'>
       {typeof questionPrompt === 'string' ? <p className='recurring-payment-prompt'>{questionPrompt}</p>: questionPrompt}
       <form className='recurring-payment-form'>
-        <input className='recurring-payment-field' type='number' placeholder='$ Amount' value={amount} onChange={handleAmountChange}></input>
-        <div className='recurring-payment-frequency-box'>
-          <input className='recurring-payment-frequency-inputs' type='number' placeholder='Frequency' value={frequency} onChange={handleFrequencyChange}></input>
-          <select className='recurring-payment-frequency-inputs' placeholder='Frequency Type' value={frequencyType} onChange={handleFrequencyTypeChange}>
-            <option value={null} disabled selected>Frequency Type</option>
-            <option value="days">Days</option>
-            <option value="weeks">Weeks</option>
-            <option value="months">Months</option>
-            <option value="years">Years</option>
-          </select>
-        </div>
-        <input className='recurring-payment-field' type='date' placeholder='Bill Date' value={billDate} onChange={handleBillDateChange}></input>
-        <input className='recurring-payment-field' type='date' placeholder='Contract End Date' value={contractEndDate} onChange={handleContractEndDateChange}></input>
+          {formArray.map((formRow, i) => {
+            return (
+              formRow['formId'] = i,
+              <RecurringPaymentRow key={i} sendDataToParent={handleDataFromRow} parentData={formRow}/>
+            )
+          })}
       </form>
-      <div className='recurring-payment-buttons-container'>
-        <button className='recurring-payment-button' onClick={handleSubmit}>ADD ROW</button>
-        <button className='recurring-payment-button' onClick={handleSubmit}>Click here when you're ready to move on<br></br>Don't worry if the form is incomplete - we will remind you later!</button>
-      </div> 
+      <button className='recurring-payment-button' onClick={handleSubmit}>{buttonText}</button>
     </div>
   )
 }

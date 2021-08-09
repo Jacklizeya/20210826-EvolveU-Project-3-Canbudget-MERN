@@ -45,13 +45,12 @@ export default function TransactionChart({data}) {
       }] 
       
     return (
-        <div>
+        <div style={{width:'50%'}}>
             <Chart
-            options={options}
-            series = {series}
-            type="bar"
-            width="1300"
-            height="500"
+              options={options}
+              series = {series}
+              type="bar"
+              width='100%'
             />
         </div>
     )

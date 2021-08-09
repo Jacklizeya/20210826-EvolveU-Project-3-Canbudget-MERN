@@ -5,7 +5,7 @@ import handleSankeyData from './data/handleSankeyData';
 import { Chart } from "react-google-charts";
 import { mockData } from './data/sankeyData'
 
-export default function Sankey({userId}) {
+export default function Sankey({userId, filteredData}) {
 
   const [transactions, setTransactions] = useState(null)
   const [incomes, setIncomes] = useState(null)
@@ -35,21 +35,31 @@ export default function Sankey({userId}) {
   },[transactions])
 
   useEffect(() => {
-      async function getCategories() {
-          let {data} = await axios.get(`/api/plaid/categories`)
-          setCategories(data)
-      }
-      getCategories()
-  },[])
+    let filteredTransactions = []
+    for (let i in filteredData) {
+      filteredTransactions.push(filteredData[i].values)
+    }
+    setTransactions(filteredTransactions)
+  },[filteredData])
+
+  // useEffect(() => {
+  //     async function getCategories() {
+  //         let {data} = await axios.get(`/api/plaid/categories`)
+  //         setCategories(data)
+  //     }
+  //     getCategories()
+  // },[])
 
   return (
-    sankeyData ? <Chart
-      width={600}
-      height={'300px'}
-      chartType="Sankey"
-      loader={<div>Loading Chart</div>}
-      data={sankeyData}
-      rootProps={{ 'data-testid': '2' }}
-    /> : null
+    sankeyData ? 
+      <div style={{width:'50%', display:'flex', alignItems: 'center', justifyContent:'center'}}>
+        <Chart
+          chartType="Sankey"
+          loader={<div>Loading Chart</div>}
+          data={sankeyData}
+          rootProps={{ 'data-testid': '2' }}
+        /> 
+      </div>
+    : null
   )
 }

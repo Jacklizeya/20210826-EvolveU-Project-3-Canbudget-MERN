@@ -8,6 +8,5 @@ function convertData(data) {
 }
 
 const data = convertData(donutMockData)
-console.log(data)
 
 export default data

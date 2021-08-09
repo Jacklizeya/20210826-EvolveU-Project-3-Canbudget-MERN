@@ -11,11 +11,11 @@ export default function BooleanRadioButtons({sendDataToParent, questionPrompt}) 
   return (
     <form className='onboard-boolean-radio-form'>
       {typeof questionPrompt === 'string' ? <p className='onboard-boolean-prompt'>{questionPrompt}</p> : questionPrompt}
-      <div>
+      <div className='onbaord-boolean-radio-button'>
         <input type="radio" id="yesOnboardRadio" name="booleanOnboardRadio" value='true' onClick={handleClick}></input>
         <label htmlFor="yesOnboardRadio">Yes</label>
       </div>
-      <div>
+      <div className='onbaord-boolean-radio-button'>
         <input type="radio" id="noOnboardRadio" name="booleanOnboardRadio" value='false' onClick={handleClick}></input>
         <label htmlFor="noOnboardRadio">No</label>
       </div>
