@@ -2,16 +2,34 @@ import React, {useEffect, useState} from 'react'
 
 import './RecurringPaymentForm.css'
 
-export default function RecurringPaymentRow({parentData, sendDataToParent}) {
+export default function RecurringPaymentRow({parentData, sendDataToParent, paymentName}) {
 
   const [rowProps, setRowProps] = useState(parentData)
 
   useEffect(() => {
+    setRowProps({...rowProps, name: paymentName})
+    if (paymentName) {
+      let nameInputHtml = document.getElementsByClassName('recurring-payment-field name')
+      nameInputHtml[0].disabled = true
+    }
+  }, [paymentName])
+
+  useEffect(() => {
     sendDataToParent(rowProps)
-  }, [rowProps.amount, rowProps.frequency,rowProps.frequencyType, rowProps.billDate, rowProps.contractEndDate, rowProps.isEmpty])
+  }, [rowProps.name, rowProps.amount, rowProps.frequency,rowProps.frequencyType, rowProps.billDate, rowProps.contractEndDate, rowProps.isEmpty])
 
   return (
     <div className='recurring-payment-row'>
+      <input 
+        className='recurring-payment-field name'
+        type='text'
+        placeholder='Name'
+        value={rowProps.name}
+        onChange={(event) => {
+          setRowProps({...rowProps, name: event.target.value, isEmpty: false})
+        }}
+      >
+      </input>
       <input 
         className='recurring-payment-field'
         type='number'

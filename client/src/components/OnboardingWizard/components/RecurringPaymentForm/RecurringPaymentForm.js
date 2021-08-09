@@ -4,9 +4,10 @@ import './RecurringPaymentForm.css'
 
 import RecurringPaymentRow from './RecurringPaymentRow'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, enableAddRows}) {
+export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, enableAddRows, paymentName}) {
 
   const defaultRowProps = {
+    name: null,
     amount: null,
     frequency: null,
     frequencyType: null,
@@ -21,14 +22,8 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
   const [addRowsEnabled, setAddRowsEnabled] = useState(true)
   const [buttonText, setButtonText] = useState('Skip')
 
-  const handleDataFromRow = (data) => {
-    setDataFromForm(data)
-  }
-
   useEffect(() => {
-    if (enableAddRows !== undefined) {
-      setAddRowsEnabled(enableAddRows)
-    }
+    if (enableAddRows !== undefined) setAddRowsEnabled(enableAddRows)
   },[enableAddRows])
 
   useEffect(() => {
@@ -51,7 +46,12 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
           {formArray.map((formRow, i) => {
             return (
               formRow['formId'] = i,
-              <RecurringPaymentRow key={i} sendDataToParent={handleDataFromRow} parentData={formRow}/>
+              <RecurringPaymentRow
+                key={i}
+                sendDataToParent={(data) => {setDataFromForm(data)}} 
+                parentData={formRow}
+                paymentName={paymentName ? paymentName : null}
+              />
             )
           })}
       </form>

@@ -17,24 +17,28 @@ export default function Shelter() {
             <h2 className='onboard-heading' onClick={() => {setDisplayOnboardBody(!displayOnboardBody)}}>Shelter</h2>
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's start by answering a few questions about your monthly shelter expenses</p>
-                <BooleanRadioButtons 
+                <BooleanRadioButtons
+                    questionPrompt='Do you own your own home?:'
                     sendDataToParent={(data) => {
                         data === 'true' ? setUserOwnsHome(true) : setUserOwnsHome(false)
-                    }} 
-                    questionPrompt='Do you own your own home?:'
+                    }}
                 />
                 {userOwnsHome !== null ? 
                     <div>
                         <RecurringPaymentForm
-                            sendDataToParent={(data) => {
-                                setUserRentDetails(data[0])
-                            }} 
-                            questionPrompt={ userOwnsHome === true ? 
+                            questionPrompt={userOwnsHome === true ? 
                                 'Tell us about your mortgage payment:' : 
                                 "Tell us about your rental situation - if you don't pay rent enter $0:"
                             }
+                            paymentName={userOwnsHome === true ? 
+                                'Mortgage' : 
+                                "Rent"
+                            }
                             enableAddRows={false}
-                        />
+                            sendDataToParent={(data) => {
+                                setUserRentDetails(data[0])
+                            }}
+                        /> 
                     </div>
                 : null}
                 {userRentDetails !== null ?
