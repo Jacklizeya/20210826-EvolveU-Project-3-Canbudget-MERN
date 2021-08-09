@@ -6,7 +6,7 @@ import {
   useLoadScript
 } from "@react-google-maps/api"
 import mapStyles from "./mapStyles"
-import setZoom from './setZoom'
+// import setZoom from './setZoom'
 
 const libraries = ["places"]
 const mapContainerStyle = {
@@ -40,7 +40,7 @@ export default function SearchableMap({data, userLocation}) {
     lng: 0
   })
 
-  const [mapZoom, setMapZoom] = useState(11.5)
+  const [mapZoom] = useState(11.5)
 
   const [selectedMarker, setSelectedMarker] = useState(null)
 
@@ -73,7 +73,7 @@ export default function SearchableMap({data, userLocation}) {
     }
     
     let coordinateBounds = calculateCoordinateBounds()
-    let coordinateDifference = Math.max((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat),(coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng))
+    // let coordinateDifference = Math.max((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat),(coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng))
 
     if (data) {
       setMapCenter({

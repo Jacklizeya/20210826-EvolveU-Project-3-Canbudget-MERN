@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { usePosition } from './usePosition';
 
 const GetLocationButton = () => {
@@ -8,15 +8,7 @@ const GetLocationButton = () => {
     latitude,
     longitude,
     error
-  } = usePosition(watch);
-
-  const [locationFound, setLocationFound] = useState(false)
-
-  const [errorFound, setErrorFound] = useState(false)
-
-  const onButtonClick = (event) => {
-    
-  }
+  } = usePosition(watch)
 
   return (
     <div style={{display:'flex', flexDirection:'column'}}>
@@ -27,7 +19,7 @@ const GetLocationButton = () => {
         </code>
       <button>Hello</button>
     </div>
-  );
-};
+  )
+}
 
 export default GetLocationButton

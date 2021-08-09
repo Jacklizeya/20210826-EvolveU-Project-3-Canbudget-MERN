@@ -12,7 +12,7 @@ export default function SearchForm({
     const {
       latitude,
       longitude,
-      error
+    //   error
     } = usePosition(watch);
 
     const [searchProps, setSearchProps] = useState({
@@ -32,9 +32,9 @@ export default function SearchForm({
 
     useEffect(() => {
         if (latitude && longitude) {
-            setSearchProps({...searchProps, latitude: latitude, longitude: longitude})
+            setSearchProps(sp => ({...sp, latitude: latitude, longitude: longitude}))
             setlocationActive(true)
-            setUserLocation({lat:latitude, lng: longitude})
+            setUserLocation(c => ({lat:latitude, lng: longitude}))
         }
     }, [latitude, longitude])
 
