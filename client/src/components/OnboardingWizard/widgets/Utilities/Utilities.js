@@ -30,6 +30,7 @@ export default function Utilities() {
           <RecurringPaymentDetailsForm
             // sendDataToParent={handleVehiclePaymentDetailsSubmit}
             questionPrompt='Tell us about your utility bills:'
+            enableSuggestions={'utilities'}
           /> 
         : null}
       </div> : null}

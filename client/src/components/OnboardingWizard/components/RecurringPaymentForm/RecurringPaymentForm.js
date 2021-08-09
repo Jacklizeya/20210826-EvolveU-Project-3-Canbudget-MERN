@@ -7,6 +7,7 @@ import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
 
 export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions}) {
 
+  console.log(enableSuggestions)
   const defaultRowProps = {
     name: '',
     amount: '',
@@ -43,7 +44,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
   return (
     <div className='recurring-payment-container'>
       {typeof questionPrompt === 'string' ? <p className='recurring-payment-prompt'>{questionPrompt}</p>: questionPrompt}
-      {enableSuggestions ? <RecurringPaymentSuggestions/> : null}
+      {enableSuggestions ? <RecurringPaymentSuggestions suggestionType={enableSuggestions}/> : null}
       <form className='recurring-payment-form'>
           {formArray.map((formRow, i) => {
             return (

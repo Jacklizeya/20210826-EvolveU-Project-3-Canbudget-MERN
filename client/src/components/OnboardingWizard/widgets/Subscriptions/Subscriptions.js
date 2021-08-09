@@ -29,8 +29,8 @@ export default function Subscriptions() {
                     <div>
                         <RecurringPaymentForm 
                             sendDataToParent={() => console.log('Submitted')}
-                            questionPrompt='Tell us about your current subscriptions:'
-                            enableSuggestions={true}
+                            questionPrompt="Tell us about your current subscriptions - we've provided some autofill buttons below:"
+                            enableSuggestions={'subscriptions'}
                         />
                     </div>
                 : null}
