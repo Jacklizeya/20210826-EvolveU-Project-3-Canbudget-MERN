@@ -35,7 +35,7 @@ export default function RecurringPaymentRow({parentData, sendDataToParent}) {
     <div className='recurring-payment-row'>
       <input className='recurring-payment-field' type='number' placeholder='$ Amount' value={rowProps.amount} onChange={handleAmountChange}></input>
       <div className='recurring-payment-frequency-box'>
-        <input className='recurring-payment-frequency-inputs number' type='number' placeholder='#' value={rowProps.frequency} onChange={handleFrequencyChange}></input>
+        <input className='recurring-payment-frequency-inputs number' type='number' placeholder='#' min='0' value={rowProps.frequency} onChange={handleFrequencyChange}></input>
         <select className='recurring-payment-frequency-inputs' placeholder='Frequency Type' value={rowProps.frequencyType} onChange={handleFrequencyTypeChange}>
           <option value='' disabled defaultValue>Frequency</option>
           <option value="days">Days</option>
