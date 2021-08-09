@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react'
 import './RecurringPaymentForm.css'
 
 import RecurringPaymentRow from './RecurringPaymentRow'
+import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, enableAddRows, paymentName}) {
+export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions}) {
 
   const defaultRowProps = {
     name: '',
@@ -42,6 +43,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
   return (
     <div className='recurring-payment-container'>
       {typeof questionPrompt === 'string' ? <p className='recurring-payment-prompt'>{questionPrompt}</p>: questionPrompt}
+      {enableSuggestions ? <RecurringPaymentSuggestions/> : null}
       <form className='recurring-payment-form'>
           {formArray.map((formRow, i) => {
             return (

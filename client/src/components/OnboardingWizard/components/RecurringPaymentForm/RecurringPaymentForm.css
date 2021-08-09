@@ -54,9 +54,10 @@
   width: 8rem;
 }
 
-.recurring-payment-suggestions {
+.recurring-suggestions-row {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
 
 
