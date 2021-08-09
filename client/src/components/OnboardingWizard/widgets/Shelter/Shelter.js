@@ -52,11 +52,12 @@ export default function Shelter() {
                         />
                         {userHasInsurance ? 
                             <RecurringPaymentForm
+                                questionPrompt='Tell us about your home insurance payment:'
+                                paymentName='Home Insurance'
+                                enableAddRows={false}
                                 sendDataToParent={(data) => {
                                     setUserInsuranceDetails(data[0])
                                 }}
-                                questionPrompt='Tell us about your home insurance payment:'
-                                enableAddRows={false}
                             /> : null
                         }
                     </div> 

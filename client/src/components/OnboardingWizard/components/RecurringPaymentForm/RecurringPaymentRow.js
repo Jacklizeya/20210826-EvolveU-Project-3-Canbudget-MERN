@@ -10,7 +10,11 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
     setRowProps({...rowProps, name: paymentName})
     if (paymentName) {
       let nameInputHtml = document.getElementsByClassName('recurring-payment-field name')
-      nameInputHtml[0].disabled = true
+      for (let i in nameInputHtml) {
+        if (nameInputHtml[i].defaultValue === paymentName) {
+          nameInputHtml[i].disabled = true
+        }
+      }
     }
   }, [paymentName])
 
@@ -34,6 +38,7 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
         className='recurring-payment-field'
         type='number'
         placeholder='$ Amount'
+        min='0'
         value={rowProps.amount}
         onChange={(event) => {
           setRowProps({...rowProps, amount: event.target.value, isEmpty: false})
