@@ -3,16 +3,16 @@ import AuthenticationContext from '../auth/AuthenticationContext';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {useTable, useSortBy, useGlobalFilter, useFilters, usePagination} from "react-table"
-import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetbudgetcomponent/assetAndBudget.elements"
+import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "../AssetBudget/assetAndBudget.elements"
 import GlobalFilter from './ReactTableFilters/GlobalFilter';
 import ColumnFilter from './ReactTableFilters/ColumnFilter';
 import SelectFilter from './ReactTableFilters/SelectFilter';
 import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
 import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
-import TransactionChart from './assetbudgetcomponent/TransactionChart';
-import Plaid from './assetbudgetcomponent/TransactionPlaid';
+import TransactionChart from '../AssetBudget/TransactionChart';
+import Plaid from '../AssetBudget/TransactionPlaid';
 import Sankey from '../ApexCharts/Sankey';
-import CSV from "./assetbudgetcomponent/CSV"
+import CSV from "../AssetBudget/CSV"
 
 export default function Transactions() {
     let history = useHistory()

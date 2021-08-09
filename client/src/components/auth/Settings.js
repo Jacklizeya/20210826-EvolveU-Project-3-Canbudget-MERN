@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../pages/assetbudgetcomponent/assetAndBudget.elements"
+import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../AssetBudget/assetAndBudget.elements"
 
 const Setting = () => {
     const [name, setName] = useState();

@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetbudgetcomponent/assetAndBudget.elements"
+import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "../AssetBudget/assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "./assetbudgetcomponent/BudgetModal"
+import {Modal} from "../AssetBudget/BudgetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import MonthlyBudgetAndTransactionsComparison from './assetbudgetcomponent/MonthlyBudgetAndTransactionsComparison';
+import MonthlyBudgetAndTransactionsComparison from '../AssetBudget/MonthlyBudgetAndTransactionsComparison';
 
 
 function Budget() {

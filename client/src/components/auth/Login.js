@@ -8,7 +8,7 @@ import AuthenticationContext from "./AuthenticationContext"
 import {SetMessage} from "../InfoSection/StatusLineMessage"
 //import Navbar from "../components/Navbar"
 
-import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../pages/assetbudgetcomponent/assetAndBudget.elements"
+import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../AssetBudget/assetAndBudget.elements"
 
 function Login({ successURL, cancelURL }) {
     const loginContext = useContext(AuthenticationContext);
