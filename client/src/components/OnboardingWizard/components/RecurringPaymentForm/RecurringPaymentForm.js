@@ -7,18 +7,18 @@ import RecurringPaymentRow from './RecurringPaymentRow'
 export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, enableAddRows, paymentName}) {
 
   const defaultRowProps = {
-    name: null,
-    amount: null,
-    frequency: null,
-    frequencyType: null,
-    billDate: null,
-    contractEndDate: null,
+    name: '',
+    amount: '',
+    frequency: '',
+    frequencyType: '',
+    billDate: '',
+    contractEndDate: '',
     isEmpty: true,
-    formId: null
+    formId: ''
   }
 
   const [formArray, setFormArray] = useState([defaultRowProps])
-  const [dataFromForm, setDataFromForm] = useState(null)
+  const [dataFromForm, setDataFromForm] = useState('')
   const [addRowsEnabled, setAddRowsEnabled] = useState(true)
   const [buttonText, setButtonText] = useState('Skip')
 
@@ -30,7 +30,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
     if (dataFromForm) {
       formArray[dataFromForm.formId] = dataFromForm
     }
-    setDataFromForm(null)
+    setDataFromForm('')
     if (!formArray[formArray.length - 1].isEmpty) {
       setButtonText('Submit')
       if (addRowsEnabled) {
@@ -50,7 +50,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
                 key={i}
                 sendDataToParent={(data) => {setDataFromForm(data)}} 
                 parentData={formRow}
-                paymentName={paymentName ? paymentName : null}
+                paymentName={paymentName ? paymentName : ''}
               />
             )
           })}

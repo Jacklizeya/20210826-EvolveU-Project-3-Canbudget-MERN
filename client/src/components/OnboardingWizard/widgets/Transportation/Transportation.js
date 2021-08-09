@@ -20,7 +20,7 @@ export default function Transportation() {
         {displayOnboardBody ? <div>
           <p className='onboard-heading-body'>Everyone needs to get around somehow! Let's talk about your expenses related to transportation</p>
           <BooleanRadioButtons
-            questionPrompt='Do you own your own vehicle?:' 
+            questionPrompt='Do you own your own vehicle?:'
             sendDataToParent={(data) => {
               if (data === 'true') {
                 setUserOwnsVehicle(true)
@@ -44,6 +44,7 @@ export default function Transportation() {
               {userHasVehiclePayments ? 
                 <RecurringPaymentForm
                   questionPrompt='Tell us about your vehicle payment:'
+                  paymentName='Vehicle Payment' 
                   enableAddRows={false}
                   sendDataToParent={(data) => {
                     setVehiclePaymentDetails(data[0])
