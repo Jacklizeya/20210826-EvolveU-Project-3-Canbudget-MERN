@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import {Centeredh3} from "../pages/assetAndBudget.elements"
+import {Centeredh3} from "../pages/assetbudgetcomponent/assetAndBudget.elements"
 
 const key = "statusMessage";
 function SetMessage(message) {

@@ -3,7 +3,7 @@ import AuthenticationContext from '../auth/AuthenticationContext';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {useTable, useSortBy, useGlobalFilter, useFilters, usePagination} from "react-table"
-import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetAndBudget.elements"
+import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "./assetbudgetcomponent/assetAndBudget.elements"
 import GlobalFilter from './ReactTableFilters/GlobalFilter';
 import ColumnFilter from './ReactTableFilters/ColumnFilter';
 import SelectFilter from './ReactTableFilters/SelectFilter';

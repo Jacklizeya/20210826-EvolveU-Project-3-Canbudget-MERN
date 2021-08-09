@@ -1,8 +1,7 @@
 import React , { useEffect, useState, useCallback } from 'react'
-import { PlaidButton, Descriptiondiv} from '../assetAndBudget.elements'
+import { PlaidButton, Descriptiondiv, SubmitButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from './assetAndBudget.elements'
 import { usePlaidLink, PlaidLinkOptions, PlaidLinkOnSuccess } from 'react-plaid-link';
 import axios from "axios"
-import {SubmitButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd, tdContainButton} from "../assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 

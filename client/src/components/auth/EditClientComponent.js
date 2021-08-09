@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios"
 
 import {SetMessage} from "../InfoSection/StatusLineMessage"
-import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../pages/assetAndBudget.elements"
+import { LoginFormDiv, SubmitButton, SubmitCancelButtons } from "../pages/assetbudgetcomponent/assetAndBudget.elements"
 
 const EditClientComponent = ({ id, userType, title, message }) => {
     const [loadeed, setLoadeed] = useState(false);
