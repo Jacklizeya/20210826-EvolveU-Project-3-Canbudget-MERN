@@ -7,7 +7,7 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
   const [rowProps, setRowProps] = useState(parentData)
 
   useEffect(() => {
-    setRowProps({...rowProps, name: paymentName})
+    setRowProps(r => ({...r, name: paymentName}))
     if (paymentName) {
       let nameInputHtml = document.getElementsByClassName('recurring-payment-field name')
       for (let i in nameInputHtml) {

@@ -20,8 +20,8 @@ import './Dashboard.css'
 
 
 export default function Dashboard() {
+    
     const {id} = useContext(AuthenticationContext)
-
     const [user, setUser] = useState(null)
     const [assets, setAssets] = useState(null)
     const [liability, setLiability] = useState(null)
@@ -34,7 +34,7 @@ export default function Dashboard() {
             setUser(data)
         }
         getData()
-      },[])
+      },[id])
 
     useEffect(() => {
         let assetList = []

@@ -7,9 +7,8 @@ export default function DashboardTable({data}) {
 
     useEffect(() => {
         setRows(data)
-        let countSum = 0
         for (let index in data) {
-            setSum(sum + data[index].value)
+            setSum(s => s + data[index].value)
         }
     }, [data])
 

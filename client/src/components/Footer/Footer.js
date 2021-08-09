@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { animateScroll as scroll, scroller } from 'react-scroll';
-import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaLinkedin } from 'react-icons/fa';
+// import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaLinkedin } from 'react-icons/fa'; icons commented out due to error
 import {
     FooterContainer,
     //  FooterSubscription,
@@ -14,10 +14,10 @@ import {
     SocialMedia,
     SocialMediaWrap,
     SocialLogo,
-    SocialIcons,
     SocialIcon,
-    WebsiteRights,
-    SocialIconLink
+    WebsiteRights,    
+    // SocialIcons,
+    // SocialIconLink
 } from './Footer.elements';
 import AuthenticationContext from '../auth/AuthenticationContext';
 

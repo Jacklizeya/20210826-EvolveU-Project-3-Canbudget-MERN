@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react"
+import React, { useState} from "react"
 import Chart from 'react-apexcharts'
 
 import { portfolioWorthData } from "../../data/apexDataConvertor"
 
 export default function DashboardStocksTimeseries({graphData}) {
 
-  const [labels, setLabels] = useState(null)
-  const [seriesOneData, setSeriesOneData] = useState(null)
+  // const [labels, setLabels] = useState(null)
+  // const [seriesOneData, setSeriesOneData] = useState(null)
+  // eslint-disable-next-line
   const [lineProps, setLineProps] = useState(
     {
       options: {

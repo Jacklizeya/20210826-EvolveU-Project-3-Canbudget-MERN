@@ -9,7 +9,7 @@ export default function Sankey({userId, filteredData}) {
 
   const [transactions, setTransactions] = useState(null)
   const [incomes, setIncomes] = useState(null)
-  const [categories, setCategories] = useState(null)
+  // const [categories, setCategories] = useState(null)
   const [sankeyData, setSankeyData] = useState(mockData)
 
   useEffect(() => {
