@@ -6,7 +6,7 @@ import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "./assetbudgetcomponent/BudgetModal"
 import AuthenticationContext from '../auth/AuthenticationContext';
-import MonthlyBudgetAndTransactions from './assetbudgetcomponent/MonthlyBudgetAndTransactions';
+import MonthlyBudgetAndTransactionsComparison from './assetbudgetcomponent/MonthlyBudgetAndTransactionsComparison';
 
 
 function Budget() {
@@ -266,17 +266,16 @@ function Budget() {
                             <SubmitButton display="block" type="submit"> Submit </SubmitButton>                                                       
                         </form>
                     </FormDiv> 
-                    <TransactionButton onClick={()=>{history.push('/transactions')}}>
-                        View Historical Transaction History
-                    </TransactionButton>
+
+                    
                     <br/> 
                     {viewScenario === "specific date" ? 
-                    <MonthlyBudgetAndTransactions 
+                    <MonthlyBudgetAndTransactionsComparison 
                     userCashFlow={userCashFlow} 
                     viewDate={viewDate}
                     addStatus={addStatus}
                     deleteStatus={deleteStatus}
-                    >  </MonthlyBudgetAndTransactions> : null}
+                    >  </MonthlyBudgetAndTransactionsComparison> : null}
                 </div> : ""}
         
         </div>

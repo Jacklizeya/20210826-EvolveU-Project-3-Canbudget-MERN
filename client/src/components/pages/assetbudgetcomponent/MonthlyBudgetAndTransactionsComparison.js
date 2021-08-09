@@ -4,6 +4,9 @@ import AuthenticationContext from '../../auth/AuthenticationContext';
 import Chart from "react-apexcharts"
 import { Descriptiondiv } from '../assetAndBudget.elements';
 // This is affected by viewDate, viewDate will affect userCashFlow, 
+
+const Months = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 export default function MonthlyBudgetAndTransactions({viewDate, userCashFlow, addStatus, deleteStatus}) {
 
     const {id} = useContext(AuthenticationContext)
@@ -97,14 +100,15 @@ export default function MonthlyBudgetAndTransactions({viewDate, userCashFlow, ad
     return (
         
         <div>
-             <Descriptiondiv> Budget and Spending for {viewDate.substring(0, 7)} </Descriptiondiv> 
+             <Descriptiondiv style={{"text-align": "center"}}> Budget and Spending for {viewDate.substring(0, 4)} {Months[parseInt(viewDate.substring(5, 7)) - 1]} </Descriptiondiv> 
             {dataForChart.length? 
              (<Chart 
+                
                 options={options}
                 series={series}
                 type="bar"
-                width="50%"
-                height="600"/>) : null}
+                width="100%"
+                height="400"/>) : null}
         </div>
     )
 }

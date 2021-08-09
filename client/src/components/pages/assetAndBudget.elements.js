@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Heading1 = styled.h1`
     margin: 10px 20px 10px 40px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: 'Source Sans Pro',sans-serif;
 
 
 `
@@ -10,7 +10,7 @@ export const Descriptiondiv = styled.div`
 
     display: ${props => (props.viewScenario === "all record" ? "none": "block")};
     margin: 10px 20px 10px 40px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: 'Source Sans Pro',sans-serif;
     input[type=text], input[type=date], textarea {
       width: 25%; /* Full width */
       padding: 12px; /* Some padding */ 
@@ -25,7 +25,7 @@ export const Tablediv = styled.div`
    
 
    margin: 10px 20px 10px 40px;
-   font-family: "Lucida Console", "Courier New", monospace;
+   font-family: 'Source Sans Pro',sans-serif;
 
    table {
 
@@ -43,7 +43,7 @@ export const Tablediv = styled.div`
      padding: 0.5rem;
      border-bottom: 1px solid black;
      border-right: 1px solid black;
-     font-family: "Lucida Console", "Courier New", monospace;
+     font-family: 'Source Sans Pro',sans-serif;
 
      :last-child {
        border-right: 0;
@@ -78,7 +78,7 @@ export const Tablefoot = styled.tfoot`
      padding: 0.5rem;
      border-bottom: 1px solid black;
      border-right: 1px solid black;
-     font-family: "Lucida Console", "Courier New", monospace;
+     font-family: 'Source Sans Pro',sans-serif;
 
      :last-child {
        border-right: 0;
@@ -168,7 +168,7 @@ export const FormDiv = styled.div`
     }
 
     label {
-      font-family: "Lucida Console", "Courier New", monospace;
+      font-family: 'Source Sans Pro',sans-serif;
     }
 }
 `
@@ -179,7 +179,7 @@ export const TableBottomData = styled.td`
   padding: 0.5rem;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: 'Source Sans Pro',sans-serif;
   width: auto;
   
   :last-child {
@@ -226,7 +226,7 @@ export const LoginFormDiv = styled.div`
       margin: auto;
       position: relative;
       text-align:left;
-      font-family: "Lucida Console", "Courier New", monospace;
+      font-family: 'Source Sans Pro',sans-serif;
       width: 40%; /* Full width */
       margin-top: 6px; /* Add a top margin */
     }
