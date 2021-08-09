@@ -54,4 +54,9 @@
   width: 8rem;
 }
 
+.recurring-payment-suggestions {
+  display: flex;
+  flex-direction: row;
+}
+
 

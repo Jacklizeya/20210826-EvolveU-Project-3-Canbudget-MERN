@@ -65,7 +65,8 @@ export default function Transportation() {
                   />
                   {userHasInsurance === true ? 
                     <RecurringPaymentForm
-                      questionPrompt='Tell us about your vehicle insurance'
+                      questionPrompt='Tell us about your vehicle insurance:'
+                      paymentName='Vehicle Insurance'
                       enableAddRows={false}
                       sendDataToParent={(data) => {
                         setInsurancePaymentDetails(data[0])

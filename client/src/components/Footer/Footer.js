@@ -76,24 +76,6 @@ const Footer = () => {
                         <FooterLink to='/'>LinkedIn</FooterLink>
                     </FooterLinkItems>
                 </FooterLinksWrapper>
-                <FooterLinksWrapper>
-                    {/* <FooterLinkItems>
-                        <FooterLinkTitle>Social Media</FooterLinkTitle>
-                        <FooterLink to='/sign-up'>How it works</FooterLink>
-                        <FooterLink to='/promotions'>Promotions</FooterLink>
-                        <FooterLink to='/resources'>Resources</FooterLink>
-                        <FooterLink to='/budget'>Budget</FooterLink>
-                        <FooterLink to='/asset'>Asset</FooterLink>
-                    </FooterLinkItems>
-                    <FooterLinkItems>
-                        <FooterLinkTitle>Social Media</FooterLinkTitle>
-                        <FooterLink to='/sign-up'>How it works</FooterLink>
-                        <FooterLink to='/promotions'>Promotions</FooterLink>
-                        <FooterLink to='/resources'>Resources</FooterLink>
-                        <FooterLink to='/budget'>Budget</FooterLink>
-                        <FooterLink to='/asset'>Asset</FooterLink>
-                    </FooterLinkItems> */}
-                </FooterLinksWrapper>
             </FooterLinksContainer>
             <SocialMedia>
                 <SocialMediaWrap>
@@ -102,6 +84,7 @@ const Footer = () => {
                         CanBudget
                     </SocialLogo>
                     <WebsiteRights>CanBudget 2021</WebsiteRights>
+                    {/* causing error as requires 'to' tag
                     <SocialIcons>
                         <SocialIconLink hret='/' target='_blank' aria-label='Facebook'>
                             <FaFacebook to='/' onClick={toggleHome} aria-label='Facebook' />
@@ -118,7 +101,7 @@ const Footer = () => {
                         <SocialIconLink hret='/' target='_blank' aria-label='Linkedin'>
                             <FaLinkedin to='/' onClick={toggleHome} aria-label='Linkedin' />
                         </SocialIconLink>
-                    </SocialIcons>
+                    </SocialIcons> */} 
                 </SocialMediaWrap>
             </SocialMedia>
         </FooterContainer>
