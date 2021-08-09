@@ -25,14 +25,14 @@ export default function Sankey({userId, filteredData}) {
       setTransactions(data.transaction)
     }
     getData()
-  },[])
+  },[userId])
 
   useEffect(() => {
     if (transactions) {
       let sankeyArray = handleSankeyData(transactions, incomes)
       setSankeyData(sankeyArray)
     }
-  },[transactions])
+  },[transactions, incomes])
 
   useEffect(() => {
     let filteredTransactions = []

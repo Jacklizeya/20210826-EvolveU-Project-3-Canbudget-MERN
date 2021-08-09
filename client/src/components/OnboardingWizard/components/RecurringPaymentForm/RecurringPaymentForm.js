@@ -44,10 +44,6 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
     }
   },[dataFromForm])
 
-  const handleSubmit = (event) => {
-    sendDataToParent(formArray)
-  }
-
   return (
     <div className='recurring-payment-container'>
       {typeof questionPrompt === 'string' ? <p className='recurring-payment-prompt'>{questionPrompt}</p>: questionPrompt}
@@ -59,7 +55,12 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
             )
           })}
       </form>
-      <button className='recurring-payment-button' onClick={handleSubmit}>{buttonText}</button>
+      <button 
+        className='recurring-payment-button' 
+        onClick={() => {sendDataToParent(formArray)}}
+      >
+        {buttonText}
+      </button>
     </div>
   )
 }
