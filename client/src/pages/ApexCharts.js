@@ -1,5 +1,5 @@
 import React, {} from 'react';
-import Sankey from '../ApexCharts/Sankey'
+import Sankey from '../components/ApexCharts/Sankey'
 
 function ApexCharts() {
 

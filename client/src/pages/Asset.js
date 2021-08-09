@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd} from "../AssetBudget/assetAndBudget.elements"
+import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "../AssetBudget/AssetModal"
-import AuthenticationContext from '../auth/AuthenticationContext';
-import Plaid from '../AssetBudget/AssetPlaid';
+import {Modal} from "../components/AssetBudget/AssetModal"
+import AuthenticationContext from '../components/auth/AuthenticationContext';
+import Plaid from '../components/AssetBudget/AssetPlaid';
 
 function Asset() {
     const {id} = useContext(AuthenticationContext)

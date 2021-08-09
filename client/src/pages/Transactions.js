@@ -1,18 +1,18 @@
 import React, {useState, useEffect, useContext, useMemo} from 'react';
-import AuthenticationContext from '../auth/AuthenticationContext';
+import AuthenticationContext from '../components/auth/AuthenticationContext';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {useTable, useSortBy, useGlobalFilter, useFilters, usePagination} from "react-table"
-import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "../AssetBudget/assetAndBudget.elements"
-import GlobalFilter from './ReactTableFilters/GlobalFilter';
-import ColumnFilter from './ReactTableFilters/ColumnFilter';
-import SelectFilter from './ReactTableFilters/SelectFilter';
-import NumberRangeFilter from './ReactTableFilters/NumberRangeFilter';
-import DateRangeColumnFilter from './ReactTableFilters/DateRangeFilter';
-import TransactionChart from '../AssetBudget/TransactionChart';
-import Plaid from '../AssetBudget/TransactionPlaid';
-import Sankey from '../ApexCharts/Sankey';
-import CSV from "../AssetBudget/CSV"
+import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "../components/AssetBudget/assetAndBudget.elements"
+import GlobalFilter from '../components/ReactTableFilters/GlobalFilter';
+import ColumnFilter from '../components/ReactTableFilters/ColumnFilter';
+import SelectFilter from '../components/ReactTableFilters/SelectFilter';
+import NumberRangeFilter from '../components/ReactTableFilters/NumberRangeFilter';
+import DateRangeColumnFilter from '../components/ReactTableFilters/DateRangeFilter';
+import TransactionChart from '../components/AssetBudget/TransactionChart';
+import Plaid from '../components/AssetBudget/TransactionPlaid';
+import Sankey from '../components/ApexCharts/Sankey';
+import CSV from "../components/AssetBudget/CSV"
 
 export default function Transactions() {
     let history = useHistory()

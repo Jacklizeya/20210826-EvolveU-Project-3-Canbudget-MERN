@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo} from "react"
-import SearchTable from '../../ResourceSearch/SearchTable/SearchTable'
-import SearchableMap from '../../ResourceSearch/GoogleMap/SearchableMap'
-import SearchForm from "../../ResourceSearch/SearchForm/SearchForm"
+import SearchTable from '../../components/ResourceSearch/SearchTable/SearchTable'
+import SearchableMap from '../../components/ResourceSearch/GoogleMap/SearchableMap'
+import SearchForm from "../../components/ResourceSearch/SearchForm/SearchForm"
 import './ResourceSearch.css'
 
 const axios = require('axios');

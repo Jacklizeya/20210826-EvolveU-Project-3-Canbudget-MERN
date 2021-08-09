@@ -2,15 +2,15 @@ import React, { useEffect, useContext } from 'react';
 import { useLocation } from "react-router-dom";
 import { scroller } from 'react-scroll';
 
-import InfoSection from '../../InfoSection/InfoSection';
-import Greeting from '../../InfoSection/StatusLineMessage';
+import InfoSection from '../../components/InfoSection/InfoSection';
+import Greeting from '../../components/InfoSection/StatusLineMessage';
 
-import Promotions from '../../Promotions/Promotions';
-import OurTeam from '../../OurTeam/OurTeam';
+import Promotions from '../../components/Promotions/Promotions';
+import OurTeam from '../../components/OurTeam/OurTeam';
 import { homeObjOne } from './Data';
-import { promotionData } from '../../Promotions/data';
-import { memberData } from '../../OurTeam/data';
-import AuthenticationContext from '../../auth/AuthenticationContext';
+import { promotionData } from '../../components/Promotions/data';
+import { memberData } from '../../components/OurTeam/data';
+import AuthenticationContext from '../../components/auth/AuthenticationContext';
 
 const Home = () => {
 
