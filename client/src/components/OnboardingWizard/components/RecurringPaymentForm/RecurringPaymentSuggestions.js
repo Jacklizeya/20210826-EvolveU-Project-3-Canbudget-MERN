@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-export default function RecurringPaymentSuggestions({suggestionType}) {
+export default function RecurringPaymentSuggestions({suggestionType, sendDataToParent}) {
 
   const suggestionArray = {
     subscriptions: [
@@ -23,10 +23,8 @@ export default function RecurringPaymentSuggestions({suggestionType}) {
   }
 
   const [selectedArray, setSelectedArray] = useState([])
-  const [clicked, setClicked] = useState(null)
 
   useEffect(() => {
-    console.log(suggestionType)
     if (suggestionType === 'subscriptions') {
       setSelectedArray(suggestionArray.subscriptions)
     } else if (suggestionType === 'utilities') {
@@ -34,21 +32,17 @@ export default function RecurringPaymentSuggestions({suggestionType}) {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(clicked)
-  },[clicked])
 
   return (
     <div className='recurring-suggestions-row'>
       {selectedArray.map((suggestion, i) => {
-        console.log(suggestion)
         return (
           <button 
             className='recurring-payment-button'
             key={suggestion.name}
             name={suggestion.name}
             value={suggestion.amount}
-            onClick={(event) => {setClicked({name: event.target.name, amount: event.target.value})}}
+            onClick={(event) => {sendDataToParent({name: event.target.name, amount: event.target.value})}}
           >
             {suggestion.name}
           </button>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
 import RecurringPaymentForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
-import RecurringPaymentSuggestions from '../../components/RecurringPaymentForm/RecurringPaymentSuggestions'
 
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
