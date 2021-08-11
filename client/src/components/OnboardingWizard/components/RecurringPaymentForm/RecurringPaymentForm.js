@@ -30,6 +30,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
 
   useEffect(() => {
     if (dataFromForm) {
+      console.log(dataFromForm)
       formArray[dataFromForm.formId] = dataFromForm
     }
     setDataFromForm('')
@@ -49,9 +50,8 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
         <RecurringPaymentSuggestions 
           suggestionType={enableSuggestions} 
           sendDataToParent={(data) => {
-            let suggestionRowProps = {...defaultRowProps, name: data.name, amount: data.amount, isEmpty: false, formId: formArray.length}
-            // setFormArray(...formArray, formArray[formArray.length] = suggestionRowProps)
-            console.log(typeof formArray)
+            let suggestionRowProps = {...defaultRowProps, name: data.name, amount: data.amount, isEmpty: false, formId: formArray.length-1}
+            setDataFromForm(suggestionRowProps)
           }}
         /> : null
       }
