@@ -174,20 +174,25 @@ function Budget() {
                         <table> 
                             <thead>
                                 <tr className='table-title-row'>
-                                    <th id="name" opacity={nameOpacity} onClick={event => sortArrayBy(event)}>Item Name
+                                    <th id="name" opacity={nameOpacity} onClick={event => sortArrayBy(event)}>
+                                        Item Name
                                         {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
                                     </th>
-                                    <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}>Type
+                                    <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}>
+                                        Type
                                         {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
                                     </th>
-                                    <th id="amount" onClick={event => sortArrayBy(event)}>Amount
+                                    <th id="amount" onClick={event => sortArrayBy(event)}>
+                                        Amount
                                         {sortDirectionAmount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortDown> }
                                     </th>
                                     <th>Month to Month Change</th>
-                                    <th id="startDate" onClick={event => sortArrayBy(event)}>Start Date
+                                    <th id="startDate" onClick={event => sortArrayBy(event)}>
+                                        Start Date
                                         {sortDirectionStartDate > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": startDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": startDateOpacity}}> </FaSortDown> }
                                     </th>
-                                    <th id="endDate" onClick={event => sortArrayBy(event)}>End Date
+                                    <th id="endDate" onClick={event => sortArrayBy(event)}>
+                                        End Date
                                         {sortDirectionEndDate > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": endDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": endDateOpacity}}> </FaSortDown> }
                                     </th>
                                     <th>Edit</th>
@@ -195,28 +200,28 @@ function Budget() {
                                 </tr>
                             </thead>
                             <tbody>
-                            {userCashFlow.map(
-                                (singleCashFlow, index) => 
-                                    <tr key={singleCashFlow.name + index}>
-                                    <td> {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)} </td>
-                                    <td> {singleCashFlow.type} </td>
-                                    <Numbertd value={singleCashFlow.amount}> {singleCashFlow.amount} </Numbertd>
-                                    <td> {singleCashFlow.changeMonthToMonth} </td>
-                                    <td> {singleCashFlow.startDate} </td>
-                                    <td> {singleCashFlow.endDate} </td>     
-                                    <td> 
-                                        <a href="#form">
-                                            <button id={index} onClick={editItem}> 
-                                                <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
-                                            </button>
-                                        </a>                                      
-                                    </td> 
-                                    <td>
-                                        <button onClick={()=>{setNameToDelete(singleCashFlow.name); setDisplayModal(prev => !prev)}}>
-                                            <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
-                                        </button> 
-                                    </td>             
-                                </tr>
+                                {userCashFlow.map(
+                                    (singleCashFlow, index) => 
+                                        <tr key={singleCashFlow.name + index}>
+                                        <td> {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)} </td>
+                                        <td> {singleCashFlow.type} </td>
+                                        <Numbertd value={singleCashFlow.amount}> {singleCashFlow.amount} </Numbertd>
+                                        <td> {singleCashFlow.changeMonthToMonth} </td>
+                                        <td> {singleCashFlow.startDate} </td>
+                                        <td> {singleCashFlow.endDate} </td>     
+                                        <td> 
+                                            <a href="#form">
+                                                <button id={index} onClick={editItem}> 
+                                                    <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
+                                                </button>
+                                            </a>                                      
+                                        </td> 
+                                        <td>
+                                            <button onClick={()=>{setNameToDelete(singleCashFlow.name); setDisplayModal(prev => !prev)}}>
+                                                <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
+                                            </button> 
+                                        </td>             
+                                    </tr>
                                 )} 
                             </tbody>    
                             <tfoot className='table-title-row'>
@@ -236,7 +241,7 @@ function Budget() {
                         </table>    
                     </div>
                 </div> 
-            : ""}
+            : null}
             <form className='entry-info-form' onSubmit={(event) => addNewCashFlow(event, user._id)}>
                 <h3 className= 'entry-info-form-header'>Add New Item / Edit Existing Item</h3>
                 <label className='entry-info-form-row'>
@@ -268,7 +273,7 @@ function Budget() {
                 </label>
                 <button className='entry-info-form-button' type="submit">Submit</button>                                                       
             </form>
-        </div> : ""}`
+        </div> : ""}
     </div>
     
  )

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, StockButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
+import {Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "../components/AssetBudget/AssetModal"
@@ -37,7 +37,7 @@ function Asset() {
     const [nameToDelete, setNameToDelete] = useState("")
     const [displayModal, setDisplayModal] = useState(false)
 
-    let history = useHistory()
+    // let history = useHistory()
 
     useEffect(() => {
         async function getUsers() {
@@ -109,104 +109,111 @@ function Asset() {
     }
 
 // right now only hook up one, wait until login is done 
- return (
-    <>
-        <Heading1> Balance Sheet </Heading1>
-        <Modal displayModal={displayModal} setDisplayModal={setDisplayModal} itemname={nameToDelete} userid={user._id} setDeleteStatus={setDeleteStatus} setSortIndicator={setSortIndicator}> </Modal>
-
-            {user.email  ? 
-            <div key={user.firstName + "Asset"}>
+    return (
+        <div className='budget-container'>
+        <h1 className='page-heading'>Balance Sheet</h1>
+        <Modal 
+            displayModal={displayModal} 
+            setDisplayModal={setDisplayModal} 
+            itemname={nameToDelete} 
+            userid={user._id} 
+            setDeleteStatus={setDeleteStatus} 
+            setSortIndicator={setSortIndicator}
+        ></Modal>
+        {user.email  ? 
+            <div className='budget-container' key={user.firstName + "Asset"}>
                 {userBalanceSheet? 
-                    <Tablediv>
-                    <table> 
-                        <thead>
-                            <tr key="itemname">
-                                <th id="name" onClick={event => sortArrayBy(event)}> item name 
-                                {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }</th>
-                                <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}> type 
-                                {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }</th>
-                                <th id="value" onClick={event => sortArrayBy(event)}> value 
-                                {sortDirectionValue > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortDown> }</th>
-                                <th> changeMonthToMonth </th>
-                                <th> edit </th>
-                                <th> delete </th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                        {userBalanceSheet.map(
-                            (singleBalanceSheet, index) => 
-                            <tr key={singleBalanceSheet.name}>
-                                <td> {singleBalanceSheet.name.charAt(0).toUpperCase() + singleBalanceSheet.name.slice(1)} </td>
-                                <td> {singleBalanceSheet.type} </td>
-                                <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>
-                                <td> {singleBalanceSheet.changeMonthToMonth} </td>    
-                                <td> 
-                                    <a href="#form">
-                                        <button id={index} onClick={editItem} > 
-                                            <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
-                                        </button>
-                                    </a>
-                                </td> 
-                                <td>
-                                    <button onClick={()=>{setNameToDelete(singleBalanceSheet.name); setDisplayModal(prev => !prev)}}>
-                                        <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
-                                    </button> 
-                                </td>     
-                            </tr>
-                            )} 
-                        </tbody>
-
-                        <tfoot>
-                            <tr key="itemname">
-                                <TableBottomData> Sum </TableBottomData>
-                                <TableBottomData>   </TableBottomData>
-                                <TableBottomData value = {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100}>  {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100} </TableBottomData>
-                                
-                                <TableBottomData>   </TableBottomData>
-                                <TableBottomData>   </TableBottomData>
-                                <TableBottomData>   </TableBottomData>
-                            </tr>
-                        </tfoot>                 
-                    </table> 
-                </Tablediv>     
-                    : null}
-                  
-                
-                <br/> 
-
-                <FormDiv>
-                    <div className="form" id="form">
-                       
-                        <label> Add new item/Edit existing item  </label>
-                        <form onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
-                            <label> Name of the item </label>
-                            <input type="text" required value={name} onChange={(event)=>{setName(event.target.value)} }/> <br/>
-
-                            <label> Type </label>
-                            <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
-                                <option value="asset"> asset </option>
-                                <option value="liability"> liability </option>
-                                </select>   <br/>
-                            <label> value </label>
-                            <input type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/> <br/>
-                            <label> changeMonthToMonth </label>
-                            <input type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}} /> <br/>
-                            
-                            <SubmitButton type="submit"> Submit </SubmitButton>
-                            
-                        </form>
-                </div>         
-                </FormDiv>
-                <StockButton onClick={()=>{history.push('/stocks')}}>
+                    <div className='budget-table'>
+                        <table> 
+                            <thead>
+                                <tr className='table-title-row'>
+                                    <th id="name" onClick={event => sortArrayBy(event)}> 
+                                        Item Name 
+                                        {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
+                                    </th>
+                                    <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}> 
+                                        Type 
+                                        {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
+                                    </th>
+                                    <th id="value" onClick={event => sortArrayBy(event)}> 
+                                        Value 
+                                        {sortDirectionValue > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortDown> }
+                                    </th>
+                                    <th>Month to Month Change</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {userBalanceSheet.map(
+                                    (singleBalanceSheet, index) => 
+                                    <tr key={singleBalanceSheet.name}>
+                                        <td> {singleBalanceSheet.name.charAt(0).toUpperCase() + singleBalanceSheet.name.slice(1)} </td>
+                                        <td> {singleBalanceSheet.type} </td>
+                                        <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>
+                                        <td> {singleBalanceSheet.changeMonthToMonth} </td>    
+                                        <td> 
+                                            <a href="#form">
+                                                <button id={index} onClick={editItem} > 
+                                                    <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
+                                                </button>
+                                            </a>
+                                        </td> 
+                                        <td>
+                                            <button onClick={()=>{setNameToDelete(singleBalanceSheet.name); setDisplayModal(prev => !prev)}}>
+                                                <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
+                                            </button> 
+                                        </td>     
+                                    </tr>
+                                )} 
+                            </tbody>
+                            <tfoot className='table-title-row'>
+                                <tr>
+                                    <td>Sum</td>
+                                    <td></td>
+                                    <td value = {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100}>
+                                        {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100}
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>                 
+                        </table> 
+                    </div>     
+                : null}
+                <form className='entry-info-form' onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
+                    <h3 className= 'entry-info-form-header'>Add New Item / Edit Existing Item</h3>
+                    <label className='entry-info-form-row'>
+                        Item Name:&nbsp;
+                        <input className='budget-input' type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/>
+                    </label>
+                    <label className='entry-info-form-row'>
+                        Type:&nbsp;
+                        <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
+                            <option value="asset">Asset</option>
+                            <option value="liability">liability</option>
+                        </select>
+                    </label>
+                    <label className='entry-info-form-row'>
+                        Value:&nbsp;
+                        <input className='budget-input' type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/>
+                    </label>
+                    <label className='entry-info-form-row'>
+                        Month to Month Change:&nbsp;
+                        <input className ='budget-input' type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}}/>
+                    </label>
+                    <button className='entry-info-form-button' type="submit">Submit</button>  
+                </form>
+                {/* <StockButton onClick={()=>{history.push('/stocks')}}>
                     Stocks
-                </StockButton>
+                </StockButton> */}
                 <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
-       }
+        }
         
-        </>
- )
+        </div>
+    )
 }
 
 export default Asset;
