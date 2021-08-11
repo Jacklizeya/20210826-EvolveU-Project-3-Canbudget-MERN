@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 const watchListSchema = new Schema({
     client: mongoose.ObjectId,
     symbol: String,
-    period: String
+    period: Number
 });
 
 const watchListModel = mongoose.model('WatchList', watchListSchema, 'watchLists')

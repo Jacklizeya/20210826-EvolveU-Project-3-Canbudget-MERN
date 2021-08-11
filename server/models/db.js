@@ -6,13 +6,22 @@ if( typeof dbUrl === 'undefined' || dbUrl === null ){
 }
 dbUrl = dbUrl.trim();
 
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+
+//mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+.catch(err =>{console.log("Catch error ", err)});
 
 const db = mongoose.connection;
+
 db.once('open', (_) =>
-  console.log('MongoDB connected')
+  console.log('MongoDB connected to '+ dbUrl)
 );
-db.on('error', (err) => console.error('MongoDB connection error!', err));
+db.on('error', (err) => console.error('MongoDB connection error!!!', err));
 
 mongoose.set('useFindAndModify', false);
 
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

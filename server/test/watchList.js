@@ -8,7 +8,7 @@ console.log("Start")
 let watch1 = {
     client :clientId,
     symbol:"AMD",
-    period:"1day"
+    period:0
 	
   };
 
@@ -21,6 +21,6 @@ let watch1 = {
 //  watchDB.watchListModel.create(watch1);
 //  watchDB.watchListModel.create(watch2);
 
-watchDB.add(clientId,"AMD", "3days").then((c) => console.log(c));
-watchDB.takeAway(clientId,"INTC").then((c) => console.log(c));
-watchDB.getWatchList(clientId).then((c) => console.log(c));
+watchDB.add(clientId,"AMD", 0).then((c) => console.log(c));
+//watchDB.takeAway(clientId,"INTC").then((c) => console.log(c));
+//watchDB.getWatchList(clientId).then((c) => console.log(c));

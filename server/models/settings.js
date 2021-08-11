@@ -30,11 +30,11 @@ const settingModel = mongoose.model('Setting', settingSchema, 'settings');
 async function getSetting(){ 
     let setting = null;
     try {
-        setting = settingModel.findOne({}).exec();
+        setting = await settingModel.findOne({}).exec();
     } catch (err) {
         //console.error("err=", err)
     }
-    return await setting;
+    return  setting;
 }
 
 async function setSetting(newSetting) {

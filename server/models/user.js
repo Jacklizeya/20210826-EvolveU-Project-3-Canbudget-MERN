@@ -69,8 +69,18 @@ async function findByEmail(email){
 }
 
 async function updateUserSecurities(id,securitiesAccount, valueOfSecurities){
-    return userModel.findByIdAndUpdate(id,{securitiesAccount,valueOfSecurities} );
+    if (valueOfSecurities >=0){       
+        return userModel.findByIdAndUpdate(id,{securitiesAccount,valueOfSecurities} );
+    }else{
+        return userModel.findByIdAndUpdate(id,{securitiesAccount} );
+    }
 }
+
+
+async function getSecuritiesAccocunt(id){
+   return userModel.findById(id,"securitiesAccount , valueOfSecurities" );
+}
+
 
 async function updateUser(updClient) {
     return userModel.findByIdAndUpdate(updClient._id, updClient,{new:true});                   
@@ -175,7 +185,7 @@ module.exports = {
     findByEmail,
     updateUser,
     updateUserSecurities,
-    addCashFlow,
+    getSecuritiesAccocunt,
     removeCashFlow,
     addBalanceSheet,
     removeBalanceSheet,
