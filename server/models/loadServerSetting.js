@@ -2,7 +2,10 @@ const settingDB = require("../models/settings");
 let settings =  settingDB.getSetting().then((c) => {
     return c;});
 
+// let settings =  await settingDB.getSetting();
   
+    
+    
  async function tt()
  {
    return settings.then(t => {return t;});

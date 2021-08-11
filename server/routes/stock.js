@@ -1,8 +1,28 @@
 const express = require('express');
+const stockDB = require('../models/stock');
+const watchListOperations = require('../business/watchListOperations');
+const portfolioOperations = require('../business/portfolioOperations');
+const fetchData = require('../business/fetchData');
+
 let router = express.Router();
 
-const stockDB = require('../models/stock');
 
+
+
+router.get('/:id/:full', async (req, res) => {
+  const id = req.params.id;
+  const full = req.params.full === 'true'
+  //console.info(`fetch Stock ` + full);
+  console.log("Stocks data fetched !")
+  data = await fetchData.getDataForUser(id, full);
+  if (data == null) {
+    console.log(id + " Client not found");
+    res.sendStatus(500);
+  }
+  else {
+    res.send(data);
+  }
+});
 
 
 
@@ -29,15 +49,16 @@ router.post('/:id/watch', async (req, res) => {
     const action = req.body;
     const symbol = action.symbol;
     const operation = action.operation;
+    const period = action.period;
     switch (operation) {
       case "add":
-        let data = await watchList.add(id, symbol);
+        let data = await watchListOperations.addWatchList(id, symbol, period);
         //  console.log("data=",data)  ;
         res.send(data);
         break;
 
       case "takeAway":
-        res.send(await watchList.takeAway(id, symbol));
+        res.send(await watchListOperations.removeWatchList(id, symbol));
         break;
 
       default:
@@ -71,8 +92,8 @@ router.post('/:id/portfolio', async (req, res) => {
     if (operation === "buy" || operation === "sell") {
       console.log("Portfolio ",operation);
       const { ok, message } = (operation === "buy") ?
-        await operations.buy(id, symbol, price, amount) :
-        await operations.sell(id, symbol, price, amount);
+        await portfolioOperations.buy(id, symbol, price, amount) :
+        await portfolioOperations.sell(id, symbol, price, amount);
       console.log("buy or sell")
       if (ok) {
         res.send(result);

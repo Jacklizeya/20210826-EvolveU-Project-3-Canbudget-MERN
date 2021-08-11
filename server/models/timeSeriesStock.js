@@ -23,7 +23,7 @@ async function getStockSeries0(func, symbol, outputsize){
     return {};
 }
 
-async function getStockSeries0(funcN, symbol, fullSize = false){
+async function getStockSeries(funcN, symbol, fullSize = false){
     outputsize = fullSize ? "full"  : "compact";
     if (funcN < 0 ) {funcN=0;}   
     if (funcN >=  AlphaFunctions.length ) { funcN=AlphaFunctions.length-1;}   
@@ -33,10 +33,11 @@ async function getStockSeries0(funcN, symbol, fullSize = false){
 
 async function intradayStocks(symbol, fullSize = false){
     outputsize = fullSize ? "full"  : "compact";
-    return getStockSeries0("TIME_SERIES_INTRADAY", symbol, outputsize)
+    return getStockSeries(0, symbol, outputsize)
 }
 
 module.exports = {
     AlphaFunctions,
+    getStockSeries,
     intradayStocks
 }
