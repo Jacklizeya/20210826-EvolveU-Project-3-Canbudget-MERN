@@ -8,6 +8,8 @@ import {Modal} from "../components/AssetBudget/AssetModal"
 import AuthenticationContext from '../components/auth/AuthenticationContext';
 import Plaid from '../components/AssetBudget/AssetPlaid';
 
+import './Budget/AssetBudgetTransaction.css'
+
 function Asset() {
     const {id} = useContext(AuthenticationContext)
     // console.log(id)

@@ -122,13 +122,14 @@ export const TransactionButton = styled.button`
 `;
 
 export const PlaidButton = styled.button`
+    cursor: pointer;
+    padding: 10px;
     color: white;
-    background: #01345B;
-    font-size: 1em;
-    padding: 0.5em 1.5em;
+    background-color: #01345B;
+    border-radius: 20px;
     border: 2px solid #01345B;
-    border-radius: 3px;
-    margin: 10px 20px 10px 40px;
+    font-weight: bold;
+    margin: 10px;
 `;
 
 export const FormDiv = styled.div`

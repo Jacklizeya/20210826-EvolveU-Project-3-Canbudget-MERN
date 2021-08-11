@@ -6,7 +6,7 @@ import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "../../components/AssetBudget/BudgetModal"
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 
-import './Budget.css'
+import './AssetBudgetTransaction.css'
 
 
 function Budget() {

@@ -52,6 +52,7 @@
   border-radius: 20px;
   font-weight: bold;
   width: 8rem;
+  border: 2px solid #01345B;
 }
 
 .recurring-suggestions-row {

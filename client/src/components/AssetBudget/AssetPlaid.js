@@ -113,7 +113,7 @@ export default function Plaid({id, setAddStatus}) {
     return (
       <div> 
         <PlaidButton onClick={() => {setAssetFromPlaid([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
-        Import asset from your financial institution
+          Import asset from your financial institution
         </PlaidButton>
 
         {assetFromPlaid.length? 

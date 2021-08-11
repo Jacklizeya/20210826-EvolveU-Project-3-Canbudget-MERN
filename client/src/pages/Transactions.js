@@ -14,7 +14,7 @@ import Plaid from '../components/AssetBudget/TransactionPlaid';
 import Sankey from '../components/ApexCharts/Sankey';
 import CSV from "../components/AssetBudget/CSV"
 
-import './Budget/Budget.css'
+import './Budget/AssetBudgetTransaction.css'
 
 export default function Transactions() {
 
@@ -34,7 +34,7 @@ export default function Transactions() {
         filter: "dateBetween"
       },
       {
-        Header: 'merchant',
+        Header: 'Merchant',
         accessor: 'name',
         sortType: "basic",
         Filter: ColumnFilter
@@ -46,7 +46,7 @@ export default function Transactions() {
         filter: "between"
       },
       {
-        Header: 'Bankname',
+        Header: 'Bank Name',
         accessor: 'bankname',
         sortType: "basic",
         Filter: SelectFilter,
