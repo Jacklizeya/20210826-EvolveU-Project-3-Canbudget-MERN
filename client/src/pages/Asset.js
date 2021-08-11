@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from "axios"
-import {SubmitButton, StockButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
+import {SubmitButton, StockButton, Tablediv, Heading1, FormDiv, TableBottomData, Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "../components/AssetBudget/AssetModal"
@@ -48,7 +48,7 @@ function Asset() {
         getUsers()
         setAddStatus(0)
         setDeleteStatus(0)
-    }, [addstatus, deleteStatus])
+    }, [addstatus, deleteStatus, id])
 
     useEffect(() => {
         if (user.balanceSheet){ 
@@ -100,6 +100,7 @@ function Asset() {
                 if (event.target.id === "name") { setSortDirectionName(sortDirectionName * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionName}
                 else if (event.target.id === "type") { setSortDirectionType(sortDirectionType * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionType}
                 else if (event.target.id === "value") {setSortDirectionValue(sortDirectionValue * -1); return (a[event.target.id]-b[event.target.id]) * sortDirectionValue} 
+                else return null
                 }
             )
         console.log(userCopy)
@@ -115,13 +116,6 @@ function Asset() {
 
             {user.email  ? 
             <div key={user.firstName + "Asset"}>
-                <Descriptiondiv> 
-                Name: {user.firstName} {user.lastName} <br/>
-                Email: {user.email} <br/>
-                Address: {user.address} <br/>
-                Phonenumber: {user.phoneNumber} <br/> <br/>
-                </Descriptiondiv>
-
                 {userBalanceSheet? 
                     <Tablediv>
                     <table> 

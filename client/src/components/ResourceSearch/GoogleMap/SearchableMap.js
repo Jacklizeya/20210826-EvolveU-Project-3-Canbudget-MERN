@@ -44,47 +44,47 @@ export default function SearchableMap({data, userLocation}) {
 
   const [selectedMarker, setSelectedMarker] = useState(null)
 
-  useEffect(() => {
-    if (data) {
-      setMapCenter(data[0].geometry.location)
-    } else if (userLocation) {
-      setMapCenter(userLocation)
-    }
-  }, [userLocation, data])
+  // useEffect(() => {
+  //   if (data) {
+  //     setMapCenter(data[0].geometry.location)
+  //   } else if (userLocation) {
+  //     setMapCenter(userLocation)
+  //   }
+  // }, [userLocation, data])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    function calculateCoordinateBounds() {
-      let latBounds = {minLat: data[0].geometry.location.lat, maxLat: data[0].geometry.location.lat}
-      let lngBounds = {minLng: data[0].geometry.location.lng, maxLng: data[0].geometry.location.lng}
-      for (let index in data) {
-        if (data[index].geometry.location.lat > latBounds.maxLat)
-          latBounds.maxLat = data[index].geometry.location.lat
-        else if (data[index].geometry.location.lat < latBounds.minLat) {
-          latBounds.minLat = data[index].geometry.location.lat
-        }
-        if (data[index].geometry.location.lng > lngBounds.maxLng)
-          lngBounds.maxLng = data[index].geometry.location.lng
-        else if (data[index].geometry.location.lng < lngBounds.minLng) {
-          lngBounds.minLng = data[index].geometry.location.lng
-        }
-      }
-      return {lat: latBounds, lng: lngBounds}
-    }
+  //   function calculateCoordinateBounds() {
+  //     let latBounds = {minLat: data[0].geometry.location.lat, maxLat: data[0].geometry.location.lat}
+  //     let lngBounds = {minLng: data[0].geometry.location.lng, maxLng: data[0].geometry.location.lng}
+  //     for (let index in data) {
+  //       if (data[index].geometry.location.lat > latBounds.maxLat)
+  //         latBounds.maxLat = data[index].geometry.location.lat
+  //       else if (data[index].geometry.location.lat < latBounds.minLat) {
+  //         latBounds.minLat = data[index].geometry.location.lat
+  //       }
+  //       if (data[index].geometry.location.lng > lngBounds.maxLng)
+  //         lngBounds.maxLng = data[index].geometry.location.lng
+  //       else if (data[index].geometry.location.lng < lngBounds.minLng) {
+  //         lngBounds.minLng = data[index].geometry.location.lng
+  //       }
+  //     }
+  //     return {lat: latBounds, lng: lngBounds}
+  //   }
     
-    let coordinateBounds = calculateCoordinateBounds()
-    // let coordinateDifference = Math.max((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat),(coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng))
+  //   let coordinateBounds = calculateCoordinateBounds()
+  //   // let coordinateDifference = Math.max((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat),(coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng))
 
-    if (data) {
-      setMapCenter({
-        lat: ((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat) / 2) + coordinateBounds.lat.minLat,
-        lng: ((coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng) / 2) + coordinateBounds.lng.minLng
-      })
-    } else if (userLocation) {
-      setMapCenter(userLocation)
-    }
+  //   if (data) {
+  //     setMapCenter({
+  //       lat: ((coordinateBounds.lat.maxLat - coordinateBounds.lat.minLat) / 2) + coordinateBounds.lat.minLat,
+  //       lng: ((coordinateBounds.lng.maxLng - coordinateBounds.lng.minLng) / 2) + coordinateBounds.lng.minLng
+  //     })
+  //   } else if (userLocation) {
+  //     setMapCenter(userLocation)
+  //   }
 
-  }, [data, userLocation])
+  // }, [data, userLocation])
 
   useEffect(() => {
     setMarkerList(data)

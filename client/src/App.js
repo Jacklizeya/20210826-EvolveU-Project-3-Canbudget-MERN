@@ -3,7 +3,7 @@ import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Navbar, Footer } from './components';
 import Home from './pages/HomePage/Home';
-import Budget from './pages/Budget';
+import Budget from './pages/Budget/Budget';
 import Asset from './pages/Asset';
 import Stocks from './components/Stocks/Stocks';
 import Transactions from './pages/Transactions';
