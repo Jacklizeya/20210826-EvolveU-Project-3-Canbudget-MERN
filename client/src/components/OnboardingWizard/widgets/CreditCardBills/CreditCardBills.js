@@ -24,7 +24,7 @@ export default function CreditCardBills() {
 
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading' onClick={handleHeaderClick}>Credit Cards</h2>
+            <h2 className='onboard-heading widget' onClick={handleHeaderClick}>Credit Cards</h2>
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's set some reminders for your credit card bills</p>
                 <BooleanRadioButtons sendDataToParent={handleDataFromUserHasBills} questionPrompt='Do you have any credit cards?'/>

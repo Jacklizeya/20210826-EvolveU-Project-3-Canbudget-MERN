@@ -15,7 +15,7 @@ export default function Subscriptions() {
 
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading' onClick={handleHeaderClick}>Subscriptions</h2>
+            <h2 className='onboard-heading widget' onClick={handleHeaderClick}>Subscriptions</h2>
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's talk about what services you subscribe to</p>
                 <BooleanRadioButtons 

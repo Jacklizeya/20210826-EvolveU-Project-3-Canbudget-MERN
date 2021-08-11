@@ -11,7 +11,7 @@ export default function Utilities() {
   return (
     <div className='onboard-container'>
       <h2 
-        className='onboard-heading' 
+        className='onboard-heading widget' 
         onClick={() => {setDisplayOnboardBody(!displayOnboardBody)}}
       >
         Utilties
