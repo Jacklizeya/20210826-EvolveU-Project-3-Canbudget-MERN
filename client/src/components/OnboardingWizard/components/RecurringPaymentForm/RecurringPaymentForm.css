@@ -27,6 +27,7 @@
 
 .recurring-payment-field{
   padding-left: 10px;
+  height: 100%;
 }
 
 .recurring-payment-frequency-inputs {
@@ -52,6 +53,19 @@
   border-radius: 20px;
   font-weight: bold;
   width: 8rem;
+  border: 2px solid #01345B;
 }
 
+.recurring-suggestions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 20px;
+}
 
+.recurring-payment-label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+}

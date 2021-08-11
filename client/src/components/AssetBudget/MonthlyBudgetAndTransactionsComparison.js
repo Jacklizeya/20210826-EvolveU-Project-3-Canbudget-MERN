@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useContext } from 'react'
 import axios from "axios"
-import AuthenticationContext from '../../auth/AuthenticationContext';
+import AuthenticationContext from '../auth/AuthenticationContext';
 import Chart from "react-apexcharts"
-import { Descriptiondiv } from '../assetAndBudget.elements';
+import { Descriptiondiv } from './assetAndBudget.elements';
 // This is affected by viewDate, viewDate will affect userCashFlow, 
 
 const Months = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]

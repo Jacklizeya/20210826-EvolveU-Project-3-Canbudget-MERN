@@ -1,0 +1,87 @@
+.budget-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-heading, .form-div, .budget-table {
+  color: #01345B;
+  padding: 20px;
+  text-align: center;
+}
+
+.budget-input {
+  border:#01345B 2px solid;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  color: #01345B
+}
+
+.form-div, .budget-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.budget-table table, th, td {
+  border: #01345B 2px solid;
+  border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table-title-row {
+  background-color: #01345B;
+  color: white;
+}
+
+.budget-table table {
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.entry-info-form {
+  display: flex;
+  flex-direction: column;
+  color: #01345B;
+  margin: 20px;
+  border: 4px solid #01345B;
+  border-radius: 20px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  width: 600px;
+  text-align: center;
+  align-items: center;
+}
+
+.entry-info-form-header {
+  padding-bottom: 10px;
+  width: 100%;
+  background-color: #01345B;
+  color: white;
+  border-radius: 10px 10px 0px 0px;
+  padding: 10px;
+}
+
+.entry-info-form-row {
+  padding: 5px;
+}
+
+.entry-info-form-button {
+  width: 8rem;
+  padding: 10px;
+  color: white;
+  background-color: #01345B;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.transaction-chart-container {
+  display: flex;
+  border: 4px solid #01345B;
+  width: 80%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}

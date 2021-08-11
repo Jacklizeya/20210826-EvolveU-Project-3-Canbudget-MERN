@@ -10,7 +10,7 @@ export const homeObjOne = {
     description: 'Sign-up to unlock the full potential of this App',
     buttonLabel: 'Get Started',
     // img: wallet,
-    img: (require('../../../images/wallet.svg')).default,
+    img: (require('../../images/wallet.svg')).default,
     alt: 'Image',
     start: ''
 };
@@ -26,7 +26,7 @@ export const homeObjTwo = {
     lightTextDesc: true,
     description: 'Sign-up to unlock the full potential of this App',
     buttonLabel: 'Get Started',
-    img: require('../../../images/wallet.svg'),
+    img: require('../../images/wallet.svg'),
     alt: 'Image',
     start: ''
 };

@@ -3,24 +3,26 @@ import React, {useEffect, useState} from 'react'
 import './RecurringPaymentForm.css'
 
 import RecurringPaymentRow from './RecurringPaymentRow'
+import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, enableAddRows, paymentName}) {
+export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions}) {
 
   const defaultRowProps = {
-    name: null,
-    amount: null,
-    frequency: null,
-    frequencyType: null,
-    billDate: null,
-    contractEndDate: null,
+    name: '',
+    amount: '',
+    frequency: '',
+    frequencyType: '',
+    billDate: '',
+    contractEndDate: '',
     isEmpty: true,
-    formId: null
+    formId: ''
   }
 
   const [formArray, setFormArray] = useState([defaultRowProps])
-  const [dataFromForm, setDataFromForm] = useState(null)
+  const [dataFromForm, setDataFromForm] = useState('')
   const [addRowsEnabled, setAddRowsEnabled] = useState(true)
   const [buttonText, setButtonText] = useState('Skip')
+  const [suggestion, setSuggestion] = useState(null)
 
   useEffect(() => {
     if (enableAddRows !== undefined) setAddRowsEnabled(enableAddRows)
@@ -28,9 +30,10 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
 
   useEffect(() => {
     if (dataFromForm) {
+      console.log(dataFromForm)
       formArray[dataFromForm.formId] = dataFromForm
     }
-    setDataFromForm(null)
+    setDataFromForm('')
     if (!formArray[formArray.length - 1].isEmpty) {
       setButtonText('Submit')
       if (addRowsEnabled) {
@@ -39,9 +42,19 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
     }
   },[dataFromForm])
 
+
   return (
     <div className='recurring-payment-container'>
       {typeof questionPrompt === 'string' ? <p className='recurring-payment-prompt'>{questionPrompt}</p>: questionPrompt}
+      {enableSuggestions ? 
+        <RecurringPaymentSuggestions 
+          suggestionType={enableSuggestions} 
+          sendDataToParent={(data) => {
+            let suggestionRowProps = {...defaultRowProps, name: data.name, amount: data.amount, isEmpty: false, formId: formArray.length-1}
+            setDataFromForm(suggestionRowProps)
+          }}
+        /> : null
+      }
       <form className='recurring-payment-form'>
           {formArray.map((formRow, i) => {
             return (
@@ -50,7 +63,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
                 key={i}
                 sendDataToParent={(data) => {setDataFromForm(data)}} 
                 parentData={formRow}
-                paymentName={paymentName ? paymentName : null}
+                paymentName={paymentName ? paymentName : ''}
               />
             )
           })}

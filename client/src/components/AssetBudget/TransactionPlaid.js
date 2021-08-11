@@ -1,8 +1,7 @@
 import React , { useEffect, useState, useCallback } from 'react'
-import { PlaidButton, Descriptiondiv} from '../assetAndBudget.elements'
+import { PlaidButton, SubmitButton, Tablediv, Numbertd} from './assetAndBudget.elements'
 import { usePlaidLink } from 'react-plaid-link';
 import axios from "axios"
-import {SubmitButton, Tablediv, Numbertd, } from "../assetAndBudget.elements"
 
 
 
@@ -56,11 +55,9 @@ export default function Plaid({id, setAddStatus}) {
     }, []);
 
     return (
-        <div>
-            <Descriptiondiv> Import Data from your financial Institution </Descriptiondiv>
-            {linkToken != null ? 
-              <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
-        </div>
+            linkToken !== null ? 
+              <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> 
+              : null
     )
 }
 
@@ -112,7 +109,7 @@ export default function Plaid({id, setAddStatus}) {
     return (
       <div> 
         <PlaidButton onClick={() => {setTransactionData([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
-        Import Transaction from your financial institution
+        Import transactions from your financial institution
         </PlaidButton>
 
         {plaidStatusReady? (plaidStatusReady === "INITIAL_UPDATE"? 

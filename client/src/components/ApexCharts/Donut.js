@@ -39,10 +39,10 @@ export default function Donut({data, showLegend}) {
 
   useEffect(() => {
     function updateGraph() {
-      setDonutProps({...donutProps, 
-        options: {...donutProps.options, labels: labels},
+      setDonutProps(d => ({...d, 
+        options: {...d.options, labels: labels},
         series: values
-      })
+      }))
     }
     updateGraph()
   },[labels,values])

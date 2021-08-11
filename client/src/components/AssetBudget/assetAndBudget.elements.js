@@ -1,16 +1,14 @@
 import styled from 'styled-components';
 
 export const Heading1 = styled.h1`
-    margin: 10px 20px 10px 40px;
-    font-family: 'Source Sans Pro',sans-serif;
-
-
+  margin: 10px 20px 10px 40px;
+  color: #01345B;
 `
 export const Descriptiondiv = styled.div`
 
     display: ${props => (props.viewScenario === "all record" ? "none": "block")};
     margin: 10px 20px 10px 40px;
-    font-family: 'Source Sans Pro',sans-serif;
+    color: #01345B;
     input[type=text], input[type=date], textarea {
       width: 25%; /* Full width */
       padding: 12px; /* Some padding */ 
@@ -24,39 +22,30 @@ export const Descriptiondiv = styled.div`
 export const Tablediv = styled.div`
    
 
-   margin: 10px 20px 10px 40px;
-   font-family: 'Source Sans Pro',sans-serif;
+  margin: 10px 20px 10px 40px;
+  font-family: 'Source Sans Pro',sans-serif;
 
-   table {
+  table {
 
-   border: 1px solid black;
-   border-spacing: 0;
+    border: #01345B 2px solid;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
    
    
-   tr {
-    
-    height: 10px; 
-   }
 
-   th, td {
-     width: auto;
-     padding: 0.5rem;
-     border-bottom: 1px solid black;
-     border-right: 1px solid black;
-     font-family: 'Source Sans Pro',sans-serif;
-
-     :last-child {
-       border-right: 0;
-     }
-   }
+    th, td {
+      border: #01345B 2px solid;
+      border-collapse: collapse;
+      padding: 5px;
+      text-align: center;
+    }
   
-   th {
-     width: auto;
-     background: #01345B;
-     border-bottom: 0px solid;
-     color: white;
-     fontWeight: bold;
-   }
+    th {
+      background: #01345B;
+      color: white;
+    }
 
    tfoot{
      tr {
@@ -133,27 +122,29 @@ export const TransactionButton = styled.button`
 `;
 
 export const PlaidButton = styled.button`
+    cursor: pointer;
+    padding: 10px;
     color: white;
-    background: #01345B;
-    font-size: 1em;
-    padding: 0.5em 1.5em;
+    background-color: #01345B;
+    border-radius: 20px;
     border: 2px solid #01345B;
-    border-radius: 3px;
-    margin: 10px 20px 10px 40px;
+    font-weight: bold;
+    margin: 10px;
 `;
 
 export const FormDiv = styled.div`
 
     margin: 10px 20px 10px 40px;
+    color: #01345B;
    
     input[type=text], input[type=date], textarea {
-    width: 25%; /* Full width */
-    padding: 12px; /* Some padding */ 
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 6px; /* Add a top margin */
-    margin-bottom: 6px; /* Bottom margin */
+      width: 25%; /* Full width */
+      padding: 12px; /* Some padding */ 
+      border: 1px solid #ccc; /* Gray border */
+      border-radius: 4px; /* Rounded borders */
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      margin-top: 6px; /* Add a top margin */
+      margin-bottom: 6px; /* Bottom margin */
     }
 
     select {
@@ -168,7 +159,7 @@ export const FormDiv = styled.div`
     }
 
     label {
-      font-family: 'Source Sans Pro',sans-serif;
+      color: #01345B;
     }
 }
 `
