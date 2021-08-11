@@ -55,11 +55,9 @@ export default function Plaid({id, setAddStatus}) {
     }, []);
 
     return (
-        <div>
-            <Descriptiondiv> Import Data from your financial Institution </Descriptiondiv>
-            {linkToken != null ? 
-              <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
-        </div>
+            linkToken !== null ? 
+              <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> 
+              : null
     )
 }
 

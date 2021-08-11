@@ -14,7 +14,10 @@ import Plaid from '../components/AssetBudget/TransactionPlaid';
 import Sankey from '../components/ApexCharts/Sankey';
 import CSV from "../components/AssetBudget/CSV"
 
+import './Budget/Budget.css'
+
 export default function Transactions() {
+
     let history = useHistory()
     const [addStatus, setAddStatus] = useState(0)
     const {id} = useContext(AuthenticationContext)
@@ -66,6 +69,7 @@ export default function Transactions() {
         getUserandSetTransactionData()
         setAddStatus(0)
     }, [addStatus])
+
 //  This is for the dates function
     function dateBetweenFilterFn(rows, id, filterValue) {
       let startingDate = filterValue[0];
@@ -118,93 +122,92 @@ export default function Transactions() {
     let {globalFilter, pageIndex} = state  
 
       return (
-        
-        transactionData? 
-        <> 
-         
-        <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
-        <CSV id={id} setAddStatus={setAddStatus}> </CSV>
-        <Tablediv {...getTableProps()}>
-          <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
-          <thead>
-            {// Loop over the header rows
-            headerGroups.map(headerGroup => (
-              // Apply the header row props
-              
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {// Loop over the headers in each row
-                headerGroup.headers.map(column => (
-                  // Apply the header cell props
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {// Render the header, this is really something under the hood
-                    column.render('Header')}
-                    <tr> <span> {column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}
-                    </span> </tr>
-                  </th>
+        transactionData ? 
+        <div className='budget-container'>
+          <h1 className='page-heading'>Transactions</h1>  
+          <div className='budget-table'>
+            <table {...getTableProps()}>
+              <thead>
+                {// Loop over the header rows
+                headerGroups.map(headerGroup => (
+                  // Apply the header row props
+                  <tr className='table-title-row' {...headerGroup.getHeaderGroupProps()}>
+                    {// Loop over the headers in each row
+                    headerGroup.headers.map(column => (
+                      // Apply the header cell props
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                        {// Render the header, this is really something under the hood
+                        column.render('Header')}
+                        <tr> <span> {column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}
+                        </span> </tr>
+                      </th>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
+              </thead>
+              <thead>
+                {// Loop over the header rows
+                headerGroups.map(headerGroup => (
+                  // Apply the header row prop
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {// Loop over the headers in each row
+                    headerGroup.headers.map(column => (
+                      // Apply the header cell props without sorting
+                      <th {...column.getHeaderProps()}>         
+                        <tr> {column.canFilter ? column.render('Filter') : null} </tr>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
 
-            ))}
-          </thead>
-
-          <thead>
-          {// Loop over the header rows
-          headerGroups.map(headerGroup => (
-            // Apply the header row prop
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {// Loop over the headers in each row
-              headerGroup.headers.map(column => (
-                // Apply the header cell props without sorting
-                <th {...column.getHeaderProps()}>         
-                  <tr> {column.canFilter ? column.render('Filter') : null} </tr>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-          
-          {/* Apply the table body props */}
-          <tbody {...getTableBodyProps()}>
-            {// Loop over the table rows
-            page.map(row => {
-              // Prepare the row for display
-              prepareRow(row)
-              return (
-                // Apply the row props
-                <tr {...row.getRowProps()}>
-                  {// Loop over the rows cells
-                  row.cells.map(cell => {
-                    // Apply the cell props
-                    return (
-                      <td {...cell.getCellProps()}>
-                        {// Render the cell contents
-                        cell.render('Cell')}
-                      </td>
-                    )
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-          
-          <span> Page {" "}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>
-          </span>
-          <button onClick={event => gotoPage(0)} disabled={!canPreviousPage}> {"<<"} </button>
-          <button onClick={event => previousPage()} disabled={!canPreviousPage}> Previous Page </button> 
-          <input type="number" defaultValue={pageIndex + 1} onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}/>
-          <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button> 
-          <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button>
-          
-        </Tablediv>
-        <div style={{display:'flex', flexDirection: 'row', border:'4px solid #01345B', borderRadius:'20px', margin:'20px', padding:'10px', boxShadow:'0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)'}}>
-          <TransactionChart data={filteredRows}/>
-          <Sankey userId={id} filteredData={filteredRows}/>
+              {/* Apply the table body props */}
+              <tbody {...getTableBodyProps()}>
+                {// Loop over the table rows
+                page.map(row => {
+                  // Prepare the row for display
+                  prepareRow(row)
+                  return (
+                    // Apply the row props
+                    <tr {...row.getRowProps()}>
+                      {// Loop over the rows cells
+                      row.cells.map(cell => {
+                        // Apply the cell props
+                        return (
+                          <td {...cell.getCellProps()}>
+                            {// Render the cell contents
+                            cell.render('Cell')}
+                          </td>
+                        )
+                      })}
+                    </tr>
+                  )
+                })}
+              </tbody>
+              <tfoot>
+                <span> Page {" "}
+                  <strong>
+                    {pageIndex + 1} of {pageOptions.length}
+                  </strong>
+                </span>
+                <button onClick={event => gotoPage(0)} disabled={!canPreviousPage}> {"<<"} </button>
+                <button onClick={event => previousPage()} disabled={!canPreviousPage}> Previous Page </button> 
+                <input type="number" defaultValue={pageIndex + 1} onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}/>
+                <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button> 
+                <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button>
+                <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
+              </tfoot>
+            </table>
+          </div>
+          <div className='form-div'>
+            <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
+            <CSV id={id} setAddStatus={setAddStatus}> </CSV>
+          </div>
+          <div className='transaction-chart-container'>
+            <TransactionChart data={filteredRows}/>
+            <Sankey userId={id} filteredData={filteredRows}/>
+          </div>
         </div>
-        
-        </>
         : <div> Loading ...</div>
       )
      

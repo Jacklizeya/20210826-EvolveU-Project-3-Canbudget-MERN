@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .page-heading, .form-div, .budget-table {
@@ -75,4 +76,12 @@
   background-color: #01345B;
   border-radius: 20px;
   margin: 5px;
+}
+
+.transaction-chart-container {
+  display: flex;
+  border: 4px solid #01345B;
+  width: 80%;
+  border-radius: 20px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
