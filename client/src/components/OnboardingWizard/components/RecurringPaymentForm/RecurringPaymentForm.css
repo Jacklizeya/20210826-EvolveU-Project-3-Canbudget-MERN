@@ -13,6 +13,10 @@
 .recurring-payment-form {
   display: flex;
   flex-direction: column;
+  border: #01345B 2px solid;
+  border-radius: 0px 0px 10px 10px;
+  margin: 20px;
+  width: fit-content;
 }
 
 .recurring-payment-row {
@@ -44,7 +48,6 @@
   color: #01345B;
 }
 
-
 .recurring-payment-button {
   cursor: pointer;
   padding: 10px 0px 10px 0px;
@@ -59,7 +62,7 @@
 .recurring-suggestions-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-top: 20px;
 }
 
@@ -68,4 +71,15 @@
   flex-direction: column;
   text-align: center;
   font-weight: bold;
+  height: 100%;
+}
+
+.recurring-payment-label-text {
+  padding: 10px;
+  color: white;
+  background-color: #01345B;
+}
+
+.recurring-payment-table-body {
+  width: fit-content;
 }

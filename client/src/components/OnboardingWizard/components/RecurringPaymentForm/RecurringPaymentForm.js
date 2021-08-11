@@ -55,7 +55,8 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
           }}
         /> : null
       }
-      <form className='recurring-payment-form'>
+      <table className='recurring-payment-form'>
+        <tbody className='recurring-payment-table-body'>
           {formArray.map((formRow, i) => {
             return (
               formRow['formId'] = i,
@@ -67,7 +68,8 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
               />
             )
           })}
-      </form>
+        </tbody>
+      </table>
       <button 
         className='recurring-payment-button' 
         onClick={() => {sendDataToParent(formArray)}}
