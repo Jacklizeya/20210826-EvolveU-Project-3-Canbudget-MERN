@@ -1,5 +1,5 @@
 import React , { useEffect, useState, useCallback } from 'react'
-import { PlaidButton, Descriptiondiv, SubmitButton, Tablediv, Numbertd} from './assetAndBudget.elements'
+import { PlaidButton, SubmitButton, Tablediv, Numbertd} from './assetAndBudget.elements'
 import { usePlaidLink } from 'react-plaid-link';
 import axios from "axios"
 

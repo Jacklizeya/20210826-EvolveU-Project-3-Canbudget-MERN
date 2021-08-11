@@ -1,9 +1,8 @@
 import React, {useState, useEffect, useContext, useMemo} from 'react';
 import AuthenticationContext from '../components/auth/AuthenticationContext';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {useTable, useSortBy, useGlobalFilter, useFilters, usePagination} from "react-table"
-import {SubmitButton, TransactionButton, Tablediv, Descriptiondiv, Heading1, FormDiv, TableBottomData, Numbertd, Tablefoot} from "../components/AssetBudget/assetAndBudget.elements"
 import GlobalFilter from '../components/ReactTableFilters/GlobalFilter';
 import ColumnFilter from '../components/ReactTableFilters/ColumnFilter';
 import SelectFilter from '../components/ReactTableFilters/SelectFilter';
@@ -18,7 +17,7 @@ import './Budget/AssetBudgetTransaction.css'
 
 export default function Transactions() {
 
-    let history = useHistory()
+    // let history = useHistory()
     const [addStatus, setAddStatus] = useState(0)
     const {id} = useContext(AuthenticationContext)
     const [transactionData, setTransactionData] = useState([])
@@ -68,7 +67,7 @@ export default function Transactions() {
         console.log("enter use Effect")
         getUserandSetTransactionData()
         setAddStatus(0)
-    }, [addStatus])
+    }, [addStatus, id])
 
 //  This is for the dates function
     function dateBetweenFilterFn(rows, id, filterValue) {
@@ -81,6 +80,7 @@ export default function Transactions() {
               if (endDate && startingDate) {return (time >= startingDate && time <= endDate)} 
               else if (startingDate){  return (time >= startingDate) } 
               else if (endDate){ return (time <= endDate) }
+              else return null
             })} else {return rows}
       // });
     }
