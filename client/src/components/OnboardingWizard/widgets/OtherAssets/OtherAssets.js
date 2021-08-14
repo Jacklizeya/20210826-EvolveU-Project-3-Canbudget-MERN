@@ -32,7 +32,11 @@ export default function OtherAssets() {
                 />
                 {userHasOtherAssets === true ? 
                     <div>
-                        <RecurringPaymentForm sendDataToParent={handleAssetDetailsSubmit} questionPrompt='Tell us about your assets:'/>
+                        <RecurringPaymentForm 
+                            questionPrompt='Tell us about your assets:'
+                            enableAssetsOnly={true}
+                            sendDataToParent={handleAssetDetailsSubmit} 
+                        />
                     </div>
                 : null}
             </div> : null}

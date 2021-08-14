@@ -5,7 +5,7 @@ import './RecurringPaymentForm.css'
 import RecurringPaymentRow from './RecurringPaymentRow'
 import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions, enableCompany}) {
+export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions, enableCompany, enableAssetsOnly}) {
 
   const defaultRowProps = {
     name: '',
@@ -67,6 +67,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
                 parentData={formRow}
                 paymentName={paymentName ? paymentName : ''}
                 enableCompany={enableCompany}
+                enableAssetsOnly={enableAssetsOnly}
               />
             )
           })}
