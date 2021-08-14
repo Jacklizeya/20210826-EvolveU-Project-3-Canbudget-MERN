@@ -26,7 +26,10 @@ export default function OtherAssets() {
         <div className='onboard-container'>
             <h2 className='onboard-heading widget' onClick={handleHeaderClick}>Other Assets</h2>
             {displayOnboardBody ? <div>
-                <BooleanRadioButtons sendDataToParent={handleDataFromUserHasOtherAssets} questionPrompt='Do you have any other large assets you would like to track?'/>
+                <BooleanRadioButtons
+                    questionPrompt='Do you have any other large assets you would like to track?'
+                    sendDataToParent={handleDataFromUserHasOtherAssets} 
+                />
                 {userHasOtherAssets === true ? 
                     <div>
                         <RecurringPaymentForm sendDataToParent={handleAssetDetailsSubmit} questionPrompt='Tell us about your assets:'/>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import './RecurringPaymentForm.css'
 
-export default function RecurringPaymentRow({parentData, sendDataToParent, paymentName}) {
+export default function RecurringPaymentRow({parentData, sendDataToParent, paymentName, enableCompany}) {
 
   const [rowProps, setRowProps] = useState(parentData)
 
@@ -31,13 +31,13 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
       }
     })
 
-  }, [rowProps.name, rowProps.amount, rowProps.frequency,rowProps.frequencyType, rowProps.billDate, rowProps.contractEndDate, rowProps.isEmpty])
+  }, [rowProps.name, rowProps.amount, rowProps.frequency,rowProps.frequencyType, rowProps.billDate, rowProps.contractEndDate, rowProps.isEmpty, rowProps.merchant])
 
   return (
     <tr className='recurring-payment-row'>
       <td>
         <label className='recurring-payment-label'>
-          {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Payment Name</p> : null}
+          {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Name</p> : null}
           <input 
             className='recurring-payment-field name'
             type='text'
@@ -49,6 +49,22 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
           ></input>
         </label>
       </td>
+      {enableCompany ?
+        <td>
+          <label className='recurring-payment-label'>
+            {parentData.formId === 0 ? <p className='recurring-payment-label-text'>CC Company</p> : null}
+            <input 
+              className='recurring-payment-field name'
+              type='text'
+              placeholder='Enter company'
+              value={rowProps.merchant}
+              onChange={(event) => {
+                setRowProps({...rowProps, merchant: event.target.value, isEmpty: false})
+              }}
+            ></input>
+          </label>
+        </td>
+      : null}
       <td>
         <label className='recurring-payment-label'>
           {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Value</p> : null}

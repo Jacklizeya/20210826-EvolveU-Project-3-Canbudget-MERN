@@ -5,10 +5,11 @@ import './RecurringPaymentForm.css'
 import RecurringPaymentRow from './RecurringPaymentRow'
 import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions}) {
+export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions, enableCompany}) {
 
   const defaultRowProps = {
     name: '',
+    merhant: '',
     amount: '',
     frequency: '',
     frequencyType: '',
@@ -65,6 +66,7 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
                 sendDataToParent={(data) => {setDataFromForm(data)}} 
                 parentData={formRow}
                 paymentName={paymentName ? paymentName : ''}
+                enableCompany={enableCompany}
               />
             )
           })}

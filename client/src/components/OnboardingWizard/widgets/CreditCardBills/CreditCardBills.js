@@ -27,10 +27,17 @@ export default function CreditCardBills() {
             <h2 className='onboard-heading widget' onClick={handleHeaderClick}>Credit Cards</h2>
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's set some reminders for your credit card bills</p>
-                <BooleanRadioButtons sendDataToParent={handleDataFromUserHasBills} questionPrompt='Do you have any credit cards?'/>
+                <BooleanRadioButtons
+                    questionPrompt='Do you have any credit cards?' 
+                    sendDataToParent={handleDataFromUserHasBills} 
+                />
                 {userHasBills === true ? 
                     <div>
-                        <RecurringPaymentForm sendDataToParent={handleRentDetailsSubmit} questionPrompt='Tell us about your credit cards:'/>
+                        <RecurringPaymentForm
+                            questionPrompt='Tell us about your credit cards:'
+                            enableCompany={true} 
+                            sendDataToParent={handleRentDetailsSubmit} 
+                        />
                     </div>
                 : null}
             </div> : null}
