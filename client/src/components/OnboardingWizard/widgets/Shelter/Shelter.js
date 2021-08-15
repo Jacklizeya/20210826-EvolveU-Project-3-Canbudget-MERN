@@ -55,6 +55,7 @@ export default function Shelter() {
                                 questionPrompt='Tell us about your home insurance payment:'
                                 paymentName='Home Insurance'
                                 enableAddRows={false}
+                                enableConfirmation={true}
                                 sendDataToParent={(data) => {
                                     setUserInsuranceDetails(data[0])
                                 }}

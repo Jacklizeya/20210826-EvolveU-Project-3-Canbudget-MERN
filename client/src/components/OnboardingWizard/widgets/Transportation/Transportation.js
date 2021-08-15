@@ -93,6 +93,7 @@ export default function Transportation() {
             <RecurringPaymentForm
               questionPrompt='Tell use about your transportation costs (common expenses include transit passes or Uber costs)'
               enableAddRows={true}
+              enableConfirmation={true}
               sendDataToParent={(data) => {
                 setTransportationPaymentDetails(data)
               }}
