@@ -10,32 +10,23 @@ export default function OtherAssets() {
     const [userHasOtherAssets, setUserHasOtherAssets] = useState(null)
     const [userAssetDetailsEntered, setUserAssetDetailsEntered] = useState(false)
 
-    const handleDataFromUserHasOtherAssets = (data) => {
-        data === 'true' ? setUserHasOtherAssets(true) : setUserHasOtherAssets(false)
-    }
-
-    const handleAssetDetailsSubmit = (event) => {
-        setUserAssetDetailsEntered(true)
-    }
-
-    const handleHeaderClick = (event) => {
-        setDisplayOnboardBody(!displayOnboardBody)
-    }
-
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading widget' onClick={handleHeaderClick}>Other Assets</h2>
+            <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Other Assets</h2>
             {displayOnboardBody ? <div>
                 <BooleanRadioButtons
                     questionPrompt='Do you have any other large assets you would like to track?'
-                    sendDataToParent={handleDataFromUserHasOtherAssets} 
+                    sendDataToParent={(data) => {
+                        data === 'true' ? setUserHasOtherAssets(true) : setUserHasOtherAssets(false)
+                    }} 
                 />
                 {userHasOtherAssets === true ? 
                     <div>
                         <RecurringPaymentForm 
                             questionPrompt='Tell us about your assets:'
                             enableAssetsOnly={true}
-                            sendDataToParent={handleAssetDetailsSubmit} 
+                            enableConfirmation={true}
+                            sendDataToParent={() => setUserAssetDetailsEntered(true)} 
                         />
                     </div>
                 : null}
