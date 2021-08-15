@@ -7,6 +7,7 @@ export default function Utilities() {
 
   const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
   const [userHasUtilities, setuserHasUtilities] = useState(null)
+  const [confirmationMessage, setConfirmationMessage] = useState(null)
 
   return (
     <div className='onboard-container'>
@@ -30,9 +31,10 @@ export default function Utilities() {
         />
         {userHasUtilities ? 
           <RecurringPaymentDetailsForm
-            // sendDataToParent={handleVehiclePaymentDetailsSubmit}
             questionPrompt='Tell us about your utility bills:'
             enableSuggestions={'utilities'}
+            enableConfirmation={true}
+            // sendDataToParent={handleVehiclePaymentDetailsSubmit}
           /> 
         : null}
       </div> : null}

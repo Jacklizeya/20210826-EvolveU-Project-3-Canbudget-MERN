@@ -4,8 +4,18 @@ import './RecurringPaymentForm.css'
 
 import RecurringPaymentRow from './RecurringPaymentRow'
 import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
+import ConfirmationButton from '../ConfirmationButton/ConfirmationButton'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions, enableCompany, enableAssetsOnly}) {
+export default function RecurringPaymentDetailsForm({
+  sendDataToParent,
+  questionPrompt,
+  paymentName,
+  enableAddRows,
+  enableSuggestions,
+  enableCompany,
+  enableAssetsOnly,
+  enableConfirmation
+}) {
 
   const defaultRowProps = {
     name: '',
@@ -73,12 +83,15 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
           })}
         </tbody>
       </table>
-      <button 
-        className='recurring-payment-button' 
-        onClick={() => {sendDataToParent(formArray)}}
-      >
-        {buttonText}
-      </button>
+      {!enableConfirmation ?
+        <button 
+          className='recurring-payment-button' 
+          onClick={() => {sendDataToParent(formArray)}}
+        >
+          {buttonText}
+        </button> :
+        <ConfirmationButton/>
+      }
     </div>
   )
 }
