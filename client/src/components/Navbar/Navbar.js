@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
@@ -6,7 +6,6 @@ import { animateScroll as scroll, scroller } from 'react-scroll';
 import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtnLink } from './Navbar.elements';
 
 import AuthenticationContext from '../auth/AuthenticationContext';
-import Settings from '../auth/Settings';
 
 const Navbar = () => {
     const loginContext = useContext(AuthenticationContext);
@@ -104,12 +103,21 @@ const Navbar = () => {
                                     </NavLinks>
                                 </NavItem>
                             }
+                            
+                            {showPrivate &&
+                                <NavItem>
+                                    <NavLinks to='/stocks'>
+                                        Securities
+                                    </NavLinks>
+                                </NavItem>
+                            }
+
                             <NavItem>
                                 <NavLinks to='/#our-team' onClick={scrollTo('our-team')}>
                                     Our Team
                                 </NavLinks>
                             </NavItem>
-                            
+
                             {isAdmin &&
                                 <NavItem>
                                     <NavLinks to='/settings'>
@@ -117,16 +125,16 @@ const Navbar = () => {
                                     </NavLinks>
                                 </NavItem>
                             }
-                             {
-                                 
-                            //    showLogin &&
-                            //     <NavItem>
-                            //         <NavLinks to='/login'>
-                            //             Login
-                            //         </NavLinks>
-                            //     </NavItem>
-                            // 
-                        }
+                            {
+
+                                //    showLogin &&
+                                //     <NavItem>
+                                //         <NavLinks to='/login'>
+                                //             Login
+                                //         </NavLinks>
+                                //     </NavItem>
+                                // 
+                            }
 
 
                             {showLogin &&

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
+import { SubmitButton,SmartSearchList} from "../AssetBudget/assetAndBudget.elements"
 
-const SmartSearch = () => {
+const SmartSearch = ({ lastData, addWatch,  }) => {
     const [searchedStock, setSearchedStock] = useState();
     const [stockList, setStockList] = useState([]);
     const [listVisible, setListVisible] = useState(false);
@@ -12,77 +13,115 @@ const SmartSearch = () => {
     }
 
     function clearList() {
-        setListVisible( false);
+        setListVisible(false);
         setStockList([]);
     }
+
+    function StockLineButton({ symbol, name }) {
+        // const backgroundColor = name === nameOfSelectedWidget ? 'lightBlue' : 'grey'
+        // style={{ border: '1px solid blue', padding: 20, width: 100, height: 25, margin: 25, 'lightBlue'}}
+        return <SmartSearchList 
+            onClick={() => { setNewStock(symbol) }}>
+            {symbol + "  " + name}
+        </SmartSearchList>
+    }
+
+    function setNewStock(symbol) {
+        if (lastData.find(item => item.symbol===symbol)) {
+            return
+        }
+        clearList();
+        addWatch(symbol);
+    }
+
+    //     function ShowList() {
+    //         if (!stockList || stockList.length === 0) {
+    //             return null;
+    //         }
+    //         const listItems = stockList.map((item) =>
+    //             <li key={item._id}>
+    //                 {item.symbol + " " + item.name}
+    //             </li>
+    //         );
+    //         return (
+    //         <ul>{listItems}</ul>
+    //     );
+    // }
+
 
     function ShowList() {
         if (!stockList || stockList.length === 0) {
             return null;
         }
-        const listItems = stockList.map((item) =>
-            <li key={item._id}>
-                {item.symbol + " " + item.name}
-            </li>
-        );
         return (
-        <ul>{listItems}</ul>
-    );
-}
-
-async function StartSearch(s) {
-    
-    setSearchedStock(s);
-    s = s.trim();
-    if (s.length > 0) {
-        if (s.length >= 3) {
-            const url = "api/stock/search/" + s;
-            try {
-                let response = await fetch(url);
-                if (response.ok) {
-                    let data = await response.json();
-                    if (data) {
-                        console.log(data.data)
-
-                        setStockList(data.data);
-                        setListVisible( true);
-                        return;
-                    }
-                    alert("No Data");
-                } else {
-                    alert("Error");
-                }
-
-            } catch (error) {
-                alert("Error ", error);
-            }
-        }
-    }
-    clearList();
-}
-
-
-
-return (
-    <div>
-        <h3>Search</h3>
         <div>
-            <label htmlFor="searchStock">Add stock</label>
-            <input
-                type="text"
-                name="searchStock"
-                id="searchStock"
-                value={searchedStock}
-                className="input-field"
-                onChange={(e) => StartSearch(e.target.value)}
-            />
-            <button type="button" class="btn-primary" onClick={onClear} >Clear</button>
+            {stockList.map((item) =>
+                <StockLineButton symbol={item.symbol} name={item.name} />
+            )}
         </div>
-        {listVisible && ShowList()}
-    </div>
+        // const listItems = stockList.map((item) =>
+        //     <li key={item._id}>
+        //         {item.symbol + " " + item.name}
+        //     </li>
+        // );
+        // return (
+        //     <ul>{listItems}</ul>
+        // );
+            )
+        }
 
-);
-}
+        async function StartSearch(s) {
+            setSearchedStock(s);
+            s = s.trim();
+            if (s.length > 0) {
+                if (s.length >= 3) {
+                    const url = "api/stock/search/" + s;
+                    try {
+                        let response = await fetch(url);
+                        if (response.ok) {
+                            let data = await response.json();
+                            if (data) {
+                                //console.log(data.data)
+
+                                setStockList(data.data);
+                                setListVisible(true);
+                                return;
+                            }
+                            alert("No Data");
+                        } else {
+                            alert("Error");
+                        }
+
+                    } catch (error) {
+                        alert("Error ", error);
+                    }
+                }
+            }
+            clearList();
+        }
 
 
-export default SmartSearch;
+
+        return (
+            <div>
+                <h3>Add  new securities</h3>
+                <div>
+                    <label htmlFor="searchStock">Add stock</label>
+                    <input
+                        type="text"
+                        name="searchStock"
+                        id="searchStock"
+                        value={searchedStock}
+                        className="input-field"
+                        onChange={(e) => StartSearch(e.target.value)}
+                    />
+                    <SubmitButton type="button"  onClick={onClear}>Clear</SubmitButton>
+                </div>
+                {listVisible && ShowList()}
+            </div>
+
+        );
+    }
+
+
+    export default SmartSearch;

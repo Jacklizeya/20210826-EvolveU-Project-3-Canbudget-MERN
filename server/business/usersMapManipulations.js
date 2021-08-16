@@ -6,9 +6,10 @@ const users = new Map();
 const cacheData = new Map();
 
 function getUser(id){
-    return users.has(id) ? users.get(id) :
-     { stocks: new Map(), balance: 0, totalSum:0} ;
-     
+    if( !users.has(id) ){
+        users.set(id, {stocks: new Map(), balance: 0, totalSum:0}) ;
+    }
+    return users.get(id);
 }
 
 function createEmptyStockObj(){
@@ -32,6 +33,11 @@ function removePortfolio(user,  symbol, amount) {
         stocks.delete(symbol);
     }
 }
+function getAmount(user,  symbol){
+    return  (user.stocks.has(symbol)) ?
+    user.stocks.get(symbol).portfolioAmount :
+            0;
+}
 
 function setAccountBalance(user, balance, valueOfSecurities){
     user.balance = balance;
@@ -54,7 +60,7 @@ function removeWatchList(user,  symbol) {
     if (stock.portfolioAmount > 0 || stock.watchlist) {
         return;
     } else {
-        stocks.delete(symbol);
+        user.stocks.delete(symbol);
     }
 }
 
@@ -135,7 +141,6 @@ async function addUser(id) {
         user.balance = 0;
         user.totalSum = 0;
     }
-    //console.log("watchList=",values[0].length,"  portfolio=",values[1].length, values[2].securitiesAccount);
 
     return user;
 }
@@ -179,6 +184,7 @@ module.exports = {
     getUser,
     addPortfolio,
     removePortfolio,
+    getAmount,
     addWatchList,
     removeWatchList,
     setAccountBalance,

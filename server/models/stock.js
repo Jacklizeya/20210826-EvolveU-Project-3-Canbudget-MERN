@@ -45,10 +45,10 @@ async function getSmrtList(symb){
     return [];
   }
   const uSymb = symb.toUpperCase();
-
   if (symb.length < 3){
     return  stockModel.find({symbol:uSymb});
   }
+
   return stockModel.find({$or: [ { symbol: new RegExp("^" +uSymb) },
     { uname: new RegExp("^" +uSymb)}
 ]}, 'symbol stock name');

@@ -12,10 +12,11 @@ async function buy(id, symbol, price, amount) {
 
     //let user = await userDB.getSecuritiesAccocunt(id)
     let company = await settingDB.getSetting()
-    if (!user || !company) {
+    if (!userM || !company) {
         return { ok: false, message: "Server error - client lost" };
     }
     let balance = userM.balance;
+   
     const delta = amount * price + company.commission;
     if (delta > balance) {
         return { ok: false, message: "Not enoupgh money to buy this stock" };
@@ -40,22 +41,20 @@ async function sell(id, symbol, price, amount) {
     if (price <= 0) {
         return { ok: false, message: "Price is unknown" };
     }
-
 //    let user = await userDB.getSecuritiesAccocunt(id)
     let userM = usersMap.getUser(id);
-
     let company = await settingDB.getSetting()
-    if (!user || !company) {
+    if (!userM || !company) {
         return { ok: false, message: "Server error - client lost" };
     }
     
     let balance = userM.balance;
     //let balance = user.securitiesAccount;
-
-    if (!balance || !company) {
-        return { ok: false, message: "Server error - client lost" };
-    }
-    let amountNow = await portfolioDB.getAmount(id, symbol);
+    // if (!balance || !company) {
+    //     return { ok: false, message: "Server error - client lost" };
+    // }
+    // let amountNow = await portfolioDB.getAmount(id, symbol);
+    let amountNow = await usersMap.getAmount(userM, symbol);
     if (amount > amountNow) {
         amount = amountNow;
     }

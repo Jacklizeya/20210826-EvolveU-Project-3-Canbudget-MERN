@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Heading1 = styled.h1`
-  margin: 10px 20px 10px 40px;
+  padding: 20px;
   color: #01345B;
+  text-align: center;
 `
 export const Descriptiondiv = styled.div`
 
@@ -230,6 +231,48 @@ export const LoginFormDiv = styled.div`
     
     
 
+    export const CloseButtonSmall = styled.input`
+    float: right;
+    width:32px;
+    width:32px; 
+    `
+    export const WatchElement = styled.div`
+    border-style: solid;
+    padding: 6px 12px;
+    border-radius: 12px;
+    `
+
+    export const TopBottomArrow = styled.input`
+      width:32px;
+      width:32px;
+    
+    `
+
+    export const SmartSearchList = styled.div`
+    :hover {
+      background-color: grey;
+    }
+    `
+    
+    export const PortolioDiv = styled.div`
+    td{
+      text-align: right;
+      vertical-align: top;
+      width:50ch;
+    }
+    table{
+      width: 45ch;
+    }
+    div{
+      position: fixed;
+    }
+    `
+
+    export const VeryLongTextTD = styled.td`
+          word-wrap: break-word;    
+    `
+
+
 //     This is a sample from Iryna
 //     export const MemberWrapper = styled.div`
 //     max-width: 1300px;
@@ -249,4 +292,4 @@ export const LoginFormDiv = styled.div`
 //         padding: 0 20px;
 //     }
 // `;
-
+  // margin: 10px 20px 10px 40px;

@@ -7,6 +7,7 @@ async function getDataForUser(id) {
     const compInfo = await companyInformation.getAllCompaniesInformation(user);
     const timeseriesArray = await fetchStock.getTimeSeriesForUser(user);
     let resultObj = createPortfolioElementsAndLast(user, timeseriesArray, true);
+    let userTest = usersMap.getUser(id)
     resultObj.companies = compInfo;
     return resultObj;
 }
@@ -17,10 +18,13 @@ function createPortfolioElementsAndLast(user, timeseriesArray, isFullData = fals
     let lastData = [];
     let fullData = [];
     let totalSum = 0;
+
     for (let [symbol, stock] of user.stocks) {
 
         let ts = fetchStock.findTimeseries(symbol, 0, timeseriesArray);
-        lastData.push(ts.lastDataElement)
+        if (stock.watchlist){  
+            lastData.push(ts.lastDataElement);
+        }
         if (stock.portfolioAmount > 0) {
             let price = ts.lastDataElement.close;
             let amount = stock.portfolioAmount;
@@ -30,7 +34,7 @@ function createPortfolioElementsAndLast(user, timeseriesArray, isFullData = fals
             let portfolioElement = { symbol, amount, price }
             portfolioArray.push(portfolioElement);
         }
-        // console.log(symbol, stock)
+        //  console.log(symbol, stock)
         if (isFullData && stock.watchlist) {
             if (stock.period != 0) {
                 ts = fetchStock.findTimeseries(symbol, stock.period, timeseriesArray);

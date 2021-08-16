@@ -8,6 +8,23 @@ let router = express.Router();
 
 
 
+router.get('/search/:stock', async (req, res) => {
+  try {
+      let stock = req.params.stock;
+      console.log("search started "+stock)
+      let data = await stockDB.getSmrtList(stock);
+      if (data ){
+          res.send({data});
+      }
+      else{
+          res.sendStatus(500).send("Can't find stocks");
+      }
+
+  } catch (error) {
+      res.sendStatus(500).send("Error finding stocks");       
+  }
+})
+
 
 router.get('/:id/:full', async (req, res) => {
   const id = req.params.id;
@@ -26,22 +43,6 @@ router.get('/:id/:full', async (req, res) => {
 
 
 
-router.get('/search/:stock', async (req, res) => {
-    try {
-        let stock = req.params.stock;
-        let data = await stockDB.getSmrtList(stock);
-        if (data ){
-            res.send({data});
-        }
-        else{
-            res.sendStatus(500).send("Can't find stocks");
-        }
-
-    } catch (error) {
-        res.sendStatus(500).send("Error finding stocks");       
-    }
-})
-
 router.post('/:id/watch', async (req, res) => {
   try {
     console.log("watcH")
@@ -53,7 +54,7 @@ router.post('/:id/watch', async (req, res) => {
     switch (operation) {
       case "add":
         let data = await watchListOperations.addWatchList(id, symbol, period);
-        //  console.log("data=",data)  ;
+          console.log("data=",data)  ;
         res.send(data);
         break;
 
@@ -99,18 +100,18 @@ router.post('/:id/portfolio', async (req, res) => {
         res.send(result);
       } else {
         console.log(message);
-        res.status(400).send(s);
+        res.status(400).send(message);
       }
     } else {
-      const s = "Unknown portfolio action: " + operation;
-      console.error(s);
-      res.status(400).send(s);
+      const ss = "Unknown portfolio action: " + operation;
+      console.error(ss);
+      res.status(400).send(ss);
     }
   }
   catch (error) {
-    const s = "Portfolio action error: " + error.message;
-    console.error(s);
-    res.status(500).send(s);
+    const errMes = "Portfolio action error: " + error.message;
+    console.error(errMes);
+    res.status(500).send(errMes);
   }
 })
 

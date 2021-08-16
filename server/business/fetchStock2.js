@@ -13,7 +13,7 @@ function findTimeseries(symbol, period, timeseriesArray) {
             return ser;
         }
     }
-    console.log("findTimeseries Error " + symbol + " " + timeseriesArray)
+    console.log("findTimeseries Error!!! " + symbol + " " + timeseriesArray)
     return null;
 }
 

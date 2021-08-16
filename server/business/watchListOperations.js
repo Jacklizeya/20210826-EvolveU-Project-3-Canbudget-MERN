@@ -1,26 +1,27 @@
+const e = require('express');
 const watchListDB = require('../models/watchList');
-const userMap = require('./usersMapManipulations');
+const usersMap = require('./usersMapManipulations');
 
 async function addUser(id){
-    await userMapMan.addUser(id);   
+    await usersMap.addUser(id);   
 }
 
 async function removeUser(id){
     user = usersMap.getUser(id);
     await userDB.updateUserSecurities(id, user.balance, user.totalsum);
-    userMap.removeUser(id);
+    usersMap.removeUser(id);
 }
 
 async function addWatchList(id, symbol, period){
     user = usersMap.getUser(id);
-    userMap.addWatchList(user, symbol, period);
-    return watchList.add(id, symbol)
+    usersMap.addWatchList(user, symbol, period);
+    return watchListDB.add(id, symbol, period)
 }
 
 async function removeWatchList(id,  symbol){
     user = usersMap.getUser(id);
-    userMapMan.removeWatchList(user,  symbol )
-    return watchList.takeAway(id, symbol)
+    usersMap.removeWatchList(user,  symbol )
+    return watchListDB.takeAway(id, symbol)
 }
 
 
