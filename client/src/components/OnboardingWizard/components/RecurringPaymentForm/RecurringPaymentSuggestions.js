@@ -13,12 +13,12 @@ export default function RecurringPaymentSuggestions({suggestionType, sendDataToP
       {name: 'TSN Direct', amount: 17.50}
     ],
     utilities: [
-      {name: 'Water', amount: 14.99},
-      {name: 'Heat', amount: 9.99},
-      {name: 'Electric', amount: 11.99},
-      {name: 'Phone', amount: 5.99},
-      {name: 'Internet', amount: 9.99},
-      {name: 'TV', amount: 12.50},
+      {name: 'Water', amount: 40.00},
+      {name: 'Heat', amount: 100.00},
+      {name: 'Electric', amount: 100.00},
+      {name: 'Phone', amount: 80.00},
+      {name: 'Internet', amount: 60.00},
+      {name: 'TV', amount: 50.00},
     ]
   }
 

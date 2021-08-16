@@ -14,7 +14,7 @@ export default function Shelter() {
 
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading' onClick={() => {setDisplayOnboardBody(!displayOnboardBody)}}>Shelter</h2>
+            <h2 className='onboard-heading widget' onClick={() => {setDisplayOnboardBody(!displayOnboardBody)}}>Shelter</h2>
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's start by answering a few questions about your monthly shelter expenses</p>
                 <BooleanRadioButtons
@@ -55,6 +55,7 @@ export default function Shelter() {
                                 questionPrompt='Tell us about your home insurance payment:'
                                 paymentName='Home Insurance'
                                 enableAddRows={false}
+                                enableConfirmation={true}
                                 sendDataToParent={(data) => {
                                     setUserInsuranceDetails(data[0])
                                 }}

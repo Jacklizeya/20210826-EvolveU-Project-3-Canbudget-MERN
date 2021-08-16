@@ -16,7 +16,7 @@ export default function Transportation() {
 
     return (
       <div className='onboard-container'>
-        <h2 className='onboard-heading' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Transportation</h2>
+        <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Transportation</h2>
         {displayOnboardBody ? <div>
           <p className='onboard-heading-body'>Everyone needs to get around somehow! Let's talk about your expenses related to transportation</p>
           <BooleanRadioButtons
@@ -93,6 +93,7 @@ export default function Transportation() {
             <RecurringPaymentForm
               questionPrompt='Tell use about your transportation costs (common expenses include transit passes or Uber costs)'
               enableAddRows={true}
+              enableConfirmation={true}
               sendDataToParent={(data) => {
                 setTransportationPaymentDetails(data)
               }}

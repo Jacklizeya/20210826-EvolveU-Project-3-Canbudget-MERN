@@ -1,4 +1,4 @@
-.subscription-table table, th, td {
+.subscription-table table, .subscription-table th, .subscription-table td {
     border: #01345B 2px solid;
     border-collapse: collapse;
     padding: 5px;

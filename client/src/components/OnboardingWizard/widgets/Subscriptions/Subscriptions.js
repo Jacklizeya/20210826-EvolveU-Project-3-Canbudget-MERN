@@ -9,13 +9,9 @@ export default function Subscriptions() {
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [userHasSubscriptions, setUserHasSubscriptions] = useState(null)
 
-    const handleHeaderClick = (event) => {
-        setDisplayOnboardBody(!displayOnboardBody)
-    }
-
     return (
         <div className='onboard-container'>
-            <h2 className='onboard-heading' onClick={handleHeaderClick}>Subscriptions</h2>
+            <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Subscriptions</h2>
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's talk about what services you subscribe to</p>
                 <BooleanRadioButtons 
@@ -30,6 +26,7 @@ export default function Subscriptions() {
                             sendDataToParent={() => console.log('Submitted')}
                             questionPrompt="Tell us about your current subscriptions - we've provided some autofill buttons below:"
                             enableSuggestions={'subscriptions'}
+                            enableConfirmation={true}
                         />
                     </div>
                 : null}

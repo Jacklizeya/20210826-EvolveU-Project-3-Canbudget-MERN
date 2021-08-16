@@ -4,11 +4,22 @@ import './RecurringPaymentForm.css'
 
 import RecurringPaymentRow from './RecurringPaymentRow'
 import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
+import ConfirmationButton from '../ConfirmationButton/ConfirmationButton'
 
-export default function RecurringPaymentDetailsForm({sendDataToParent, questionPrompt, paymentName, enableAddRows, enableSuggestions}) {
+export default function RecurringPaymentDetailsForm({
+  sendDataToParent,
+  questionPrompt,
+  paymentName,
+  enableAddRows,
+  enableSuggestions,
+  enableCompany,
+  enableAssetsOnly,
+  enableConfirmation
+}) {
 
   const defaultRowProps = {
     name: '',
+    merhant: '',
     amount: '',
     frequency: '',
     frequencyType: '',
@@ -55,7 +66,8 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
           }}
         /> : null
       }
-      <form className='recurring-payment-form'>
+      <table className='recurring-payment-form'>
+        <tbody className='recurring-payment-table-body'>
           {formArray.map((formRow, i) => {
             return (
               formRow['formId'] = i,
@@ -64,16 +76,22 @@ export default function RecurringPaymentDetailsForm({sendDataToParent, questionP
                 sendDataToParent={(data) => {setDataFromForm(data)}} 
                 parentData={formRow}
                 paymentName={paymentName ? paymentName : ''}
+                enableCompany={enableCompany}
+                enableAssetsOnly={enableAssetsOnly}
               />
             )
           })}
-      </form>
-      <button 
-        className='recurring-payment-button' 
-        onClick={() => {sendDataToParent(formArray)}}
-      >
-        {buttonText}
-      </button>
+        </tbody>
+      </table>
+      {!enableConfirmation ?
+        <button 
+          className='recurring-payment-button' 
+          onClick={() => {sendDataToParent(formArray)}}
+        >
+          {buttonText}
+        </button> :
+        <ConfirmationButton/>
+      }
     </div>
   )
 }
