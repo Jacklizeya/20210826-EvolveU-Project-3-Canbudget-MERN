@@ -12,7 +12,7 @@ function RestoreMessage() {
     let message = RestoreFromStorage(key, "");
     // alert("restoremessage " + message) 
 
-    console.log("message1="+message)
+    // console.log("message1="+message)
     if (message && message.startsWith("~")) {
         message = message.substring(1);
         // console.log("message2="+message)

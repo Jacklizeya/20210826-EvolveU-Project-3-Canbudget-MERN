@@ -18,7 +18,6 @@ const Home = () => {
     const isLogedIn = useContext(AuthenticationContext).isLogedIn();
 
     const scrollTo = (targetEl) => {
-debugger;
         scroller.scrollTo(targetEl, {
             duration: 800,
             delay: 0,
