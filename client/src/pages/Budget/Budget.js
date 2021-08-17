@@ -37,18 +37,18 @@ function Budget() {
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
 
-    //  This is the control the sorting table   
-    const [nameOpacity, setNameOpacity] = useState(0.5)
-    const [typeOpacity, setTypeOpacity] = useState(0.5)
-    const [amountOpacity, setAmountOpacity] = useState(0.5)
-    const [limitOpacity, setLimitOpacity] = useState(0.5)
-
-    //  This is the sort Indication
+    const [opacityParams, setOpacityParams] = useState({
+        name: 0.1,
+        type: 0.1,
+        amount: 0.1,
+        limity: 0.1
+    })
     const [sortParams, setSortParams] = useState({
         indicator: '',
         name: 1,
         type: 1,
         amount: 1,
+        limit: 1
     })
 
     const [nameToDelete, setNameToDelete] = useState("")
@@ -65,11 +65,12 @@ function Budget() {
     }, [addStatus, deleteStatus, id])
 
     useEffect(()=>{
-        if (sortParams.indicator === "name") {setNameOpacity(1.0); setTypeOpacity(0.5); setAmountOpacity(0.5) }
-        else if (sortParams.indicator === "type") {setNameOpacity(0.5); setTypeOpacity(1.0); setAmountOpacity(0.5)}
-        else if (sortParams.indicator === "amount") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(1.0)}
-        else if (sortParams.indicator === "budget") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5)}
-        else {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5)} 
+        if (sortParams.id === "name") {setOpacityParams({...opacityParams, name: 1.0}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})}
+        else if (sortParams.id === "type") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 1.0}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})}
+        else if (sortParams.id === "amount") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 1.0}); setOpacityParams({...opacityParams, limit: 0.5})}
+        else if (sortParams.id === "budget") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})}
+        else if (sortParams.id === "limit") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 1.0})}
+        else {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})} 
     },
     [sortParams.indicator]
     )
@@ -158,7 +159,7 @@ function Budget() {
                 if (event.target.id === "amount") {setSortParams({...sortParams, amount: sortParams.amount * -1}); return (a[event.target.id]-b[event.target.id]) * sortParams.amount} 
                 else if (event.target.id === "name") { setSortParams({...sortParams, name: sortParams.name * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.name}
                 else if (event.target.id === "type") { setSortParams({...sortParams, type: sortParams.type * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.type}
-                else if (event.target.id === "limit") { setSortParams({...sortParams, type: sortParams.limit * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.limit}
+                else if (event.target.id === "limit") { setSortParams({...sortParams, limit: sortParams.limit * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.limit}
                 else return null
             }
         )
@@ -192,21 +193,20 @@ function Budget() {
                             <table> 
                                 <thead>
                                     <tr className='table-title-row'>
-                                        <th id="name" opacity={nameOpacity} onClick={event => sortArrayBy(event)}>
+                                        <th id="name" opacity={opacityParams.name} onClick={event => sortArrayBy(event)}>
                                             Item Name
-                                            {sortParams.name > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
+                                            {sortParams.name > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": opacityParams.name}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": opacityParams.name}}> </FaSortDown> }
                                         </th>
-                                        <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}>
+                                        <th id="type" opacity={opacityParams.type} onClick={event => sortArrayBy(event)} style={{width : "20%"}}>
                                             Type
-                                            {sortParams.type > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
+                                            {sortParams.type > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": opacityParams.type}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": opacityParams.type}}> </FaSortDown> }
                                         </th>
                                         <th id="amount" onClick={event => sortArrayBy(event)}>
                                             Amount
-                                            {sortParams.amount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortDown> }
+                                            {sortParams.amount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </FaSortDown> }
                                         </th>
                                         <th>
                                             Goal
-                                            {sortParams.limit > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": limitOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": limitOpacity}}> </FaSortDown> }
                                         </th>
                                         <th>Edit</th>
                                         <th>Delete</th>
