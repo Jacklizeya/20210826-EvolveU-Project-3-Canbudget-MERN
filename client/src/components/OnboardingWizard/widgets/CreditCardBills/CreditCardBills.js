@@ -8,7 +8,11 @@ export default function CreditCardBills() {
 
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [userHasBills, setUserHasBills] = useState(null)
-    const [userBillDetailsEntered, setUserBillDetailsEntered] = useState(false)
+    const [userBillDetails, setUserBillDetails] = useState(null)
+    const [confirmationMessage, setConfirmationMessage] = useState([
+        {q: 'Do you have any credit cards?', a: userHasBills},
+        {q: 'Tell us about your credit cards:', a: userBillDetails}
+    ])
 
     return (
         <div className='onboard-container'>
@@ -25,7 +29,7 @@ export default function CreditCardBills() {
                             questionPrompt='Tell us about your credit cards:'
                             enableCompany={true} 
                             enableConfirmation={true}
-                            sendDataToParent={() => setUserBillDetailsEntered(true)} 
+                            sendDataToParent={(data) => setUserBillDetails(data)} 
                         />
                     </div>
                 : null}

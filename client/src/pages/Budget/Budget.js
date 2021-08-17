@@ -3,7 +3,7 @@ import axios from "axios"
 import {Numbertd} from "../../components/AssetBudget/assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "../../components/AssetBudget/BudgetModal"
+import {Modal} from "../../components/AssetBudget/Budget/BudgetModal"
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 
 import './AssetBudgetTransaction.css'
@@ -13,7 +13,7 @@ function Budget() {
 
     const {id} = useContext(AuthenticationContext)
     const [user, setUser] = useState({})
-    const [userCashFlow, setUserCashFlow] = useState([])
+    const [budgetTableData, setBudgetTableData] = useState([])
 
     const [name, setName] = useState("")
     const [type, setType] = useState("expense")
@@ -56,25 +56,6 @@ function Budget() {
         setDeleteStatus(0)
     }, [addStatus, deleteStatus, id])
 
-    useEffect(() => {
-       if (user.cashFlow){
-            let rawCashFlow = [...user.cashFlow]
-            if (viewScenario === "all record") {
-                setUserCashFlow(rawCashFlow)}
-            else if (viewScenario === "specific date") {
-                let futureCashFlow = rawCashFlow.filter(singleCashFlow => {return ((singleCashFlow.startDate.localeCompare(viewDate) === -1) && (singleCashFlow.endDate.localeCompare(viewDate) === 1))}); 
-                // console.log("future", futureCashFlow)
-                setUserCashFlow(futureCashFlow)}
-            else if (viewScenario === "initial") {
-                let todayDate = new Date(); 
-                let todayDateFormatted = todayDate.toISOString().split('T')[0]; 
-                let todayCashFlow = rawCashFlow.filter(singleCashFlow => {return ((singleCashFlow.startDate.localeCompare(todayDateFormatted) === -1) && (singleCashFlow.endDate.localeCompare(todayDateFormatted) === 1))}); 
-                // console.log("today", todayCashFlow);
-                setViewScenario("specific date")
-                setViewDate(todayDateFormatted) 
-                setUserCashFlow(todayCashFlow) }} else {}
-    }, [user, viewScenario, viewDate])
-
     useEffect(()=>{
         if (sortIndicator === "name") {setNameOpacity(1.0); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(0.5) }
         else if (sortIndicator === "type") {setNameOpacity(0.5); setTypeOpacity(1.0); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(0.5)}
@@ -86,16 +67,57 @@ function Budget() {
     [sortIndicator]
     )
 
+    useEffect(() => {
+        let categoryArray = []
+        for (let i in user.transaction) {
+            let splitCategories = user.transaction[i].category.split(', ')
+            if (splitCategories[2]) {
+                categoryArray.push(splitCategories[2])
+            } else if (splitCategories[1]) {
+                categoryArray.push(splitCategories[1])
+            } else {
+                categoryArray.push(splitCategories[0])
+            }
+
+        }
+        categoryArray = [...new Set(categoryArray)]
+        let transactionObject = {}
+        for (let i in categoryArray) {
+            transactionObject[categoryArray[i]] = 0
+        }
+        for (let i in user.transaction) {
+            let splitCategories = user.transaction[i].category.split(', ')
+            for (let j in splitCategories) {
+                for (let k in categoryArray) {
+                    if (categoryArray[k] === splitCategories[j]) {
+                        transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
+                    }
+                }
+            }
+        }
+        
+        let tableDisplayArray = []
+        for (let i in transactionObject) {
+            tableDisplayArray.push({
+                amount: Math.round(transactionObject[i]),
+                name: i,
+                type: 'expense'
+            })
+        }
+        for (let i in user.cashFlow) {
+            tableDisplayArray.push(user.cashFlow[i])
+        }
+        setBudgetTableData(tableDisplayArray)
+    }, [user])
+
     function handleViewChange(event) {
         let mode = event.target.value
         setViewScenario(mode)
-        console.log("myfilter", mode)
     }
 
     async function addNewCashFlow(event, id) {
         event.preventDefault()
         let newCashFlow = {name: name.toLowerCase(), type, amount: Number(amount), changeMonthToMonth : Number(changeMonthToMonth), startDate, endDate}
-        console.log("newCashFlow", newCashFlow)
         let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
             setName("")
@@ -112,8 +134,7 @@ function Budget() {
     function editItem(event) {
         let index = event.target.id
         // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-        let dataToEdit = userCashFlow[index]
-        console.log(dataToEdit)
+        let dataToEdit = user.cashFlow[index]
         setName(dataToEdit.name)
         setType(dataToEdit.type)
         setAmount(dataToEdit.amount)
@@ -123,22 +144,19 @@ function Budget() {
     }
 
     function sortArrayBy(event) {
-        console.log("I want to sort by", event.target.id)
         setSortIndicator(event.target.id)
         let userCopy = {...user}
         userCopy.cashFlow.sort(
             (a,b)=>{
-                    if (event.target.id === "amount") {setSortDirectionAmount(sortDirectionAmount * -1); return (a[event.target.id]-b[event.target.id]) * sortDirectionAmount} 
-                    else if (event.target.id === "name") { setSortDirectionName(sortDirectionName * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionName}
-                    else if (event.target.id === "type") { setSortDirectionType(sortDirectionType * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionType}
-                    else if (event.target.id === "startDate") { setSortDirectionStartDate(sortDirectionStartDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionStartDate}
-                    else if (event.target.id === "endDate") { setSortDirectionEndDate(sortDirectionEndDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionEndDate}
-                    else return null
+                if (event.target.id === "amount") {setSortDirectionAmount(sortDirectionAmount * -1); return (a[event.target.id]-b[event.target.id]) * sortDirectionAmount} 
+                else if (event.target.id === "name") { setSortDirectionName(sortDirectionName * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionName}
+                else if (event.target.id === "type") { setSortDirectionType(sortDirectionType * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionType}
+                else if (event.target.id === "startDate") { setSortDirectionStartDate(sortDirectionStartDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionStartDate}
+                else if (event.target.id === "endDate") { setSortDirectionEndDate(sortDirectionEndDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionEndDate}
+                else return null
             }
-            )
-        console.log(userCopy)
+        )
         setUser(userCopy)
-        console.log(user)
     }
 
 // at line 46, right now I am only showing one, eventually will be changed, temporaray solution before we have login
@@ -155,7 +173,7 @@ function Budget() {
         ></Modal>
         {user.email ? 
             <div className='budget-container' key={user.firstName}>
-            {userCashFlow ? 
+            {budgetTableData ? 
                 <div className='budget-container' >                                             
                     <div className='form-div'> 
                         Show cash flow&emsp;&emsp;&emsp;
@@ -200,7 +218,7 @@ function Budget() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {userCashFlow.map(
+                                {budgetTableData.map(
                                     (singleCashFlow, index) => 
                                         <tr key={singleCashFlow.name + index}>
                                         <td> {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)} </td>
@@ -228,8 +246,8 @@ function Budget() {
                                 <tr>
                                     <td>Sum</td>
                                     <td></td>
-                                    <td value = {userCashFlow.reduce((a , b)=> {return a + b.amount}, 0)}>
-                                        {userCashFlow.reduce((a , b)=> {return a + b.amount}, 0)}
+                                    <td value = {user.cashFlow.reduce((a , b)=> {return a + b.amount}, 0)}>
+                                        {user.cashFlow.reduce((a , b)=> {return a + b.amount}, 0)}
                                     </td>
                                     <td></td>
                                     <td></td>
