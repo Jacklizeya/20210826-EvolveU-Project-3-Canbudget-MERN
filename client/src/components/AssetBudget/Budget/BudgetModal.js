@@ -45,7 +45,7 @@ const Close = styled.span`
 `
 
 // pass all the necessary function into child component
-export function Modal({displayModal, setDisplayModal, itemname, userid, setDeleteStatus, setSortIndicator}) {
+export function Modal({displayModal, setDisplayModal, itemname, userid, setDeleteStatus, setSortParams}) {
 
     // console.log(itemname, displayModal)
 
@@ -55,7 +55,7 @@ export function Modal({displayModal, setDisplayModal, itemname, userid, setDelet
         let {data} = await axios.put(`/api/user/${id}/deletecashflow/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
             setDeleteStatus(data.ok)
-            setSortIndicator("")
+            setSortParams({})
         }}
     
     return (

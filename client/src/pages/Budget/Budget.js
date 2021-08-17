@@ -15,6 +15,7 @@ function Budget() {
     const [user, setUser] = useState({})
     const [selectedMonth, setSelectedMonth] = useState('')
     const [budgetTableData, setBudgetTableData] = useState([])
+    const [tableSum, setTableSum] = useState(0)
 
     useEffect(() => {
         let todaysDate = new Date()
@@ -40,16 +41,15 @@ function Budget() {
     const [nameOpacity, setNameOpacity] = useState(0.5)
     const [typeOpacity, setTypeOpacity] = useState(0.5)
     const [amountOpacity, setAmountOpacity] = useState(0.5)
-    const [startDateOpacity, setStartDateOpacity] = useState(0.5)
-    const [endDateOpacity, setEndDateOpacity] = useState(0.5)
+    const [limitOpacity, setLimitOpacity] = useState(0.5)
 
-    //  This is the sort Indication    
-    const [sortIndicator, setSortIndicator] = useState("")
-    const [sortDirectionName, setSortDirectionName] = useState(1)
-    const [sortDirectionType, setSortDirectionType] = useState(1)
-    const [sortDirectionAmount, setSortDirectionAmount] = useState(1)
-    const [sortDirectionStartDate, setSortDirectionStartDate] = useState(1)
-    const [sortDirectionEndDate, setSortDirectionEndDate] = useState(1)
+    //  This is the sort Indication
+    const [sortParams, setSortParams] = useState({
+        indicator: '',
+        name: 1,
+        type: 1,
+        amount: 1,
+    })
 
     const [nameToDelete, setNameToDelete] = useState("")
     const [displayModal, setDisplayModal] = useState(false)
@@ -65,14 +65,13 @@ function Budget() {
     }, [addStatus, deleteStatus, id])
 
     useEffect(()=>{
-        if (sortIndicator === "name") {setNameOpacity(1.0); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(0.5) }
-        else if (sortIndicator === "type") {setNameOpacity(0.5); setTypeOpacity(1.0); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(0.5)}
-        else if (sortIndicator === "amount") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(1.0); setStartDateOpacity(0.5); setEndDateOpacity(0.5)}
-        else if (sortIndicator === "startDate") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(1.0); setEndDateOpacity(0.5)}
-        else if (sortIndicator === "endDate") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(1.0)}
-        else {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5); setStartDateOpacity(0.5); setEndDateOpacity(0.5)} 
+        if (sortParams.indicator === "name") {setNameOpacity(1.0); setTypeOpacity(0.5); setAmountOpacity(0.5) }
+        else if (sortParams.indicator === "type") {setNameOpacity(0.5); setTypeOpacity(1.0); setAmountOpacity(0.5)}
+        else if (sortParams.indicator === "amount") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(1.0)}
+        else if (sortParams.indicator === "budget") {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5)}
+        else {setNameOpacity(0.5); setTypeOpacity(0.5); setAmountOpacity(0.5)} 
     },
-    [sortIndicator]
+    [sortParams.indicator]
     )
 
     useEffect(() => {
@@ -93,12 +92,14 @@ function Budget() {
         for (let i in categoryArray) {
             transactionObject[categoryArray[i]] = 0
         }
+        let displaySum = 0
         for (let i in user.transaction) {
             let splitCategories = user.transaction[i].category.split(', ')
             for (let j in splitCategories) {
                 for (let k in categoryArray) {
-                    if (categoryArray[k] === splitCategories[j]) {
+                    if (categoryArray[k] === splitCategories[j] && user.transaction[i].date.slice(0,7) === selectedMonth) {
                         transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
+                        displaySum = displaySum + Math.round(Number(user.transaction[i].amount))
                     }
                 }
             }
@@ -114,9 +115,11 @@ function Budget() {
         }
         for (let i in user.cashFlow) {
             tableDisplayArray.push(user.cashFlow[i])
+            displaySum = displaySum + Math.round(Number(user.cashFlow[i].amount))
         }
         setBudgetTableData(tableDisplayArray)
-    }, [user])
+        setTableSum(displaySum)
+    }, [user, selectedMonth])
 
 
     async function addNewCashFlow(event, id) {
@@ -131,7 +134,7 @@ function Budget() {
             setStartDate("")
             setEndDate("")
             setAddStatus(data.ok)
-            setSortIndicator("")
+            setSortParams({...sortParams, indicator: ""})
         }
     }
 
@@ -148,33 +151,24 @@ function Budget() {
     }
 
     function sortArrayBy(event) {
-        setSortIndicator(event.target.id)
-        let userCopy = {...user}
-        userCopy.cashFlow.sort(
+        setSortParams({...sortParams, indicator: event.target.id})
+        let userCopy = budgetTableData
+        userCopy.sort(
             (a,b)=>{
-                if (event.target.id === "amount") {setSortDirectionAmount(sortDirectionAmount * -1); return (a[event.target.id]-b[event.target.id]) * sortDirectionAmount} 
-                else if (event.target.id === "name") { setSortDirectionName(sortDirectionName * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionName}
-                else if (event.target.id === "type") { setSortDirectionType(sortDirectionType * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionType}
-                else if (event.target.id === "startDate") { setSortDirectionStartDate(sortDirectionStartDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionStartDate}
-                else if (event.target.id === "endDate") { setSortDirectionEndDate(sortDirectionEndDate * -1); return a[event.target.id].localeCompare(b[event.target.id]) * sortDirectionEndDate}
+                if (event.target.id === "amount") {setSortParams({...sortParams, amount: sortParams.amount * -1}); return (a[event.target.id]-b[event.target.id]) * sortParams.amount} 
+                else if (event.target.id === "name") { setSortParams({...sortParams, name: sortParams.name * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.name}
+                else if (event.target.id === "type") { setSortParams({...sortParams, type: sortParams.type * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.type}
+                else if (event.target.id === "limit") { setSortParams({...sortParams, type: sortParams.limit * -1}); return a[event.target.id].localeCompare(b[event.target.id]) * sortParams.limit}
                 else return null
             }
         )
-        setUser(userCopy)
+        setBudgetTableData(userCopy)
     }
 
     // at line 46, right now I am only showing one, eventually will be changed, temporaray solution before we have login
     return (
         <div className='budget-container'>
             <h1 className='page-heading'>Budget</h1>
-            <Modal 
-                displayModal={displayModal} 
-                setDisplayModal={setDisplayModal} 
-                itemname={nameToDelete} 
-                userid={user._id} 
-                setDeleteStatus={setDeleteStatus} 
-                setSortIndicator={setSortIndicator}
-            ></Modal>
             {user ? 
                 <div className='budget-container' key={user.firstName}>
                 {budgetTableData ? 
@@ -182,10 +176,11 @@ function Budget() {
                         <label className='form-div'> 
                             Show cash flow&emsp;&emsp;&emsp;
                             {selectedMonth ? 
-                                <input 
+                                <input
+                                    className='budget-input'
                                     type="month" 
                                     name="budgetMonth"
-                                    min="2018-03" 
+                                    min="2019-08" 
                                     value={selectedMonth}
                                     onChange={(event) => {
                                         setSelectedMonth(event.target.value)
@@ -199,24 +194,19 @@ function Budget() {
                                     <tr className='table-title-row'>
                                         <th id="name" opacity={nameOpacity} onClick={event => sortArrayBy(event)}>
                                             Item Name
-                                            {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
+                                            {sortParams.name > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
                                         </th>
                                         <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}>
                                             Type
-                                            {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
+                                            {sortParams.type > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
                                         </th>
                                         <th id="amount" onClick={event => sortArrayBy(event)}>
                                             Amount
-                                            {sortDirectionAmount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortDown> }
+                                            {sortParams.amount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": amountOpacity}}> </FaSortDown> }
                                         </th>
-                                        <th>Month to Month Change</th>
-                                        <th id="startDate" onClick={event => sortArrayBy(event)}>
-                                            Start Date
-                                            {sortDirectionStartDate > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": startDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": startDateOpacity}}> </FaSortDown> }
-                                        </th>
-                                        <th id="endDate" onClick={event => sortArrayBy(event)}>
-                                            End Date
-                                            {sortDirectionEndDate > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": endDateOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": endDateOpacity}}> </FaSortDown> }
+                                        <th>
+                                            Goal
+                                            {sortParams.limit > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": limitOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": limitOpacity}}> </FaSortDown> }
                                         </th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -224,21 +214,19 @@ function Budget() {
                                 </thead>
                                 <tbody>
                                     {budgetTableData.map(
-                                        (singleCashFlow, index) => 
+                                        (singleCashFlow, index) =>
                                             <tr key={singleCashFlow.name + index}>
                                             <td> {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)} </td>
                                             <td> {singleCashFlow.type} </td>
                                             <Numbertd value={singleCashFlow.amount}> {singleCashFlow.amount} </Numbertd>
-                                            <td> {singleCashFlow.changeMonthToMonth} </td>
-                                            <td> {singleCashFlow.startDate} </td>
-                                            <td> {singleCashFlow.endDate} </td>     
+                                            <td> {singleCashFlow.limit} </td>
                                             <td> 
                                                 <a href="#form">
                                                     <button id={index} onClick={editItem}> 
                                                         <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
                                                     </button>
                                                 </a>                                      
-                                            </td> 
+                                            </td>
                                             <td>
                                                 <button onClick={()=>{setNameToDelete(singleCashFlow.name); setDisplayModal(prev => !prev)}}>
                                                     <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
@@ -250,13 +238,9 @@ function Budget() {
                                 {user.cashFlow ?
                                     <tfoot className='table-title-row'>
                                         <tr>
+                                            <td></td>
                                             <td>Sum</td>
-                                            <td></td>
-                                            <td value = {user.cashFlow.reduce((a , b)=> {return a + b.amount}, 0)}>
-                                                {user.cashFlow.reduce((a , b)=> {return a + b.amount}, 0)}
-                                            </td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{tableSum}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -267,38 +251,7 @@ function Budget() {
                         </div>
                     </div> 
                 : null}
-                <form className='entry-info-form' onSubmit={(event) => addNewCashFlow(event, user._id)}>
-                    <h3 className= 'entry-info-form-header'>Add New Item / Edit Existing Item</h3>
-                    <label className='entry-info-form-row'>
-                        Item Name:&nbsp;
-                        <input className ='budget-input' type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Type:&nbsp;
-                        <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
-                            <option value="expense"> expense </option>
-                            <option value="income"> income </option>
-                        </select>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Amount:&nbsp;
-                        <input className ='budget-input' type="text" required value={amount} onChange={(event)=>{setAmount(event.target.value)}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Month to Month Change:&nbsp;
-                        <input className ='budget-input' type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Start Date (DD-MM-YYYY):&nbsp;
-                        <input className ='budget-input' type="date" required value={startDate} onChange={(event)=>{setStartDate(event.target.value)}}/>
-                    </label>
-                    <label className='entry-info-form-row'> 
-                        End Date (DD-MM-YYYY):&nbsp;
-                        <input className ='budget-input' type="date" required value={endDate} onChange={(event)=>{setEndDate(event.target.value)}}/>
-                    </label>
-                    <button className='entry-info-form-button' type="submit">Submit</button>                                                       
-                </form>
-            </div> : ""}
+            </div> : null}
         </div>
         
     )
