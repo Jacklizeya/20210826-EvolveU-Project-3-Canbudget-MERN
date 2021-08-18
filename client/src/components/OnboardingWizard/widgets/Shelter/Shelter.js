@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import RecurringPaymentForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
 
@@ -11,6 +11,28 @@ export default function Shelter() {
     const [userRentDetails, setUserRentDetails] = useState(null)
     const [userHasInsurance, setUserHasInsurance] = useState(null)
     const [userInsuranceDetails, setUserInsuranceDetails] = useState(null)
+    const [confirmationMessage, setConfirmationMessage] = useState({
+        questions: {
+            0: 'Do you own your own home?:',
+            1: '',
+            2: 'Do you have home insurance?',
+            3: 'Tell us about your home insurance payment:'
+        },
+        answers: {}
+    })
+
+    useEffect(() => {
+        if (userOwnsHome) {
+            setConfirmationMessage(c => ({...c, questions: {...c.questions, 1: 'Tell us about your mortgage payment:'}}))
+        } else {
+            setConfirmationMessage(c => ({...c, questions: {...c.questions, 1: "Tell us about your rental situation - if you don't pay rent enter $0:"}}))
+        }
+    },[userOwnsHome])
+
+    useEffect(() => {
+        setConfirmationMessage(c => ({...c, answers: {0: userOwnsHome, 1: userRentDetails, 2: userHasInsurance, 3: userInsuranceDetails}}))
+    },[userOwnsHome, userRentDetails, userHasInsurance, userInsuranceDetails])
+
 
     return (
         <div className='onboard-container'>
@@ -18,18 +40,15 @@ export default function Shelter() {
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's start by answering a few questions about your monthly shelter expenses</p>
                 <BooleanRadioButtons
-                    questionPrompt='Do you own your own home?:'
+                    questionPrompt={confirmationMessage.questions[0]}
                     sendDataToParent={(data) => {
                         data === 'true' ? setUserOwnsHome(true) : setUserOwnsHome(false)
                     }}
                 />
-                {userOwnsHome !== null ? 
+                {userOwnsHome !== null ?
                     <div>
                         <RecurringPaymentForm
-                            questionPrompt={userOwnsHome === true ? 
-                                'Tell us about your mortgage payment:' : 
-                                "Tell us about your rental situation - if you don't pay rent enter $0:"
-                            }
+                            questionPrompt={confirmationMessage.questions[1]}
                             paymentName={userOwnsHome === true ? 
                                 'Mortgage' : 
                                 "Rent"
@@ -47,15 +66,16 @@ export default function Shelter() {
                             sendDataToParent={(data) => {
                                 data === 'true' ? setUserHasInsurance(true) : setUserHasInsurance(false)
                             }} 
-                            questionPrompt='Do you have home insurance?'
+                            questionPrompt={confirmationMessage.questions[2]}
                             enableAddRows={false}
                         />
                         {userHasInsurance ? 
                             <RecurringPaymentForm
-                                questionPrompt='Tell us about your home insurance payment:'
+                                questionPrompt={confirmationMessage.questions[3]}
                                 paymentName='Home Insurance'
                                 enableAddRows={false}
                                 enableConfirmation={true}
+                                parentConfirmation={confirmationMessage}
                                 sendDataToParent={(data) => {
                                     setUserInsuranceDetails(data[0])
                                 }}

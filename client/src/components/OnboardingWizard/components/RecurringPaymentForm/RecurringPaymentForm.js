@@ -6,7 +6,7 @@ import RecurringPaymentRow from './RecurringPaymentRow'
 import RecurringPaymentSuggestions from './RecurringPaymentSuggestions'
 import ConfirmationButton from '../ConfirmationButton/ConfirmationButton'
 
-export default function RecurringPaymentDetailsForm({
+export default function RecurringPaymentForm({
   sendDataToParent,
   questionPrompt,
   paymentName,
@@ -14,7 +14,8 @@ export default function RecurringPaymentDetailsForm({
   enableSuggestions,
   enableCompany,
   enableAssetsOnly,
-  enableConfirmation
+  enableConfirmation,
+  parentConfirmation
 }) {
 
   const defaultRowProps = {
@@ -41,7 +42,6 @@ export default function RecurringPaymentDetailsForm({
 
   useEffect(() => {
     if (dataFromForm) {
-      console.log(dataFromForm)
       formArray[dataFromForm.formId] = dataFromForm
     }
     setDataFromForm('')
@@ -51,6 +51,7 @@ export default function RecurringPaymentDetailsForm({
         formArray.push(defaultRowProps)
       }
     }
+    sendDataToParent(formArray)
   },[dataFromForm])
 
 
@@ -90,7 +91,7 @@ export default function RecurringPaymentDetailsForm({
         >
           {buttonText}
         </button> :
-        <ConfirmationButton/>
+        <ConfirmationButton parentConfirmation={parentConfirmation}/>
       }
     </div>
   )

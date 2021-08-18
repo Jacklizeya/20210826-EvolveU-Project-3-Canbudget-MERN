@@ -16,6 +16,7 @@ function Budget() {
     const [selectedMonth, setSelectedMonth] = useState('')
     const [budgetTableData, setBudgetTableData] = useState([])
     const [tableSum, setTableSum] = useState(0)
+    const [plaidCategories, setPlaidCategories] = useState([])
 
     useEffect(() => {
         let todaysDate = new Date()
@@ -26,6 +27,16 @@ function Budget() {
         }
         setSelectedMonth(year+'-'+month)
     },[])
+
+    useEffect(() => {
+        async function getCategories() {
+            let {data} = await axios.get(`/api/plaid/categories`)
+            setPlaidCategories(data)
+        }
+        getCategories()
+    },[])
+
+    console.log(plaidCategories)
 
     const [name, setName] = useState("")
     const [type, setType] = useState("expense")
