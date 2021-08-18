@@ -138,8 +138,7 @@ export default function Transactions() {
                       <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                         {// Render the header, this is really something under the hood
                         column.render('Header')}
-                        <tr> <span> {column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}
-                        </span> </tr>
+                        <span>{column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}</span>
                       </th>
                     ))}
                   </tr>
@@ -154,7 +153,7 @@ export default function Transactions() {
                     headerGroup.headers.map(column => (
                       // Apply the header cell props without sorting
                       <th {...column.getHeaderProps()}>         
-                        <tr> {column.canFilter ? column.render('Filter') : null} </tr>
+                        {column.canFilter ? column.render('Filter') : null}
                       </th>
                     ))}
                   </tr>
@@ -185,17 +184,28 @@ export default function Transactions() {
                 })}
               </tbody>
               <tfoot>
-                <span> Page {" "}
-                  <strong>
-                    {pageIndex + 1} of {pageOptions.length}
-                  </strong>
-                </span>
-                <button onClick={event => gotoPage(0)} disabled={!canPreviousPage}> {"<<"} </button>
-                <button onClick={event => previousPage()} disabled={!canPreviousPage}> Previous Page </button> 
-                <input type="number" defaultValue={pageIndex + 1} onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}/>
-                <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button> 
-                <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button>
-                <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
+                <tr>
+                  <td>
+                    <span> Page {" "}
+                      <strong>
+                        {pageIndex + 1} of {pageOptions.length}
+                      </strong>
+                    </span>
+                  </td>
+                  <td>
+                    <button onClick={event => gotoPage(0)} disabled={!canPreviousPage}> {"<<"}</button>
+                    <button onClick={event => previousPage()} disabled={!canPreviousPage}> Previous Page </button> 
+                    <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button>
+                    <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button> 
+                  </td>
+                  <td>
+                    <input type="number" defaultValue={pageIndex + 1} onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}/>
+                  </td>
+                  <td>
+                    <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
+                  </td>
+                  <td></td>
+                </tr>
               </tfoot>
             </table>
           </div>
