@@ -183,28 +183,35 @@ export default function Transactions() {
                   )
                 })}
               </tbody>
-              <tfoot>
+              <tfoot className='transaction-table-footer'>
                 <tr>
-                  <td>
-                    <span> Page {" "}
-                      <strong>
-                        {pageIndex + 1} of {pageOptions.length}
-                      </strong>
-                    </span>
-                  </td>
-                  <td>
-                    <button onClick={event => gotoPage(0)} disabled={!canPreviousPage}> {"<<"}</button>
-                    <button onClick={event => previousPage()} disabled={!canPreviousPage}> Previous Page </button> 
-                    <button onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button>
-                    <button onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button> 
-                  </td>
-                  <td>
-                    <input type="number" defaultValue={pageIndex + 1} onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}/>
-                  </td>
                   <td>
                     <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
                   </td>
+                  <td>
+                    <button className='transaction-table-button' onClick={event => gotoPage(0)} disabled={!canPreviousPage}> {"<<"}</button>
+                    <button className='transaction-table-button' onClick={event => previousPage()} disabled={!canPreviousPage}> Previous Page </button> 
+                    <button className='transaction-table-button' onClick={event => nextPage()} disabled={!canNextPage}> Next Page </button>
+                    <button className='transaction-table-button' onClick={event => gotoPage(pageCount - 1)} disabled={!canNextPage}> {">>"} </button> 
+                  </td>
+                  <td>
+                    Page {" "}
+                      <strong>
+                        {pageIndex + 1} of {pageOptions.length}
+                      </strong>
+                  </td>
                   <td></td>
+                  <td>
+                    <label>
+                      Go to page:&nbsp;
+                      <input 
+                        type="number" 
+                        className='transaction-input'
+                        defaultValue={pageIndex + 1} 
+                        onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}
+                      />
+                  </label>
+                  </td>
                 </tr>
               </tfoot>
             </table>

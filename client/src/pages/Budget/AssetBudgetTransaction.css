@@ -12,6 +12,10 @@
   text-align: center;
 }
 
+.budget-table {
+  max-width: 100%;
+}
+
 .budget-input {
   border:#01345B 2px solid;
   padding: 5px;
@@ -84,4 +88,16 @@
   width: 80%;
   border-radius: 20px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.transaction-table-footer {
+  background-color: #01345B;
+  color: white;
+}
+
+.transaction-table-button {
+  color: #01345B;
+  background-color: white;
+  border: 1px solid #01345B;
+  padding: 5px;
 }
