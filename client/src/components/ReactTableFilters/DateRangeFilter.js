@@ -19,12 +19,9 @@ export default function DateRangeColumnFilter({ column: { filterValue = [], preF
     // console.log("after push", filterValue)
 
     return (
-        <div
-            style={{
-                display: "flex"
-            }}
-        >
-      <input
+        <div>
+            <input
+                className='recurring-payment-field'
                 value={filterValue[0] || ""}
                 type="date"
                 min={min}
@@ -35,14 +32,10 @@ export default function DateRangeColumnFilter({ column: { filterValue = [], preF
                     setFilter((old = [])=> [min, max])
                     setFilter((old = []) => [val ? (val) : undefined, old[1]]);
                 }}
-                
-                style={{
-                    width: "170px",
-                    marginRight: "0.5rem"
-                }}
             />
-            to
-      <input
+            &nbsp;to&nbsp;
+            <input
+                className='recurring-payment-field'
                 value={filterValue[1] || ""}
                 type="date"
                 max={max}
@@ -50,11 +43,6 @@ export default function DateRangeColumnFilter({ column: { filterValue = [], preF
                     const val = e.target.value;
                     setFilter((old = [])=> [min, max])
                     setFilter((old = []) => [old[0], val ? (val) : undefined]);
-                }}
-                
-                style={{
-                    width: "170px",
-                    marginLeft: "0.5rem"
                 }}
             />
         </div>

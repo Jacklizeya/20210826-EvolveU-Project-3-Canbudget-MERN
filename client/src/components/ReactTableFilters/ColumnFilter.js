@@ -5,10 +5,12 @@ export default function ColumnFilter( {column} ) {
     const {filterValue, setFilter} = column
     return (
         <div>
-            <span>
-                Search: {" "}
-                <input value={filterValue || ""} onChange={e => setFilter(e.target.value)} />
-            </span>
+            Search: {" "}
+            <input
+                className='recurring-payment-field transactions'
+                value={filterValue || ""} 
+                onChange={e => setFilter(e.target.value)} 
+            />
         </div>
     )
 }

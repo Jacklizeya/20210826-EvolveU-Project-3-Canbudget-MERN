@@ -83,3 +83,7 @@
 .recurring-payment-table-body {
   width: fit-content;
 }
+
+.recurring-payment-field.transactions {
+  width: fit-content;
+}

@@ -14,15 +14,16 @@ export default function SelectFilter({column}) {
     return (
         <div>
             <select
-            value={filterValue}
-            onChange={e => {
-            setFilter(e.target.value || undefined)
-            }}>
+                value={filterValue}
+                onChange={e => {
+                    setFilter(e.target.value || undefined)
+                }}
+            >
                 <option value="">All</option>
                 {options.map((option, i) => (
-                <option key={i} value={option}>
-                    {option}
-                </option>
+                    <option key={i} value={option}>
+                        {option}
+                    </option>
                 ))}
             </select>
         </div>

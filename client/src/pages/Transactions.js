@@ -144,7 +144,7 @@ export default function Transactions() {
                   </tr>
                 ))}
               </thead>
-              <thead>
+              <thead className='transaction-table-xer'>
                 {// Loop over the header rows
                 headerGroups.map(headerGroup => (
                   // Apply the header row prop
@@ -183,7 +183,7 @@ export default function Transactions() {
                   )
                 })}
               </tbody>
-              <tfoot className='transaction-table-footer'>
+              <tfoot className='transaction-table-xer'>
                 <tr>
                   <td>
                     <GlobalFilter globalfilter={globalFilter} setFilter={setGlobalFilter}> </GlobalFilter>
@@ -206,7 +206,7 @@ export default function Transactions() {
                       Go to page:&nbsp;
                       <input 
                         type="number" 
-                        className='transaction-input'
+                        className='recurring-payment-field'
                         defaultValue={pageIndex + 1} 
                         onChange={e => {const pageNumber = e.target.value? Number(e.target.value) - 1 : 0; gotoPage(pageNumber)}}
                       />
