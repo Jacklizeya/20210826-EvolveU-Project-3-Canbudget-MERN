@@ -70,14 +70,14 @@ function Budget() {
     }, [addStatus, deleteStatus, id])
 
     useEffect(()=>{
-        if (sortParams.id === "name") {setOpacityParams({...opacityParams, name: 1.0}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})}
-        else if (sortParams.id === "type") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 1.0}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})}
-        else if (sortParams.id === "amount") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 1.0}); setOpacityParams({...opacityParams, limit: 0.5})}
-        else if (sortParams.id === "budget") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})}
-        else if (sortParams.id === "limit") {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 1.0})}
-        else {setOpacityParams({...opacityParams, name: 0.5}); setOpacityParams({...opacityParams, type: 0.5}); setOpacityParams({...opacityParams, amount: 0.5}); setOpacityParams({...opacityParams, limit: 0.5})} 
+        if (sortParams.id === "name") {setOpacityParams(o => ({...o, name: 1.0})); setOpacityParams(o => ({...o, type: 0.5})); setOpacityParams(o => ({...o, amount: 0.5})); setOpacityParams(o => ({...o, limit: 0.5}))}
+        else if (sortParams.id === "type") {setOpacityParams(o => ({...o, name: 0.5})); setOpacityParams(o => ({...o, type: 1.0})); setOpacityParams(o => ({...o, amount: 0.5})); setOpacityParams(o => ({...o, limit: 0.5}))}
+        else if (sortParams.id === "amount") {setOpacityParams(o => ({...o, name: 0.5})); setOpacityParams(o => ({...o, type: 0.5})); setOpacityParams(o => ({...o, amount: 1.0})); setOpacityParams(o => ({...o, limit: 0.5}))}
+        else if (sortParams.id === "budget") {setOpacityParams(o => ({...o, name: 0.5})); setOpacityParams(o => ({...o, type: 0.5})); setOpacityParams(o => ({...o, amount: 0.5})); setOpacityParams(o => ({...o, limit: 0.5}))}
+        else if (sortParams.id === "limit") {setOpacityParams(o => ({...o, name: 0.5})); setOpacityParams(o => ({...o, type: 0.5})); setOpacityParams(o => ({...o, amount: 0.5})); setOpacityParams(o => ({...o, limit: 1.0}))}
+        else {setOpacityParams(o => ({...o, name: 0.5})); setOpacityParams(o => ({...o, type: 0.5})); setOpacityParams(o => ({...o, amount: 0.5})); setOpacityParams(o => ({...o, limit: 0.5}))} 
     },
-    [sortParams.indicator]
+    [sortParams.indicator, sortParams.id]
     )
 
     useEffect(() => {
