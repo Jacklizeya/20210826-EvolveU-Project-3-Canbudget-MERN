@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from "axios"
 import {Numbertd} from "../../components/AssetBudget/assetAndBudget.elements"
-import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
-import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "../../components/AssetBudget/Budget/BudgetModal"
+import {RiEditLine, RiDeleteBin6Line} from 'react-icons/ri';
+import {FaSortUp, FaSortDown} from "react-icons/fa"
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
+import BudgetDataForm from '../../components/AssetBudget/Budget/BudgetDataForm';
 
 import './AssetBudgetTransaction.css'
 
@@ -37,13 +37,6 @@ function Budget() {
     },[])
 
     console.log(plaidCategories)
-
-    const [name, setName] = useState("")
-    const [type, setType] = useState("expense")
-    const [amount, setAmount] = useState(0)
-    const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
-    const [startDate, setStartDate] = useState("")
-    const [endDate, setEndDate] = useState("")
 
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
@@ -134,32 +127,32 @@ function Budget() {
     }, [user, selectedMonth])
 
 
-    async function addNewCashFlow(event, id) {
-        event.preventDefault()
-        let newCashFlow = {name: name.toLowerCase(), type, amount: Number(amount), changeMonthToMonth : Number(changeMonthToMonth), startDate, endDate}
-        let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
-        if (data.ok) {
-            setName("")
-            setType("expense")
-            setAmount(0)
-            setChangeMonthToMonth(0)
-            setStartDate("")
-            setEndDate("")
-            setAddStatus(data.ok)
-            setSortParams({...sortParams, indicator: ""})
-        }
-    }
+    // async function addNewCashFlow(event, id) {
+    //     event.preventDefault()
+    //     let newCashFlow = {name: name.toLowerCase(), type, amount: Number(amount), changeMonthToMonth : Number(changeMonthToMonth), startDate, endDate}
+    //     let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
+    //     if (data.ok) {
+    //         setName("")
+    //         setType("expense")
+    //         setAmount(0)
+    //         setChangeMonthToMonth(0)
+    //         setStartDate("")
+    //         setEndDate("")
+    //         setAddStatus(data.ok)
+    //         setSortParams({...sortParams, indicator: ""})
+    //     }
+    // }
 
     function editItem(event) {
         let index = event.target.id
         // Right now I am using users[0], eventually it will be just one user, so need to fix this later
         let dataToEdit = user.cashFlow[index]
-        setName(dataToEdit.name)
-        setType(dataToEdit.type)
-        setAmount(dataToEdit.amount)
-        setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-        setStartDate(dataToEdit.startDate)
-        setEndDate(dataToEdit.endDate)
+        // setName(dataToEdit.name)
+        // setType(dataToEdit.type)
+        // setAmount(dataToEdit.amount)
+        // setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
+        // setStartDate(dataToEdit.startDate)
+        // setEndDate(dataToEdit.endDate)
     }
 
     function sortArrayBy(event) {
@@ -263,6 +256,7 @@ function Budget() {
                     </div> 
                 : null}
             </div> : null}
+            <BudgetDataForm />
         </div>
         
     )
