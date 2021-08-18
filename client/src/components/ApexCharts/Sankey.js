@@ -30,6 +30,7 @@ export default function Sankey({userId, filteredData}) {
   useEffect(() => {
     if (transactions) {
       let sankeyArray = handleSankeyData(transactions, incomes)
+      console.log(sankeyArray)
       setSankeyData(sankeyArray)
     }
   },[transactions, incomes])
