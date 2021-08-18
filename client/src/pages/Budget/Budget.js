@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from "axios"
 import {Numbertd} from "../../components/AssetBudget/assetAndBudget.elements"
-import {RiEditLine, RiDeleteBin6Line} from 'react-icons/ri';
-import {FaSortUp, FaSortDown} from "react-icons/fa"
+import {RiEditLine as EditLineIcon, RiDeleteBin6Line as DeleteLineIcon} from 'react-icons/ri';
+import {FaSortUp as SortUpIcon, FaSortDown as SortDownIcon} from "react-icons/fa"
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 import BudgetDataForm from '../../components/AssetBudget/Budget/BudgetDataForm';
 
@@ -17,6 +17,8 @@ function Budget() {
     const [budgetTableData, setBudgetTableData] = useState([])
     const [tableSum, setTableSum] = useState(0)
     const [plaidCategories, setPlaidCategories] = useState([])
+
+    const [formParams, setFormParams] = useState(null)
 
     useEffect(() => {
         let todaysDate = new Date()
@@ -56,7 +58,6 @@ function Budget() {
     })
 
     const [nameToDelete, setNameToDelete] = useState("")
-    const [displayModal, setDisplayModal] = useState(false)
 
     useEffect(() => {
         async function getUsers() {
@@ -143,18 +144,6 @@ function Budget() {
     //     }
     // }
 
-    function editItem(event) {
-        let index = event.target.id
-        // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-        let dataToEdit = user.cashFlow[index]
-        // setName(dataToEdit.name)
-        // setType(dataToEdit.type)
-        // setAmount(dataToEdit.amount)
-        // setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-        // setStartDate(dataToEdit.startDate)
-        // setEndDate(dataToEdit.endDate)
-    }
-
     function sortArrayBy(event) {
         setSortParams({...sortParams, indicator: event.target.id})
         let userCopy = budgetTableData
@@ -170,7 +159,6 @@ function Budget() {
         setBudgetTableData(userCopy)
     }
 
-    // at line 46, right now I am only showing one, eventually will be changed, temporaray solution before we have login
     return (
         <div className='budget-container'>
             <h1 className='page-heading'>Budget</h1>
@@ -199,15 +187,29 @@ function Budget() {
                                     <tr className='table-title-row'>
                                         <th id="name" opacity={opacityParams.name} onClick={event => sortArrayBy(event)}>
                                             Item Name
-                                            {sortParams.name > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": opacityParams.name}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": opacityParams.name}}> </FaSortDown> }
+                                            {sortParams.name > 0 ? 
+                                                <SortUpIcon 
+                                                    style={{"pointerEvents": 'none', "opacity": opacityParams.name}}
+                                                ></SortUpIcon> : 
+                                                <SortDownIcon 
+                                                    style={{"pointerEvents": 'none', "opacity": opacityParams.name}}>
+                                                </SortDownIcon>
+                                            }
                                         </th>
                                         <th id="type" opacity={opacityParams.type} onClick={event => sortArrayBy(event)} style={{width : "20%"}}>
                                             Type
-                                            {sortParams.type > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": opacityParams.type}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": opacityParams.type}}> </FaSortDown> }
+                                            {sortParams.type > 0 ? 
+                                                <SortUpIcon 
+                                                    style={{"pointerEvents": 'none', "opacity": opacityParams.type}}>
+                                                    </SortUpIcon> : 
+                                                <SortDownIcon 
+                                                    style={{"pointerEvents": 'none', "opacity": opacityParams.type}}>
+                                                </SortDownIcon>
+                                            }
                                         </th>
                                         <th id="amount" onClick={event => sortArrayBy(event)}>
                                             Amount
-                                            {sortParams.amount > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </FaSortDown> }
+                                            {sortParams.amount > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </SortDownIcon> }
                                         </th>
                                         <th>
                                             Goal
@@ -217,23 +219,33 @@ function Budget() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {budgetTableData.map(
-                                        (singleCashFlow, index) =>
-                                            <tr key={singleCashFlow.name + index}>
-                                            <td> {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)} </td>
-                                            <td> {singleCashFlow.type} </td>
-                                            <Numbertd value={singleCashFlow.amount}> {singleCashFlow.amount} </Numbertd>
-                                            <td> {singleCashFlow.limit} </td>
+                                    {budgetTableData.map((singleCashFlow, index) =>
+                                        <tr key={singleCashFlow.name + index}>
+                                            <td>
+                                                {singleCashFlow.name.charAt(0).toUpperCase() + singleCashFlow.name.slice(1)}
+                                            </td>
+                                            <td>
+                                                {singleCashFlow.type}
+                                            </td>
+                                            <Numbertd value={singleCashFlow.amount}> 
+                                                {singleCashFlow.amount} 
+                                            </Numbertd>
+                                            <td> 
+                                                {singleCashFlow.limit}
+                                            </td>
                                             <td> 
                                                 <a href="#form">
-                                                    <button id={index} onClick={editItem}> 
-                                                        <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
+                                                    {console.log(singleCashFlow)}
+                                                    <button id={index} onClick={(event) => {setFormParams(user.cashFlow[event.target.id])}}> 
+                                                        <EditLineIcon 
+                                                            style={{"pointerEvents": 'none'}}>
+                                                        </EditLineIcon>
                                                     </button>
                                                 </a>                                      
                                             </td>
                                             <td>
-                                                <button onClick={()=>{setNameToDelete(singleCashFlow.name); setDisplayModal(prev => !prev)}}>
-                                                    <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
+                                                <button onClick={()=>{setNameToDelete(singleCashFlow.name)}}>
+                                                    <DeleteLineIcon style={{"pointerEvents": 'none'}}></DeleteLineIcon>
                                                 </button> 
                                             </td>             
                                         </tr>
@@ -256,7 +268,12 @@ function Budget() {
                     </div> 
                 : null}
             </div> : null}
-            <BudgetDataForm />
+            {formParams ? 
+                <BudgetDataForm
+                    parentParams={formParams}
+                    sendDataToParent={(data) => {console.log(data)}}
+                />
+            : null}
         </div>
         
     )
