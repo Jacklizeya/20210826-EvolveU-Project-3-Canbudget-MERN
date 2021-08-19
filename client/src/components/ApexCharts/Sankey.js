@@ -36,6 +36,7 @@ export default function Sankey({userId, filteredData}) {
 
   useEffect(() => {
     let filteredTransactions = []
+    console.log(filteredData)
     for (let i in filteredData) {
       filteredTransactions.push(filteredData[i].values)
     }
@@ -51,7 +52,7 @@ export default function Sankey({userId, filteredData}) {
   // },[])
 
   return (
-    sankeyData ? 
+    filteredData ? 
       <div style={{display:'flex', alignItems: 'center', justifyContent:'center', width:'50%'}}>
         <Chart
           chartType="Sankey"
