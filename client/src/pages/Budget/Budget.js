@@ -9,6 +9,7 @@ import Line from '../../components/ApexCharts/Line';
 import RadialBar from '../../components/ApexCharts/RadialBar'
 
 import './AssetBudgetTransaction.css'
+import PlaidCategories from '../../components/AssetBudget/Budget/PlaidCategories';
 
 
 function Budget() {
@@ -18,7 +19,6 @@ function Budget() {
     const [selectedMonth, setSelectedMonth] = useState('')
     const [budgetTableData, setBudgetTableData] = useState([])
     const [tableSum, setTableSum] = useState(0)
-    const [plaidCategories, setPlaidCategories] = useState([])
     const [expenseLineProps, setExpenseLineProps] = useState({})
 
     const [formParams, setFormParams] = useState(null)
@@ -33,13 +33,7 @@ function Budget() {
         setSelectedMonth(year+'-'+month)
     },[])
 
-    useEffect(() => {
-        async function getCategories() {
-            let {data} = await axios.get(`/api/plaid/categories`)
-            setPlaidCategories(data)
-        }
-        getCategories()
-    },[])
+
 
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
@@ -102,7 +96,7 @@ function Budget() {
                 if (user.transaction[i].date.slice(0,7) === selectedMonth) {
                     let transactionDate = Number(user.transaction[i].date.slice(8,10))
                     if (transactionDate === monthBoundaries.current && user.transaction[i].amount < 0) {
-                        monthBoundaries.currentSum = monthBoundaries.currentSum + (user.transaction[i].amount * -1)
+                        monthBoundaries.currentSum = monthBoundaries.currentSum + Math.round(user.transaction[i].amount * -1)
                     }
                 }
             }
@@ -308,6 +302,7 @@ function Budget() {
                     sendDataToParent={(data) => {console.log(data)}}
                 />
             : null}
+            <PlaidCategories />
         </div>
         
     )

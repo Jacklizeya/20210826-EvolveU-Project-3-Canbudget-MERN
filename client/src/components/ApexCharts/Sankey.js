@@ -10,7 +10,7 @@ export default function Sankey({userId, filteredData}) {
   const [transactions, setTransactions] = useState(null)
   const [incomes, setIncomes] = useState(null)
   // const [categories, setCategories] = useState(null)
-  const [sankeyData, setSankeyData] = useState(mockData)
+  const [sankeyData, setSankeyData] = useState([])
 
   useEffect(() => {
     async function getData() {
@@ -30,7 +30,6 @@ export default function Sankey({userId, filteredData}) {
   useEffect(() => {
     if (transactions) {
       let sankeyArray = handleSankeyData(transactions, incomes)
-      console.log(sankeyArray)
       setSankeyData(sankeyArray)
     }
   },[transactions, incomes])

@@ -39,7 +39,9 @@ export default function Line({parentData}) {
   useEffect(() => {
     if (parentData) {
       setLineProps(l => ({...l, 
-        options: {...l.options, labels: parentData.labels},
+        options: {...l.options, 
+          labels: parentData.labels
+        },
         series: parentData.series ? parentData.series : lineProps.series
       }))
     }
@@ -47,11 +49,13 @@ export default function Line({parentData}) {
 
     return (
       <div className="line">
-        <Chart 
-          options={lineProps.options} 
-          series={lineProps.series} 
-          width={lineProps.width} 
-        />
+        {lineProps ?
+          <Chart 
+            options={lineProps.options} 
+            series={lineProps.series} 
+            width={lineProps.width} 
+          />
+        : null}
       </div>
     )
 }
