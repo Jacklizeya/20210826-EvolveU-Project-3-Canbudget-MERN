@@ -52,12 +52,13 @@ export default function Sankey({userId, filteredData}) {
 
   return (
     sankeyData ? 
-      <div style={{width:'50%', display:'flex', alignItems: 'center', justifyContent:'center'}}>
+      <div style={{display:'flex', alignItems: 'center', justifyContent:'center', width:'50%'}}>
         <Chart
           chartType="Sankey"
+          width={'90%'}
+          height={'90%'}
           loader={<div>Loading Chart</div>}
           data={sankeyData}
-          rootProps={{ 'data-testid': '2' }}
         /> 
       </div>
     : null

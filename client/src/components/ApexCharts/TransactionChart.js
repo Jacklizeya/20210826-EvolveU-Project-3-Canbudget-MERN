@@ -50,7 +50,7 @@ export default function TransactionChart({data}) {
               options={options}
               series = {series}
               type="bar"
-              width='100%'
+              width='90%'
             />
         </div>
     )

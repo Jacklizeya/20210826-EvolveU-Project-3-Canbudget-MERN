@@ -8,7 +8,7 @@ import ColumnFilter from '../components/ReactTableFilters/ColumnFilter';
 import SelectFilter from '../components/ReactTableFilters/SelectFilter';
 import NumberRangeFilter from '../components/ReactTableFilters/NumberRangeFilter';
 import DateRangeColumnFilter from '../components/ReactTableFilters/DateRangeFilter';
-import TransactionChart from '../components/AssetBudget/TransactionChart';
+import TransactionChart from '../components/ApexCharts/TransactionChart';
 import Plaid from '../components/AssetBudget/TransactionPlaid';
 import Sankey from '../components/ApexCharts/Sankey';
 import CSV from "../components/AssetBudget/CSV"
@@ -220,10 +220,12 @@ export default function Transactions() {
             <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             <CSV id={id} setAddStatus={setAddStatus}> </CSV>
           </div>
-          <div className='transaction-chart-container'>
-            <TransactionChart data={filteredRows}/>
-            <Sankey userId={id} filteredData={filteredRows}/>
-          </div>
+          {filteredRows ?
+            <div className='transaction-chart-container'>
+              <TransactionChart data={filteredRows}/>
+              <Sankey userId={id} filteredData={filteredRows}/>
+            </div>
+          : null}
         </div>
         : <div> Loading ...</div>
       )
