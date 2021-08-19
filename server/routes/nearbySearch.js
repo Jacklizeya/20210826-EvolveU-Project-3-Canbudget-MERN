@@ -7,7 +7,7 @@ const axios = require("axios")
 async function nearbySearchRequest() {
 
     // Search Parameters
-    let googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
+    let googleApiKey = process.env.GOOGLE_API_KEY
     let searchLat = 51.042642417966455
     let searchLng = -114.06990000957333
     let searchRadius = 10000 // Measured in m

@@ -125,7 +125,10 @@ function Budget() {
                 for (let k in categoryArray) {
                     if (categoryArray[k] === splitCategories[j] && user.transaction[i].date.slice(0,7) === selectedMonth) {
                         transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
-                        displaySum = displaySum + Math.round(Number(user.transaction[i].amount))
+                        if (user.transaction[i].category !== 'Payment' && user.transaction[i].category !== 'Credit Card' && user.transaction[i].category !== 'Debit' && user.transaction[i].category !== 'Deposit'  && user.transaction[i].category !== 'Credit' && user.transaction[i].category !== 'Payment') {
+                            console.log(user.transaction[i].category, Math.round(Number(user.transaction[i].amount)))
+                            displaySum = displaySum + Math.round(Number(user.transaction[i].amount))
+                        }
                     }
                 }
             }
@@ -143,7 +146,9 @@ function Budget() {
         }
         for (let i in user.cashFlow) {
             tableDisplayArray.push(user.cashFlow[i])
-            displaySum = displaySum + Math.round(Number(user.cashFlow[i].amount))
+            if (user.cashFlow[i].category !== 'Payment' && user.cashFlow[i].category !== 'Credit Card' && user.cashFlow[i].category !== 'Debit' && user.cashFlow[i].category !== 'Deposit'  && user.cashFlow[i].category !== 'Credit') {
+                displaySum = displaySum + Math.round(Number(user.cashFlow[i].amount))
+            }
         }
         setBudgetTableData(tableDisplayArray)
         setTableSum(displaySum)
@@ -152,7 +157,6 @@ function Budget() {
     useEffect(() => {
         let totalBudget = 0
         for (let i in user.plaidCategories) {
-            console.log(user.plaidCategories[i])
             totalBudget = totalBudget + Number(user.plaidCategories[i].limit)
         }
         setBudgetSum(totalBudget)
@@ -243,7 +247,7 @@ function Budget() {
                                             {sortParams.amount > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": opacityParams.amount}}> </SortDownIcon> }
                                         </th>
                                         <th>
-                                            Goal
+                                            Monthly Limit
                                         </th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -258,13 +262,13 @@ function Budget() {
                                             <td>
                                                 {singleCashFlow.type}
                                             </td>
-                                            <Numbertd value={singleCashFlow.amount}> 
-                                                {singleCashFlow.amount} 
+                                            <Numbertd value={Number(singleCashFlow.amount)}> 
+                                                {Number(singleCashFlow.amount).toFixed(2)} 
                                             </Numbertd>
                                             <td> 
                                                 {singleCashFlow.limit ?
-                                                    singleCashFlow.limit :
-                                                    user.plaidCategories.map((category) => category.name === singleCashFlow.name ? category.limit * -1 : null)
+                                                    Number(singleCashFlow.limit * -1).toFixed(2) :
+                                                    user.plaidCategories.map((category) => category.name === singleCashFlow.name ? Number(category.limit).toFixed(2) : null)
                                                 }
                                             </td>
                                             <td> 
@@ -288,9 +292,9 @@ function Budget() {
                                     <tfoot className='table-title-row'>
                                         <tr>
                                             <td></td>
-                                            <td>Sum</td>
-                                            <td>{tableSum}</td>
-                                            <td></td>
+                                            <td><strong>Sum</strong></td>
+                                            <td><strong>{tableSum}</strong></td>
+                                            <td><strong>{budgetSum}</strong></td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -301,18 +305,20 @@ function Budget() {
                     </div> 
                 : null}
             </div> : null}
-            <h3 className='page-heading'>Monthly Spending</h3>
-            <div className='transaction-chart-container'>
-                <div className='budget-individual-chart'>
-                    <Line parentData={expenseLineProps} />
+            {/* <h3 className='page-heading'>Monthly Spending</h3> */}
+            {expenseLineProps && budgetSum && tableSum ?
+                <div className='transaction-chart-container'>
+                    <div className='budget-individual-chart'>
+                        <Line parentData={expenseLineProps} />
+                    </div>
+                    <div className='budget-individual-chart'>
+                        <RadialBar
+                            budgetSum={budgetSum}
+                            transactionSum={tableSum}
+                        />
+                    </div>
                 </div>
-                <div className='budget-individual-chart'>
-                    <RadialBar
-                        budgetSum={budgetSum}
-                        transactionSum={tableSum}
-                    />
-                </div>
-            </div>
+            : null}
             {formParams ? 
                 <BudgetDataForm
                     parentParams={formParams}

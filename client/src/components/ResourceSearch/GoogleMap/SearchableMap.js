@@ -23,7 +23,7 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true
 }
-const googleApiKey = 'AIzaSyCPw4VRivOAyVV9WZGpwal6eRZJSIZh1KY'
+const googleApiKey = process.env.GOOGLE_API_KEY
 
 export default function SearchableMap({data, userLocation}) {
   
