@@ -104,16 +104,17 @@ function Budget() {
                     let transactionDate = Number(user.transaction[i].date.slice(8,10))
                     if (transactionDate === monthBoundaries.current && user.transaction[i].amount < 0) {
                         let mainCategory = user.transaction[i].category.split(', ')[0]
-                        if (mainCategory !== 'Payment' && mainCategory !== 'Credit Card' && mainCategory !== 'Debit' && mainCategory !== 'Deposit'  && mainCategory !== 'Credit' && mainCategory !== 'Transfer')
-                            console.log(mainCategory)
-                            monthBoundaries.currentSum = monthBoundaries.currentSum + Math.round(user.transaction[i].amount * -1)
+                        if (mainCategory !== 'Payment' && mainCategory !== 'Credit Card' && mainCategory !== 'Debit' && mainCategory !== 'Deposit'  && mainCategory !== 'Credit' && mainCategory !== 'Transfer') {
+                            monthBoundaries.currentSum = monthBoundaries.currentSum + Number(user.transaction[i].amount * -1)
+                        }
                     }
                 }
             }
-            lineChartDataObject.series[0].data.push(monthBoundaries.currentSum)
+            lineChartDataObject.series[0].data.push(monthBoundaries.currentSum.toFixed(2))
             monthBoundaries.current = monthBoundaries.current + 1
         }
         setExpenseLineProps(lineChartDataObject)
+
         for (let i in user.transaction) {
             let splitCategories = user.transaction[i].category.split(', ')
             if (splitCategories[2]) {
@@ -129,22 +130,21 @@ function Budget() {
         for (let i in categoryArray) {
             transactionObject[categoryArray[i]] = 0
         }
-        let displaySum = 0
+
         for (let i in user.transaction) {
             let splitCategories = user.transaction[i].category.split(', ')
             for (let j in splitCategories) {
                 for (let k in categoryArray) {
                     if (categoryArray[k] === splitCategories[j] && user.transaction[i].date.slice(0,7) === selectedMonth) {
                         transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
-                        if (user.transaction[i].category !== 'Payment' && user.transaction[i].category !== 'Credit Card' && user.transaction[i].category !== 'Debit' && user.transaction[i].category !== 'Deposit'  && user.transaction[i].category !== 'Credit' && user.transaction[i].category !== 'Payment' && user.transaction[i].category !== 'Transfer') {
-                            displaySum = displaySum + Math.round(Number(user.transaction[i].amount))
-                        }
                     }
                 }
             }
         }
+
         
         let tableDisplayArray = []
+        let displaySum = 0
         for (let i in transactionObject) {
             if (i !== 'Payment' && i !== 'Credit Card' && i !== 'Debit' && i !== 'Deposit'  && i !== 'Credit' && i !== 'Transfer') {
                 tableDisplayArray.push({
@@ -152,6 +152,7 @@ function Budget() {
                     name: i,
                     type: transactionObject[i] > 0 ? 'income' : 'expense'
                 })
+                displaySum = displaySum + Math.round(transactionObject[i])
             }
         }
         for (let i in user.cashFlow) {
@@ -160,6 +161,7 @@ function Budget() {
                 displaySum = displaySum + Math.round(Number(user.cashFlow[i].amount))
             }
         }
+
         setBudgetTableData(tableDisplayArray)
         setTableSum(displaySum)
     }, [user, selectedMonth, budgetSum])
