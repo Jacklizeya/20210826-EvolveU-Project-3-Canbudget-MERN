@@ -301,12 +301,16 @@ function Budget() {
                     </div> 
                 : null}
             </div> : null}
+            <h3 className='page-heading'>Monthly Spending</h3>
             <div className='transaction-chart-container'>
                 <div className='budget-individual-chart'>
                     <Line parentData={expenseLineProps} />
                 </div>
                 <div className='budget-individual-chart'>
-                    <RadialBar />
+                    <RadialBar
+                        budgetSum={budgetSum}
+                        transactionSum={tableSum}
+                    />
                 </div>
             </div>
             {formParams ? 

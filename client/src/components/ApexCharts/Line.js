@@ -8,13 +8,28 @@ export default function Line({parentData}) {
     {
       options: {
         chart: {
-            type: 'line'
+            type: 'line',
+            height: '100%'
         },
         labels: lineData.labels,
         xaxis: {
-            type: 'datetime'
+            type: 'datetime',
+            title: {
+              text: 'Date'
+            }
+        },
+        yaxis: {
+            type: 'numeric',
+            title: {
+              text: 'Cumulative Spending ($)'
+            }
         },
         colors: ['#4CAF50','#3F51B5','#FF9800','#03A9F4'],
+        plotOptions: {
+          area: {
+              fillTo: 'end',
+          }
+        },
       },
       series: [
         {
@@ -48,7 +63,7 @@ export default function Line({parentData}) {
   },[parentData])
 
     return (
-      <div className="line">
+      <div className="budget-line-chart">
         {lineProps ?
           <Chart 
             options={lineProps.options} 

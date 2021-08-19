@@ -103,7 +103,17 @@
 }
 
 .budget-individual-chart {
+  display: flex;
   width: 50%;
   padding: 5px;
   margin: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.budget-line-chart {
+  height: 90%;
+  width: 90%; 
+  padding: 10px;
+  margin: 10px
 }
