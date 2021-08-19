@@ -5,6 +5,7 @@ import {RiEditLine as EditLineIcon, RiDeleteBin6Line as DeleteLineIcon} from 're
 import {FaSortUp as SortUpIcon, FaSortDown as SortDownIcon} from "react-icons/fa"
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 import BudgetDataForm from '../../components/AssetBudget/Budget/BudgetDataForm';
+import Line from '../../components/ApexCharts/Line';
 
 import './AssetBudgetTransaction.css'
 
@@ -17,6 +18,7 @@ function Budget() {
     const [budgetTableData, setBudgetTableData] = useState([])
     const [tableSum, setTableSum] = useState(0)
     const [plaidCategories, setPlaidCategories] = useState([])
+    const [expenseLineProps, setExpenseLineProps] = useState({})
 
     const [formParams, setFormParams] = useState(null)
 
@@ -37,8 +39,6 @@ function Budget() {
         }
         getCategories()
     },[])
-
-    console.log(plaidCategories)
 
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
@@ -82,6 +82,33 @@ function Budget() {
 
     useEffect(() => {
         let categoryArray = []
+        let lineChartDataObject = {
+            labels: [],
+            series: [{
+                name: 'Cumulative Spending',
+                type: 'line',
+                data: []
+            }]
+        }
+        let monthBoundaries = {
+            current: 1,
+            end: 31,
+            currentSum: 0
+        }
+        while (monthBoundaries.current < monthBoundaries.end) {
+            lineChartDataObject.labels.push(new Date(selectedMonth.slice(0,4), selectedMonth.slice(5,7)-1, monthBoundaries.current).getTime())
+            for (let i in user.transaction) {
+                if (user.transaction[i].date.slice(0,7) === selectedMonth) {
+                    let transactionDate = Number(user.transaction[i].date.slice(8,10))
+                    if (transactionDate === monthBoundaries.current && user.transaction[i].amount < 0) {
+                        monthBoundaries.currentSum = monthBoundaries.currentSum + (user.transaction[i].amount * -1)
+                    }
+                }
+            }
+            lineChartDataObject.series[0].data.push(monthBoundaries.currentSum)
+            monthBoundaries.current = monthBoundaries.current + 1
+        }
+        setExpenseLineProps(lineChartDataObject)
         for (let i in user.transaction) {
             let splitCategories = user.transaction[i].category.split(', ')
             if (splitCategories[2]) {
@@ -91,7 +118,6 @@ function Budget() {
             } else {
                 categoryArray.push(splitCategories[0])
             }
-
         }
         categoryArray = [...new Set(categoryArray)]
         let transactionObject = {}
@@ -235,7 +261,6 @@ function Budget() {
                                             </td>
                                             <td> 
                                                 <a href="#form">
-                                                    {console.log(singleCashFlow)}
                                                     <button id={index} onClick={(event) => {setFormParams(user.cashFlow[event.target.id])}}> 
                                                         <EditLineIcon 
                                                             style={{"pointerEvents": 'none'}}>
@@ -268,6 +293,7 @@ function Budget() {
                     </div> 
                 : null}
             </div> : null}
+            <Line parentData={expenseLineProps} />
             {formParams ? 
                 <BudgetDataForm
                     parentParams={formParams}

@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Chart from 'react-apexcharts'
 import { lineData } from './data/apexDataConvertor'
 
-export default function Line() {
-  // eslint-disable-next-line
+export default function Line({parentData}) {
+
   const [lineProps, setLineProps] = useState(
     {
       options: {
@@ -35,6 +35,15 @@ export default function Line() {
       ],
     }
   )
+
+  useEffect(() => {
+    if (parentData) {
+      setLineProps(l => ({...l, 
+        options: {...l.options, labels: parentData.labels},
+        series: parentData.series ? parentData.series : lineProps.series
+      }))
+    }
+  },[parentData])
 
     return (
       <div className="line">
