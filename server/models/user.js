@@ -26,7 +26,9 @@ const userSchema = new Schema({
     valueOfSecurities: Number,
     cashFlow: Array,
     balanceSheet: Array,
-    transaction: Array
+    transaction: Array,
+    plaidCategories: Array,
+    recurringBills: Array
 });
 
 const userModel = mongoose.model('User', userSchema, 'users')

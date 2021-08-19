@@ -9,7 +9,7 @@ import Line from '../../components/ApexCharts/Line';
 import RadialBar from '../../components/ApexCharts/RadialBar'
 
 import './AssetBudgetTransaction.css'
-import PlaidCategories from '../../components/AssetBudget/Budget/PlaidCategories';
+// import PlaidCategories from '../../components/AssetBudget/Budget/PlaidCategories';
 
 
 function Budget() {
@@ -19,6 +19,7 @@ function Budget() {
     const [selectedMonth, setSelectedMonth] = useState('')
     const [budgetTableData, setBudgetTableData] = useState([])
     const [tableSum, setTableSum] = useState(0)
+    const [budgetSum, setBudgetSum] = useState(0)
     const [expenseLineProps, setExpenseLineProps] = useState({})
 
     const [formParams, setFormParams] = useState(null)
@@ -32,8 +33,6 @@ function Budget() {
         }
         setSelectedMonth(year+'-'+month)
     },[])
-
-
 
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
@@ -134,11 +133,13 @@ function Budget() {
         
         let tableDisplayArray = []
         for (let i in transactionObject) {
-            tableDisplayArray.push({
-                amount: Math.round(transactionObject[i]),
-                name: i,
-                type: 'expense'
-            })
+            if (i !== 'Payment' && i !== 'Credit Card' && i !== 'Debit' && i !== 'Deposit'  && i !== 'Credit') {
+                tableDisplayArray.push({
+                    amount: Math.round(transactionObject[i]),
+                    name: i,
+                    type: transactionObject[i] > 0 ? 'income' : 'expense'
+                })
+            }
         }
         for (let i in user.cashFlow) {
             tableDisplayArray.push(user.cashFlow[i])
@@ -147,6 +148,15 @@ function Budget() {
         setBudgetTableData(tableDisplayArray)
         setTableSum(displaySum)
     }, [user, selectedMonth])
+
+    useEffect(() => {
+        let totalBudget = 0
+        for (let i in user.plaidCategories) {
+            console.log(user.plaidCategories[i])
+            totalBudget = totalBudget + Number(user.plaidCategories[i].limit)
+        }
+        setBudgetSum(totalBudget)
+    }, [user])
 
 
     // async function addNewCashFlow(event, id) {
@@ -252,7 +262,10 @@ function Budget() {
                                                 {singleCashFlow.amount} 
                                             </Numbertd>
                                             <td> 
-                                                {singleCashFlow.limit}
+                                                {singleCashFlow.limit ?
+                                                    singleCashFlow.limit :
+                                                    user.plaidCategories.map((category) => category.name === singleCashFlow.name ? category.limit * -1 : null)
+                                                }
                                             </td>
                                             <td> 
                                                 <a href="#form">
@@ -302,7 +315,7 @@ function Budget() {
                     sendDataToParent={(data) => {console.log(data)}}
                 />
             : null}
-            <PlaidCategories />
+            {/* <PlaidCategories parentUser={user}/> */}
         </div>
         
     )

@@ -119,6 +119,7 @@ router.post("/", async (req, res) => {
 
 router.patch("/", async (req, res) => {
   let inputData = req.body
+  console.log(inputData)
   try {
     const emailUser = await userDB.findByEmail(inputData.email);
     if ((emailUser && emailUser.length >0) &&
