@@ -6,7 +6,12 @@ export default function ConfirmationButton({parentConfirmation}) {
  
   const [alertSettings, setAlertSettings] = useState({
     title: 'Confirm to submit',
-    message: 'No data submitted',
+    message: (
+      // <div>
+      //   <p>No data entered</p>
+      // </div>
+      'No data entered'
+    ),
     buttons: [
       {
         label: 'Yes',
@@ -19,26 +24,46 @@ export default function ConfirmationButton({parentConfirmation}) {
     ]
   })
 
+
   useEffect(() => {
-    let confirmationMessageArray = []
+    let confirmationMessageString = '<div>'
     if (Object.keys(parentConfirmation.questions).length === Object.keys(parentConfirmation.answers).length) {
       let objectLength = Object.keys(parentConfirmation.questions).length
       for (let i = 0; i < objectLength; i++) {
-        confirmationMessageArray.push(<p>{parentConfirmation.questions[i]}</p>)
-        if (typeof parentConfirmation.answers[i] === 'object') {
-          confirmationMessageArray.push(<p>Table goes here</p>)
-          // console.log(parentConfirmation.answers[i])
-        } else if (parentConfirmation.answers[i] === true) {
-          confirmationMessageArray.push(<p>Yes</p>)
+        confirmationMessageString = confirmationMessageString + '<strong>' + parentConfirmation.questions[i] + '</strong><br></br>'
+        if (parentConfirmation.answers[i] === true) {
+          confirmationMessageString = confirmationMessageString + 'Yes<br></br>'
         } else if (parentConfirmation.answers[i] === false) {
-          confirmationMessageArray.push(<p>No</p>)
+          confirmationMessageString = confirmationMessageString + 'No<br></br>'
+        } else if (typeof parentConfirmation.answers[i] === 'object') {
+          console.log('Design table')
         }
       }
     } else {
       console.log('Questions and answers not of equal size')
     }
-    setAlertSettings({...alertSettings, message: confirmationMessageArray})
-  })
+    confirmationMessageString = confirmationMessageString + '</div>'
+    // setAlertSettings(as => ({...as, message: confirmationMessageString}))
+    console.log(confirmationMessageString)
+    const jsx = <div dangerouslySetInnerHTML={{__html: confirmationMessageString}}></div>
+    setAlertSettings(a => ({...a, message: jsx}))
+  },[parentConfirmation])
+
+  // useEffect(() => {
+  //   let confirmationMessageString = ''
+  //   if (Object.keys(parentConfirmation.questions).length === Object.keys(parentConfirmation.answers).length) {
+  //     let objectLength = Object.keys(parentConfirmation.questions).length
+  //     for (let i = 0; i < objectLength; i++) {
+  //       confirmationMessageString = confirmationMessageString + parentConfirmation.questions[i]
+  //     }
+  //   } else {
+  //     console.log('Questions and answers not of equal size')
+  //   }
+  //   // setAlertSettings(as => ({...as, message: confirmationMessageString}))
+  //   console.log(confirmationMessageString)
+  //   setAlertSettings(a => ({...a, message: confirmationMessageString}))
+  // },[parentConfirmation])
+
 
   return (
     <div className='confirmation-container'>

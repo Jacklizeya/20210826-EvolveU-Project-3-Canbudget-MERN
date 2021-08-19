@@ -60,7 +60,7 @@ export default function Shelter() {
                         /> 
                     </div>
                 : null}
-                {userRentDetails !== null ?
+                {userRentDetails ?
                     <div> 
                         <BooleanRadioButtons 
                             sendDataToParent={(data) => {

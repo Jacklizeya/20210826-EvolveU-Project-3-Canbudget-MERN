@@ -40,6 +40,7 @@ export default function Subscriptions() {
                             questionPrompt={confirmationMessage.questions[1]}
                             enableSuggestions={'subscriptions'}
                             enableConfirmation={true}
+                            parentConfirmation={confirmationMessage}
                         />
                     </div>
                 : null}

@@ -20,7 +20,7 @@ export default function RecurringPaymentForm({
 
   const defaultRowProps = {
     name: '',
-    merhant: '',
+    merchant: '',
     amount: '',
     frequency: '',
     frequencyType: '',
