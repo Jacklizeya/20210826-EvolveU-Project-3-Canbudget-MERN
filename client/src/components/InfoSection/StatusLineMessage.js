@@ -52,7 +52,6 @@ const Greeting = () => {
         // RestoreMessage()
         // alert("Greeting useeffect")
         setGString(RestoreMessage());
-        console.log("message3")
 
     },[]);
 

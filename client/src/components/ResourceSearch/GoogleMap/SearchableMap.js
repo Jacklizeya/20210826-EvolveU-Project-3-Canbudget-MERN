@@ -40,17 +40,17 @@ export default function SearchableMap({data, userLocation}) {
     lng: 0
   })
 
-  const [mapZoom] = useState(11.5)
+  const [mapZoom] = useState(11)
 
   const [selectedMarker, setSelectedMarker] = useState(null)
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setMapCenter(data[0].geometry.location)
-  //   } else if (userLocation) {
-  //     setMapCenter(userLocation)
-  //   }
-  // }, [userLocation, data])
+  useEffect(() => {
+    if (data) {
+      setMapCenter(data[0].geometry.location)
+    } else if (userLocation) {
+      setMapCenter(userLocation)
+    }
+  }, [userLocation, data])
 
   // useEffect(() => {
 

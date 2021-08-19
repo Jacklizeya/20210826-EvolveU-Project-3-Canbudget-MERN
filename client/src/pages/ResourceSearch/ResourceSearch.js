@@ -28,13 +28,11 @@ export default function ResourceSearch() {
       }
     }
     if (runSearch) {
-      console.log('Running search')
       getUsers()
     }
   }, [apiUrl, runSearch])
 
   const data = useMemo(() => searchResults, [searchResults])
-  console.log(data)
 
   return (
     <div>
