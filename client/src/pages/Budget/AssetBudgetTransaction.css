@@ -101,3 +101,9 @@
   border: 1px solid #01345B;
   padding: 5px;
 }
+
+.budget-individual-chart {
+  width: 50%;
+  padding: 5px;
+  margin: 5px;
+}

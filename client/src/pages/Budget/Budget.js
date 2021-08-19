@@ -6,6 +6,7 @@ import {FaSortUp as SortUpIcon, FaSortDown as SortDownIcon} from "react-icons/fa
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 import BudgetDataForm from '../../components/AssetBudget/Budget/BudgetDataForm';
 import Line from '../../components/ApexCharts/Line';
+import RadialBar from '../../components/ApexCharts/RadialBar'
 
 import './AssetBudgetTransaction.css'
 
@@ -293,7 +294,14 @@ function Budget() {
                     </div> 
                 : null}
             </div> : null}
-            <Line parentData={expenseLineProps} />
+            <div className='transaction-chart-container'>
+                <div className='budget-individual-chart'>
+                    <Line parentData={expenseLineProps} />
+                </div>
+                <div className='budget-individual-chart'>
+                    <RadialBar />
+                </div>
+            </div>
             {formParams ? 
                 <BudgetDataForm
                     parentParams={formParams}
