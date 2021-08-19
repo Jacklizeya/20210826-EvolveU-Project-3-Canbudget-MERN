@@ -78,11 +78,18 @@ function Budget() {
         let categoryArray = []
         let lineChartDataObject = {
             labels: [],
-            series: [{
-                name: 'Cumulative Spending',
-                type: 'line',
-                data: []
-            }]
+            series: [
+                {
+                    name: 'Cumulative Spending',
+                    type: 'line',
+                    data: []
+                },
+                {
+                    name: 'Monthly Budget',
+                    type: 'line',
+                    data: []
+                }
+            ]
         }
         let monthBoundaries = {
             current: 1,
@@ -91,11 +98,15 @@ function Budget() {
         }
         while (monthBoundaries.current < monthBoundaries.end) {
             lineChartDataObject.labels.push(new Date(selectedMonth.slice(0,4), selectedMonth.slice(5,7)-1, monthBoundaries.current).getTime())
+            lineChartDataObject.series[1].data.push(budgetSum)
             for (let i in user.transaction) {
                 if (user.transaction[i].date.slice(0,7) === selectedMonth) {
                     let transactionDate = Number(user.transaction[i].date.slice(8,10))
                     if (transactionDate === monthBoundaries.current && user.transaction[i].amount < 0) {
-                        monthBoundaries.currentSum = monthBoundaries.currentSum + Math.round(user.transaction[i].amount * -1)
+                        let mainCategory = user.transaction[i].category.split(', ')[0]
+                        if (mainCategory !== 'Payment' && mainCategory !== 'Credit Card' && mainCategory !== 'Debit' && mainCategory !== 'Deposit'  && mainCategory !== 'Credit' && mainCategory !== 'Transfer')
+                            console.log(mainCategory)
+                            monthBoundaries.currentSum = monthBoundaries.currentSum + Math.round(user.transaction[i].amount * -1)
                     }
                 }
             }
@@ -125,8 +136,7 @@ function Budget() {
                 for (let k in categoryArray) {
                     if (categoryArray[k] === splitCategories[j] && user.transaction[i].date.slice(0,7) === selectedMonth) {
                         transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
-                        if (user.transaction[i].category !== 'Payment' && user.transaction[i].category !== 'Credit Card' && user.transaction[i].category !== 'Debit' && user.transaction[i].category !== 'Deposit'  && user.transaction[i].category !== 'Credit' && user.transaction[i].category !== 'Payment') {
-                            console.log(user.transaction[i].category, Math.round(Number(user.transaction[i].amount)))
+                        if (user.transaction[i].category !== 'Payment' && user.transaction[i].category !== 'Credit Card' && user.transaction[i].category !== 'Debit' && user.transaction[i].category !== 'Deposit'  && user.transaction[i].category !== 'Credit' && user.transaction[i].category !== 'Payment' && user.transaction[i].category !== 'Transfer') {
                             displaySum = displaySum + Math.round(Number(user.transaction[i].amount))
                         }
                     }
@@ -136,7 +146,7 @@ function Budget() {
         
         let tableDisplayArray = []
         for (let i in transactionObject) {
-            if (i !== 'Payment' && i !== 'Credit Card' && i !== 'Debit' && i !== 'Deposit'  && i !== 'Credit') {
+            if (i !== 'Payment' && i !== 'Credit Card' && i !== 'Debit' && i !== 'Deposit'  && i !== 'Credit' && i !== 'Transfer') {
                 tableDisplayArray.push({
                     amount: Math.round(transactionObject[i]),
                     name: i,
@@ -152,12 +162,15 @@ function Budget() {
         }
         setBudgetTableData(tableDisplayArray)
         setTableSum(displaySum)
-    }, [user, selectedMonth])
+    }, [user, selectedMonth, budgetSum])
 
     useEffect(() => {
         let totalBudget = 0
         for (let i in user.plaidCategories) {
-            totalBudget = totalBudget + Number(user.plaidCategories[i].limit)
+            totalBudget = totalBudget + Math.round(Number(user.plaidCategories[i].limit))
+        }
+        for (let i in user.cashFlow) {
+            totalBudget = totalBudget - Math.round(Number(user.cashFlow[i].amount))
         }
         setBudgetSum(totalBudget)
     }, [user])
