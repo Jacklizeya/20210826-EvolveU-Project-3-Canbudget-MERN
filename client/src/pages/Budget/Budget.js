@@ -96,6 +96,11 @@ function Budget() {
             end: 31,
             currentSum: 0
         }
+        for (let i in user.cashFlow) {
+            if (user.cashFlow[i].type === 'Recurring Payment') {
+                monthBoundaries.currentSum = monthBoundaries.currentSum + Number(user.cashFlow[i].amount * -1)
+            }
+        }
         while (monthBoundaries.current < monthBoundaries.end) {
             lineChartDataObject.labels.push(new Date(selectedMonth.slice(0,4), selectedMonth.slice(5,7)-1, monthBoundaries.current).getTime())
             lineChartDataObject.series[1].data.push(budgetSum)
@@ -133,11 +138,9 @@ function Budget() {
 
         for (let i in user.transaction) {
             let splitCategories = user.transaction[i].category.split(', ')
-            for (let j in splitCategories) {
-                for (let k in categoryArray) {
-                    if (categoryArray[k] === splitCategories[j] && user.transaction[i].date.slice(0,7) === selectedMonth) {
-                        transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
-                    }
+            for (let k in categoryArray) {
+                if (categoryArray[k] === splitCategories[splitCategories.length - 1] && user.transaction[i].date.slice(0,7) === selectedMonth) {
+                    transactionObject[categoryArray[k]] = transactionObject[categoryArray[k]] + user.transaction[i].amount
                 }
             }
         }

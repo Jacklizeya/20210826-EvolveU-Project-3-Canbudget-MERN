@@ -25,7 +25,7 @@ export default function RadialBar({budgetSum, transactionSum}) {
 
     useEffect(() => {
         if (budgetSum && transactionSum) {
-            let budgetPercentage = transactionSum / budgetSum * -100
+            let budgetPercentage = (transactionSum / budgetSum * -100).toFixed(1)
             if (budgetPercentage > 100) {
                 budgetPercentage = 100
             }
