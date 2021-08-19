@@ -4,7 +4,6 @@ import Chart from "react-apexcharts"
 // data is feed in here
 export default function TransactionChart({data}) {
 
-    console.log(data)
     const spendingRows = data.filter(row => row.values.amount < 0 && !row.values.category.includes("Transfer") && !row.values.category.includes("Payment"))
 
     let category = []

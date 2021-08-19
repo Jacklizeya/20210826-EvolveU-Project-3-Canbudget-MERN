@@ -30,6 +30,8 @@ export default function handleSankeyData(transactions, incomes) {
     }
   }
 
+  console.log(sankeyFirstNodeArray, sankeySecondNodeArray, sankeyThirdNodeArray)
+
   for (let i in sankeyIncomesArray) {
     sankeyDataArray.push(sankeyIncomesArray[i])
   }
@@ -46,7 +48,6 @@ export default function handleSankeyData(transactions, incomes) {
     sankeyDataArray.push(sankeyThirdNodeArray[i])
   }
   
-
   return sankeyDataArray
 }
 

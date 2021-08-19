@@ -8,6 +8,7 @@ import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, N
 import AuthenticationContext from '../auth/AuthenticationContext';
 
 const Navbar = () => {
+
     const loginContext = useContext(AuthenticationContext);
     let showLogin = !loginContext.isLogedIn();
     let showSignUp = !loginContext.isLogedIn() || loginContext.isAdmin();
@@ -67,11 +68,18 @@ const Navbar = () => {
                             {click ? <FaTimes /> : <FaBars />}
                         </MobileIcon>
                         <NavMenu onClick={handleClick} click={click}>
-                            <NavItem>
-                                <NavLinks to='' onClick={toggleHome} >
-                                    Home
-                                </NavLinks>
-                            </NavItem>
+                                {!loginContext.id ? 
+                                    <NavItem>
+                                        <NavLinks to='' onClick={toggleHome} >
+                                            Home
+                                        </NavLinks>
+                                    </NavItem> :
+                                    <NavItem>
+                                        <NavLinks to='/dashboard' onClick={toggleHome} >
+                                            Home
+                                        </NavLinks>
+                                    </NavItem>
+                                }
                             <NavItem>
                                 <NavLinks to='/#promotions' onClick={scrollTo('promotions')}>
                                     Promotions

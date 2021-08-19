@@ -58,3 +58,14 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.nav-link-button {
+    cursor: pointer;
+    padding: 10px 0px 10px 0px;
+    color: white;
+    background-color: #01345B;
+    border-radius: 20px;
+    font-weight: bold;
+    border: 2px solid #01345B;
+    margin: 10px;
+  }

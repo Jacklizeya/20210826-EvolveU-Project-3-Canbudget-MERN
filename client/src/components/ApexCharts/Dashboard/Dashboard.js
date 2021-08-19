@@ -1,4 +1,5 @@
 import React, {useEffect, useContext, useState} from 'react'
+import {NavLink} from 'react-router-dom'
 import AuthenticationContext from '../../auth/AuthenticationContext'
 import axios from 'axios'
 
@@ -113,6 +114,11 @@ export default function Dashboard() {
                         <RadialChart />
                     </div>
                 </div>
+                <NavLink to="/onboard">
+                    <button className='nav-link-button'>
+                        Go to Onboarding Wizard
+                    </button>
+                </NavLink>
             </div>
         : null 
     )
