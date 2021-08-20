@@ -4,7 +4,6 @@ import axios from "axios"
 import {Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
 import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "../components/AssetBudget/AssetModal"
 import AuthenticationContext from '../components/auth/AuthenticationContext';
 import Plaid from '../components/AssetBudget/AssetPlaid';
 import BudgetDataForm from '../components/AssetBudget/Budget/BudgetDataForm';
@@ -64,27 +63,6 @@ function Asset() {
     [sortIndicator]
     ) 
 
-    async function addNewBalanceSheet(event, id) {
-        let newBalanceSheet = {name: event.name.toLowerCase(), type: event.type, value: Number(event.amount), changeMonthToMonth: Number(event.changeMonthToMonth)}
-        console.log("newBalanceSheet", newBalanceSheet)
-        let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
-        if (data.ok) {
-            setAddStatus(data.ok)
-            setSortIndicator("")
-        }
-    }
-
-    // function editItem(event) {
-    //     let index = event.target.id
-    //     // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-    //     let dataToEdit = user.balanceSheet[index]
-    //     console.log(dataToEdit)
-    //     setName(dataToEdit.name)
-    //     setType(dataToEdit.type)
-    //     setValue(dataToEdit.value)
-    //     setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-    // }
-
     function sortArrayBy(event) {
         console.log("I want to sort by", event.target.id)
         setSortIndicator(event.target.id)
@@ -97,9 +75,7 @@ function Asset() {
                 else return null
                 }
             )
-        console.log(userCopy)
         setUser(userCopy)
-        console.log(user)
     }
 
 // right now only hook up one, wait until login is done 
@@ -146,7 +122,7 @@ function Asset() {
                                             </a>
                                         </td> 
                                         <td>
-                                            <button onClick={()=>{setNameToDelete(singleBalanceSheet.name); setDisplayModal(prev => !prev)}}>
+                                            <button onClick={() => deleteBalanceSheet(singleBalanceSheet.name, id)}>
                                                 <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
                                             </button> 
                                         </td>     
@@ -178,9 +154,29 @@ function Asset() {
                 <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
         }
-        
         </div>
     )
+
+    async function addNewBalanceSheet(event, id) {
+        let newBalanceSheet = {name: event.name.toLowerCase(), type: event.type, value: Number(event.amount), changeMonthToMonth: Number(event.changeMonthToMonth)}
+        console.log("newBalanceSheet", newBalanceSheet)
+        let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
+        if (data.ok) {
+            setAddStatus(data.ok)
+            setSortIndicator("")
+            setFormParams(null)
+        }
+    }
+
+    async function deleteBalanceSheet(itemName, id) {
+        let nameOfItemToRemove = itemName
+        console.log(nameOfItemToRemove)
+        let {data} = await axios.put(`/api/user/${id}/deletebalancesheet/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
+        if (data.ok) {
+            setDeleteStatus(data.ok)
+            setSortIndicator("")
+        }
+    }
 }
 
 export default Asset;
