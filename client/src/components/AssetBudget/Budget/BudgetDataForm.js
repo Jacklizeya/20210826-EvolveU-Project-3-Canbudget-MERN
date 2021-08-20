@@ -19,7 +19,7 @@ export default function BudgetDataForm({parentParams, sendDataToParent}) {
             amount: parentParams.amount,
             type: parentParams.type,
         })
-    })
+    },[parentParams])
 
   
     return (

@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
+// import '../RecurringPaymentForm/RecurringPaymentForm.css'
+
 export default function ConfirmationButton({parentConfirmation}) {
  
   const [alertSettings, setAlertSettings] = useState({
@@ -36,7 +38,8 @@ export default function ConfirmationButton({parentConfirmation}) {
         } else if (parentConfirmation.answers[i] === false) {
           confirmationMessageString = confirmationMessageString + 'No<br></br>'
         } else if (typeof parentConfirmation.answers[i] === 'object') {
-            confirmationMessageString = confirmationMessageString + '<table><tbody><tr className="table-title-row">'
+            console.log(parentConfirmation.answers[i])
+            confirmationMessageString = confirmationMessageString + '<table className="recurring-payment-form"><tbody className="recurring-payment-table-body"><tr className="recurring-payment-row">'
             for (let j in parentConfirmation.answers[i][0]) {
               confirmationMessageString = confirmationMessageString + '<th>' + j + '</th>'
             }
