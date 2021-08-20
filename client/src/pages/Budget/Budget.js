@@ -291,7 +291,7 @@ function Budget() {
                                             </td>
                                             <td> 
                                                 <a href="#form">
-                                                    <button id={index} onClick={(event) => {setFormParams(user.cashFlow[event.target.id])}}> 
+                                                    <button id={index} onClick={(event) => {setFormParams(singleCashFlow)}}> 
                                                         <EditLineIcon 
                                                             style={{"pointerEvents": 'none'}}>
                                                         </EditLineIcon>
