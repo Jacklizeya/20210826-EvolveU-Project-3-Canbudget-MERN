@@ -42,7 +42,7 @@ export default function Shelter() {
                 <BooleanRadioButtons
                     questionPrompt={confirmationMessage.questions[0]}
                     sendDataToParent={(data) => {
-                        data === 'true' ? setUserOwnsHome(true) : setUserOwnsHome(false)
+                        data === 'true' ? setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 0: true}}) : setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 0: false}})
                     }}
                 />
                 {userOwnsHome !== null ?
@@ -55,6 +55,7 @@ export default function Shelter() {
                             }
                             enableAddRows={false}
                             sendDataToParent={(data) => {
+                                setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 1: data}})
                                 setUserRentDetails(data[0])
                             }}
                         /> 
@@ -64,6 +65,7 @@ export default function Shelter() {
                     <div> 
                         <BooleanRadioButtons 
                             sendDataToParent={(data) => {
+                                setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 2: data}})
                                 data === 'true' ? setUserHasInsurance(true) : setUserHasInsurance(false)
                             }} 
                             questionPrompt={confirmationMessage.questions[2]}
@@ -77,6 +79,7 @@ export default function Shelter() {
                                 enableConfirmation={true}
                                 parentConfirmation={confirmationMessage}
                                 sendDataToParent={(data) => {
+                                    setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 3: data}})
                                     setUserInsuranceDetails(data[0])
                                 }}
                             /> : null

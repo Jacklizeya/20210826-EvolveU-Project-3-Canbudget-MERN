@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react'
 
 export default function BudgetDataForm({parentParams, sendDataToParent}) {
 
-    console.log(parentParams)
-
     const [formInput, setFormInput] = useState({
         name:'',
         type:'expense',
         amount: 0,
+        limit: 0,
         changeMonthToMonth: 0,
         startDate: '',
         endDate: ''
@@ -18,8 +17,9 @@ export default function BudgetDataForm({parentParams, sendDataToParent}) {
             name: parentParams.name,
             amount: parentParams.amount,
             type: parentParams.type,
+            limit: parentParams.limit
         })
-    })
+    },[parentParams])
 
   
     return (
@@ -44,6 +44,10 @@ export default function BudgetDataForm({parentParams, sendDataToParent}) {
             <label className='entry-info-form-row'>
                 Amount:&nbsp;
                 <input className ='budget-input' type="text" required value={formInput.amount} onChange={(event)=>{setFormInput({...formInput, amount: event.target.value})}}/>
+            </label>
+            <label className='entry-info-form-row'>
+                Monthly Limit:&nbsp;
+                <input className ='budget-input' type="text" required value={formInput.limit} onChange={(event)=>{setFormInput({...formInput, limit: event.target.value})}}/>
             </label>
             <label className='entry-info-form-row'>
                 Month to Month Change:&nbsp;
