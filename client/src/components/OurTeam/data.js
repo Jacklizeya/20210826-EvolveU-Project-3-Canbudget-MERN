@@ -1,6 +1,6 @@
 import member1 from '../../images/iryna.jpg';
 import member2 from '../../images/jack.png';
-import member3 from '../../images/invest.svg';
+import member3 from '../../images/vlad.jpg';
 import member4 from '../../images/brady.jpeg';
 
 export const memberData = [
