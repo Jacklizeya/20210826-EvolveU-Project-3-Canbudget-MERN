@@ -7,6 +7,7 @@ import {  FaSortUp, FaSortDown } from "react-icons/fa"
 import {Modal} from "../components/AssetBudget/AssetModal"
 import AuthenticationContext from '../components/auth/AuthenticationContext';
 import Plaid from '../components/AssetBudget/AssetPlaid';
+import BudgetDataForm from '../components/AssetBudget/Budget/BudgetDataForm';
 
 import './Budget/AssetBudgetTransaction.css'
 
@@ -17,11 +18,7 @@ function Asset() {
     // const [users, setUsers] = useState([])  
     const [user, setUser] = useState({})
     const [userBalanceSheet, setUserBalanceSheet] = useState([])
-
-    const [name, setName] = useState("")
-    const [type, setType] = useState("asset")
-    const [value, setValue] = useState(0)
-    const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
+    const [formParams, setFormParams] = useState(null)
 
     const [addstatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
@@ -68,30 +65,25 @@ function Asset() {
     ) 
 
     async function addNewBalanceSheet(event, id) {
-        event.preventDefault()
-        let newBalanceSheet = {name: name.toLowerCase(), type: type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
+        let newBalanceSheet = {name: event.name.toLowerCase(), type: event.type, value: Number(event.amount), changeMonthToMonth: Number(event.changeMonthToMonth)}
         console.log("newBalanceSheet", newBalanceSheet)
         let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
         if (data.ok) {
-            setName("")
-            setType("asset")
-            setValue(0)
-            setChangeMonthToMonth(0)
             setAddStatus(data.ok)
             setSortIndicator("")
         }
     }
 
-    function editItem(event) {
-    let index = event.target.id
-    // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-    let dataToEdit = user.balanceSheet[index]
-    console.log(dataToEdit)
-    setName(dataToEdit.name)
-    setType(dataToEdit.type)
-    setValue(dataToEdit.value)
-    setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-    }
+    // function editItem(event) {
+    //     let index = event.target.id
+    //     // Right now I am using users[0], eventually it will be just one user, so need to fix this later
+    //     let dataToEdit = user.balanceSheet[index]
+    //     console.log(dataToEdit)
+    //     setName(dataToEdit.name)
+    //     setType(dataToEdit.type)
+    //     setValue(dataToEdit.value)
+    //     setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
+    // }
 
     function sortArrayBy(event) {
         console.log("I want to sort by", event.target.id)
@@ -114,14 +106,6 @@ function Asset() {
     return (
         <div className='budget-container'>
         <h1 className='page-heading'>Balance Sheet</h1>
-        <Modal 
-            displayModal={displayModal} 
-            setDisplayModal={setDisplayModal} 
-            itemname={nameToDelete} 
-            userid={user._id} 
-            setDeleteStatus={setDeleteStatus} 
-            setSortIndicator={setSortIndicator}
-        ></Modal>
         {user.email  ? 
             <div className='budget-container' key={user.firstName + "Asset"}>
                 {userBalanceSheet? 
@@ -156,7 +140,7 @@ function Asset() {
                                         <td> {singleBalanceSheet.changeMonthToMonth} </td>    
                                         <td> 
                                             <a href="#form">
-                                                <button id={index} onClick={editItem} > 
+                                                <button id={index} onClick={() => setFormParams(singleBalanceSheet)} > 
                                                     <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
                                                 </button>
                                             </a>
@@ -184,32 +168,13 @@ function Asset() {
                         </table> 
                     </div>     
                 : null}
-                <form className='entry-info-form' onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
-                    <h3 className= 'entry-info-form-header'>Add New Item / Edit Existing Item</h3>
-                    <label className='entry-info-form-row'>
-                        Item Name:&nbsp;
-                        <input className='budget-input' type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Type:&nbsp;
-                        <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
-                            <option value="asset">Asset</option>
-                            <option value="liability">liability</option>
-                        </select>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Value:&nbsp;
-                        <input className='budget-input' type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Month to Month Change:&nbsp;
-                        <input className ='budget-input' type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}}/>
-                    </label>
-                    <button className='entry-info-form-button' type="submit">Submit</button>  
-                </form>
-                {/* <StockButton onClick={()=>{history.push('/stocks')}}>
-                    Stocks
-                </StockButton> */}
+                <button className='recurring-payment-button' onClick={() => setFormParams('add-asset')}>Add New Item</button>
+                {formParams ?
+                    <BudgetDataForm
+                        parentParams={formParams}
+                        sendDataToParent={(data) => {addNewBalanceSheet(data, id)}}
+                    />
+                : null}
                 <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
         }

@@ -9,8 +9,6 @@ import Line from '../../components/ApexCharts/Line';
 import RadialBar from '../../components/ApexCharts/RadialBar'
 
 import './AssetBudgetTransaction.css'
-// import PlaidCategories from '../../components/AssetBudget/Budget/PlaidCategories';
-
 
 function Budget() {
 
