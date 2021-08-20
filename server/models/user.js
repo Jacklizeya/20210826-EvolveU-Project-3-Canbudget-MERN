@@ -191,5 +191,6 @@ module.exports = {
     removeCashFlow,
     addBalanceSheet,
     removeBalanceSheet,
-    addTransaction
+    addTransaction,
+    addCashFlow
 }

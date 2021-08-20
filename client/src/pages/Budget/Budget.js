@@ -340,13 +340,33 @@ function Budget() {
             {formParams ? 
                 <BudgetDataForm
                     parentParams={formParams}
-                    sendDataToParent={(data) => {console.log(data)}}
+                    sendDataToParent={(data) => {editCashFlow(data, id)}}
                 />
             : null}
             {/* <PlaidCategories parentUser={user}/> */}
         </div>
         
     )
+
+    async function editCashFlow(event, id) {
+        let newCashFlow = {
+            name: event.name ? event.name.toLowerCase() : event.name, 
+            type: event.type ? event.type.toLowerCase() : event.type, 
+            amount: Number(event.amount),
+            limit: Number(event.limit), 
+            changeMonthToMonth : Number(event.changeMonthToMonth), 
+            startDate: event.startDate, 
+            endDate: event.endDate
+        }
+        let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
+        console.log(data)
+        if (data.ok) {
+            setFormParams(null)
+            setAddStatus(data.ok)
+            setSortParams({...sortParams, indicator: ""})
+        }
+    }
 }
+
 
 export default Budget;
