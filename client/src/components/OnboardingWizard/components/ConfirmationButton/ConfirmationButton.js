@@ -36,7 +36,18 @@ export default function ConfirmationButton({parentConfirmation}) {
         } else if (parentConfirmation.answers[i] === false) {
           confirmationMessageString = confirmationMessageString + 'No<br></br>'
         } else if (typeof parentConfirmation.answers[i] === 'object') {
-          console.log('Design table')
+            confirmationMessageString = confirmationMessageString + '<table><tbody><tr className="table-title-row">'
+            for (let j in parentConfirmation.answers[i][0]) {
+              confirmationMessageString = confirmationMessageString + '<th>' + j + '</th>'
+            }
+            for (let k in parentConfirmation.answers[i]) {
+              confirmationMessageString = confirmationMessageString + '<tr>'
+              for (let j in parentConfirmation.answers[i][k]) {
+                confirmationMessageString = confirmationMessageString + '<td>' + parentConfirmation.answers[i][k][j] + '</td>'
+              }
+            }
+            confirmationMessageString = confirmationMessageString + '</tr>'
+              + '</tbody></table>'
         }
       }
     } else {
