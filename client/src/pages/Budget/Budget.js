@@ -320,6 +320,7 @@ function Budget() {
                                 : null}         
                             </table>    
                         </div>
+                        <button className='recurring-payment-button' onClick={() => setFormParams('add')}>Add New Item</button>
                     </div> 
                 : null}
             </div> : null}

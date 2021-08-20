@@ -13,12 +13,14 @@ export default function BudgetDataForm({parentParams, sendDataToParent}) {
     })
 
     useEffect(() => {
-        setFormInput({...formInput, 
-            name: parentParams.name,
-            amount: parentParams.amount,
-            type: parentParams.type,
-            limit: parentParams.limit
-        })
+        if (parentParams !== 'add') {
+            setFormInput({...formInput, 
+                name: parentParams.name,
+                amount: parentParams.amount,
+                type: parentParams.type,
+                limit: parentParams.limit
+            })
+        }
     },[parentParams])
 
   
@@ -26,8 +28,9 @@ export default function BudgetDataForm({parentParams, sendDataToParent}) {
         <form className='entry-info-form'>
             <h3 className= 'entry-info-form-header'>
                 {typeof parentParams === 'object' ?
-                    'Edit Item'
-                : null}
+                    'Edit Item' :
+                    'Add Item'
+                }
                 </h3>
             <label className='entry-info-form-row'>
                 Item Name:&nbsp;
