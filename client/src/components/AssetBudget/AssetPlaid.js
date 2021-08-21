@@ -1,5 +1,5 @@
 import React , { useEffect, useState, useCallback } from 'react'
-import { PlaidButton, Descriptiondiv, SubmitButton, Tablediv, FormDiv, Numbertd} from './assetAndBudget.elements'
+import { PlaidButton, SubmitButton, Tablediv, FormDiv, Numbertd} from './assetAndBudget.elements'
 import { usePlaidLink } from 'react-plaid-link';
 import axios from "axios"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
@@ -23,7 +23,6 @@ export default function Plaid({id, setAddStatus}) {
 
     return (
         <div>
-            <Descriptiondiv> Import Asset from your financial Institution  directly </Descriptiondiv>
             {linkToken != null ? 
               <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
         </div>

@@ -53,18 +53,24 @@ export default function BudgetDataForm({parentParams, sendDataToParent}) {
             </label>
             <label className='entry-info-form-row'>
                 Type:&nbsp;
-                <select className='budget-input' value={formInput.type} required onChange={(event)=>{setFormInput({...formInput, type: event.target.value})}}>
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
-                    <option value="recurring-payment">Recurring Payment</option>
-                </select>
+                {parentParams === 'add' || parentParams.amount !== undefined ?
+                    <select className='budget-input' value={formInput.type} required onChange={(event)=>{setFormInput({...formInput, type: event.target.value})}}>
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                        <option value="recurring-payment">Recurring Payment</option>
+                    </select> :
+                    <select className='budget-input' value={formInput.type} required onChange={(event)=>{setFormInput({...formInput, type: event.target.value})}}>
+                        <option value="asset">Asset</option>
+                        <option value="liability">Liability</option>
+                    </select>
+                }
             </label>
             <label className='entry-info-form-row'>
                 Amount:&nbsp;
                 <input className ='budget-input' type="text" required value={formInput.amount} onChange={(event)=>{setFormInput({...formInput, amount: event.target.value})}}/>
             </label>
             {parentParams !== 'add-asset' && parentParams.type !== 'income' && parentParams.type !== 'expense' ?
-                <div>
+                <div className='entry-info-form-div'>
                     <label className='entry-info-form-row'>
                         Monthly Limit:&nbsp;
                         <input className ='budget-input' type="text" required value={formInput.limit} onChange={(event)=>{setFormInput({...formInput, limit: event.target.value})}}/>

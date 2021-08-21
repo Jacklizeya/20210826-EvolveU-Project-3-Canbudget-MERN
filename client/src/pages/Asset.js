@@ -1,13 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
-// import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
-import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
-import {  FaSortUp, FaSortDown } from "react-icons/fa"
+import {RiEditLine as EditLineIcon, RiDeleteBin6Line as DeleteLineIcon} from 'react-icons/ri';
+import {FaSortUp as SortUpIcon, FaSortDown as SortDownIcon} from "react-icons/fa"
 import AuthenticationContext from '../components/auth/AuthenticationContext';
 import Plaid from '../components/AssetBudget/AssetPlaid';
 import BudgetDataForm from '../components/AssetBudget/Budget/BudgetDataForm';
-
 import './Budget/AssetBudgetTransaction.css'
 
 function Asset() {
@@ -26,16 +24,12 @@ function Asset() {
     const [nameOpacity, setNameOpacity] = useState(0.5)
     const [typeOpacity, setTypeOpacity] = useState(0.5)
     const [valueOpacity, setValueOpacity] = useState(0.5)
+
     //  This is the sort Indication    
     const [sortIndicator, setSortIndicator] = useState("")
     const [sortDirectionName, setSortDirectionName] = useState(1)
     const [sortDirectionType, setSortDirectionType] = useState(1)
     const [sortDirectionValue, setSortDirectionValue] = useState(1)
- // This is for Modal
-    const [nameToDelete, setNameToDelete] = useState("")
-    const [displayModal, setDisplayModal] = useState(false)
-
-    // let history = useHistory()
 
     useEffect(() => {
         async function getUsers() {
@@ -91,15 +85,15 @@ function Asset() {
                                 <tr className='table-title-row'>
                                     <th id="name" onClick={event => sortArrayBy(event)}> 
                                         Item Name 
-                                        {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
+                                        {sortDirectionName > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </SortDownIcon> }
                                     </th>
                                     <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}> 
                                         Type 
-                                        {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
+                                        {sortDirectionType > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </SortDownIcon> }
                                     </th>
                                     <th id="value" onClick={event => sortArrayBy(event)}> 
                                         Value 
-                                        {sortDirectionValue > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortDown> }
+                                        {sortDirectionValue > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </SortDownIcon> }
                                     </th>
                                     <th>Month to Month Change</th>
                                     <th>Edit</th>
@@ -117,13 +111,13 @@ function Asset() {
                                         <td> 
                                             <a href="#form">
                                                 <button id={index} onClick={() => setFormParams(singleBalanceSheet)} > 
-                                                    <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
+                                                    <EditLineIcon style={{"pointerEvents": 'none'}}></EditLineIcon>
                                                 </button>
                                             </a>
                                         </td> 
                                         <td>
                                             <button onClick={() => deleteBalanceSheet(singleBalanceSheet.name, id)}>
-                                                <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
+                                                <DeleteLineIcon style={{"pointerEvents": 'none'}}></DeleteLineIcon>
                                             </button> 
                                         </td>     
                                     </tr>
@@ -144,14 +138,16 @@ function Asset() {
                         </table> 
                     </div>     
                 : null}
-                <button className='recurring-payment-button' onClick={() => setFormParams('add-asset')}>Add New Item</button>
+                <div className='form-div'>
+                    <button className='recurring-payment-button' onClick={() => setFormParams('add-asset')}>Add New Item</button>
+                    <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
+                </div>
                 {formParams ?
                     <BudgetDataForm
                         parentParams={formParams}
                         sendDataToParent={(data) => {addNewBalanceSheet(data, id)}}
                     />
                 : null}
-                <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             </div> : ""
         }
         </div>
