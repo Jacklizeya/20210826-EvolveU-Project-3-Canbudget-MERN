@@ -95,7 +95,6 @@ function Asset() {
                                         Value 
                                         {sortDirectionValue > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </SortDownIcon> }
                                     </th>
-                                    <th>Month to Month Change</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -106,8 +105,7 @@ function Asset() {
                                     <tr key={singleBalanceSheet.name}>
                                         <td> {singleBalanceSheet.name.charAt(0).toUpperCase() + singleBalanceSheet.name.slice(1)} </td>
                                         <td> {singleBalanceSheet.type} </td>
-                                        <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>
-                                        <td> {singleBalanceSheet.changeMonthToMonth} </td>    
+                                        <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>  
                                         <td> 
                                             <a href="#form">
                                                 <button id={index} onClick={() => setFormParams(singleBalanceSheet)} > 
@@ -130,7 +128,6 @@ function Asset() {
                                     <td value = {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100}>
                                         {Math.round(user.balanceSheet.reduce((a , b)=> {return a + b.value}, 0) * 100) / 100}
                                     </td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
