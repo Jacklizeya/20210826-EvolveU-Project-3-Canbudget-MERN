@@ -7,26 +7,45 @@ import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRa
 export default function OtherAssets() {
 
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
-    const [userHasOtherAssets, setUserHasOtherAssets] = useState(null)
-    const [userAssetDetailsEntered, setUserAssetDetailsEntered] = useState(false)
-
+    const [confirmationMessage, setConfirmationMessage] = useState({
+        questions: {
+            0: 'Do you have any other large assets you would like to track?',
+            1: 'Tell us about your assets:'
+        },
+        answers: {}
+    })
     return (
         <div className='onboard-container'>
             <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Other Assets</h2>
             {displayOnboardBody ? <div>
                 <BooleanRadioButtons
-                    questionPrompt='Do you have any other large assets you would like to track?'
+                    questionPrompt={confirmationMessage.questions[0]}
                     sendDataToParent={(data) => {
-                        data === 'true' ? setUserHasOtherAssets(true) : setUserHasOtherAssets(false)
+                        setConfirmationMessage({
+                            ...confirmationMessage,
+                            answers: {
+                              ...confirmationMessage.answers,
+                              0: data === 'true' ? true : false
+                            }
+                        })
                     }} 
                 />
-                {userHasOtherAssets === true ? 
+                {confirmationMessage.answers[0] === true ? 
                     <div>
                         <RecurringPaymentForm 
-                            questionPrompt='Tell us about your assets:'
+                            questionPrompt={confirmationMessage.questions[1]}
                             enableAssetsOnly={true}
                             enableConfirmation={true}
-                            sendDataToParent={() => setUserAssetDetailsEntered(true)} 
+                            parentConfirmation={confirmationMessage}
+                            sendDataToParent={(data) => {
+                                setConfirmationMessage({
+                                    ...confirmationMessage,
+                                    answers: {
+                                      ...confirmationMessage.answers,
+                                      1: data
+                                    }
+                                })
+                            }} 
                         />
                     </div>
                 : null}
