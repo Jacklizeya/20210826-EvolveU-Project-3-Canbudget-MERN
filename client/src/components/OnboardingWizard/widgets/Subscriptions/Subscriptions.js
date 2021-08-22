@@ -17,7 +17,7 @@ export default function Subscriptions() {
     })
 
     useEffect(() => {
-        setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 0: userHasSubscriptions}})
+        setConfirmationMessage(c => ({...c, answers: {...c.answers, 0: userHasSubscriptions}}))
     },[userHasSubscriptions])
 
     return (
