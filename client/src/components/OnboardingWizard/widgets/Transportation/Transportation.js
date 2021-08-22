@@ -92,7 +92,7 @@ export default function Transportation() {
                         ...confirmationMessage, 
                         answers: {
                           ...confirmationMessage.answers,
-                          4: data === 'true' ? true : false
+                          4: data
                         }
                       })
                     }}
@@ -119,6 +119,9 @@ export default function Transportation() {
         {confirmationMessage.answers[5] ?
           <RecurringPaymentForm
             questionPrompt={confirmationMessage.questions[6]}
+            enableAddRows={true}
+            enableConfirmation={true}
+            parentConfirmation={confirmationMessage}
             sendDataToParent={(data) => {
               console.log(data)
               setConfirmationMessage({
@@ -129,9 +132,6 @@ export default function Transportation() {
                 }
               })
             }}
-            enableAddRows={true}
-            enableConfirmation={true}
-            parentConfirmation={confirmationMessage}
           />
         : null}
       </div> : null}
