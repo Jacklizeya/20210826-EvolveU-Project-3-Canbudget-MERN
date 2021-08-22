@@ -7,12 +7,13 @@ import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRa
 export default function CreditCardBills() {
 
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
-    const [userHasBills, setUserHasBills] = useState(null)
-    const [userBillDetails, setUserBillDetails] = useState(null)
-    const [confirmationMessage, setConfirmationMessage] = useState([
-        {q: 'Do you have any credit cards?', a: userHasBills},
-        {q: 'Tell us about your credit cards:', a: userBillDetails}
-    ])
+    const [confirmationMessage, setConfirmationMessage] = useState({
+        questions: {
+            0: 'Do you have any credit cards?',
+            1: 'Tell us about your credit cards:'
+        },
+        answers: {}
+    })
 
     return (
         <div className='onboard-container'>
@@ -20,16 +21,33 @@ export default function CreditCardBills() {
             {displayOnboardBody ? <div>
                 <p className='onboard-heading-body'>Let's set some reminders for your credit card bills</p>
                 <BooleanRadioButtons
-                    questionPrompt='Do you have any credit cards?' 
-                    sendDataToParent={(data) => data === 'true' ? setUserHasBills(true) : setUserHasBills(false)} 
+                    questionPrompt={confirmationMessage.questions[0]}
+                    sendDataToParent={(data) => {
+                        setConfirmationMessage({
+                            ...confirmationMessage,
+                            answers: {
+                                ...confirmationMessage.answers,
+                                0: data === 'true' ? true : false
+                            }
+                        })
+                    }} 
                 />
-                {userHasBills === true ? 
+                {confirmationMessage.answers[0] === true ? 
                     <div>
                         <RecurringPaymentForm
-                            questionPrompt='Tell us about your credit cards:'
+                            questionPrompt={confirmationMessage.questions[1]}
                             enableCompany={true} 
                             enableConfirmation={true}
-                            sendDataToParent={(data) => setUserBillDetails(data)} 
+                            parentConfirmation={confirmationMessage}
+                            sendDataToParent={(data) => {
+                                setConfirmationMessage({
+                                    ...confirmationMessage,
+                                    answers: {
+                                        ...confirmationMessage.answers,
+                                        1: data
+                                    }
+                                })
+                            }} 
                         />
                     </div>
                 : null}
