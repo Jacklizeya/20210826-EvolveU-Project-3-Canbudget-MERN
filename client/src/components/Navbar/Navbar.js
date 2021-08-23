@@ -144,17 +144,6 @@ const Navbar = () => {
                                 </NavItem>
                             }
 
-                                {/* //Dropdown menu  */}
-                            <NavItem onMouseEnter={onMouseEnter}
-                                    onMouseLeave={onMouseLeave}>
-                     
-                                <NavDropDownLink onClick={closeMobileMenu}>
-                                Services<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
-                                {dropdown && <Dropdown />}
-                                </NavDropDownLink>
-                        
-                            </NavItem> 
-
                             {/* <NavItem>
                                 <NavLinks to='/#our-team' onClick={scrollTo('our-team')}>
                                     Our Team
