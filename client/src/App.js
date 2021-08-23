@@ -1,25 +1,27 @@
 import React, { useContext } from 'react';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
+
 import { Navbar, Footer } from './components';
 import Home from './pages/HomePage/Home';
 import Budget from './pages/Budget/Budget';
 import Asset from './pages/Asset';
 import Stocks from './components/Stocks/Stocks';
 import Transactions from './pages/Transactions';
+import ApexCharts from './pages/ApexCharts';
+import ResourceSearch from './pages/ResourceSearch/ResourceSearch';
+import Dashboard from './pages/Dashboard/Dashboard';
+import OnboardingWizard from './components/OnboardingWizard/OnboardingWizard';
 // import OurTeam from './pages/OurTeam';
+
 import SignUp from './components/auth/SignUp';
 import ModifyClientPage from './components/auth/ModifyClientPage';
 import Login from './components/auth/Login';
 import Logout from './components/auth/Logout';
 import NotFound from './pages/NotFound';
 import Settings from './components/auth/Settings';
-import ApexCharts from './pages/ApexCharts';
-import ResourceSearch from './pages/ResourceSearch/ResourceSearch';
 import AuthenticationContext from './components/auth/AuthenticationContext';
 import AuthenticationProvider from './components/auth/AuthenticationProvider';
-import Dashboard from './components/ApexCharts/Dashboard/Dashboard';
-import OnboardingWizard from './components/OnboardingWizard/OnboardingWizard';
 
 function App() {
   return (

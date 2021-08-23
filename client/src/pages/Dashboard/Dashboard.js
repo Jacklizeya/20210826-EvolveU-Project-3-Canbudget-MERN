@@ -1,18 +1,18 @@
 import React, {useEffect, useContext, useState} from 'react'
 import {NavLink} from 'react-router-dom'
-import AuthenticationContext from '../../auth/AuthenticationContext'
+import AuthenticationContext from '../../components/auth/AuthenticationContext'
 import axios from 'axios'
 
-import Donut from '../Donut'
-import Line from '../Line'
-import RadialChart from '../RadialBar'
+import Donut from '../../components/ApexCharts/Donut'
+import Line from '../../components/ApexCharts/Line'
+import RadialChart from '../../components/ApexCharts/RadialBar'
 
-import DashboardTable from './DashboardTable'
+import DashboardTable from '../../components/Dashboard/DashboardTable'
 
-import SubscriptionTable from './SubscriptionsTable/SubscriptionTable'
+import SubscriptionTable from '../../components/Dashboard/SubscriptionsTable/SubscriptionTable'
 
-import StocksWidget from './StocksWidget/StocksWidget'
-import portfolioWorthData from '../data/portfolioWorthData'
+import StocksWidget from '../../components/Dashboard/StocksWidget/StocksWidget'
+import portfolioWorthData from '../../components/ApexCharts/data/portfolioWorthData'
 
 import './Dashboard.css'
 
