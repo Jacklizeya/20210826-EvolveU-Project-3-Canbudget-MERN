@@ -23,12 +23,12 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true
 }
-const googleApiKey = process.env.GOOGLE_API_KEY
 
 export default function SearchableMap({data, userLocation}) {
   
+  console.log(process.env.GOOGLE_API_KEY)
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: googleApiKey,
+    googleMapsApiKey: 'AIzaSyB-mAQ8YcRdqcZ_GbFyJVm-wjeMlWlC-wA',
     libraries
   })
 
