@@ -109,7 +109,7 @@ export default function Plaid({id, setAddStatus}) {
     return (
       <div> 
         <PlaidButton onClick={() => {setTransactionData([]); setPlaidStatusReady(""); open()}} disabled={!ready}>
-        Import transactions from your financial institution
+          Import transactions from your financial institution
         </PlaidButton>
 
         {plaidStatusReady? (plaidStatusReady === "INITIAL_UPDATE"? 
