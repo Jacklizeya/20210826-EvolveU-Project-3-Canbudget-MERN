@@ -30,7 +30,7 @@ export default function OnboardingWizard() {
             <div className='onboard-container'>
                 <h1 className='onboard-heading'>Welcome to CanBudget!</h1>
                 <p className='onboard-heading-body'>We are here to help you start planning your financial future.</p>
-                <div>
+                <div className='onboard-button-container'>
                     <TransactionPlaid id= {id} setAddStatus = {setAddStatus} > </TransactionPlaid>
                     <CSV id= {id} setAddStatus = {setAddStatus} > </CSV>
                     <AssetPlaid id= {id} setAddStatus = {setAddStatus} > </AssetPlaid>

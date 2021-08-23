@@ -36,3 +36,7 @@
 .onboard-heading.widget {
     cursor: pointer;
 }
+
+.onboard-button-container {
+    display: flex;
+}
