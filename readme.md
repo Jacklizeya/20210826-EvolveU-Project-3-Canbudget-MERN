@@ -6,12 +6,12 @@
 
   This application was created in a project based learning environment for the EvolveU Full Stack Development Program - Cohort 6.
   
-  ##### CanBudget was created by the following developers:
-    - Brady Walker-Brock (https://github.com/bwbcode)
-    - Jack Zeya Li (https://github.com/Jacklizeya)
-    - Iryna Tarasenko (https://github.com/Irynatar)
-    - Vladimir Zhukov (https://github.com/vzhukovtnv)
-
+##### CanBudget was created by the following developers:
+  
+  ###### Brady Walker-Brock (https://github.com/bwbcode)
+  ###### Jack Zeya Li (https://github.com/Jacklizeya)
+  ###### Iryna Tarasenko (https://github.com/Irynatar)
+  ###### Vladimir Zhukov (https://github.com/vzhukovtnv)
 
   CanBudget is live! Visit us at: https://canbudget.herokuapp.com/
 
