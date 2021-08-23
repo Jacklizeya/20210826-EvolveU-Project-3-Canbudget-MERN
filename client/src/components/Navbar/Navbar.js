@@ -91,16 +91,6 @@ const Navbar = () => {
                                 }
 
 
-                                {/* //Dropdown menu  */}
-                            <NavItem onMouseEnter={onMouseEnter}
-                                    onMouseLeave={onMouseLeave}>
-                     
-                                <NavDropDownLink onClick={closeMobileMenu}>
-                                Services<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
-                                {dropdown && <Dropdown />}
-                                </NavDropDownLink>
-                        
-                            </NavItem> 
 
 
 
@@ -116,6 +106,13 @@ const Navbar = () => {
                             </NavItem> */}
                             {showPrivate &&
                                 <NavItem>
+                                    <NavLinks to='/asset'>
+                                        Asset
+                                    </NavLinks>
+                                </NavItem>
+                            }
+                            {showPrivate &&
+                                <NavItem>
                                     <NavLinks to='/budget'>
                                         Budget
                                     </NavLinks>
@@ -128,13 +125,6 @@ const Navbar = () => {
                                     </NavLinks>
                                 </NavItem>
                             }
-                            {showPrivate &&
-                                <NavItem>
-                                    <NavLinks to='/asset'>
-                                        Asset
-                                    </NavLinks>
-                                </NavItem>
-                            }
                             
                             {showPrivate &&
                                 <NavItem>
@@ -143,6 +133,17 @@ const Navbar = () => {
                                     </NavLinks>
                                 </NavItem>
                             }
+
+                                {/* //Dropdown menu  */}
+                            <NavItem onMouseEnter={onMouseEnter}
+                                    onMouseLeave={onMouseLeave}>
+                     
+                                <NavDropDownLink onClick={closeMobileMenu}>
+                                Services<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
+                                {dropdown && <Dropdown />}
+                                </NavDropDownLink>
+                        
+                            </NavItem> 
 
                             {/* <NavItem>
                                 <NavLinks to='/#our-team' onClick={scrollTo('our-team')}>
@@ -202,7 +203,7 @@ const Navbar = () => {
                                 <NavItemBtn>
                                     {button ? (
                                         <NavBtnLink to='/modifyclient'>
-                                            <Button primary>Personal information</Button>
+                                            <Button primary>Account</Button>
                                         </NavBtnLink>
                                     ) : (
                                         <NavBtnLink to='/modifyclient'>
