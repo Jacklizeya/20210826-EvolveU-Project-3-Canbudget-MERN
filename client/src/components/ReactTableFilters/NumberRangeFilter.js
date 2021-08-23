@@ -16,9 +16,9 @@ export default function NumberRangeFilter({column: { filterValue = [], preFilter
     // console.log("NumberFilter", filterValue)
   
   return (
-    <div>
+    <div className='transaction-filter-container'>
       <input
-        className='recurring-payment-field'
+        className='recurring-payment-field transactions'
         value={filterValue[0] || ''}
         type="number"
         onChange={e => {
@@ -29,7 +29,7 @@ export default function NumberRangeFilter({column: { filterValue = [], preFilter
       />
       &nbsp;to&nbsp;
       <input
-        className='recurring-payment-field'
+        className='recurring-payment-field transactions'
         value={filterValue[1] || ''}
         type="number"
         onChange={e => {

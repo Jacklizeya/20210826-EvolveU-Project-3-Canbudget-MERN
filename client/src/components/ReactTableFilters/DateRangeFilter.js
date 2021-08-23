@@ -19,9 +19,9 @@ export default function DateRangeColumnFilter({ column: { filterValue = [], preF
     // console.log("after push", filterValue)
 
     return (
-        <div>
+        <div className='transaction-filter-container'>
             <input
-                className='recurring-payment-field'
+                className='recurring-payment-field date'
                 value={filterValue[0] || ""}
                 type="date"
                 min={min}
@@ -35,7 +35,7 @@ export default function DateRangeColumnFilter({ column: { filterValue = [], preF
             />
             &nbsp;to&nbsp;
             <input
-                className='recurring-payment-field'
+                className='recurring-payment-field date'
                 value={filterValue[1] || ""}
                 type="date"
                 max={max}

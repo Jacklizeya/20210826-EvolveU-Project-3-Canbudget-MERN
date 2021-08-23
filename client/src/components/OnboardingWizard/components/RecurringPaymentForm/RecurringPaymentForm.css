@@ -85,5 +85,15 @@
 }
 
 .recurring-payment-field.transactions {
-  width: fit-content;
+  width: 90px;
+}
+
+.recurring-payment-field.date {
+  width: 135px;
+}
+
+.transaction-filter-container {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: center;
 }

@@ -7,7 +7,7 @@ export default function ColumnFilter( {column} ) {
         <div>
             Search: {" "}
             <input
-                className='recurring-payment-field transactions'
+                className='recurring-payment-field'
                 value={filterValue || ""} 
                 onChange={e => setFilter(e.target.value)} 
             />
