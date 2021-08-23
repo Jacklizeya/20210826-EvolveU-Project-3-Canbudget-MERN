@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
-import { animateScroll as scroll, scroller } from 'react-scroll';
-import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtnLink } from './Navbar.elements';
+import { animateScroll as scroll } from 'react-scroll';
+import Dropdown from '../Dropdown/Dropdown';
+import { Nav, NavbarContainer, NavLogo, NavIcon, MobileIcon, NavMenu, NavItem, NavLinks, NavItemBtn, NavBtnLink, NavDropDownLink } from './Navbar.elements';
 
 import AuthenticationContext from '../auth/AuthenticationContext';
 
@@ -17,6 +19,7 @@ const Navbar = () => {
 
     const [click, setClick] = useState(false);
     const [button, setButton] = useState(true);
+    const [dropdown, setDropdown] = useState(false);
 
 
     const showButton = () => {
@@ -41,18 +44,24 @@ const Navbar = () => {
         scroll.scrollToTop();
     };
 
-    const scrollTo = (targetEl) => {
 
-        return () => {
 
-            scroller.scrollTo(targetEl, {
-                duration: 800,
-                delay: 0,
-                smooth: "easeInOutQuart",
-                offset: -80
-            });
+    //dropdown
+    const onMouseEnter = () => {
+        if (window.innerWidth < 960) {
+          setDropdown(false);
+        } else {
+          setDropdown(true);
         }
-    };
+      };
+    
+      const onMouseLeave = () => {
+        if (window.innerWidth < 960) {
+          setDropdown(false);
+        } else {
+          setDropdown(false);
+        }
+      };
 
 
     return (
@@ -80,7 +89,22 @@ const Navbar = () => {
                                         </NavLinks>
                                     </NavItem>
                                 }
-                            <NavItem>
+
+
+                                {/* //Dropdown menu  */}
+                            <NavItem onMouseEnter={onMouseEnter}
+                                    onMouseLeave={onMouseLeave}>
+                     
+                                <NavDropDownLink onClick={closeMobileMenu}>
+                                Services<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
+                                {dropdown && <Dropdown />}
+                                </NavDropDownLink>
+                        
+                            </NavItem> 
+
+
+
+                            {/* <NavItem>
                                 <NavLinks to='/#promotions' onClick={scrollTo('promotions')}>
                                     Promotions
                                 </NavLinks>
@@ -89,7 +113,7 @@ const Navbar = () => {
                                 <NavLinks to='/resources'>
                                     Resources
                                 </NavLinks>
-                            </NavItem>
+                            </NavItem> */}
                             {showPrivate &&
                                 <NavItem>
                                     <NavLinks to='/budget'>
@@ -120,11 +144,11 @@ const Navbar = () => {
                                 </NavItem>
                             }
 
-                            <NavItem>
+                            {/* <NavItem>
                                 <NavLinks to='/#our-team' onClick={scrollTo('our-team')}>
                                     Our Team
                                 </NavLinks>
-                            </NavItem>
+                            </NavItem> */}
 
                             {isAdmin &&
                                 <NavItem>
