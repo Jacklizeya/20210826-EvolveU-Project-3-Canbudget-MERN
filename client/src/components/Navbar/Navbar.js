@@ -91,6 +91,16 @@ const Navbar = () => {
                                 }
 
 
+                                {/* //Dropdown menu  */}
+                            <NavItem onMouseEnter={onMouseEnter}
+                                    onMouseLeave={onMouseLeave}>
+                     
+                                <NavDropDownLink onClick={closeMobileMenu}>
+                                Information<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
+                                {dropdown && <Dropdown />}
+                                </NavDropDownLink>
+                        
+                            </NavItem> 
 
 
 
