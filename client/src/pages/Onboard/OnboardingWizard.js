@@ -19,8 +19,8 @@ export default function OnboardingWizard() {
             <div className='onboard-container'>
                 <h1 className='onboard-heading'>Welcome to CanBudget!</h1>
                 <p className='onboard-heading-body'>We are here to help you start planning your financial future.</p>
+                {/* Put buttons here */}
             </div>
-            {/* Put buttons here */}
             <Shelter />
             <Transportation />
             <Subscriptions />
