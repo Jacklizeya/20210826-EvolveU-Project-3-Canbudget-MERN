@@ -1,13 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-// import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {Numbertd} from "../components/AssetBudget/assetAndBudget.elements"
-import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
-import {  FaSortUp, FaSortDown } from "react-icons/fa"
-import {Modal} from "../components/AssetBudget/AssetModal"
+import {RiEditLine as EditLineIcon, RiDeleteBin6Line as DeleteLineIcon} from 'react-icons/ri';
+import {FaSortUp as SortUpIcon, FaSortDown as SortDownIcon} from "react-icons/fa"
 import AuthenticationContext from '../components/auth/AuthenticationContext';
 import Plaid from '../components/AssetBudget/AssetPlaid';
-
+import BudgetDataForm from '../components/AssetBudget/Budget/BudgetDataForm';
+import MultipleRadials from '../components/ApexCharts/MultipleRadials';
 import './Budget/AssetBudgetTransaction.css'
 
 function Asset() {
@@ -17,11 +16,7 @@ function Asset() {
     // const [users, setUsers] = useState([])  
     const [user, setUser] = useState({})
     const [userBalanceSheet, setUserBalanceSheet] = useState([])
-
-    const [name, setName] = useState("")
-    const [type, setType] = useState("asset")
-    const [value, setValue] = useState(0)
-    const [changeMonthToMonth, setChangeMonthToMonth] = useState(0)
+    const [formParams, setFormParams] = useState(null)
 
     const [addstatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
@@ -30,16 +25,12 @@ function Asset() {
     const [nameOpacity, setNameOpacity] = useState(0.5)
     const [typeOpacity, setTypeOpacity] = useState(0.5)
     const [valueOpacity, setValueOpacity] = useState(0.5)
+
     //  This is the sort Indication    
     const [sortIndicator, setSortIndicator] = useState("")
     const [sortDirectionName, setSortDirectionName] = useState(1)
     const [sortDirectionType, setSortDirectionType] = useState(1)
     const [sortDirectionValue, setSortDirectionValue] = useState(1)
- // This is for Modal
-    const [nameToDelete, setNameToDelete] = useState("")
-    const [displayModal, setDisplayModal] = useState(false)
-
-    // let history = useHistory()
 
     useEffect(() => {
         async function getUsers() {
@@ -67,32 +58,6 @@ function Asset() {
     [sortIndicator]
     ) 
 
-    async function addNewBalanceSheet(event, id) {
-        event.preventDefault()
-        let newBalanceSheet = {name: name.toLowerCase(), type: type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
-        console.log("newBalanceSheet", newBalanceSheet)
-        let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
-        if (data.ok) {
-            setName("")
-            setType("asset")
-            setValue(0)
-            setChangeMonthToMonth(0)
-            setAddStatus(data.ok)
-            setSortIndicator("")
-        }
-    }
-
-    function editItem(event) {
-    let index = event.target.id
-    // Right now I am using users[0], eventually it will be just one user, so need to fix this later
-    let dataToEdit = user.balanceSheet[index]
-    console.log(dataToEdit)
-    setName(dataToEdit.name)
-    setType(dataToEdit.type)
-    setValue(dataToEdit.value)
-    setChangeMonthToMonth(dataToEdit.changeMonthToMonth)
-    }
-
     function sortArrayBy(event) {
         console.log("I want to sort by", event.target.id)
         setSortIndicator(event.target.id)
@@ -105,23 +70,13 @@ function Asset() {
                 else return null
                 }
             )
-        console.log(userCopy)
         setUser(userCopy)
-        console.log(user)
     }
 
 // right now only hook up one, wait until login is done 
     return (
         <div className='budget-container'>
         <h1 className='page-heading'>Balance Sheet</h1>
-        <Modal 
-            displayModal={displayModal} 
-            setDisplayModal={setDisplayModal} 
-            itemname={nameToDelete} 
-            userid={user._id} 
-            setDeleteStatus={setDeleteStatus} 
-            setSortIndicator={setSortIndicator}
-        ></Modal>
         {user.email  ? 
             <div className='budget-container' key={user.firstName + "Asset"}>
                 {userBalanceSheet? 
@@ -131,17 +86,16 @@ function Asset() {
                                 <tr className='table-title-row'>
                                     <th id="name" onClick={event => sortArrayBy(event)}> 
                                         Item Name 
-                                        {sortDirectionName > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </FaSortDown> }
+                                        {sortDirectionName > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": nameOpacity}}> </SortDownIcon> }
                                     </th>
                                     <th id="type" onClick={event => sortArrayBy(event)} style={{width : "20%"}}> 
                                         Type 
-                                        {sortDirectionType > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </FaSortDown> }
+                                        {sortDirectionType > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": typeOpacity}}> </SortDownIcon> }
                                     </th>
                                     <th id="value" onClick={event => sortArrayBy(event)}> 
                                         Value 
-                                        {sortDirectionValue > 0 ? <FaSortUp style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortUp> : <FaSortDown style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </FaSortDown> }
+                                        {sortDirectionValue > 0 ? <SortUpIcon style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </SortUpIcon> : <SortDownIcon style={{"pointerEvents": 'none', "opacity": valueOpacity}}> </SortDownIcon> }
                                     </th>
-                                    <th>Month to Month Change</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -152,18 +106,17 @@ function Asset() {
                                     <tr key={singleBalanceSheet.name}>
                                         <td> {singleBalanceSheet.name.charAt(0).toUpperCase() + singleBalanceSheet.name.slice(1)} </td>
                                         <td> {singleBalanceSheet.type} </td>
-                                        <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>
-                                        <td> {singleBalanceSheet.changeMonthToMonth} </td>    
+                                        <Numbertd value={singleBalanceSheet.value}> {singleBalanceSheet.value} </Numbertd>  
                                         <td> 
                                             <a href="#form">
-                                                <button id={index} onClick={editItem} > 
-                                                    <RiEditLine style={{"pointerEvents": 'none'}}></RiEditLine>
+                                                <button id={index} onClick={() => setFormParams(singleBalanceSheet)} > 
+                                                    <EditLineIcon style={{"pointerEvents": 'none'}}></EditLineIcon>
                                                 </button>
                                             </a>
                                         </td> 
                                         <td>
-                                            <button onClick={()=>{setNameToDelete(singleBalanceSheet.name); setDisplayModal(prev => !prev)}}>
-                                                <RiDeleteBin6Line style={{"pointerEvents": 'none'}}></RiDeleteBin6Line>
+                                            <button onClick={() => deleteBalanceSheet(singleBalanceSheet.name, id)}>
+                                                <DeleteLineIcon style={{"pointerEvents": 'none'}}></DeleteLineIcon>
                                             </button> 
                                         </td>     
                                     </tr>
@@ -178,44 +131,47 @@ function Asset() {
                                     </td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
                                 </tr>
                             </tfoot>                 
-                        </table> 
+                        </table>
+                        <MultipleRadials parentData={user.balanceSheet}/>
                     </div>     
                 : null}
-                <form className='entry-info-form' onSubmit={(event) => addNewBalanceSheet(event, user._id)}>
-                    <h3 className= 'entry-info-form-header'>Add New Item / Edit Existing Item</h3>
-                    <label className='entry-info-form-row'>
-                        Item Name:&nbsp;
-                        <input className='budget-input' type="text" required value={name} onChange={(event)=>{setName(event.target.value)}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Type:&nbsp;
-                        <select value={type} required onChange={(event)=>{setType(event.target.value)}}>
-                            <option value="asset">Asset</option>
-                            <option value="liability">liability</option>
-                        </select>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Value:&nbsp;
-                        <input className='budget-input' type="text" required value={value} onChange={(event)=>{(setValue(event.target.value))}}/>
-                    </label>
-                    <label className='entry-info-form-row'>
-                        Month to Month Change:&nbsp;
-                        <input className ='budget-input' type="text" required value={changeMonthToMonth} onChange={(event)=>{setChangeMonthToMonth(event.target.value)}}/>
-                    </label>
-                    <button className='entry-info-form-button' type="submit">Submit</button>  
-                </form>
-                {/* <StockButton onClick={()=>{history.push('/stocks')}}>
-                    Stocks
-                </StockButton> */}
-                <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
+                <div className='form-div'>
+                    <button className='recurring-payment-button' onClick={() => setFormParams('add-asset')}>Add New Item</button>
+                    <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
+                </div>
+                {formParams ?
+                    <BudgetDataForm
+                        parentParams={formParams}
+                        sendDataToParent={(data) => {addNewBalanceSheet(data, id)}}
+                    />
+                : null}
             </div> : ""
         }
-        
         </div>
     )
+
+    async function addNewBalanceSheet(event, id) {
+        let newBalanceSheet = {name: event.name.toLowerCase(), type: event.type, value: Number(event.amount), changeMonthToMonth: Number(event.changeMonthToMonth)}
+        console.log("newBalanceSheet", newBalanceSheet)
+        let {data} = await axios.put(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
+        if (data.ok) {
+            setAddStatus(data.ok)
+            setSortIndicator("")
+            setFormParams(null)
+        }
+    }
+
+    async function deleteBalanceSheet(itemName, id) {
+        let nameOfItemToRemove = itemName
+        console.log(nameOfItemToRemove)
+        let {data} = await axios.put(`/api/user/${id}/deletebalancesheet/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
+        if (data.ok) {
+            setDeleteStatus(data.ok)
+            setSortIndicator("")
+        }
+    }
 }
 
 export default Asset;

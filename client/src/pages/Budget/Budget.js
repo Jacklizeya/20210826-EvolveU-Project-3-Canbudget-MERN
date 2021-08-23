@@ -9,8 +9,6 @@ import Line from '../../components/ApexCharts/Line';
 import RadialBar from '../../components/ApexCharts/RadialBar'
 
 import './AssetBudgetTransaction.css'
-// import PlaidCategories from '../../components/AssetBudget/Budget/PlaidCategories';
-
 
 function Budget() {
 
@@ -21,22 +19,9 @@ function Budget() {
     const [tableSum, setTableSum] = useState(0)
     const [budgetSum, setBudgetSum] = useState(0)
     const [expenseLineProps, setExpenseLineProps] = useState({})
-
     const [formParams, setFormParams] = useState(null)
-
-    useEffect(() => {
-        let todaysDate = new Date()
-        let year = todaysDate.getFullYear()
-        let month = todaysDate.getMonth() + 1
-        if (month.toString.length === 1) {
-            month = '0' + month
-        }
-        setSelectedMonth(year+'-'+month)
-    },[])
-
     const [addStatus, setAddStatus] = useState(0)
     const [deleteStatus, setDeleteStatus] = useState(0)
-
     const [opacityParams, setOpacityParams] = useState({
         name: 0.1,
         type: 0.1,
@@ -51,7 +36,15 @@ function Budget() {
         limit: 1
     })
 
-    const [nameToDelete, setNameToDelete] = useState("")
+    useEffect(() => {
+        let todaysDate = new Date()
+        let year = todaysDate.getFullYear()
+        let month = todaysDate.getMonth() + 1
+        if (month.toString.length === 1) {
+            month = '0' + month
+        }
+        setSelectedMonth(year+'-'+month)
+    },[])
 
     useEffect(() => {
         async function getUsers() {
@@ -181,22 +174,6 @@ function Budget() {
     }, [user])
 
 
-    // async function addNewCashFlow(event, id) {
-    //     event.preventDefault()
-    //     let newCashFlow = {name: name.toLowerCase(), type, amount: Number(amount), changeMonthToMonth : Number(changeMonthToMonth), startDate, endDate}
-    //     let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
-    //     if (data.ok) {
-    //         setName("")
-    //         setType("expense")
-    //         setAmount(0)
-    //         setChangeMonthToMonth(0)
-    //         setStartDate("")
-    //         setEndDate("")
-    //         setAddStatus(data.ok)
-    //         setSortParams({...sortParams, indicator: ""})
-    //     }
-    // }
-
     function sortArrayBy(event) {
         setSortParams({...sortParams, indicator: event.target.id})
         let userCopy = budgetTableData
@@ -299,7 +276,7 @@ function Budget() {
                                                 </a>                                      
                                             </td>
                                             <td>
-                                                <button onClick={()=>{setNameToDelete(singleCashFlow.name)}}>
+                                                <button onClick={()=>{deleteCashFlow(singleCashFlow.name, id)}}>
                                                     <DeleteLineIcon style={{"pointerEvents": 'none'}}></DeleteLineIcon>
                                                 </button> 
                                             </td>             
@@ -320,6 +297,7 @@ function Budget() {
                                 : null}         
                             </table>    
                         </div>
+                        <button className='recurring-payment-button' onClick={() => setFormParams('add')}>Add New Item</button>
                     </div> 
                 : null}
             </div> : null}
@@ -359,13 +337,20 @@ function Budget() {
             endDate: event.endDate
         }
         let {data} = await axios.put(`/api/user/${id}/addcashflow/`, newCashFlow, {headers : {"Content-Type": "application/json"}})
-        console.log(data)
         if (data.ok) {
             setFormParams(null)
             setAddStatus(data.ok)
             setSortParams({...sortParams, indicator: ""})
         }
     }
+
+    async function deleteCashFlow(itemName, id) {
+        let nameOfItemToRemove = itemName
+        let {data} = await axios.put(`/api/user/${id}/deletecashflow/`, {nameOfItemToRemove}, {headers : {"Content-Type": "application/json"}})
+        if (data.ok) {
+            setDeleteStatus(data.ok)
+            setSortParams({})
+        }}
 }
 
 

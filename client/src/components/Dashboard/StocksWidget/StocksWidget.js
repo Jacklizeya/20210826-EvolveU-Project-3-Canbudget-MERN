@@ -2,7 +2,7 @@ import React from 'react'
 
 import StocksIcon from '../SubscriptionsTable/images/StocksIcon'
 
-import DashboardStocksTimeseries from './DashboardStocksTimeseries'
+import DashboardStocksTimeseries from '../../ApexCharts/DashboardStocksTimeseries'
 
 export default function StocksWidget({graphData}) {
     return (

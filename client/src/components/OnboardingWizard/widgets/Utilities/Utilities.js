@@ -6,8 +6,13 @@ import RecurringPaymentDetailsForm from '../../components/RecurringPaymentForm/R
 export default function Utilities() {
 
   const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
-  const [userHasUtilities, setuserHasUtilities] = useState(null)
-  const [confirmationMessage, setConfirmationMessage] = useState(null)
+  const [confirmationMessage, setConfirmationMessage] = useState({
+    questions: {
+      0: 'Do you have recurring utility bills?:',
+      1: 'Tell us about your utility bills:'
+    },
+    answers: {}
+  })
 
   return (
     <div className='onboard-container'>
@@ -20,21 +25,32 @@ export default function Utilities() {
       {displayOnboardBody ? <div>
         <p className='onboard-heading-body'>Keeping the lights on isn't free! Let's talk about your utilitiy bills</p>
         <BooleanRadioButtons 
-          questionPrompt='Do you have recurring utility bills?:'
+          questionPrompt={confirmationMessage.questions[0]}
           sendDataToParent={(data) => {
-            if (data === 'true') {
-              setuserHasUtilities(true)
-            } else if (data === 'false') {
-              setuserHasUtilities(false)
-            }
+            setConfirmationMessage({
+              ...confirmationMessage,
+              answers: {
+                ...confirmationMessage.answers,
+                0: data === 'true' ? true : false
+              }
+            })
           }}
         />
-        {userHasUtilities ? 
+        {confirmationMessage.answers[0] ? 
           <RecurringPaymentDetailsForm
-            questionPrompt='Tell us about your utility bills:'
+            questionPrompt={confirmationMessage.questions[1]}
             enableSuggestions={'utilities'}
             enableConfirmation={true}
-            // sendDataToParent={handleVehiclePaymentDetailsSubmit}
+            parentConfirmation={confirmationMessage}
+            sendDataToParent={(data) => {
+              setConfirmationMessage({
+                ...confirmationMessage,
+                answers: {
+                  ...confirmationMessage.answers,
+                  1: data
+                }
+              })
+            }}
           /> 
         : null}
       </div> : null}

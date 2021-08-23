@@ -34,7 +34,6 @@ export default function RecurringPaymentForm({
   const [dataFromForm, setDataFromForm] = useState('')
   const [addRowsEnabled, setAddRowsEnabled] = useState(true)
   const [buttonText, setButtonText] = useState('Skip')
-  const [suggestion, setSuggestion] = useState(null)
 
   useEffect(() => {
     if (enableAddRows !== undefined) setAddRowsEnabled(enableAddRows)

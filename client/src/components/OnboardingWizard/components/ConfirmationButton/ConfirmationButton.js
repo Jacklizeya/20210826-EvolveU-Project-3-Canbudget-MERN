@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import './ConfirmationButton.css' // Import css
 
 // import '../RecurringPaymentForm/RecurringPaymentForm.css'
 
 export default function ConfirmationButton({parentConfirmation}) {
  
   const [alertSettings, setAlertSettings] = useState({
-    title: 'Confirm to submit',
+    title: <div className='confirmation-heading'>Please confirm your information before submitting</div>,
     message: (
       // <div>
       //   <p>No data entered</p>
@@ -27,41 +27,41 @@ export default function ConfirmationButton({parentConfirmation}) {
   })
 
 
-  // useEffect(() => {
-  //   let confirmationMessageString = '<div>'
-  //   if (Object.keys(parentConfirmation.questions).length === Object.keys(parentConfirmation.answers).length) {
-  //     let objectLength = Object.keys(parentConfirmation.questions).length
-  //     for (let i = 0; i < objectLength; i++) {
-  //       confirmationMessageString = confirmationMessageString + '<strong>' + parentConfirmation.questions[i] + '</strong><br></br>'
-  //       if (parentConfirmation.answers[i] === true) {
-  //         confirmationMessageString = confirmationMessageString + 'Yes<br></br>'
-  //       } else if (parentConfirmation.answers[i] === false) {
-  //         confirmationMessageString = confirmationMessageString + 'No<br></br>'
-  //       } else if (typeof parentConfirmation.answers[i] === 'object') {
-  //           console.log(parentConfirmation.answers[i])
-  //           confirmationMessageString = confirmationMessageString + '<table className="recurring-payment-form"><tbody className="recurring-payment-table-body"><tr className="recurring-payment-row">'
-  //           for (let j in parentConfirmation.answers[i][0]) {
-  //             confirmationMessageString = confirmationMessageString + '<th>' + j + '</th>'
-  //           }
-  //           for (let k in parentConfirmation.answers[i]) {
-  //             confirmationMessageString = confirmationMessageString + '<tr>'
-  //             for (let j in parentConfirmation.answers[i][k]) {
-  //               confirmationMessageString = confirmationMessageString + '<td>' + parentConfirmation.answers[i][k][j] + '</td>'
-  //             }
-  //           }
-  //           confirmationMessageString = confirmationMessageString + '</tr>'
-  //             + '</tbody></table>'
-  //       }
-  //     }
-  //   } else {
-  //     console.log('Questions and answers not of equal size')
-  //   }
-  //   confirmationMessageString = confirmationMessageString + '</div>'
-  //   // setAlertSettings(as => ({...as, message: confirmationMessageString}))
-  //   console.log(confirmationMessageString)
-  //   const jsx = <div dangerouslySetInnerHTML={{__html: confirmationMessageString}}></div>
-  //   setAlertSettings(a => ({...a, message: jsx}))
-  // },[parentConfirmation])
+  useEffect(() => {
+    let confirmationMessageString = '<div>'
+    if (Object.keys(parentConfirmation.questions).length === Object.keys(parentConfirmation.answers).length) {
+      let objectLength = Object.keys(parentConfirmation.questions).length
+      for (let i = 0; i < objectLength; i++) {
+        confirmationMessageString = confirmationMessageString + '<strong>' + parentConfirmation.questions[i] + '</strong><br></br>'
+        if (parentConfirmation.answers[i] === true) {
+          confirmationMessageString = confirmationMessageString + 'Yes<br></br>'
+        } else if (parentConfirmation.answers[i] === false) {
+          confirmationMessageString = confirmationMessageString + 'No<br></br>'
+        } else if (typeof parentConfirmation.answers[i] === 'object') {
+            console.log(parentConfirmation.answers[i])
+            confirmationMessageString = confirmationMessageString + '<table class="budget-table"><body><tr class="table-title-row">'
+            for (let j in parentConfirmation.answers[i][0]) {
+              confirmationMessageString = confirmationMessageString + '<th>' + j + '</th>'
+            }
+            for (let k in parentConfirmation.answers[i]) {
+              confirmationMessageString = confirmationMessageString + '<tr>'
+              for (let j in parentConfirmation.answers[i][k]) {
+                confirmationMessageString = confirmationMessageString + '<td>' + parentConfirmation.answers[i][k][j] + '</td>'
+              }
+            }
+            confirmationMessageString = confirmationMessageString + '</tr>'
+              + '</tbody></table>'
+        }
+      }
+    } else {
+      console.log('Questions and answers not of equal size')
+    }
+    confirmationMessageString = confirmationMessageString + '</div>'
+    // setAlertSettings(as => ({...as, message: confirmationMessageString}))
+    console.log(confirmationMessageString)
+    const jsx = <div dangerouslySetInnerHTML={{__html: confirmationMessageString}}></div>
+    setAlertSettings(a => ({...a, message: jsx}))
+  },[parentConfirmation])
 
   // useEffect(() => {
   //   let confirmationMessageString = ''

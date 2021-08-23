@@ -1,7 +1,7 @@
 import React, { useState} from "react"
 import Chart from 'react-apexcharts'
 
-import { portfolioWorthData } from "../../data/apexDataConvertor"
+import { portfolioWorthData } from "./data/apexDataConvertor"
 
 export default function DashboardStocksTimeseries({graphData}) {
 

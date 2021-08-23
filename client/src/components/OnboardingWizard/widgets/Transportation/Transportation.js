@@ -5,101 +5,136 @@ import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRa
 
 export default function Transportation() {
 
-    const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
-    const [userOwnsVehicle, setUserOwnsVehicle] = useState(null)
-    const [userHasVehiclePayments, setUserHasVehiclePayments] = useState(null)
-    const [vehiclePaymentDetails, setVehiclePaymentDetails] = useState(null)
-    const [userHasInsurance, setUserHasInsurance] = useState(null)
-    const [insurancePaymentDetails, setInsurancePaymentDetails] = useState(null)
-    const [userHasTransportationCosts, setUserHasTransportationCosts] = useState(null)
-    const [transportationPaymentDetails, setTransportationPaymentDetails] = useState(null)
+  const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
+  const [confirmationMessage, setConfirmationMessage] = useState({
+    questions: {
+      0: 'Do you own your own vehicle?:',
+      1: 'Do you make payments on your vehicle?',
+      2: 'Tell us about your vehicle payment:',
+      3: 'Do you have vehicle insurance?',
+      4: 'Tell us about your vehicle insurance:',
+      5: 'Do you have other costs related to transportation?',
+      6: 'Tell us about your transportation costs (common expenses include transit passes or Uber costs)'
+    },
+    answers: {}
+  })
 
-    return (
-      <div className='onboard-container'>
-        <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Transportation</h2>
-        {displayOnboardBody ? <div>
-          <p className='onboard-heading-body'>Everyone needs to get around somehow! Let's talk about your expenses related to transportation</p>
-          <BooleanRadioButtons
-            questionPrompt='Do you own your own vehicle?:'
-            sendDataToParent={(data) => {
-              if (data === 'true') {
-                setUserOwnsVehicle(true)
-              } else if (data === 'false') {
-                setUserOwnsVehicle(false)
+  return (
+    <div className='onboard-container'>
+      <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Transportation</h2>
+      {displayOnboardBody ? <div>
+        <p className='onboard-heading-body'>Everyone needs to get around somehow! Let's talk about your expenses related to transportation</p>
+        <BooleanRadioButtons
+          questionPrompt={confirmationMessage.questions[0]}
+          sendDataToParent={(data) => {
+            setConfirmationMessage({
+              ...confirmationMessage, 
+              answers: {
+                ...confirmationMessage.answers,
+                0: data === 'true' ? true : false
               }
-            }}
-          />
-          {userOwnsVehicle === true ?
-            <div> 
-              <BooleanRadioButtons
-                questionPrompt='Do you make payments on your vehicle?' 
-                sendDataToParent={(data) => {
-                  if (data === 'true') {
-                    setUserHasVehiclePayments(true)
-                  } else if (data === 'false') {
-                    setUserHasVehiclePayments(false)
+            })
+          }}
+        />
+        {confirmationMessage.answers[0] ?
+          <div> 
+            <BooleanRadioButtons
+              questionPrompt={confirmationMessage.questions[1]} 
+              sendDataToParent={(data) => {
+                setConfirmationMessage({
+                  ...confirmationMessage, 
+                  answers: {
+                    ...confirmationMessage.answers,
+                    1: data === 'true' ? true : false
                   }
-                }} 
-              />
-              {userHasVehiclePayments ? 
-                <RecurringPaymentForm
-                  questionPrompt='Tell us about your vehicle payment:'
-                  paymentName='Vehicle Payment' 
-                  enableAddRows={false}
+                })
+              }} 
+            />
+            {confirmationMessage.answers[1] ? 
+              <RecurringPaymentForm
+                questionPrompt={confirmationMessage.questions[2]}
+                paymentName='Vehicle Payment' 
+                enableAddRows={false}
+                sendDataToParent={(data) => {
+                  setConfirmationMessage({
+                    ...confirmationMessage, 
+                    answers: {
+                      ...confirmationMessage.answers,
+                      2: data
+                    }
+                  })
+                }}
+              /> 
+            : null}
+            {confirmationMessage.answers[2] ? 
+              <div>
+                <BooleanRadioButtons
+                  questionPrompt={confirmationMessage.questions[3]}
                   sendDataToParent={(data) => {
-                    setVehiclePaymentDetails(data[0])
-                  }}
-                /> 
-              : null}
-              {vehiclePaymentDetails ? 
-                <div>
-                  <BooleanRadioButtons
-                    questionPrompt='Do you have vehicle insurance?'
-                    sendDataToParent={(data) => {
-                      if (data === 'true') {
-                        setUserHasInsurance(true)
-                      } else if (data === 'false') {
-                        setUserHasInsurance(false)
+                    setConfirmationMessage({
+                      ...confirmationMessage, 
+                      answers: {
+                        ...confirmationMessage.answers,
+                        3: data === 'true' ? true : false
                       }
+                    })
+                  }}
+                />
+                {confirmationMessage.answers[3] ? 
+                  <RecurringPaymentForm
+                    questionPrompt={confirmationMessage.questions[4]}
+                    paymentName='Vehicle Insurance'
+                    enableAddRows={false}
+                    enableConfirmation={false}
+                    parentConfirmation={confirmationMessage}
+                    sendDataToParent={(data) => {
+                      setConfirmationMessage({
+                        ...confirmationMessage, 
+                        answers: {
+                          ...confirmationMessage.answers,
+                          4: data
+                        }
+                      })
                     }}
                   />
-                  {userHasInsurance === true ? 
-                    <RecurringPaymentForm
-                      questionPrompt='Tell us about your vehicle insurance:'
-                      paymentName='Vehicle Insurance'
-                      enableAddRows={false}
-                      sendDataToParent={(data) => {
-                        setInsurancePaymentDetails(data[0])
-                      }}
-                    />
-                  : null}
-                </div>
-              : null}
-            </div>
-          : null}
-          {(userOwnsVehicle === false || userHasVehiclePayments === false|| userHasInsurance === false || insurancePaymentDetails) ? 
-            <BooleanRadioButtons
-              questionPrompt='Do you have other costs related to transportation?' 
-              sendDataToParent={(data) => {
-                if (data === 'true') {
-                  setUserHasTransportationCosts(true)
-                } else if (data === 'false') {
-                  setUserHasTransportationCosts(false)
+                : null}
+              </div>
+            : null}
+          </div>
+        : null}
+        {(confirmationMessage.answers[0] === false || confirmationMessage.answers[1] === false|| confirmationMessage.answers[2] === false || confirmationMessage.answers[4]) ? 
+          <BooleanRadioButtons
+            questionPrompt={confirmationMessage.questions[5]}
+            sendDataToParent={(data) => {
+              setConfirmationMessage({
+                ...confirmationMessage, 
+                answers: {
+                  ...confirmationMessage.answers,
+                  5: data === 'true' ? true : false
                 }
-              }}
-            />
-          : null}
-          {userHasTransportationCosts ?
-            <RecurringPaymentForm
-              questionPrompt='Tell use about your transportation costs (common expenses include transit passes or Uber costs)'
-              enableAddRows={true}
-              enableConfirmation={true}
-              sendDataToParent={(data) => {
-                setTransportationPaymentDetails(data)
-              }}
-            />
-          : null}
-        </div> : null}
-      </div>
-    )
+              })
+            }}
+          />
+        : null}
+        {confirmationMessage.answers[5] ?
+          <RecurringPaymentForm
+            questionPrompt={confirmationMessage.questions[6]}
+            enableAddRows={true}
+            enableConfirmation={true}
+            parentConfirmation={confirmationMessage}
+            sendDataToParent={(data) => {
+              console.log(data)
+              setConfirmationMessage({
+                ...confirmationMessage, 
+                answers: {
+                  ...confirmationMessage.answers,
+                  6: data
+                }
+              })
+            }}
+          />
+        : null}
+      </div> : null}
+    </div>
+  )
 }

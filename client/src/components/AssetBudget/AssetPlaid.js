@@ -1,5 +1,5 @@
 import React , { useEffect, useState, useCallback } from 'react'
-import { PlaidButton, Descriptiondiv, SubmitButton, Tablediv, FormDiv, Numbertd} from './assetAndBudget.elements'
+import { PlaidButton, SubmitButton, Tablediv, FormDiv, Numbertd} from './assetAndBudget.elements'
 import { usePlaidLink } from 'react-plaid-link';
 import axios from "axios"
 import {  RiEditLine, RiDeleteBin6Line } from 'react-icons/ri';
@@ -12,7 +12,6 @@ export default function Plaid({id, setAddStatus}) {
 
     const generateToken = async () => {
       const {data} = await axios.get('/api/plaid/create-link-token',)
-      console.log(data)
       setLinkToken(data.linkToken);
     };
     useEffect(() => {
@@ -23,7 +22,6 @@ export default function Plaid({id, setAddStatus}) {
 
     return (
         <div>
-            <Descriptiondiv> Import Asset from your financial Institution  directly </Descriptiondiv>
             {linkToken != null ? 
               <Link linkToken={linkToken} id={id} setAddStatus={setAddStatus} plaidStatusReady={plaidStatusReady} setPlaidStatusReady={setPlaidStatusReady}/> : <div></div>}
         </div>
@@ -46,8 +44,7 @@ export default function Plaid({id, setAddStatus}) {
       // send public_token to server
       
       const {data} = await axios.post('/api/plaid/token-exchange', {public_token}, {headers : {"Content-Type": "application/json"}})
-      
-      console.log("data", data)
+  
       setAssetFromPlaid(data.balanceSheet)
       // setAccessToken(data.accessToken)
       // Handle response ...
@@ -79,7 +76,6 @@ export default function Plaid({id, setAddStatus}) {
       let index = event.target.id
       // Right now I am using users[0], eventually it will be just one user, so need to fix this later
       let dataToEdit = assetFromPlaid[index]
-      console.log(dataToEdit)
       setEditLocation(index)
       setName(dataToEdit.name)
       setType(dataToEdit.type)
@@ -88,19 +84,18 @@ export default function Plaid({id, setAddStatus}) {
     }
 
     function confirmEdit(event) {
-    event.preventDefault()
-    let newPlaidItem = {name: name.toLowerCase(), type: type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
-    console.log("newPlaidItem", newPlaidItem)
-    let newAssetFromPlaid = [...assetFromPlaid]
-    newAssetFromPlaid.splice(editLocation, 1, newPlaidItem)
-    // synchronous update
-    setAssetFromPlaid(newAssetFromPlaid)
-    // reset everything here
-    setName("")
-    setType("asset")
-    setValue(0)
-    setChangeMonthToMonth(0)
-    setEditLocation(null)
+      event.preventDefault()
+      let newPlaidItem = {name: name.toLowerCase(), type: type, value: Number(value), changeMonthToMonth: Number(changeMonthToMonth)}
+      let newAssetFromPlaid = [...assetFromPlaid]
+      newAssetFromPlaid.splice(editLocation, 1, newPlaidItem)
+      // synchronous update
+      setAssetFromPlaid(newAssetFromPlaid)
+      // reset everything here
+      setName("")
+      setType("asset")
+      setValue(0)
+      setChangeMonthToMonth(0)
+      setEditLocation(null)
     }
 
     function deletePlaidItem(event) {

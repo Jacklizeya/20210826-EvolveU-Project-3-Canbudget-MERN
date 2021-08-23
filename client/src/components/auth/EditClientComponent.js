@@ -56,7 +56,7 @@ const EditClientComponent = ({ id, userType, title, message }) => {
                 // console.log("response.status=", response.status,"response.statusText=", response.statusText)
             }
             SetMessage(message);
-            history.push("/");
+            history.push("/onboard");
         } catch (error) {
             serverError(error)
         }

@@ -68,4 +68,17 @@
     font-weight: bold;
     border: 2px solid #01345B;
     margin: 10px;
+    padding: 10px;
   }
+
+  .dashboard-label-text {
+      color: #01345B;
+      text-align: center;
+  }
+
+  .dashboard-widget-row {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+  }
+
