@@ -87,15 +87,15 @@ export default function Dashboard() {
                 <div className='dashboard-container'>
                     <div className='graph-container'>
                         <Donut data={assets} showLegend={false} />
-                        <button className='dashboard-dropdown-button' onClick={handleAssetsClick}><h3 className='dashboard-header-text'>Assets</h3></button>
+                        <button className='dashboard-dropdown-button' onClick={handleAssetsClick}><h2 className='dashboard-label-text'>Assets</h2></button>
                     </div>  
                     <div className='graph-container'>
                         <Line />
-                        <button className='dashboard-dropdown-button' onClick={handleOverviewClick}><h3 className='dashboard-header-text'>Overview</h3></button>
+                        <button className='dashboard-dropdown-button' onClick={handleOverviewClick}><h2 className='dashboard-label-text'>Overview</h2></button>
                     </div>
                     <div className='graph-container'>
                         <Donut data={liability} showLegend={false} />
-                        <button className='dashboard-dropdown-button' onClick={handleBudgetClick}><h3 className='dashboard-header-text'>Liabilities</h3></button>
+                        <button className='dashboard-dropdown-button' onClick={handleBudgetClick}><h2 className='dashboard-label-text'>Liabilities</h2></button>
                     </div>
                 </div>
                 {
@@ -104,9 +104,9 @@ export default function Dashboard() {
                     whichTable === 'overview' ? <DashboardTable data={user.balanceSheet}/> :
                     null
                 }
-                <div style={{display:'flex', flexFlow:'row wrap'}}>
+                <div className='dashboard-widget-row'>
                     <div className='dashboard-container subscriptions'>
-                        <h3 className='dashboard-header-text'>Upcoming bills...</h3>
+                        <h2 className='dashboard-label-text'>Upcoming bills...</h2>
                         <SubscriptionTable data={user.recurringBills}/>
                     </div>
                     <StocksWidget graphData={portfolioWorthData}/>
@@ -114,11 +114,13 @@ export default function Dashboard() {
                         <RadialChart />
                     </div>
                 </div>
-                <NavLink to="/onboard">
-                    <button className='nav-link-button'>
-                        Go to Onboarding Wizard
-                    </button>
-                </NavLink>
+                <div className='dashboard-widget-row'>
+                    <NavLink to="/onboard">
+                        <button className='nav-link-button'>
+                            Go to Onboarding Wizard
+                        </button>
+                    </NavLink>
+                </div>
             </div>
         : null 
     )

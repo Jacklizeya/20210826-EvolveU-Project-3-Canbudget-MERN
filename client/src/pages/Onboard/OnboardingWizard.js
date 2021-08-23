@@ -1,6 +1,5 @@
-import React from 'react'
-
-import './OnboardingWizard.css'
+import React, {useContext} from 'react'
+import AuthenticationContext from '../../components/auth/AuthenticationContext';
 
 import Shelter from '../../components/OnboardingWizard/widgets/Shelter/Shelter'
 import Subscriptions from '../../components/OnboardingWizard/widgets/Subscriptions/Subscriptions'
@@ -9,8 +8,12 @@ import Utilities from '../../components/OnboardingWizard/widgets/Utilities/Utili
 import CreditCardBills from '../../components/OnboardingWizard/widgets/CreditCardBills/CreditCardBills'
 import OtherAssets from '../../components/OnboardingWizard/widgets/OtherAssets/OtherAssets'
 
+import './OnboardingWizard.css'
 
 export default function OnboardingWizard() {
+
+    const {id} = useContext(AuthenticationContext)
+
     return (
         <div className='onboard-body'>
             <div className='onboard-container'>
