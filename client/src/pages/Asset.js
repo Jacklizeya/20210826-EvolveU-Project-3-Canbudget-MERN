@@ -6,6 +6,7 @@ import {FaSortUp as SortUpIcon, FaSortDown as SortDownIcon} from "react-icons/fa
 import AuthenticationContext from '../components/auth/AuthenticationContext';
 import Plaid from '../components/AssetBudget/AssetPlaid';
 import BudgetDataForm from '../components/AssetBudget/Budget/BudgetDataForm';
+import MultipleRadials from '../components/ApexCharts/MultipleRadials';
 import './Budget/AssetBudgetTransaction.css'
 
 function Asset() {
@@ -132,7 +133,8 @@ function Asset() {
                                     <td></td>
                                 </tr>
                             </tfoot>                 
-                        </table> 
+                        </table>
+                        <MultipleRadials parentData={user.balanceSheet}/>
                     </div>     
                 : null}
                 <div className='form-div'>
