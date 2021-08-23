@@ -21,7 +21,6 @@ CLIENT_ID = (_ set up your own PLAID API client id _)
 SECRET = (_ set up your own PLAID API secret _)
 NGROK = (_ you will get this after you set up your ngrok _)
 CLIENTPORT = http://localhost:4444
-GOOGLE_MAPS_API_KEY= (_ set up your own Google API secret _)
 
 ## set up ngrok on server's .env file:
 
