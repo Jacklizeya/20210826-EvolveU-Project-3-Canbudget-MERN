@@ -11,7 +11,7 @@ import Transactions from './pages/Transactions';
 import ApexCharts from './pages/ApexCharts';
 import ResourceSearch from './pages/ResourceSearch/ResourceSearch';
 import Dashboard from './pages/Dashboard/Dashboard';
-import OnboardingWizard from './components/OnboardingWizard/OnboardingWizard';
+import OnboardingWizard from './pages/Onboard/OnboardingWizard';
 // import OurTeam from './pages/OurTeam';
 
 import SignUp from './components/auth/SignUp';

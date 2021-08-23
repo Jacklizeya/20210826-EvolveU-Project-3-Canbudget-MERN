@@ -2,12 +2,12 @@ import React from 'react'
 
 import './OnboardingWizard.css'
 
-import Shelter from './widgets/Shelter/Shelter'
-import Subscriptions from './widgets/Subscriptions/Subscriptions'
-import Transportation from './widgets/Transportation/Transportation'
-import Utilities from './widgets/Utilities/Utilities'
-import CreditCardBills from './widgets/CreditCardBills/CreditCardBills'
-import OtherAssets from './widgets/OtherAssets/OtherAssets'
+import Shelter from '../../components/OnboardingWizard/widgets/Shelter/Shelter'
+import Subscriptions from '../../components/OnboardingWizard/widgets/Subscriptions/Subscriptions'
+import Transportation from '../../components/OnboardingWizard/widgets/Transportation/Transportation'
+import Utilities from '../../components/OnboardingWizard/widgets/Utilities/Utilities'
+import CreditCardBills from '../../components/OnboardingWizard/widgets/CreditCardBills/CreditCardBills'
+import OtherAssets from '../../components/OnboardingWizard/widgets/OtherAssets/OtherAssets'
 
 
 export default function OnboardingWizard() {
