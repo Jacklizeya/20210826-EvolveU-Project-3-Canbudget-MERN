@@ -85,23 +85,10 @@ const Navbar = () => {
                                     </NavItem> :
                                     <NavItem>
                                         <NavLinks to='/dashboard' onClick={toggleHome} >
-                                            Home
+                                            Dashboard
                                         </NavLinks>
                                     </NavItem>
                                 }
-
-
-                                {/* //Dropdown menu  */}
-                            <NavItem onMouseEnter={onMouseEnter}
-                                    onMouseLeave={onMouseLeave}>
-                     
-                                <NavDropDownLink onClick={closeMobileMenu}>
-                                Information<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
-                                {dropdown && <Dropdown />}
-                                </NavDropDownLink>
-                        
-                            </NavItem> 
-
 
 
                             {/* <NavItem>
@@ -114,6 +101,7 @@ const Navbar = () => {
                                     Resources
                                 </NavLinks>
                             </NavItem> */}
+
                             {showPrivate &&
                                 <NavItem>
                                     <NavLinks to='/asset'>
@@ -128,18 +116,32 @@ const Navbar = () => {
                                     </NavLinks>
                                 </NavItem>
                             }
+
+                            {/* //Dropdown menu  */}
+                             <NavItem 
+                                onMouseEnter={onMouseEnter}
+                                onMouseLeave={onMouseLeave}
+                            >
+                                <NavDropDownLink onClick={closeMobileMenu}>
+                                    Information
+                                    <i className='fas fa-caret-down' style={{marginLeft: 5}}/>
+                                {dropdown && <Dropdown />}
+                                </NavDropDownLink>
+                            </NavItem> 
+
+                            
                             {showPrivate &&
                                 <NavItem>
-                                    <NavLinks to='/transaction'>
-                                        Transaction
+                                    <NavLinks to='/stocks'>
+                                        Securities
                                     </NavLinks>
                                 </NavItem>
                             }
                             
                             {showPrivate &&
                                 <NavItem>
-                                    <NavLinks to='/stocks'>
-                                        Securities
+                                    <NavLinks to='/transaction'>
+                                        Transaction
                                     </NavLinks>
                                 </NavItem>
                             }
