@@ -9,44 +9,77 @@ export default function ConfirmationButton({parentConfirmation}) {
   const [alertSettings, setAlertSettings] = useState({
     title: <div className='confirmation-heading'>Please confirm your information before submitting</div>,
     message: (
-      // <div>
-      //   <p>No data entered</p>
-      // </div>
       'No data entered'
     ),
     buttons: [
       {
         label: 'Yes',
-        onClick: () => alert('Click Yes')
+        onClick: () => alert('Data submitted')
       },
       {
         label: 'No',
-        onClick: () => alert('Click No')
+        onClick: () => alert('Data not submitted. Please try again!')
       }
     ]
   })
 
 
   useEffect(() => {
+    let localConfirmation = parentConfirmation
+    for (let i in localConfirmation.answers) {
+      if (typeof localConfirmation.answers[i] === 'object') {
+        let displayConfirmation = []
+        let confirmationKeysArray = []
+        if (localConfirmation.answers[i] !== null) {
+          for (let j in Object.keys(localConfirmation.answers[i][0])) {
+            confirmationKeysArray.push(Object.keys(localConfirmation.answers[i][0])[j])
+          }
+          let activeKeysArray = []
+          for (let j in localConfirmation.answers[i]) {
+            for (let k in localConfirmation.answers[i][j]) {
+              if (localConfirmation.answers[i][j][k]) {
+                activeKeysArray.push(k)
+              }
+            }
+          }
+          activeKeysArray = [...new Set(activeKeysArray)]
+          activeKeysArray = activeKeysArray.filter(e => (e !== 'formId' && e !== 'isEmpty'))
+          for (let j in localConfirmation.answers[i]) {
+            if (!localConfirmation.answers[i][j].isEmpty) {
+              let localObject = {}
+              for (let k in localConfirmation.answers[i][j]) {
+                for (let x in activeKeysArray) {
+                  if (k === activeKeysArray[x]) {
+                    localObject[k] = localConfirmation.answers[i][j][k]
+                  }
+                }
+              }
+              displayConfirmation.push(localObject)
+            }
+          }
+          localConfirmation.answers[i] = displayConfirmation
+        }
+      }
+    }
+
     let confirmationMessageString = '<div>'
-    if (Object.keys(parentConfirmation.questions).length === Object.keys(parentConfirmation.answers).length) {
-      let objectLength = Object.keys(parentConfirmation.questions).length
+    if (Object.keys(localConfirmation.questions).length === Object.keys(localConfirmation.answers).length) {
+      let objectLength = Object.keys(localConfirmation.questions).length
       for (let i = 0; i < objectLength; i++) {
-        confirmationMessageString = confirmationMessageString + '<strong>' + parentConfirmation.questions[i] + '</strong><br></br>'
-        if (parentConfirmation.answers[i] === true) {
+        confirmationMessageString = confirmationMessageString + '<strong>' + localConfirmation.questions[i] + '</strong><br></br>'
+        if (localConfirmation.answers[i] === true) {
           confirmationMessageString = confirmationMessageString + 'Yes<br></br>'
-        } else if (parentConfirmation.answers[i] === false) {
+        } else if (localConfirmation.answers[i] === false) {
           confirmationMessageString = confirmationMessageString + 'No<br></br>'
-        } else if (typeof parentConfirmation.answers[i] === 'object') {
-            console.log(parentConfirmation.answers[i])
+        } else if (typeof localConfirmation.answers[i] === 'object') {
             confirmationMessageString = confirmationMessageString + '<table class="budget-table"><body><tr class="table-title-row">'
-            for (let j in parentConfirmation.answers[i][0]) {
+            for (let j in localConfirmation.answers[i][0]) {
               confirmationMessageString = confirmationMessageString + '<th>' + j + '</th>'
             }
-            for (let k in parentConfirmation.answers[i]) {
+            for (let k in localConfirmation.answers[i]) {
               confirmationMessageString = confirmationMessageString + '<tr>'
-              for (let j in parentConfirmation.answers[i][k]) {
-                confirmationMessageString = confirmationMessageString + '<td>' + parentConfirmation.answers[i][k][j] + '</td>'
+              for (let j in localConfirmation.answers[i][k]) {
+                confirmationMessageString = confirmationMessageString + '<td>' + localConfirmation.answers[i][k][j] + '</td>'
               }
             }
             confirmationMessageString = confirmationMessageString + '</tr>'
@@ -57,27 +90,10 @@ export default function ConfirmationButton({parentConfirmation}) {
       console.log('Questions and answers not of equal size')
     }
     confirmationMessageString = confirmationMessageString + '</div>'
-    // setAlertSettings(as => ({...as, message: confirmationMessageString}))
-    console.log(confirmationMessageString)
     const jsx = <div dangerouslySetInnerHTML={{__html: confirmationMessageString}}></div>
+
     setAlertSettings(a => ({...a, message: jsx}))
   },[parentConfirmation])
-
-  // useEffect(() => {
-  //   let confirmationMessageString = ''
-  //   if (Object.keys(parentConfirmation.questions).length === Object.keys(parentConfirmation.answers).length) {
-  //     let objectLength = Object.keys(parentConfirmation.questions).length
-  //     for (let i = 0; i < objectLength; i++) {
-  //       confirmationMessageString = confirmationMessageString + parentConfirmation.questions[i]
-  //     }
-  //   } else {
-  //     console.log('Questions and answers not of equal size')
-  //   }
-  //   // setAlertSettings(as => ({...as, message: confirmationMessageString}))
-  //   console.log(confirmationMessageString)
-  //   setAlertSettings(a => ({...a, message: confirmationMessageString}))
-  // },[parentConfirmation])
-
 
   return (
     <div className='confirmation-container'>
