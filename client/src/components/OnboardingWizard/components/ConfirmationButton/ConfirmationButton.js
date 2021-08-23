@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import './ConfirmationButton.css' // Import css
 
 // import '../RecurringPaymentForm/RecurringPaymentForm.css'
 
 export default function ConfirmationButton({parentConfirmation}) {
  
   const [alertSettings, setAlertSettings] = useState({
-    title: 'Confirm to submit',
+    title: <div className='confirmation-heading'>Please confirm your information before submitting</div>,
     message: (
       // <div>
       //   <p>No data entered</p>
@@ -39,7 +39,7 @@ export default function ConfirmationButton({parentConfirmation}) {
           confirmationMessageString = confirmationMessageString + 'No<br></br>'
         } else if (typeof parentConfirmation.answers[i] === 'object') {
             console.log(parentConfirmation.answers[i])
-            confirmationMessageString = confirmationMessageString + '<table className="recurring-payment-form"><tbody className="recurring-payment-table-body"><tr className="recurring-payment-row">'
+            confirmationMessageString = confirmationMessageString + '<table class="budget-table"><body><tr class="table-title-row">'
             for (let j in parentConfirmation.answers[i][0]) {
               confirmationMessageString = confirmationMessageString + '<th>' + j + '</th>'
             }
