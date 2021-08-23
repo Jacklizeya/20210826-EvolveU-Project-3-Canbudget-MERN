@@ -96,7 +96,7 @@ const Navbar = () => {
                                     onMouseLeave={onMouseLeave}>
                      
                                 <NavDropDownLink onClick={closeMobileMenu}>
-                                Services<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
+                                Information<i className='fas fa-caret-down' style={{marginLeft: 5}}/>
                                 {dropdown && <Dropdown />}
                                 </NavDropDownLink>
                         
