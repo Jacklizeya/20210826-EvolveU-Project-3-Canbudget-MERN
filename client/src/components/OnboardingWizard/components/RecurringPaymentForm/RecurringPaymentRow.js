@@ -132,7 +132,7 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
       {!enableAssetsOnly ?
         <td>
           <label className='recurring-payment-label'>
-            {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Contract End Date</p> : null}
+            {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Contract End</p> : null}
             <input
               className='recurring-payment-field'
               type='date'
