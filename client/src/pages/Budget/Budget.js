@@ -103,6 +103,7 @@ function Budget() {
                     if (transactionDate === monthBoundaries.current && user.transaction[i].amount < 0) {
                         let mainCategory = user.transaction[i].category.split(', ')[0]
                         if (mainCategory !== 'Payment' && mainCategory !== 'Credit Card' && mainCategory !== 'Debit' && mainCategory !== 'Deposit'  && mainCategory !== 'Credit' && mainCategory !== 'Transfer') {
+                            console.log(user.transaction[i])
                             monthBoundaries.currentSum = monthBoundaries.currentSum + Number(user.transaction[i].amount * -1)
                         }
                     }
