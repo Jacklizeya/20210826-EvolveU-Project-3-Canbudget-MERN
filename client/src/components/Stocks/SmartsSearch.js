@@ -75,7 +75,7 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
             setSearchedStock(s);
             s = s.trim();
             if (s.length > 0) {
-                if (s.length >= 3) {
+                if (s.length >=2) {
                     const url = "api/stock/search/" + s;
                     try {
                         let response = await fetch(url);
