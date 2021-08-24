@@ -4,7 +4,7 @@ import './ConfirmationButton.css' // Import css
 
 // import '../RecurringPaymentForm/RecurringPaymentForm.css'
 
-export default function ConfirmationButton({parentConfirmation}) {
+export default function ConfirmationButton({parentConfirmation, dataConfirmed}) {
  
   const [alertSettings, setAlertSettings] = useState({
     title: <div className='confirmation-heading'>Please confirm your information before submitting</div>,
@@ -14,7 +14,7 @@ export default function ConfirmationButton({parentConfirmation}) {
     buttons: [
       {
         label: 'Yes',
-        onClick: () => alert('Data submitted')
+        onClick: () => dataConfirmed(true)
       },
       {
         label: 'No',

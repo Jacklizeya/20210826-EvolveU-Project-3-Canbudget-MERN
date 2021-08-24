@@ -90,7 +90,7 @@ export default function RecurringPaymentForm({
         >
           {buttonText}
         </button> :
-        <ConfirmationButton parentConfirmation={parentConfirmation}/>
+        <ConfirmationButton parentConfirmation={parentConfirmation} dataConfirmed={(data) => {sendDataToParent(data)}}/>
       }
     </div>
   )

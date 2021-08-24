@@ -123,14 +123,17 @@ export default function Transportation() {
             enableConfirmation={true}
             parentConfirmation={confirmationMessage}
             sendDataToParent={(data) => {
-              console.log(data)
-              setConfirmationMessage({
-                ...confirmationMessage, 
-                answers: {
-                  ...confirmationMessage.answers,
-                  6: data
-                }
-              })
+              if (data === true) {
+                console.log('Data confirmed')
+              } else {
+                setConfirmationMessage({
+                  ...confirmationMessage, 
+                  answers: {
+                    ...confirmationMessage.answers,
+                    6: data
+                  }
+                })
+              }
             }}
           />
         : null}

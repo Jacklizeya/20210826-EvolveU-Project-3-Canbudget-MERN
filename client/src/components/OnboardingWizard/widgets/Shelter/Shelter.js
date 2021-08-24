@@ -83,13 +83,17 @@ export default function Shelter() {
                                 enableConfirmation={true}
                                 parentConfirmation={confirmationMessage}
                                 sendDataToParent={(data) => {
-                                    setConfirmationMessage({
-                                        ...confirmationMessage,
-                                        answers: {
-                                            ...confirmationMessage.answers,
-                                            3: data
-                                        }
-                                    })
+                                    if (data === true) {
+                                        console.log('Data confirmed')
+                                    } else {
+                                        setConfirmationMessage({
+                                            ...confirmationMessage,
+                                            answers: {
+                                                ...confirmationMessage.answers,
+                                                3: data
+                                            }
+                                        })
+                                    }
                                 }}
                             /> : null
                         }

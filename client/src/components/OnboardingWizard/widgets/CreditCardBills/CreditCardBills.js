@@ -40,13 +40,17 @@ export default function CreditCardBills() {
                             enableConfirmation={true}
                             parentConfirmation={confirmationMessage}
                             sendDataToParent={(data) => {
-                                setConfirmationMessage({
-                                    ...confirmationMessage,
-                                    answers: {
-                                        ...confirmationMessage.answers,
-                                        1: data
-                                    }
-                                })
+                                if (data === true) {
+                                    console.log('Data confirmed')
+                                } else {
+                                    setConfirmationMessage({
+                                        ...confirmationMessage,
+                                        answers: {
+                                            ...confirmationMessage.answers,
+                                            1: data
+                                        }
+                                    })
+                                }
                             }} 
                         />
                     </div>

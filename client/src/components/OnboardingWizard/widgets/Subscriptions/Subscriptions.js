@@ -35,7 +35,11 @@ export default function Subscriptions() {
                     <div>
                         <RecurringPaymentForm 
                             sendDataToParent={(data) => {
-                                setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 1: data}})
+                                if (data === true) {
+                                    console.log('Data confirmed')
+                                } else {
+                                    setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 1: data}})
+                                }
                             }}
                             questionPrompt={confirmationMessage.questions[1]}
                             enableSuggestions={'subscriptions'}
