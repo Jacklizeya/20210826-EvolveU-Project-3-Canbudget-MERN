@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import RecurringPaymentForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
 
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
-export default function Shelter() {
+export default function Shelter({sendDataToOnboard}) {
 
+    const [readyForDb, setReadyForDb] = useState(false)
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [confirmationMessage, setConfirmationMessage] = useState({
         questions: {
@@ -16,6 +17,15 @@ export default function Shelter() {
         },
         answers: {}
     })
+
+    useEffect(() => {
+        if (readyForDb) {
+            let localMessage = confirmationMessage
+            localMessage.widget = 'shelter'
+            sendDataToOnboard(localMessage)
+            setReadyForDb(false)
+        }
+    },[readyForDb, confirmationMessage, sendDataToOnboard])
 
 
     return (
@@ -84,7 +94,7 @@ export default function Shelter() {
                                 parentConfirmation={confirmationMessage}
                                 sendDataToParent={(data) => {
                                     if (data === true) {
-                                        console.log('Data confirmed')
+                                        setReadyForDb(true)
                                     } else {
                                         setConfirmationMessage({
                                             ...confirmationMessage,

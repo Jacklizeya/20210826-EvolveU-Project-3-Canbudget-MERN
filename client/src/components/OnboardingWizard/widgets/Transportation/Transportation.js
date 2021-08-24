@@ -3,8 +3,9 @@ import React, {useEffect, useState} from 'react'
 import RecurringPaymentForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
-export default function Transportation() {
+export default function Transportation({sendDataToOnboard}) {
 
+  const [readyForDb, setReadyForDb] = useState(false)
   const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
   const [confirmationMessage, setConfirmationMessage] = useState({
     questions: {
@@ -18,6 +19,15 @@ export default function Transportation() {
     },
     answers: {}
   })
+
+  useEffect(() => {
+    if (readyForDb) {
+        let localMessage = confirmationMessage
+        localMessage.widget = 'transportation'
+        sendDataToOnboard(localMessage)
+        setReadyForDb(false)
+    }
+  },[readyForDb, confirmationMessage, sendDataToOnboard])
 
   return (
     <div className='onboard-container'>
@@ -124,7 +134,7 @@ export default function Transportation() {
             parentConfirmation={confirmationMessage}
             sendDataToParent={(data) => {
               if (data === true) {
-                console.log('Data confirmed')
+                setReadyForDb(true)
               } else {
                 setConfirmationMessage({
                   ...confirmationMessage, 

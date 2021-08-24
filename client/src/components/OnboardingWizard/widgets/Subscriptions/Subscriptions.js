@@ -4,8 +4,9 @@ import RecurringPaymentForm from '../../components/RecurringPaymentForm/Recurrin
 
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
-export default function Subscriptions() {
+export default function Subscriptions({sendDataToOnboard}) {
 
+    const [readyForDb, setReadyForDb] = useState(false)
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [userHasSubscriptions, setUserHasSubscriptions] = useState(null)
     const [confirmationMessage, setConfirmationMessage] = useState({
@@ -19,6 +20,15 @@ export default function Subscriptions() {
     useEffect(() => {
         setConfirmationMessage(c => ({...c, answers: {...c.answers, 0: userHasSubscriptions}}))
     },[userHasSubscriptions])
+
+    useEffect(() => {
+        if (readyForDb) {
+            let localMessage = confirmationMessage
+            localMessage.widget = 'subscriptions'
+            sendDataToOnboard(localMessage)
+            setReadyForDb(false)
+        }
+    },[readyForDb, confirmationMessage, sendDataToOnboard])
 
     return (
         <div className='onboard-container'>
@@ -36,7 +46,7 @@ export default function Subscriptions() {
                         <RecurringPaymentForm 
                             sendDataToParent={(data) => {
                                 if (data === true) {
-                                    console.log('Data confirmed')
+                                    setReadyForDb(true)
                                 } else {
                                     setConfirmationMessage({...confirmationMessage, answers: {...confirmationMessage.answers, 1: data}})
                                 }

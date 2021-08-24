@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 import RecurringPaymentDetailsForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
 
-export default function Utilities() {
+export default function Utilities({sendDataToOnboard}) {
 
+  const [readyForDb, setReadyForDb] = useState(false)
   const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
   const [confirmationMessage, setConfirmationMessage] = useState({
     questions: {
@@ -13,6 +14,15 @@ export default function Utilities() {
     },
     answers: {}
   })
+
+  useEffect(() => {
+    if (readyForDb) {
+        let localMessage = confirmationMessage
+        localMessage.widget = 'utilities'
+        sendDataToOnboard(localMessage)
+        setReadyForDb(false)
+    }
+ },[readyForDb, confirmationMessage, sendDataToOnboard])
 
   return (
     <div className='onboard-container'>
@@ -44,7 +54,7 @@ export default function Utilities() {
             parentConfirmation={confirmationMessage}
             sendDataToParent={(data) => {
               if (data === true) {
-                console.log('Data confirmed')
+                setReadyForDb(true)
               } else {
                 setConfirmationMessage({
                   ...confirmationMessage,

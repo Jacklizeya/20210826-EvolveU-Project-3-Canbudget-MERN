@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 
 import Shelter from '../../components/OnboardingWizard/widgets/Shelter/Shelter'
@@ -7,13 +7,12 @@ import Transportation from '../../components/OnboardingWizard/widgets/Transporta
 import Utilities from '../../components/OnboardingWizard/widgets/Utilities/Utilities'
 import CreditCardBills from '../../components/OnboardingWizard/widgets/CreditCardBills/CreditCardBills'
 import OtherAssets from '../../components/OnboardingWizard/widgets/OtherAssets/OtherAssets'
-// three Buttons
+
 import CSV from "../../components/AssetBudget/CSV"
 import AssetPlaid from "../../components/AssetBudget/AssetPlaid"
 import TransactionPlaid from "../../components/AssetBudget/TransactionPlaid"
 
 import './OnboardingWizard.css'
-import Asset from '../Asset';
 
 export default function OnboardingWizard() {
 
@@ -36,12 +35,12 @@ export default function OnboardingWizard() {
                     <AssetPlaid id= {id} setAddStatus = {setAddStatus} > </AssetPlaid>
                 </div>
             </div>
-            <Shelter />
-            <Transportation />
-            <Subscriptions />
-            <Utilities />
-            <CreditCardBills />
-            <OtherAssets />
+            <Shelter sendDataToOnboard={(data) => {console.log(data)}}/>
+            <Transportation sendDataToOnboard={(data) => {console.log(data)}}/>
+            <Subscriptions sendDataToOnboard={(data) => {console.log(data)}}/>
+            <Utilities sendDataToOnboard={(data) => {console.log(data)}}/>
+            <CreditCardBills sendDataToOnboard={(data) => {console.log(data)}}/>
+            <OtherAssets sendDataToOnboard={(data) => {console.log(data)}}/>
         </div>
     )
 }

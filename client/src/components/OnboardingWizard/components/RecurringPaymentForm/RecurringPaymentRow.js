@@ -63,23 +63,23 @@ export default function RecurringPaymentRow({parentData, sendDataToParent, payme
               }}
             ></input>
           </label>
+        </td> : 
+        <td>
+          <label className='recurring-payment-label'>
+            {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Value</p> : null}
+            <input 
+              className='recurring-payment-field'
+              type='number'
+              placeholder='$ Amount'
+              min='0'
+              value={rowProps.amount}
+              onChange={(event) => {
+                setRowProps({...rowProps, amount: event.target.value, isEmpty: false})
+              }}
+            ></input>
+          </label>
         </td>
-      : null}
-      <td>
-        <label className='recurring-payment-label'>
-          {parentData.formId === 0 ? <p className='recurring-payment-label-text'>Value</p> : null}
-          <input 
-            className='recurring-payment-field'
-            type='number'
-            placeholder='$ Amount'
-            min='0'
-            value={rowProps.amount}
-            onChange={(event) => {
-              setRowProps({...rowProps, amount: event.target.value, isEmpty: false})
-            }}
-          ></input>
-        </label>
-      </td>
+      }
       {!enableAssetsOnly ? 
         <td>
           <label className='recurring-payment-label'>

@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import RecurringPaymentForm from '../../components/RecurringPaymentForm/RecurringPaymentForm'
 
 import BooleanRadioButtons from '../../components/BooleanRadiusButtons/BooleanRadioButtons'
 
-export default function OtherAssets() {
+export default function OtherAssets({sendDataToOnboard}) {
 
+    const [readyForDb, setReadyForDb] = useState(false)
     const [displayOnboardBody, setDisplayOnboardBody] = useState(false)
     const [confirmationMessage, setConfirmationMessage] = useState({
         questions: {
@@ -14,6 +15,16 @@ export default function OtherAssets() {
         },
         answers: {}
     })
+
+    useEffect(() => {
+        if (readyForDb) {
+            let localMessage = confirmationMessage
+            localMessage.widget = 'assets'
+            sendDataToOnboard(localMessage)
+            setReadyForDb(false)
+        }
+    },[readyForDb, confirmationMessage, sendDataToOnboard])
+
     return (
         <div className='onboard-container'>
             <h2 className='onboard-heading widget' onClick={() => setDisplayOnboardBody(!displayOnboardBody)}>Other Assets</h2>
@@ -39,7 +50,7 @@ export default function OtherAssets() {
                             parentConfirmation={confirmationMessage}
                             sendDataToParent={(data) => {
                                 if (data === true) {
-                                    console.log('Data confirmed')
+                                    setReadyForDb(true)
                                 } else {
                                     setConfirmationMessage({
                                         ...confirmationMessage,
