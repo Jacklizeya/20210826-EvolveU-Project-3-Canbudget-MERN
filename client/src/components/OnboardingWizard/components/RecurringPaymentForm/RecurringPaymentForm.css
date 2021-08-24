@@ -64,6 +64,8 @@
   flex-direction: row;
   justify-content: space-between;
   padding-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .recurring-payment-label {
@@ -96,4 +98,8 @@
   display: flex;
   flex-flow: wrap row;
   justify-content: center;
+}
+
+.subscription-suggestion-button {
+  border-radius: 12px;
 }
