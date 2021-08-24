@@ -13,7 +13,7 @@
   ###### Iryna Tarasenko (https://github.com/Irynatar)
   ###### Vladimir Zhukov (https://github.com/vzhukovtnv)
 
-### CanBudget is live! Visit us at: https://canbudget.herokuapp.com/
+#### CanBudget is live! Visit us at: https://canbudget.herokuapp.com/
 
 ## Development Procedure
 
