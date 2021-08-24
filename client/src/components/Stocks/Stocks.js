@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams, useRouteMatch } from 'react-router-dom'
 
-import { Heading1, PortolioDiv} from "../AssetBudget/assetAndBudget.elements"
+import { Heading1, PortolioDiv, FixedDiv} from "../AssetBudget/assetAndBudget.elements"
 import { PushSpinner } from "react-spinners-kit";
 //import io from "socket.io-client"
 import AuthenticationContext from '../auth/AuthenticationContext';
@@ -126,24 +126,39 @@ const Stocks = () => {
 
 
     async function getFullData() {
+        console.log("Start getting data")
         setIsPending(true);
         const url = "/api/stock/" + id + "/true";
         try {
+            console.log("1")
             let response = await fetch(url);
             if (!response.ok) { // error coming back from server
                 setError(url + " Server error 1");
                 setIsPending(false);
                 return;
             }
+            console.log("2")
 
             let data = await response.json();
             if (data) {
+
+                console.log("3")
                 setCompanies(data.companies);
+                console.log("4")
+
                 setPortfolioObj(data.portfolioObj);
+                console.log("5")
+
                 setLastData(data.lastData);
+                console.log("6")
+
                 setFullData(data.fullData);
+                console.log("7")
+
                 setError("");
                 setIsPending(false);
+                console.log("Stop getting data")
+
                 return;
             }
             setError(" Server error 2");
@@ -157,12 +172,17 @@ const Stocks = () => {
     }
 
 
-    async function addWatch(symbol) {
+    async function addWatch(symbol, period=-1) {
         if (!symbol) {
             return;
         }
         const url = "/api/stock/" + id + "/watch";
-        const action = { operation: "add", symbol, period:0 }
+        let newWatch = false
+        if (period<0){
+            period = 0;
+            newWatch = true;
+        }
+        const action = { operation: "add", symbol, period }
         try {
             let response = await fetch(url, {
                 method: "POST",
@@ -175,7 +195,12 @@ const Stocks = () => {
             if (response.ok) {
                 let r = await response.json();
                 if (r) {
-                    createWatch(symbol);
+                    if (newWatch){
+                        createWatch(symbol);
+                    }
+                    else{
+                        getFullData();
+                    }
                     //alert("Data is OK")
                 }
                 else {
@@ -213,7 +238,9 @@ const Stocks = () => {
         }
     }
 
-
+function changePeriod(symbol, period){
+    addWatch(symbol, period);
+}
 
     function getFullDataElement(symbol) {
         if (!fullData) {
@@ -237,6 +264,7 @@ const Stocks = () => {
             <Heading1>Securities</Heading1>
             <div>
                 <table style={{tableLayout:"fixed", maxWidth:"100%"}}>
+                    <tbody>
                     <tr>
                         <td >
                             <div>
@@ -255,11 +283,12 @@ const Stocks = () => {
                                 {lastData && fullData && companies &&
                                     lastData.map((stock) => {
                                         return (
-                                            <div>
+                                            <div key={stock.symbol} >
                                                 <Watch
                                                     stock={stock}
                                                     buySellAction={buySellAction}
                                                     closeAction={closeAction}
+                                                    changePeriod = {changePeriod}
                                                     fullElement={getFullDataElement(stock.symbol)}
                                                     company={getCompanyElement(stock.symbol)}
                                                     portfolio = {portfolioObj}
@@ -270,6 +299,7 @@ const Stocks = () => {
                             </div>
                         </td>
                     </tr>
+                    </tbody>
                 </table>
 
             </div>

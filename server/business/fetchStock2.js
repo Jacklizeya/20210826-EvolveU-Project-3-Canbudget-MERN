@@ -66,8 +66,9 @@ function timeSeriesConvert(symbol, period, stockAll, isFullData) {
     property = getPropertyName(stockAll, 1); // Time serries property name
     const property0 = getPropertyName(stockAll, 0);
 
-    if (property0 == null || property0 === "" || property0.startsWith("Error")) {
-        console.error("Error getting from Alpha >>>>>> ", val.symbol);
+    if (!property0  || property0.startsWith("Error")) {
+        if (!property0 ){console.error("property0 is for  "+symbol+" "+property0)}
+        else {console.error("Error getting from Alpha >>>>>> "+symbol)};
         noErrors = false;
     }
 

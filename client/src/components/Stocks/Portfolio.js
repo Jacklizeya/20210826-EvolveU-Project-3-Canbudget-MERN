@@ -13,11 +13,12 @@ const Portfolio = ({ portfolio }) => {
 
    //alert("portfolio call");
     return (
-        <div class="container" >
-            <div class="table-responsive">
+        <div >
+            <div >
                 <h3>Portfolio</h3>
                 { portfolio &&
-                    <table class="table table-striped" >
+                    <table >
+                        <tbody>
                         <tr>
                             <th>Symbol</th>
                             <th>Amount</th>
@@ -36,7 +37,7 @@ const Portfolio = ({ portfolio }) => {
                                 sumStock = '';
                             }
                             return (
-                                <tr>
+                                <tr key ={stock.symbol}>
                                     <td>{stock.symbol} </td>
                                     <td>{stock.amount} </td>
                                     <td >{price}</td>
@@ -48,14 +49,15 @@ const Portfolio = ({ portfolio }) => {
                             <td>Portfolio value:</td>
                             <td></td>
                             <td></td>
-                            <td colspan="3">{(portfolio.totalSum)} </td>
+                            <td colSpan="3">{(portfolio.totalSum.toFixed(2))} </td>
                         </tr>
                         <tr>
                             <td>Account balance:</td>
                             <td></td>
                             <td></td>
-                            <td colspan="3">{portfolio.balance} </td>
+                            <td colSpan="3">{portfolio.balance.toFixed(2)} </td>
                         </tr>
+                        </tbody>
 
                     </table>
                 }

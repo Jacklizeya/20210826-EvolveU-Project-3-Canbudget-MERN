@@ -89,36 +89,37 @@ export const Numbertd = styled.td`
 `
 
 export const SubmitButton = styled.button`
-  cursor: pointer;
-  padding: 10px;
-  color: white;
-  background-color: #01345B;
-  border-radius: 20px;
-  border: 2px solid #01345B;
-  font-weight: bold;
-  margin: 10px;
+    color: white;
+    background: #01345B;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border: 2px solid #01345B;
+    border-radius: 3px;
+    margin: 0.25em 0.5em;
 `;
 
 export const StockButton = styled.button`
-  cursor: pointer;
-  padding: 10px;
-  color: white;
-  background-color: #01345B;
-  border-radius: 20px;
-  border: 2px solid #01345B;
-  font-weight: bold;
-  margin: 10px;
+    color: white;
+    background: #01345B;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border: 2px solid #01345B;
+    border-radius: 3px;
+    width: 200px;
+    height: 40px;
+    margin: 10px 20px 10px 40px;
 `;
 
 export const TransactionButton = styled.button`
-  cursor: pointer;
-  padding: 10px;
-  color: white;
-  background-color: #01345B;
-  border-radius: 20px;
-  border: 2px solid #01345B;
-  font-weight: bold;
-  margin: 10px;
+    color: white;
+    background: #01345B;
+    font-size: 1em;
+    padding: 0.5em 1.5em;
+    border: 2px solid #01345B;
+    border-radius: 3px;
+    width: 300px;
+    height: 40px;
+    margin: 10px 20px 10px 40px;
 `;
 
 export const PlaidButton = styled.button`
@@ -266,6 +267,9 @@ export const LoginFormDiv = styled.div`
       position: fixed;
     }
     `
+    export const FixedDiv = styled.div`
+      position: fixed;
+      `
 
     export const VeryLongTextTD = styled.td`
           word-wrap: break-word;    

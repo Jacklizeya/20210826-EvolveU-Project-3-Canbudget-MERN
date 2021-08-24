@@ -134,11 +134,11 @@ async function addUser(id) {
     for (const val of values[1]) {
         addPortfolio(user,  val.symbol, val.amount) 
     }
-    if ( values[2]){
+    if ( values[2] && values[2].securitiesAccount){
         user.balance =  values[2].securitiesAccount;
         user.totalSum = values[2].valueOfSecurities;
     }else{
-        user.balance = 0;
+        user.balance = 5000;
         user.totalSum = 0;
     }
 

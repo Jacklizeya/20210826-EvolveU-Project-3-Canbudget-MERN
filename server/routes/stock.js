@@ -54,7 +54,7 @@ router.post('/:id/watch', async (req, res) => {
     switch (operation) {
       case "add":
         let data = await watchListOperations.addWatchList(id, symbol, period);
-          console.log("data=",data)  ;
+          // console.log("data=",data)  ;
         res.send(data);
         break;
 
@@ -95,7 +95,7 @@ router.post('/:id/portfolio', async (req, res) => {
       const { ok, message } = (operation === "buy") ?
         await portfolioOperations.buy(id, symbol, price, amount) :
         await portfolioOperations.sell(id, symbol, price, amount);
-      console.log("buy or sell")
+      // console.log("buy or sell")
       if (ok) {
         res.send(result);
       } else {

@@ -45,6 +45,9 @@ async function getCompanyInformation(symbol) {
         if(isNaN(company.MarketCapitalization)){
             company.MarketCapitalization =0;
         }
+        if(isNaN(company.PERatio)){
+            company.PERatio =0;
+        }
     }
     //  console.log(company);
 

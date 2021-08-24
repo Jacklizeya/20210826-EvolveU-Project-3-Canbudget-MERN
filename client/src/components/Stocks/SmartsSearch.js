@@ -31,6 +31,7 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
             return
         }
         clearList();
+        setSearchedStock("");
         addWatch(symbol);
     }
 
@@ -104,9 +105,9 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
 
         return (
             <div>
-                <h3>Add  new securities</h3>
+                <h3>Add  new securities:</h3>
                 <div>
-                    <label htmlFor="searchStock">Add stock</label>
+                    {/* <label htmlFor="searchStock">Add stock</label> */}
                     <input
                         type="text"
                         name="searchStock"
