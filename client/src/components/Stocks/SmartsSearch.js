@@ -107,6 +107,7 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
             <div 
                 style={{
                     display:'flex',
+                    flexDirection:'column',
                     justifyContent: 'center',
                     alignItems: 'center',
                     border:'4px #01345b solid', 
@@ -116,19 +117,19 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
                     boxShadow:'0 20px 75px rgba(0, 0, 0, 0.13)'
                 }}
             >
-                <Heading3>Search for Securities</Heading3>
-                <div style={{display:'flex'}}>
-                    {/* <label htmlFor="searchStock">Add stock</label> */}
-                    <input
-                        type="text"
-                        name="searchStock"
-                        id="searchStock"
-                        value={searchedStock}
-                        className="input-field"
-                        onChange={(e) => StartSearch(e.target.value)}
-                    />
-                    <SubmitButton type="button"  onClick={onClear}>Clear</SubmitButton>
-                </div>
+                    <div style={{display:'flex'}}>
+                        <Heading3>Search for Securities</Heading3>
+                        {/* <label htmlFor="searchStock">Add stock</label> */}
+                        <input
+                            type="text"
+                            name="searchStock"
+                            id="searchStock"
+                            value={searchedStock}
+                            className="input-field"
+                            onChange={(e) => StartSearch(e.target.value)}
+                        />
+                        <SubmitButton type="button"  onClick={onClear}>Clear</SubmitButton>
+                    </div>
                 {listVisible && ShowList()}
             </div>
         );

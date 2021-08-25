@@ -139,7 +139,7 @@ const Stocks = () => {
 
             let data = await response.json();
             if (data) {
-
+                
                 setCompanies(data.companies);
                 setPortfolioObj(data.portfolioObj);
                 setLastData(data.lastData);
@@ -257,14 +257,18 @@ const Stocks = () => {
                     <tbody>
                         <tr>
                             <td >
-                                <div>
+                                <div style={{display:'flex', flexFlow:'row wrap', justifyContent:'center'}}>
                                     {lastData &&
                                         <SmartSearch lastData={lastData} addWatch={addWatch} />
                                     }
                                     {portfolioObj &&
                                         <Portfolio portfolio={portfolioObj} />
                                     }
-                                    {<PushSpinner size={30} color="#01345B" loading={isPending} />}
+                                    {isPending ?
+                                        <div style={{display:'flex', justifyContent:'center', paddingLeft:'100px'}}>
+                                            <PushSpinner size={30} color="#01345B" loading={isPending} />
+                                        </div>
+                                    : null}
                                 </div>
                             </td>
                             <td style={{margin:'20px', padding:'20px'}}>

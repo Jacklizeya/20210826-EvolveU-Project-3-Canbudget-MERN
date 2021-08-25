@@ -13,7 +13,7 @@ const Portfolio = ({ portfolio }) => {
 
    //alert("portfolio call");
     return (
-        <div style={{border:'4px #01345b solid', borderRadius:'20px', margin:'20px', padding: '0px 20px 20px 20px', boxShadow:'0 20px 75px rgba(0, 0, 0, 0.13)'}}>
+        <div style={{display:'flex', justifyContent:'center', border:'4px #01345b solid', borderRadius:'20px', margin:'20px', padding: '0px 20px 20px 20px', boxShadow:'0 20px 75px rgba(0, 0, 0, 0.13)'}}>
             <PortolioDiv >
                 <Heading3>Portfolio</Heading3>
                 { portfolio &&
