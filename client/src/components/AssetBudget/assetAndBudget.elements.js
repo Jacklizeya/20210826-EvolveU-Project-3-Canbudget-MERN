@@ -246,10 +246,11 @@ export const LoginFormDiv = styled.div`
     color: #01345B;
     `
     export const WatchElement = styled.div`
-    border-style: solid;
+    border: 4px #01345b solid;
     padding: 6px 12px;
     border-radius: 12px;
     color: #01345B;
+    box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
     `
 
     export const TopBottomArrow = styled.input`

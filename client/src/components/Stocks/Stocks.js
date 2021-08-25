@@ -267,7 +267,7 @@ const Stocks = () => {
                                     {<PushSpinner size={30} color="#01345B" loading={isPending} />}
                                 </div>
                             </td>
-                            <td>
+                            <td style={{margin:'20px', padding:'20px'}}>
                                 <div>
                                     {lastData && fullData && companies &&
                                         lastData.map((stock) => {

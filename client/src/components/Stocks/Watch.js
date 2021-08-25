@@ -139,7 +139,30 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
                             marker: { color: 'green' },
                         }
                     ]}
-                    layout={{ width: 680, height: 340, title:  ( company?.Currency ? "Price "+ company.Currency :  ``)  }}
+                    layout={{ 
+                        width: 680, 
+                        height: 340, 
+                        xaxis: {
+                            title: {
+                            text: 'Date',
+                            font: {
+                                family: 'Courier New, monospace',
+                                size: 18,
+                                color: '#7f7f7f'
+                            }
+                            },
+                        },
+                        yaxis: {
+                            title: {
+                            text: '$ (USD)',
+                            font: {
+                                family: 'Courier New, monospace',
+                                size: 18,
+                                color: '#7f7f7f'
+                            }
+                            }
+                        } 
+                    }}
                 />
 
             </div>
@@ -171,32 +194,32 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>Symbol:</td>
+                                            <td style={{fontWeight:'bold'}}>Symbol:</td>
                                             <td>{lastData.symbol}</td>
                                         </tr>
                                         <tr>
-                                            <td>Date:</td>
+                                            <td style={{fontWeight:'bold'}}>Date:</td>
                                             <td>{lastData.lastDate}</td>
                                         </tr>
 
                                         <tr>
-                                            <td>Open:</td>
+                                            <td style={{fontWeight:'bold'}}>Open:</td>
                                             <td>{lastData.open}</td>
                                         </tr>
                                         <tr>
-                                            <td>High:</td>
+                                            <td style={{fontWeight:'bold'}}>High:</td>
                                             <td>{lastData.high}</td>
                                         </tr>
                                         <tr>
-                                            <td>Low:</td>
+                                            <td style={{fontWeight:'bold'}}>Low:</td>
                                             <td>{lastData.low}</td>
                                         </tr>
                                         <tr>
-                                            <td>Close:</td>
+                                            <td style={{fontWeight:'bold'}}>Close:</td>
                                             <td>{lastData.close}</td>
                                         </tr>
                                         <tr>
-                                            <td>Volume:</td>
+                                            <td style={{fontWeight:'bold'}}>Volume:</td>
                                             <td>{lastData.volume}</td>
                                         </tr>
 
