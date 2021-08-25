@@ -58,7 +58,10 @@ export default function Transactions() {
 
     useEffect(() => {
         async function getUserandSetTransactionData() {
-            let {data} = await axios.get(`/api/user/${id}/transaction`, )   
+            let {data} = await axios.get(`/api/user/${id}/transaction`, )
+            for (let i in data) {
+              data[i].amount = Number(data[i].amount).toFixed(2)
+            }   
             setTransactionData(data)
         }
         getUserandSetTransactionData()
