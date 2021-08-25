@@ -13,13 +13,13 @@ const Portfolio = ({ portfolio }) => {
 
    //alert("portfolio call");
     return (
-        <div >
+        <div style={{border:'4px #01345b solid', borderRadius:'20px', margin:'20px', padding: '0px 20px 20px 20px', boxShadow:'0 20px 75px rgba(0, 0, 0, 0.13)'}}>
             <PortolioDiv >
-                <Heading3>Portfolio:</Heading3>
+                <Heading3>Portfolio</Heading3>
                 { portfolio &&
-                    <table >
+                    <table style={{border:'#01345b 1px solid', borderCollapse:'collapse'}}>
                         <tbody>
-                        <tr>
+                        <tr style={{color:'white', backgroundColor:'#01345b'}}>
                             <th>Symbol</th>
                             <th>Amount</th>
                             <th>Price</th>
@@ -38,24 +38,24 @@ const Portfolio = ({ portfolio }) => {
                             }
                             return (
                                 <tr key ={stock.symbol}>
-                                    <td>{stock.symbol} </td>
-                                    <td>{stock.amount} </td>
-                                    <td>{price}</td>
-                                    <td>{sumStock} </td>
+                                    <td style={{border:'#01345b 1px solid'}}>{stock.symbol} </td>
+                                    <td style={{border:'#01345b 1px solid'}}>{stock.amount} </td>
+                                    <td style={{border:'#01345b 1px solid'}}>{price}</td>
+                                    <td style={{border:'#01345b 1px solid'}}>{sumStock} </td>
                                 </tr>
                             )
                         })}
                         <tr>
-                            <td>Portfolio value:</td>
-                            <td></td>
-                            <td></td>
-                            <td colSpan="3">{(portfolio.totalSum.toFixed(2))} </td>
+                            <td style={{border:'#01345b 1px solid'}}>Cash</td>
+                            <td style={{border:'#01345b 1px solid', backgroundColor:'#01345b'}}></td>
+                            <td style={{border:'#01345b 1px solid', backgroundColor:'#01345b'}}></td>
+                            <td  style={{border:'#01345b 1px solid'}}colSpan="3">{portfolio.balance.toFixed(2)} </td>
                         </tr>
-                        <tr>
-                            <td>Account balance:</td>
-                            <td></td>
-                            <td></td>
-                            <td colSpan="3">{portfolio.balance.toFixed(2)} </td>
+                        <tr style={{color:'white', backgroundColor:'#01345b', fontWeight:'bold'}}>
+                            <td style={{border:'#01345b 1px solid'}}>Value</td>
+                            <td style={{border:'#01345b 1px solid'}}></td>
+                            <td style={{border:'#01345b 1px solid'}}></td>
+                            <td  style={{border:'#01345b 1px solid'}}colSpan="3">{(portfolio.totalSum.toFixed(2))} </td>
                         </tr>
                         </tbody>
 
