@@ -11,6 +11,7 @@ export default function Sankey({userId, filteredData}) {
   const [incomes, setIncomes] = useState(null)
   // const [categories, setCategories] = useState(null)
   const [sankeyData, setSankeyData] = useState([])
+  const [displayChart, setDisplayChart] = useState(false)
 
   useEffect(() => {
     async function getData() {
@@ -32,6 +33,7 @@ export default function Sankey({userId, filteredData}) {
       let sankeyArray = handleSankeyData(transactions, incomes)
       if (sankeyArray.length !== 1) {
         setSankeyData(sankeyArray)
+        setDisplayChart(true)
       }
     }
   },[transactions, incomes])
@@ -53,7 +55,7 @@ export default function Sankey({userId, filteredData}) {
   // },[])
 
   return (
-    filteredData ?
+    displayChart ?
       <div style={{display:'flex', alignItems: 'center', justifyContent:'center', width:'50%'}}>
         <Chart
           chartType="Sankey"
