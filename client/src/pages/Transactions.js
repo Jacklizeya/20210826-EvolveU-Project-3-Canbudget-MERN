@@ -170,9 +170,8 @@ export default function Transactions() {
                       row.cells.map(cell => {
                         // Apply the cell props
                         return (
-                          <td {...cell.getCellProps()}>
-                            {// Render the cell contents
-                            cell.render('Cell')}
+                          <td className='transaction-table-number' style={{color: Math.sign(cell.value) === -1 ? 'red' : '#01345b'}} {...cell.getCellProps()}>
+                            {cell.render('Cell')}
                           </td>
                         )
                       })}
