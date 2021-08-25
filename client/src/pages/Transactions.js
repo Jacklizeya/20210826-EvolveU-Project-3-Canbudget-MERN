@@ -58,10 +58,7 @@ export default function Transactions() {
 
     useEffect(() => {
         async function getUserandSetTransactionData() {
-            let {data} = await axios.get(`/api/user/${id}/transaction`, )
-            for (let i in data) {
-              data[i].amount = Number(data[i].amount).toFixed(2)
-            }   
+            let {data} = await axios.get(`/api/user/${id}/transaction`, )   
             setTransactionData(data)
         }
         getUserandSetTransactionData()
@@ -219,10 +216,12 @@ export default function Transactions() {
             <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             <CSV id={id} setAddStatus={setAddStatus}> </CSV>
           </div>
-          {chartsReady ?
+          {filteredRows ?
             <div className='transaction-chart-container'>
               <TransactionChart data={filteredRows}/>
-              <Sankey userId={id} filteredData={filteredRows}/>
+              {chartsReady ?
+                <Sankey userId={id} filteredData={filteredRows}/>
+              : null}
             </div>
           : null}
         </div>
