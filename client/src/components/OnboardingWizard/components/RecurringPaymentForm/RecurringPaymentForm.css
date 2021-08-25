@@ -32,6 +32,7 @@
 .recurring-payment-field{
   padding-left: 10px;
   height: 100%;
+  width: 150px;
 }
 
 .recurring-payment-frequency-inputs {

@@ -5,7 +5,7 @@ export default function RadialBar({budgetSum, transactionSum}) {
     // eslint-disable-next-line
     const [radialBarProps, setRadialBarProps] = useState(
         {
-            series: [70],
+            series: [94.5],
             options: {
                 chart: {
                     type: 'radialBar',

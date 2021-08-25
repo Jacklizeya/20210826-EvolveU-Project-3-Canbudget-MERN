@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext, useMemo} from 'react';
 import AuthenticationContext from '../components/auth/AuthenticationContext';
-// import { useHistory } from "react-router-dom";
 import axios from "axios"
 import {useTable, useSortBy, useGlobalFilter, useFilters, usePagination} from "react-table"
 import GlobalFilter from '../components/ReactTableFilters/GlobalFilter';
@@ -17,12 +16,11 @@ import './Budget/AssetBudgetTransaction.css'
 
 export default function Transactions() {
 
-    // let history = useHistory()
     const [addStatus, setAddStatus] = useState(0)
     const {id} = useContext(AuthenticationContext)
     const [transactionData, setTransactionData] = useState([])
     const data = useMemo(()=> transactionData, [transactionData])
-    // console.log("transactiondata length", transactionData.length)
+    const [chartsReady, setChartsReady] = useState(false)
 
     const columns = useMemo(() => [
       {
@@ -62,11 +60,10 @@ export default function Transactions() {
         async function getUserandSetTransactionData() {
             let {data} = await axios.get(`/api/user/${id}/transaction`, )   
             setTransactionData(data)
-            // console.log("user transaction", data)
         }
-        console.log("enter use Effect")
         getUserandSetTransactionData()
         setAddStatus(0)
+        setChartsReady(true)
     }, [addStatus, id])
 
 //  This is for the dates function
@@ -220,7 +217,7 @@ export default function Transactions() {
             <Plaid id={id} setAddStatus={setAddStatus}> </Plaid>
             <CSV id={id} setAddStatus={setAddStatus}> </CSV>
           </div>
-          {filteredRows ?
+          {chartsReady ?
             <div className='transaction-chart-container'>
               <TransactionChart data={filteredRows}/>
               <Sankey userId={id} filteredData={filteredRows}/>

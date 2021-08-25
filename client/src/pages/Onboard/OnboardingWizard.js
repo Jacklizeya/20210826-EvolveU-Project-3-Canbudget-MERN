@@ -1,4 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
+import axios from 'axios';
+
 import AuthenticationContext from '../../components/auth/AuthenticationContext';
 
 import Shelter from '../../components/OnboardingWizard/widgets/Shelter/Shelter'
@@ -20,8 +22,7 @@ export default function OnboardingWizard() {
     const [addStatus, setAddStatus] = useState(0)
 
     useEffect(() => {
-        setAddStatus(0);
-
+        setAddStatus(0)
     }, [addStatus])
 
     return (
@@ -35,12 +36,23 @@ export default function OnboardingWizard() {
                     <AssetPlaid id= {id} setAddStatus = {setAddStatus} > </AssetPlaid>
                 </div>
             </div>
-            <Shelter sendDataToOnboard={(data) => {console.log(data)}}/>
-            <Transportation sendDataToOnboard={(data) => {console.log(data)}}/>
-            <Subscriptions sendDataToOnboard={(data) => {console.log(data)}}/>
-            <Utilities sendDataToOnboard={(data) => {console.log(data)}}/>
-            <CreditCardBills sendDataToOnboard={(data) => {console.log(data)}}/>
-            <OtherAssets sendDataToOnboard={(data) => {console.log(data)}}/>
+            <Shelter sendDataToOnboard={(data) => {addNewBalanceSheet(data, id)}}/>
+            <Transportation sendDataToOnboard={(data) => {addNewBalanceSheet(data, id)}}/>
+            <Subscriptions sendDataToOnboard={(data) => {addNewBalanceSheet(data, id)}}/>
+            <Utilities sendDataToOnboard={(data) => {addNewBalanceSheet(data, id)}}/>
+            <CreditCardBills sendDataToOnboard={(data) => {addNewBalanceSheet(data, id)}}/>
+            <OtherAssets sendDataToOnboard={(data) => {addNewBalanceSheet(data, id)}}/>
         </div>
     )
+
+    async function addNewBalanceSheet(event, id) {
+        console.log(event, id)
+        for (let i in event.answers) {
+            console.log(event.answers[i])
+        }
+        // let {data} = await axios.patch(`/api/user/${id}/addBalanceSheet/`, newBalanceSheet, {headers : {"Content-Type": "application/json"}})
+        // if (data.ok) {
+        //     setAddStatus(data.ok)
+        // }
+    }
 }

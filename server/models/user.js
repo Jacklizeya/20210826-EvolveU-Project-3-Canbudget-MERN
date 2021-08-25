@@ -131,7 +131,6 @@ async function addBalanceSheet(userId, newBaddBalanceSheet) {
     let duplicateOrNot =  await userModel.find(
         { _id: userId },
         {balanceSheet : {$elemMatch : {name: newBaddBalanceSheet.name}}}
-         
     )
 
     console.log("*******duplicatedornot", duplicateOrNot[0].balanceSheet)
@@ -179,6 +178,27 @@ async function addTransaction(userId, newTransactionArray) {
     )
 }
 
+async function updateUserFromOnboard(userId, newBaddBalanceSheet) {
+    // does it already in the database? if yes, delete then add, if not, just add
+    let duplicateOrNot =  await userModel.find(
+        { _id: userId },
+        {balanceSheet : {$elemMatch : {name: newBaddBalanceSheet.name}}}
+    )
+
+    console.log("*******duplicatedornot", duplicateOrNot[0].balanceSheet)
+
+    if (duplicateOrNot[0].balanceSheet) { await userModel.updateOne(
+        { _id: userId },
+        { $pull: { balanceSheet: {name: newBaddBalanceSheet.name} } }
+    )}
+
+    
+    return userModel.updateOne(
+        { _id: userId },
+        { $push: { balanceSheet: newBaddBalanceSheet } }
+    )
+}
+
 module.exports = {
     createUser,
     getUserList,
@@ -192,5 +212,6 @@ module.exports = {
     addBalanceSheet,
     removeBalanceSheet,
     addTransaction,
-    addCashFlow
+    addCashFlow,
+    updateUserFromOnboard
 }

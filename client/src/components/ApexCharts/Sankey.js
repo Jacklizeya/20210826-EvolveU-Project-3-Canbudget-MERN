@@ -30,7 +30,9 @@ export default function Sankey({userId, filteredData}) {
   useEffect(() => {
     if (transactions) {
       let sankeyArray = handleSankeyData(transactions, incomes)
-      setSankeyData(sankeyArray)
+      if (sankeyArray.length !== 1) {
+        setSankeyData(sankeyArray)
+      }
     }
   },[transactions, incomes])
 
@@ -51,7 +53,7 @@ export default function Sankey({userId, filteredData}) {
   // },[])
 
   return (
-    filteredData ? 
+    filteredData ?
       <div style={{display:'flex', alignItems: 'center', justifyContent:'center', width:'50%'}}>
         <Chart
           chartType="Sankey"
