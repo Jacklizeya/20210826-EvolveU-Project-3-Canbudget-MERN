@@ -104,9 +104,20 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
 
 
         return (
-            <BoxDiv>
-                <Heading3>Add  new securities:</Heading3>
-                <div>
+            <div 
+                style={{
+                    display:'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    border:'4px #01345b solid', 
+                    borderRadius:'20px', 
+                    margin:'20px', 
+                    padding: '20px', 
+                    boxShadow:'0 20px 75px rgba(0, 0, 0, 0.13)'
+                }}
+            >
+                <Heading3>Search for Securities</Heading3>
+                <div style={{display:'flex'}}>
                     {/* <label htmlFor="searchStock">Add stock</label> */}
                     <input
                         type="text"
@@ -119,8 +130,7 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
                     <SubmitButton type="button"  onClick={onClear}>Clear</SubmitButton>
                 </div>
                 {listVisible && ShowList()}
-            </BoxDiv>
-
+            </div>
         );
     }
 

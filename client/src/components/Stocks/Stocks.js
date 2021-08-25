@@ -261,7 +261,6 @@ const Stocks = () => {
                                     {lastData &&
                                         <SmartSearch lastData={lastData} addWatch={addWatch} />
                                     }
-                                    <hr></hr>
                                     {portfolioObj &&
                                         <Portfolio portfolio={portfolioObj} />
                                     }
