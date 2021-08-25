@@ -19,7 +19,7 @@ async function buy(id, symbol, price, amount) {
    
     const delta = amount * price + company.commission;
     if (delta > balance) {
-        return { ok: false, message: "Not enoupgh money to buy this stock" };
+        return { ok: false, message: "Not enough money to buy this stock" };
     }
 
     let newBalance = balance - delta;

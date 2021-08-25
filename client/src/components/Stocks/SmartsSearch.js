@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { SubmitButton,SmartSearchList} from "../AssetBudget/assetAndBudget.elements"
+import { SubmitButton,SmartSearchList,Heading3,BoxDiv} from "../AssetBudget/assetAndBudget.elements"
 
 const SmartSearch = ({ lastData, addWatch,  }) => {
     const [searchedStock, setSearchedStock] = useState();
@@ -104,8 +104,8 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
 
 
         return (
-            <div>
-                <h3>Add  new securities:</h3>
+            <BoxDiv>
+                <Heading3>Add  new securities:</Heading3>
                 <div>
                     {/* <label htmlFor="searchStock">Add stock</label> */}
                     <input
@@ -119,7 +119,7 @@ const SmartSearch = ({ lastData, addWatch,  }) => {
                     <SubmitButton type="button"  onClick={onClear}>Clear</SubmitButton>
                 </div>
                 {listVisible && ShowList()}
-            </div>
+            </BoxDiv>
 
         );
     }

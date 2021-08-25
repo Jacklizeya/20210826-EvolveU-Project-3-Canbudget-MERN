@@ -49,7 +49,6 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
             setStockChartYValues([]);
             return
         } else {
-            console.log("setChartValues -start " + stock.symbol)
             const xArray = [];
             const yArray = [];
 
@@ -63,8 +62,6 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
             // }
             setStockChartXValues(xArray);
             setStockChartYValues(yArray);
-            console.log("setChartValues -stop " + stock.symbol)
-
         }
     }
 
@@ -77,7 +74,7 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
         //alert(buyAmount);
 
         if (lastData.close * buyAmount > portfolio.balance) {
-            alert("You can't buy more then " + Math.floor((portfolio.balance / lastData.close)).toString() + " stocks");
+            alert("You can't buy more than " + Math.floor((portfolio.balance / lastData.close)).toString() + " stocks");
             return;
         }
         topBottomEvent();
@@ -99,7 +96,7 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
         //alert(sellAmount.toString());
         let curAmount = getCurrentAmount()
         if (sellAmount > curAmount) {
-            alert("You can't sell more then " + (curAmount).toString() + " stocks")
+            alert("You can't sell more than " + (curAmount).toString() + " stocks")
             return;
         }
         topBottomEvent();
@@ -142,7 +139,7 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
                             marker: { color: 'green' },
                         }
                     ]}
-                    layout={{ width: 680, height: 340, title: `` }}
+                    layout={{ width: 680, height: 340, title:  ( company?.Currency ? "Price "+ company.Currency :  ``)  }}
                 />
 
             </div>
@@ -250,33 +247,33 @@ const Watch = ({ stock, fullElement, company, buySellAction, closeAction,changeP
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>Name:</td>
                                     <td>{company.Name}</td>
                                 </tr>
 
                                 <tr>
-                                    <td>Exchange</td>
+                                    <td>Exchange:</td>
                                     <td>{company.Exchange}</td>
                                 </tr>
                                 <tr>
-                                    <td>County</td>
+                                    <td>Country:</td>
                                     <td>{company.Country}</td>
                                 </tr>
                                 <tr>
-                                    <td>Sector</td>
+                                    <td>Sector:</td>
                                     <td>{company.Sector}</td>
                                 </tr>
                                 <tr>
-                                    <td>Industry</td>
+                                    <td>Industry:</td>
                                     <td>{company.Industry}</td>
                                 </tr>
                                 <tr>
-                                    <td>P/E Ratio</td>
+                                    <td>P/E Ratio:</td>
                                     <td>{company.PERatio}</td>
                                 </tr>
                                 <tr>
-                                    <td>Market Capitalization</td>
-                                    <td>{company.MarketCapitalization + " " + company.Currency}</td>
+                                    <td>Market Capitalization:</td>
+                                    <td>{company.MarketCapitalization?.toLocaleString() + " " + company.Currency}</td>
                                 </tr>
                                 {/* <tr>
                                 <td>Description</td>

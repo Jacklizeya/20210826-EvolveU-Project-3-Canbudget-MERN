@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams, useRouteMatch } from 'react-router-dom'
 
-import { Heading1, PortolioDiv, FixedDiv} from "../AssetBudget/assetAndBudget.elements"
+import { Heading1, PortolioDiv, FixedDiv } from "../AssetBudget/assetAndBudget.elements"
 import { PushSpinner } from "react-spinners-kit";
 //import io from "socket.io-client"
 import AuthenticationContext from '../auth/AuthenticationContext';
@@ -130,30 +130,20 @@ const Stocks = () => {
         setIsPending(true);
         const url = "/api/stock/" + id + "/true";
         try {
-            console.log("1")
             let response = await fetch(url);
             if (!response.ok) { // error coming back from server
                 setError(url + " Server error 1");
                 setIsPending(false);
                 return;
             }
-            console.log("2")
 
             let data = await response.json();
             if (data) {
 
-                console.log("3")
                 setCompanies(data.companies);
-                console.log("4")
-
                 setPortfolioObj(data.portfolioObj);
-                console.log("5")
-
                 setLastData(data.lastData);
-                console.log("6")
-
                 setFullData(data.fullData);
-                console.log("7")
 
                 setError("");
                 setIsPending(false);
@@ -172,13 +162,13 @@ const Stocks = () => {
     }
 
 
-    async function addWatch(symbol, period=-1) {
+    async function addWatch(symbol, period = -1) {
         if (!symbol) {
             return;
         }
         const url = "/api/stock/" + id + "/watch";
         let newWatch = false
-        if (period<0){
+        if (period < 0) {
             period = 0;
             newWatch = true;
         }
@@ -195,10 +185,10 @@ const Stocks = () => {
             if (response.ok) {
                 let r = await response.json();
                 if (r) {
-                    if (newWatch){
+                    if (newWatch) {
                         createWatch(symbol);
                     }
-                    else{
+                    else {
                         getFullData();
                     }
                     //alert("Data is OK")
@@ -238,9 +228,9 @@ const Stocks = () => {
         }
     }
 
-function changePeriod(symbol, period){
-    addWatch(symbol, period);
-}
+    function changePeriod(symbol, period) {
+        addWatch(symbol, period);
+    }
 
     function getFullDataElement(symbol) {
         if (!fullData) {
@@ -260,45 +250,45 @@ function changePeriod(symbol, period){
 
 
     return (
-        <div style={{maxWidth : "100%"}} >
+        <div style={{ maxWidth: "100%"}} >
             <Heading1>Securities</Heading1>
             <div>
-                <table style={{tableLayout:"fixed", maxWidth:"100%"}}>
+                <table style={{ tableLayout: "fixed", maxWidth: "100%" }}>
                     <tbody>
-                    <tr>
-                        <td >
-                            <div>
-                                {lastData && 
-                                <SmartSearch lastData = {lastData} addWatch={addWatch} />
-                                }
-                                <hr></hr>
-                                {portfolioObj &&
-                                    <Portfolio portfolio={portfolioObj} />
-                                }
-                                {<PushSpinner size={30} color="#686769" loading={isPending} />}
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                {lastData && fullData && companies &&
-                                    lastData.map((stock) => {
-                                        return (
-                                            <div key={stock.symbol} >
-                                                <Watch
-                                                    stock={stock}
-                                                    buySellAction={buySellAction}
-                                                    closeAction={closeAction}
-                                                    changePeriod = {changePeriod}
-                                                    fullElement={getFullDataElement(stock.symbol)}
-                                                    company={getCompanyElement(stock.symbol)}
-                                                    portfolio = {portfolioObj}
-                                                />
-                                            </div>
-                                        )
-                                    })}
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td >
+                                <div>
+                                    {lastData &&
+                                        <SmartSearch lastData={lastData} addWatch={addWatch} />
+                                    }
+                                    <hr></hr>
+                                    {portfolioObj &&
+                                        <Portfolio portfolio={portfolioObj} />
+                                    }
+                                    {<PushSpinner size={30} color="#01345B" loading={isPending} />}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {lastData && fullData && companies &&
+                                        lastData.map((stock) => {
+                                            return (
+                                                <div key={stock.symbol} >
+                                                    <Watch
+                                                        stock={stock}
+                                                        buySellAction={buySellAction}
+                                                        closeAction={closeAction}
+                                                        changePeriod={changePeriod}
+                                                        fullElement={getFullDataElement(stock.symbol)}
+                                                        company={getCompanyElement(stock.symbol)}
+                                                        portfolio={portfolioObj}
+                                                    />
+                                                </div>
+                                            )
+                                        })}
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 

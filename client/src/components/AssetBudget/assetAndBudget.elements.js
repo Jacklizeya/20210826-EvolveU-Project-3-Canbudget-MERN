@@ -184,7 +184,8 @@ export const TableBottomData = styled.td`
 // ------------------------------ Vladimir's part below -----------------------------
 
 export const Centeredh3 = styled.h3`
-  text-align: center;
+color: #01345B;
+text-align: center;
 `
 
 
@@ -196,6 +197,7 @@ export const SubmitCancelButtons = styled.div`
 export const LoginFormDiv = styled.div`
     h1 {
       text-align: center;
+      color: #01345B;
     }
     
     
@@ -210,7 +212,8 @@ export const LoginFormDiv = styled.div`
         box-sizing: border-box; /* Make sure that padding and width stays in place */
         margin-top: 0px; /* Add a top margin */
         margin-bottom: 6px; /* Bottom margin */
-    }
+        color: #01345B;
+      }
     
     label,p {
       line-height: 2;
@@ -221,6 +224,7 @@ export const LoginFormDiv = styled.div`
       font-family: 'Source Sans Pro',sans-serif;
       width: 40%; /* Full width */
       margin-top: 6px; /* Add a top margin */
+      color: #01345B;
     }
      
     p {
@@ -229,22 +233,29 @@ export const LoginFormDiv = styled.div`
     
     `
     
-    
+  export const Heading3 = styled.h3`
+  padding: 20px;
+  color: #01345B;
+  text-align: center;
+  `  
 
     export const CloseButtonSmall = styled.input`
     float: right;
     width:32px;
     width:32px; 
+    color: #01345B;
     `
     export const WatchElement = styled.div`
     border-style: solid;
     padding: 6px 12px;
     border-radius: 12px;
+    color: #01345B;
     `
 
     export const TopBottomArrow = styled.input`
       width:32px;
       width:32px;
+      color: #01345B;
     
     `
 
@@ -255,10 +266,15 @@ export const LoginFormDiv = styled.div`
     `
     
     export const PortolioDiv = styled.div`
+    color: #01345B;
     td{
-      text-align: right;
+      text-align: center;
       vertical-align: top;
       width:50ch;
+    }
+    th{
+      text-align: center;
+      vertical-align: top;
     }
     table{
       width: 45ch;
@@ -267,12 +283,22 @@ export const LoginFormDiv = styled.div`
       position: fixed;
     }
     `
+    
+    export const BoxDiv = styled.div`
+    color: #01345B;
+    border: 2px solid #01345B;
+    border-radius: 5px;
+    text-align: center;
+    `
+
     export const FixedDiv = styled.div`
-      position: fixed;
+    color: #01345B;
+    position: fixed;
       `
 
     export const VeryLongTextTD = styled.td`
-          word-wrap: break-word;    
+    color: #01345B;
+    word-wrap: break-word;    
     `
 
 

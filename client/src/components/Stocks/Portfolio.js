@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-
+import { Heading3,PortolioDiv} from "../AssetBudget/assetAndBudget.elements"
 const Portfolio = ({ portfolio }) => {
 //    const Portfolio = ({ portfolioObj }) => {
         //const [portfolio, setPortfolio] = useState();
@@ -14,8 +14,8 @@ const Portfolio = ({ portfolio }) => {
    //alert("portfolio call");
     return (
         <div >
-            <div >
-                <h3>Portfolio</h3>
+            <PortolioDiv >
+                <Heading3>Portfolio:</Heading3>
                 { portfolio &&
                     <table >
                         <tbody>
@@ -30,7 +30,7 @@ const Portfolio = ({ portfolio }) => {
                             let sumStock;
                             if ('price' in stock) {
                                 price = stock.price;
-                                sumStock = price * stock.amount;
+                                sumStock = (price * stock.amount).toFixed(2);
                                 //sumStock = Math.round(sumStock);
                             } else {
                                 price = '';
@@ -40,7 +40,7 @@ const Portfolio = ({ portfolio }) => {
                                 <tr key ={stock.symbol}>
                                     <td>{stock.symbol} </td>
                                     <td>{stock.amount} </td>
-                                    <td >{price}</td>
+                                    <td>{price}</td>
                                     <td>{sumStock} </td>
                                 </tr>
                             )
@@ -61,7 +61,7 @@ const Portfolio = ({ portfolio }) => {
 
                     </table>
                 }
-            </div>
+            </PortolioDiv>
         </div>
     );
 }
